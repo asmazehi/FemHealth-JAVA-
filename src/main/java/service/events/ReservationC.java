@@ -1,11 +1,11 @@
 package service.events;
 
 import utils.MyDataBase;
-import models.events.Reservation;
+import model.events.Reservation;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import models.events.Evenement;
+import model.events.Evenement;
 
 public class ReservationC implements IReservation<Reservation> {
     Connection connection;

@@ -1,4 +1,4 @@
-/*package test;
+package test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,9 +6,9 @@ import java.util.List;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Date;
-import models.events.Evenement;
-import models.events.Reservation;
-import models.events.Type;
+import model.events.Evenement;
+import model.events.Reservation;
+import model.events.Type;
 import service.events.EvenementC;
 import service.events.ReservationC;
 import service.events.TypeC;
@@ -97,7 +97,7 @@ public class Main {
             } catch (SQLException e) {
              System.out.println(e.getMessage());        }}
 }
-*/
+
 
 
 
