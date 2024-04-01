@@ -1,5 +1,5 @@
-package models.events;
-import models.events.Evenement;
+package model.events;
+import model.events.Evenement;
 
 public class Reservation {
     private int id;

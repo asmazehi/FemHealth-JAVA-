@@ -1,4 +1,4 @@
-package models.events;
+package model.events;
 
 public class Type {
     private int id;
