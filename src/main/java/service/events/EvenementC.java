@@ -1,11 +1,11 @@
-package service;
+package service.events;
 
 import utils.MyDataBase;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import models.Evenement;
-import models.Type;
+import models.events.Evenement;
+import models.events.Type;
 
 public class EvenementC implements IEvenement<Evenement> {
     Connection connection;

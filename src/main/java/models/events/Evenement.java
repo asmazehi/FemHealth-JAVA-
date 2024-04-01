@@ -1,7 +1,6 @@
-package models;
-
+package models.events;
 import java.util.Date;
-import models.Type;
+
 
 public class Evenement {
 

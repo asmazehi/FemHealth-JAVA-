@@ -1,5 +1,5 @@
-package models;
-import models.Evenement;
+package models.events;
+import models.events.Evenement;
 
 public class Reservation {
     private int id;
@@ -10,7 +10,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(int id, int id_evenement_id_id, String statut_paiement, String mode_paiement) {
+    public Reservation(int id, Evenement id_evenement_id, String statut_paiement, String mode_paiement) {
         this.id = id;
         this.id_evenement_id = id_evenement_id;
         this.statut_paiement = statut_paiement;

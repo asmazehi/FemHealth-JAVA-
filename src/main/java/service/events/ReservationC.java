@@ -1,11 +1,11 @@
-package service;
+package service.events;
 
 import utils.MyDataBase;
-import models.Reservation;
+import models.events.Reservation;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import models.Evenement;
+import models.events.Evenement;
 
 public class ReservationC implements IReservation<Reservation> {
     Connection connection;
@@ -26,7 +26,7 @@ public class ReservationC implements IReservation<Reservation> {
 
     @Override
     public void update(Reservation reservation) throws SQLException {
-        String sql = "UPDATE Reservation SET id_evenement_id=?, statut_paiement=?, mode_paimenet=? WHERE id=?";
+        String sql = "UPDATE Reservation SET id_evenement_id=?, statut_paiement=?, mode_paiement=? WHERE id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, reservation.getId_evenement_id().getId());
         preparedStatement.setString(2, reservation.getStatut_paiement());

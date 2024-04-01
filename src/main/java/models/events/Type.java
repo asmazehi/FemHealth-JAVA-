@@ -1,4 +1,4 @@
-package models;
+package models.events;
 
 public class Type {
     private int id;
@@ -7,7 +7,7 @@ public class Type {
     public Type() {
     }
 
-    public Type(int id, String type) {
+    public Type (int id, String type) {
         this.id = id;
         this.type = type;
     }

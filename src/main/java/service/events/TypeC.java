@@ -1,7 +1,7 @@
-package service;
+package service.events;
 
 import utils.MyDataBase;
-import models.Type;
+import models.events.Type;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
