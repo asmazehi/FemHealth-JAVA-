@@ -1,7 +1,7 @@
 package service.Sponsoring;
 
-import models.Sponsoring.Produit;
-import models.Sponsoring.Sponsor;
+import model.Sponsoring.Produit;
+import model.Sponsoring.Sponsor;
 import utils.MyDataBase;
 
 import java.sql.*;

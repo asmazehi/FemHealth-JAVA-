@@ -1,4 +1,4 @@
-package models.Sponsoring;
+package model.Sponsoring;
 
 import java.util.Objects;
 

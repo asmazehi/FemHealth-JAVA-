@@ -14,8 +14,8 @@ import service.events.ReservationC;
 import service.events.TypeC;
 import service.Sponsoring.SponsorService;
 import service.Sponsoring.ProduitService;
-import models.Sponsoring.Sponsor;
-import models.Sponsoring.Produit;
+import model.Sponsoring.Sponsor;
+import model.Sponsoring.Produit;
 import utils.MyDataBase;
 
 
