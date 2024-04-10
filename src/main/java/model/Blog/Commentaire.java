@@ -1,4 +1,5 @@
-package models.Blog;
+package model.Blog;
+
 import java.util.Objects;
 import java.util.Date;
 public class Commentaire {

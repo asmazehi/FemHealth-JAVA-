@@ -1,6 +1,7 @@
 package service.Blog;
 
-import models.Blog.*;
+import model.Blog.Commentaire;
+import model.Blog.Publication;
 import utils.MyDataBase;
 
 import java.sql.*;

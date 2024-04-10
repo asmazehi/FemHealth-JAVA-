@@ -2,8 +2,8 @@ package test;
 
 import service.Sponsoring.SponsorService;
 import service.Sponsoring.ProduitService;
-import models.Sponsoring.Sponsor;
-import models.Sponsoring.Produit;
+import model.Sponsoring.Sponsor;
+import model.Sponsoring.Produit;
 import utils.MyDataBase;
 
 import java.sql.Connection;

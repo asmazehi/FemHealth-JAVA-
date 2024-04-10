@@ -1,9 +1,9 @@
 package service.Blog;
 
+import model.Blog.Publication;
 import utils.MyDataBase;
 
 import java.sql.Connection;
-import models.Blog.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
