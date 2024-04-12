@@ -1,7 +1,7 @@
 package service.Sponsoring;
 
 import utils.MyDataBase;
-import models.Sponsoring.Sponsor;
+import model.Sponsoring.Sponsor;
 
 import java.sql.*;
 import java.util.ArrayList;

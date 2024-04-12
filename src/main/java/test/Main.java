@@ -1,9 +1,11 @@
 package test;
 
+import model.Ecommerce.*;
+import service.Ecommerce.*;
 import service.Sponsoring.SponsorService;
 import service.Sponsoring.ProduitService;
-import models.Sponsoring.Sponsor;
-import models.Sponsoring.Produit;
+import model.Sponsoring.Sponsor;
+import model.Sponsoring.Produit;
 import utils.MyDataBase;
 
 import java.sql.Connection;
@@ -16,10 +18,35 @@ public class Main {
 
         System.out.println(connection);
 
+       /* PanierService PanierService =new PanierService();
+        CommandeService commandeService =new CommandeService();
+        try {
+            Commande commande=new Commande(4,"ariana","terminé","cash","12345678","xxx");
+            commandeService.add(commande);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());        }
+
+        try {
+            System.out.println(commandeService.select());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());        }
+
+
+        try {
+            Panier panier=new Panier(2,1,145,"terminé");
+            PanierService.add(panier);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());        }
+
+        try {
+            System.out.println(PanierService.select());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());        }*/
+
         SponsorService sponsorService = new SponsorService();
         ProduitService produitService = new ProduitService();
 
-        try {
+       /* try {
             // Test SponsorService
             //sponsorService.update(new Sponsor(4, "aaa", "16 mois"));
             //sponsorService.delete(4);
@@ -36,5 +63,5 @@ public class Main {
             //produitService.select();
             System.out.println(produitService.select());
             } catch (SQLException e) {
-             System.out.println(e.getMessage());        }}
-}
+             System.out.println(e.getMessage());        }*/
+}}
