@@ -1,4 +1,4 @@
-package controller.back.SponsoringB;
+package controller.Sponsoring;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -90,7 +90,7 @@ public class AfficherSponsorController {
     }
 
     public void setData(String msg) {
-        welcomeLBL.setText("Bienvenue chez FemHealth " + msg);
+        welcomeLBL.setText("Bienvenue chez FemHealth ");
     }
 
     @FXML
