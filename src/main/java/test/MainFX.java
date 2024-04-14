@@ -1,5 +1,6 @@
 package test;
 
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,5 +29,4 @@ public class MainFX extends Application {
             System.err.println(e.getMessage());
         }
 
-    }
-}
+}}
