@@ -1,5 +1,6 @@
 package test;
 
+import service.Blog.CommentaireService;
 import service.Sponsoring.SponsorService;
 import service.Sponsoring.ProduitService;
 import model.Sponsoring.Sponsor;
@@ -16,8 +17,8 @@ public class Main {
 
         System.out.println(connection);
 
-        SponsorService sponsorService = new SponsorService();
-        ProduitService produitService = new ProduitService();
+
+        CommentaireService commentaireService=new CommentaireService();
 
         try {
             // Test SponsorService
@@ -30,11 +31,12 @@ public class Main {
    // }
 
             // Test ProduitService
-            produitService.update(new Produit(3, "produit1", 100.0f, 10, "categorie1", "image1", "description1", new Sponsor(7, "", "")));
+           // produitService.update(new Produit(3, "produit1", 100.0f, 10, "categorie1", "image1", "description1", new Sponsor(7, "", "")));
             //produitService.delete(2);
             //produitService.add(new Produit(4, "produit4", 150.0f, 15, "categorie2", "image2", "description2", new Sponsor(7, "", "")));
             //produitService.select();
-            System.out.println(produitService.select());
+            commentaireService.select();
+            System.out.println(commentaireService.select());
             } catch (SQLException e) {
              System.out.println(e.getMessage());        }}
 }

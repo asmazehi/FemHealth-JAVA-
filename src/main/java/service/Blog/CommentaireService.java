@@ -18,11 +18,11 @@ public class CommentaireService {
         statement.setInt(1,commentaire.getPublication().getId());
         statement.setInt(2,commentaire.getUser_id());
         statement.setString(3,commentaire.getDescription());
-        statement.setBoolean(4,false);
+        statement.setBoolean(4,true);
         statement.executeUpdate();
     }
     public void update(Commentaire commentaire) throws SQLException {
-        String sql = "UPDATE commentaire SET publication=?, user_id=?, description=?, datecomnt=CURRENT_TIMESTAMP WHERE id=?";
+        String sql = "UPDATE commentaire SET publication_id=?, user_id=?, description=?, datecomnt=CURRENT_TIMESTAMP WHERE id=?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, commentaire.getPublication().getId());
         statement.setInt(2, commentaire.getUser_id());
@@ -44,7 +44,7 @@ public class CommentaireService {
         while (resultSet.next()) {
             Commentaire commentaire = new Commentaire();
             commentaire.setId(resultSet.getInt("id"));
-            commentaire.setPublication(fetchPublicationById(resultSet.getInt("publication")));
+            commentaire.setPublication(fetchPublicationById(resultSet.getInt("publication_id")));
             commentaire.setUser_id(resultSet.getInt("user_id"));
             commentaire.setDescription(resultSet.getString("description"));
             commentaire.setDatecomnt(resultSet.getDate("datecomnt"));

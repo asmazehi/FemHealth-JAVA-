@@ -1,14 +1,15 @@
 package service.Sponsoring;
 
+import model.Sponsoring.Sponsor;
 import utils.MyDataBase;
-import models.Sponsoring.Sponsor;
+//import models.Sponsoring.Sponsor;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SponsorService implements IService<Sponsor> {
-    Connection connection;
+   Connection connection;
 
     public SponsorService() {
         connection = MyDataBase.getInstance().getConnection();
