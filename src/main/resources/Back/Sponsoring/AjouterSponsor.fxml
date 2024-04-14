@@ -6,8 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.back.SponsoringB.AjouterSponsorController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.back.SponsoringB.AjouterSponsorController">
    <children>
       <TextField fx:id="nomS" layoutX="156.0" layoutY="161.0" promptText="nom" />
       <TextField fx:id="dureeS" layoutX="156.0" layoutY="243.0" promptText="durée" />
@@ -19,6 +18,6 @@
             <Font size="33.0" />
          </font>
       </Text>
-      <Button layoutX="481.0" layoutY="352.0" mnemonicParsing="false" onAction="#afficherSponsors" text="Afficher la table des sponsors" />
+      <Button layoutX="481.0" layoutY="352.0" mnemonicParsing="false" onAction="#afficherSponsor" text="Afficher la table des sponsors" />
    </children>
 </AnchorPane>
