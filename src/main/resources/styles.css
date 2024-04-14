@@ -16,3 +16,7 @@
     -fx-background-color: linear-gradient(#FFD3EE, #FF66C4, #B4256F, #7B3E5F); /* Gradient of pinks */
     -fx-text-fill: #FFFFFF; /* White */
 }
+.error-text {
+    -fx-fill: #7B3E5F;
+    -fx-translate-y: 0px; /* Ajustez la valeur pour modifier la distance par rapport au champ de saisie */
+}
