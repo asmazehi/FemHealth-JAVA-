@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AfficherEventB">
+   <children>
+      <TableView fx:id="tableview" layoutX="-1.0" layoutY="48.0" prefHeight="293.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="type_idCol" prefWidth="75.0" text="type_id" />
+          <TableColumn fx:id="nomCol" prefWidth="129.60003662109375" text="nom" />
+            <TableColumn fx:id="date_debutCol" prefWidth="72.00004577636719" text="date_debut" />
+            <TableColumn fx:id="date_finCol" prefWidth="72.79998779296875" text="date_fin" />
+            <TableColumn fx:id="imageCol" minWidth="3.99993896484375" prefWidth="79.199951171875" text="image" />
+            <TableColumn fx:id="localisationCol" prefWidth="84.00006103515625" text="localisation" />
+            <TableColumn fx:id="montantCol" prefWidth="85.59991455078125" text="montant" />
+        </columns>
+      </TableView>
+      <Button layoutX="262.0" layoutY="361.0" mnemonicParsing="false" onAction="#supprimerEventB" text="supprimer" />
+      <Label fx:id="welcomelb" layoutX="262.0" layoutY="14.0" text="Label" />
+   </children>
+</AnchorPane>

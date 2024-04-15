@@ -14,6 +14,22 @@ public class EvenementC implements IEvenement<Evenement> {
         connection = MyDataBase.getInstance().getConnection();
     }
 
+    public static Type getType_id(int typeIdValue) throws SQLException {
+        Connection connection = MyDataBase.getInstance().getConnection();
+        String sql = "SELECT * FROM Type WHERE id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, typeIdValue);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String type = resultSet.getString("type");
+            return new Type(id, type);
+        } else {
+            throw new SQLException("Type with ID " + typeIdValue + " not found");
+        }
+    }
+
     @Override
     public void add(Evenement evenement) throws SQLException {
         String sql = "INSERT INTO Evenement (type_id,nom, date_debut, date_fin, image, localisation, montant) VALUES (?, ?, ?, ?, ?, ? ,?)";
