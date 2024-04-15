@@ -1,4 +1,4 @@
-package controller.back.SponsoringF;
+package controller.front.SponsoringF;
 
 public class AjouterSponsorController {
 }
