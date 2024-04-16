@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AjouterTypeB">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AjouterTypeB">
    <children>
       <TextField fx:id="typeTF" layoutX="51.0" layoutY="107.0" promptText="type" />
       <Button layoutX="51.0" layoutY="237.0" mnemonicParsing="false" onAction="#AjouterTypeB" text="inserer" />

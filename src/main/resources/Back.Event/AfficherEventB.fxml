@@ -6,10 +6,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AfficherEventB">
    <children>
-      <TableView fx:id="tableview" layoutX="-1.0" layoutY="48.0" prefHeight="293.0" prefWidth="600.0">
+      <TableView fx:id="tableview" layoutX="-1.0" layoutY="48.0" prefHeight="293.0" prefWidth="600.0" stylesheets="@../styles.css">
         <columns>
           <TableColumn fx:id="type_idCol" prefWidth="75.0" text="type_id" />
           <TableColumn fx:id="nomCol" prefWidth="129.60003662109375" text="nom" />
