@@ -1,12 +1,11 @@
 package test;
 
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class MainFX extends Application {
@@ -18,15 +17,16 @@ public class MainFX extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherSponsor.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Blog/carCard.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
+            Scene scene= new Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Gérer les Sponsors");
+            primaryStage.setTitle("Gérer les publication");
             primaryStage.show();
-
         } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
+            System.out.println(e.getMessage());
 
+        }
+    }
+}
 }}

@@ -21,6 +21,7 @@ public class PublicationService {
         statement.executeUpdate();
     }
     public void update(Publication publication) throws SQLException {
+        System.out.println(publication.getId());
         String sql = "UPDATE Publication SET titre=?, contenu=?, image=? WHERE id=?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, publication.getTitre());
@@ -46,12 +47,32 @@ public class PublicationService {
             publication.setTitre(resultSet.getString("titre"));
             publication.setContenu(resultSet.getString("contenu"));
             publication.setImage(resultSet.getString("image"));
-            // Set other attributes of Publication as needed
+            publication.setDatepub(resultSet.getDate("datepub"));
+            System.out.println(resultSet.getDate("datepub"));
             publications.add(publication);
         }
         return publications;
     }
     public Publication getById(int id) {
         return null;
+    }
+
+    public Publication getPublicationById(int id_pub) throws SQLException {
+        String req = "SELECT * FROM publication WHERE id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        //preparedStatement.setInt(1, id);
+        ResultSet rs = preparedStatement.executeQuery();
+        if (rs.next()) {
+            Publication publication = new Publication();
+            publication.setId(rs.getInt("id"));
+            publication.setContenu(rs.getString("contenu"));
+            publication.setTitre(rs.getString("titre"));
+            publication.setImage(rs.getString("image"));
+            publication.setDatepub(rs.getTimestamp("datepub"));
+            return publication;
+        } else {
+            // Handle the case where no publication with the given ID was found
+            return null;
+        }
     }
 }
