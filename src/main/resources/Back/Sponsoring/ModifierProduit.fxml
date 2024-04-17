@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Sponsoring.AjouterProduitController">
     <children>
-        <Label layoutX="50.0" layoutY="30.0" text="Ajouter un Produit">
+        <Label layoutX="50.0" layoutY="30.0" text="Modifier ce Produit">
             <font>
                 <Font size="24.0" />
             </font>
@@ -33,9 +33,9 @@
         <Label layoutX="50.0" layoutY="330.0" text="Sponsor : " />
         <ChoiceBox fx:id="sponsorChoiceBox" layoutX="200.0" layoutY="330.0" prefWidth="150.0" />
 
-        <Button layoutX="400.0" layoutY="330.0" onAction="#handleUploadAction" text="Télecharger une image" />
+        <Button layoutX="400.0" layoutY="330.0" onAction="#handleUploadAction" text="Retélecharger une autre image" />
         <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="100.0" layoutX="400.0" layoutY="180.0" />
 
-        <Button layoutX="450.0" layoutY="370.0" onAction="#ajouterProduit" text="Ajouter" />
+        <Button layoutX="450.0" layoutY="370.0" onAction="#ajouterProduit" text="Modifier" />
     </children>
 </AnchorPane>

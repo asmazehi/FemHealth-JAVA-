@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import model.Sponsoring.Produit;
@@ -21,8 +22,6 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.List;
-import javafx.scene.image.Image;
-
 
 public class AjouterProduitController {
 
@@ -106,7 +105,6 @@ public class AjouterProduitController {
             }
         }
     }
-
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
