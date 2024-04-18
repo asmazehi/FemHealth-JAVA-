@@ -21,7 +21,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class AfficherProduitController {
+public class AfficherProduitFrontController {
     ProduitService ps = new ProduitService();
     ObservableList<Produit> obs;
 
@@ -160,40 +160,6 @@ public class AfficherProduitController {
             System.err.println("Error loading AjouterProduit.fxml: " + e.getMessage());
         }
     }
-
-
-    @FXML
-    void modifierProduit(ActionEvent event) {
-        Produit selectedProduit = tableView.getSelectionModel().getSelectedItem();
-        if (selectedProduit != null) {
-            try {
-                // Correctly set the resource path
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/ModifierProduit.fxml"));
-                if (loader.getLocation() == null) {
-                    System.err.println("Error loading ModifierProduit.fxml: File not found.");
-                    return;
-                }
-                Parent root = loader.load();
-
-                // Get the controller and set the selectedProduit
-                ModifierProduitController controller = loader.getController();
-                controller.setData(selectedProduit, this);
-
-                // Setup the stage
-                Stage stage = new Stage();
-                stage.setTitle("Modifier un Produit");
-                stage.setScene(new Scene(root));
-                stage.show();
-
-            } catch (IOException e) {
-                System.err.println("Error loading ModifierProduit.fxml: " + e.getMessage());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-
     public void refreshData() {
         try {
             List<Produit> list = ps.select();

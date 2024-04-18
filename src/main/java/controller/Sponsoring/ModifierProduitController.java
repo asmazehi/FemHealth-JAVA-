@@ -1,17 +1,30 @@
 package controller.Sponsoring;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Sponsoring.Produit;
+import model.Sponsoring.Sponsor;
 import service.Sponsoring.ProduitService;
+import service.Sponsoring.SponsorService;
+import javafx.event.ActionEvent;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ModifierProduitController {
 
@@ -34,8 +47,10 @@ public class ModifierProduitController {
     private ImageView imageView;
 
     @FXML
-    private Text erreurNom;
+    private ChoiceBox<Sponsor> sponsorChoiceBox;
 
+    @FXML
+    private Text erreurNom;
     @FXML
     private Text erreurPrix;
 
@@ -48,10 +63,11 @@ public class ModifierProduitController {
     @FXML
     private Text erreurDescription;
 
+    private ObservableList<Sponsor> sponsorList;
     private Produit produit;
     private AfficherProduitController afficherProduitController;
 
-    public void setData(Produit produit, AfficherProduitController afficherProduitController) {
+    public void setData(Produit produit, AfficherProduitController afficherProduitController) throws SQLException {
         this.produit = produit;
         this.afficherProduitController = afficherProduitController;
         nomP.setText(produit.getNom());
@@ -61,17 +77,35 @@ public class ModifierProduitController {
         descriptionP.setText(produit.getDescription());
 
         // Load image
-        Image image = new Image("file:" + produit.getImage());
+        Image image = new Image(Paths.get(produit.getImage()).toUri().toString());
         imageView.setImage(image);
         imageView.setFitWidth(100);
         imageView.setFitHeight(100);
+
+        // Populate sponsor choice box
+        SponsorService sponsorService = new SponsorService();
+        List<Sponsor> sponsors = sponsorService.select();
+        sponsorList = FXCollections.observableArrayList(sponsors); // Initialize sponsorList
+        sponsorChoiceBox.setItems(sponsorList);
+        sponsorChoiceBox.setValue(produit.getSponsor());
     }
 
     @FXML
     void executerModification() {
         String nom = nomP.getText();
-        double prix = Double.parseDouble(prixP.getText());
-        double tauxRemise = Double.parseDouble(tauxRemiseP.getText());
+        double prix = 0;
+        double tauxRemise = 0;
+        try {
+            prix = Double.parseDouble(prixP.getText());
+            tauxRemise = Double.parseDouble(tauxRemiseP.getText());
+        } catch (NumberFormatException e) {
+            // Handle parsing error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("Veuillez saisir des valeurs numériques pour le prix et le taux de remise.");
+            alert.show();
+            return;
+        }
         String categorie = categorieP.getText();
         String description = descriptionP.getText();
 
@@ -107,6 +141,7 @@ public class ModifierProduitController {
         produit.setTaux_remise((int) tauxRemise);
         produit.setCategorie(categorie);
         produit.setDescription(description);
+        produit.setSponsor(sponsorChoiceBox.getValue());
 
         ProduitService ps = new ProduitService();
         try {
@@ -166,4 +201,36 @@ public class ModifierProduitController {
 
         return null; // Aucune erreur
     }
+
+    @FXML
+    void handleUploadAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            try {
+                String targetDir = "src/main/resources/img/";
+                Path targetPath = Files.copy(file.toPath(), new File(targetDir + file.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Delete old image if it exists
+                if (produit.getImage() != null && !produit.getImage().isEmpty()) {
+                    Files.deleteIfExists(Paths.get(produit.getImage()));
+                }
+
+                produit.setImage(targetPath.toString());
+                imageView.setImage(new Image("file:" + targetDir + file.getName()));
+            } catch (IOException e) {
+                showAlert("Erreur", "Erreur lors de l'upload de l'image : " + e.getMessage());
+            }
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }
