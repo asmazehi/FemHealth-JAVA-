@@ -4,13 +4,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.events.Evenement;
 import model.events.Reservation;
 import service.events.ReservationC;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -65,6 +71,33 @@ public class AfficherResB {
             System.err.println(e.getMessage());
         }
     }
+    @FXML
+    void ModifierResB(ActionEvent event) {
+        try {
+            Reservation selectedReservation = tableview.getSelectionModel().getSelectedItem();
+            if (selectedReservation != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/ModifierResB.fxml"));
+                Parent root = loader.load();
+
+                ModifierResB controller = loader.getController();
+                controller.initData(selectedReservation);
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Aucune réservation sélectionnée");
+                alert.setHeaderText(null);
+                alert.setContentText("Veuillez sélectionner une réservation à modifier.");
+                alert.show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+}
 
 
