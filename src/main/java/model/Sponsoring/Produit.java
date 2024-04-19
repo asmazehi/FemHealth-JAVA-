@@ -26,6 +26,9 @@ public class Produit {
         this.sponsor = sponsor;
     }
 
+    public Produit(int id, String nom, float prix, int tauxRemise, String categorie, String image, String description, String sponsor) {
+    }
+
     public int getId() {
         return id;
     }
