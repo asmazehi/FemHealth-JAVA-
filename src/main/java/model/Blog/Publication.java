@@ -1,4 +1,6 @@
 package model.Blog;
+import javafx.scene.image.Image;
+
 import java.util.Objects;
 import java.util.Date;
 public class Publication {
@@ -42,13 +44,13 @@ public class Publication {
         this.image = image;
     }
 
-    public java.util.Date getDatepub() {
-        return (java.util.Date) datepub;
+    public Date getDatepub() {
+        return  this.datepub;
     }
 
-    public java.util.Date setDatepub(java.util.Date datepub) {
-        this.datepub = new Date();;
-        return null;
+    public void setDatepub(java.util.Date datepub) {
+        this.datepub =datepub;;
+
     }
 
     public String getTitre() {

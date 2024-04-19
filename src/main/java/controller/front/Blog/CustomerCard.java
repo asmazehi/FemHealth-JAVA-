@@ -1,4 +1,5 @@
 package controller.front.Blog;
+import controller.back.Blog.ModifierPublicationController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -19,6 +20,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 public class CustomerCard extends Pane {
 
     protected final ImageView photo;
@@ -58,7 +61,7 @@ public class CustomerCard extends Pane {
         dropShadow.setBlurType(BlurType.TWO_PASS_BOX);
         setEffect(dropShadow);
 
-        photo.setImage(new Image("https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"));
+        photo.setImage(new Image(Image));
         photo.setLayoutX(50);
         photo.setLayoutY(25);
         photo.setFitHeight(100);
@@ -78,7 +81,7 @@ public class CustomerCard extends Pane {
         mobile.setLayoutY(150);
         mobile.setPrefHeight(26.0);
         mobile.setPrefWidth(215.0);
-        mobile.setText(String.valueOf(contenu)+" dt");
+        mobile.setText(String.valueOf(contenu));
         mobile.setFont(Font.font("System", FontWeight.BOLD, 17.0));
 
 
@@ -88,34 +91,47 @@ public class CustomerCard extends Pane {
         iconContainer.setPrefWidth(200.0);
         iconContainer.setLayoutX(24);
         iconContainer.setLayoutY(206);
-        deleteButton.setText("ADD");
+        deleteButton.setText("Details");
         deleteButton.setPrefHeight(32.0);
         deleteButton.setPrefWidth(80);
         deleteButton.getStyleClass().add("delete-button");
         deleteButton.setOnAction(e -> {
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText("Are you sure you want to delete this customer?");
-            alert.showAndWait()
-                    .filter(response -> response == ButtonType.OK)
-                    .ifPresent(response -> {
-
-                    });
-        });
-        modifyButton.setText("Details");
-        modifyButton.setPrefHeight(32.0);
-        modifyButton.setPrefWidth(85);
-        modifyButton.getStyleClass().add("modify-button");
-        modifyButton.setOnAction(e -> {
             try {
-                System.out.println("heeeloo");
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                int publicationId = Integer.parseInt(getId());
+                System.out.println(publicationId);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Blog/detailsPublication.fxml"));
+
+                Parent root = loader.load();
+
+                // Obtenir le contrôleur de la vue details.fxml
+                DetailsController controller = loader.getController();
+
+                // Passer l'ID de la publication sélectionnée au contrôleur
+                controller.setPublicationId(publicationId);
+                controller.initializeDetails();
+
+                // Créer une nouvelle scène
+                Scene scene = new Scene(root);
+
+                // Créer une nouvelle fenêtre pour la vue détaillée
+                Stage stage = new Stage();
+                stage.setScene(scene);
+
+                // Modality.APPLICATION_MODAL bloque les interactions avec les autres fenêtres
+                stage.initModality(Modality.APPLICATION_MODAL);
+
+                // Afficher la nouvelle fenêtre
+                stage.showAndWait();
+            } catch (IOException ex) {
+                ex.printStackTrace(); // Gérer l'exception de chargement du fichier FXML
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
+
         });
 
 
-        iconContainer.getChildren().addAll(deleteButton, modifyButton);
+        iconContainer.getChildren().addAll(deleteButton);
 
         getChildren().addAll(photo, name,mobile, label, label0, iconContainer);
 

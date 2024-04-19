@@ -60,7 +60,7 @@ public class PublicationService {
     public Publication getPublicationById(int id_pub) throws SQLException {
         String req = "SELECT * FROM publication WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
-        //preparedStatement.setInt(1, id);
+        preparedStatement.setInt(1, id_pub);
         ResultSet rs = preparedStatement.executeQuery();
         if (rs.next()) {
             Publication publication = new Publication();

@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -132,7 +133,7 @@ public class AfficherPublicationController {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setTitle("Modifier la publication");
             dialog.setHeaderText(null);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Blog/updatePublication.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Blog/updatePublication.fxml"));
             try {
                 Parent root = loader.load();
                 dialog.getDialogPane().setContent(root);
@@ -154,8 +155,28 @@ public class AfficherPublicationController {
             }
         }
     }
-
+    @FXML
     public void addpublication(ActionEvent actionEvent) {
+        try {
+            // Charger le fichier FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Blog/Addpublication.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène
+            Scene scene = new Scene(root);
+
+            // Obtenir la fenêtre principale actuelle
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène dans la fenêtre principale
+            stage.setScene(scene);
+
+            // Afficher la nouvelle scène
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Gérer l'exception de chargement du fichier FXML
+        }
+    }
 
     }
-}
+

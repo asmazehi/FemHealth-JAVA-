@@ -1,5 +1,6 @@
 package service.Blog;
 
+import javafx.collections.ObservableList;
 import model.Blog.Commentaire;
 import model.Blog.Publication;
 import utils.MyDataBase;
@@ -16,7 +17,7 @@ public class CommentaireService {
     public void add (Commentaire commentaire) throws SQLException {
         String sql = "INSERT INTO commentaire (publication_id, user_id, description, datecomnt,active) VALUES (?, ?, ?, CURRENT_TIMESTAMP,?)";    PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1,commentaire.getPublication().getId());
-        statement.setInt(2,commentaire.getUser_id());
+        statement.setInt(2,3);
         statement.setString(3,commentaire.getDescription());
         statement.setBoolean(4,true);
         statement.executeUpdate();
@@ -39,8 +40,8 @@ public class CommentaireService {
     public List<Commentaire> select() throws SQLException {
         List<Commentaire> commentaires = new ArrayList<>();
         String sql = "SELECT * FROM commentaire";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             Commentaire commentaire = new Commentaire();
             commentaire.setId(resultSet.getInt("id"));
@@ -52,21 +53,46 @@ public class CommentaireService {
         }
         return commentaires;
     }
+    public List<Commentaire> fetchCommentaireByPublicationID(int id) throws SQLException {
+        String sql="SELECT * FROM Commentaire WHERE publication_id=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
 
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+
+        ArrayList<Commentaire> listecommentaire = new ArrayList<>();
+        while (resultSet.next()) {
+            Commentaire commentaire= new Commentaire();
+            commentaire.setId(resultSet.getInt("id"));
+            commentaire.setUser_id(resultSet.getInt("user_id"));
+            commentaire.setDescription(resultSet.getString("description"));
+
+            commentaire.setDatecomnt(resultSet.getDate("datecomnt"));
+            listecommentaire.add(commentaire);
+        }
+        System.out.println("hrgjjh "+listecommentaire.size());
+        return listecommentaire;
+    }
     public Publication fetchPublicationById(int id) throws SQLException {
         String sql = "SELECT * FROM Publication WHERE id=?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
+        Publication publication = new Publication();
         if (resultSet.next()) {
-            Publication publication = new Publication();
+            System.out.println("dsfghjkl"+resultSet.getDate("datepub"));
+
             publication.setId(resultSet.getInt("id"));
             publication.setTitre(resultSet.getString("titre"));
+
             publication.setContenu(resultSet.getString("contenu"));
             publication.setImage(resultSet.getString("image"));
-            // Définir d'autres attributs de la publication si nécessaire
-            return publication;
+            publication.setDatepub(resultSet.getDate("datepub"));
+
+            System.out.println(resultSet.getString("image"));
         }
-        return null; // Retourne null si aucune publication trouvée avec cet ID
+        System.out.println(publication.toString());
+        return publication ;
+
     }
 }

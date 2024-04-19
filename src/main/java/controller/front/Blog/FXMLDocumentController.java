@@ -14,6 +14,7 @@ import service.Blog.PublicationService;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class FXMLDocumentController implements Initializable {
@@ -30,16 +31,16 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         PublicationService allpublication = new PublicationService();
 
         try {
             for (int i = 0; i < allpublication.select().size(); i++) {
                 System.out.println(allpublication.select().get(i).getImage());
-
+                SimpleDateFormat sdfNouveau = new SimpleDateFormat("yyyy-MM-dd");
+                String dateresult= sdfNouveau.format(allpublication.select().get(i).getDatepub());
                 list.add(new CustomerCard(allpublication.select().get(i).getId(),
                         allpublication.select().get(i).getTitre(),
-                        allpublication.select().get(i).getContenu(),
+                        dateresult,
                         allpublication.select().get(i).getImage()));
                 System.out.println(list.get(i));
             }
@@ -61,16 +62,12 @@ public class FXMLDocumentController implements Initializable {
             // Ajoutez le labelContainer à idsidebar
             idsidebar.getChildren().add(labelContainer);
 
-            Button button = new Button("Afficher les labels");
-            button.setOnAction(event -> {
-                Label additionalLabel = new Label("Nouveau label");
-                labelContainer.getChildren().add(additionalLabel);
-            });
 
-            labelContainer.getChildren().add(button);
+
+
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.err.println(e.getMessage());
         }
     }
 

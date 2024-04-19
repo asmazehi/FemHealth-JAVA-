@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1100.0" stylesheets="@CardDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.affariety.controllers.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1100.0"  xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Blog.FXMLDocumentController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4e6e81" height="41.0" layoutX="-6.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="1112.0" />
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
