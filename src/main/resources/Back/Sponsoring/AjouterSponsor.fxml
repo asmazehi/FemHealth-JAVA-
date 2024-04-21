@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Sponsoring.AjouterSponsorController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Sponsoring.AjouterSponsorController">
    <children>
       <TextField fx:id="nomS" layoutX="156.0" layoutY="161.0" promptText="nom" />
       <Text fx:id="erreurNom" layoutX="156.0" layoutY="190.0" styleClass="error-text" AnchorPane.topAnchor="187.05078125" />

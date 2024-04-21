@@ -29,7 +29,6 @@ import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class AjouterProduitController {
 
@@ -52,7 +51,7 @@ public class AjouterProduitController {
     private ImageView imageView;
 
     @FXML
-        private ChoiceBox<String> sponsorChoiceBox;
+    private ChoiceBox<Sponsor> sponsorChoiceBox;
 
     @FXML
     private Text erreurNom;
@@ -65,18 +64,16 @@ public class AjouterProduitController {
     @FXML
     private Text erreurDescription;
 
-    private ObservableList<String> sponsorList;
+    private ObservableList<Sponsor> sponsorList;
 
     @FXML
     public void initialize() throws SQLException {
-        ObservableList<String> sponsorList = FXCollections.observableArrayList();
+        sponsorList = FXCollections.observableArrayList();
         SponsorService sponsorService = new SponsorService();
         List<Sponsor> sponsors = sponsorService.select();
-        List<String> sponsorNames = sponsors.stream().map(Sponsor::getNom).collect(Collectors.toList());
-        sponsorList.addAll(sponsorNames);
+        sponsorList.addAll(sponsors);
         sponsorChoiceBox.setItems(sponsorList);
     }
-
 
     @FXML
     void ajouterProduit(ActionEvent event) {
@@ -118,7 +115,7 @@ public class AjouterProduitController {
         float prix = Float.parseFloat(prixText);
         int tauxRemise = Integer.parseInt(tauxRemiseText);
 
-        String sponsor = sponsorChoiceBox.getValue();
+        Sponsor sponsor = sponsorChoiceBox.getValue();
 
         Produit produit = new Produit(0, nom, prix, tauxRemise, categorie, "", description, sponsor);
         ProduitService produitService = new ProduitService();
@@ -234,5 +231,4 @@ public class AjouterProduitController {
         }
     }
 }
-
 
