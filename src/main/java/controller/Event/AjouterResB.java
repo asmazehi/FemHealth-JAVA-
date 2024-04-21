@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.events.Evenement;
@@ -27,6 +28,10 @@ public class AjouterResB {
 
     @FXML
     private TextField statut_paiementTF;
+    @FXML
+    private Label eventIdLabel;
+
+    private int eventId;
 
     @FXML
     void AfficherResB(ActionEvent event) {
@@ -59,48 +64,46 @@ public class AjouterResB {
 
     @FXML
     void AjouterResB(ActionEvent event) {
-        String id_evenement_idText = id_evenement_idTF.getText();
         String statut_paiement = statut_paiementTF.getText();
         String mode_paiement = mode_paiementCB.getValue();
 
-        // Vérification des champs vides
-        if (id_evenement_idText.isEmpty() || statut_paiement.isEmpty() || mode_paiement == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Attention");
-            alert.setContentText("Veuillez remplir tous les champs");
-            alert.show();
-        } else {
-            // Tous les champs sont remplis, nous pouvons procéder à l'ajout
-            int id_evenement_id = Integer.parseInt(id_evenement_idText);
-            Reservation r = new Reservation();
-            Evenement evenement = null;
-            ReservationC rc = new ReservationC();
+        // Tous les champs sont remplis, nous pouvons procéder à l'ajout
+        Reservation r = new Reservation();
+        Evenement evenement = null;
+        ReservationC rc = new ReservationC();
 
-            try {
-                // Vérifier si l'événement existe
-                evenement = rc.getEvenementById(id_evenement_id);
-                if (evenement != null) {
-                    r.setId_evenement_id(evenement);
-                    r.setStatut_paiement(statut_paiement);
-                    r.setMode_paiement(mode_paiement);
+        try {
+            // Vérifier si l'événement existe (you might need to pass or retrieve the eventId from another source)
+            evenement = rc.getEvenementById(eventId); // Assuming eventId is initialized somewhere
+            if (evenement != null) {
+                r.setId_evenement_id(evenement);
+                r.setStatut_paiement(statut_paiement);
+                r.setMode_paiement(mode_paiement);
 
-                    rc.add(r);
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Success");
-                    alert.setContentText("Réservation ajoutée");
-                    alert.show();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Erreur");
-                    alert.setContentText("Cet événement n'existe pas");
-                    alert.show();
-                }
-            } catch (SQLException e) {
+                rc.add(r);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Success");
+                alert.setContentText("Réservation ajoutée");
+                alert.show();
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erreur");
-                alert.setContentText(e.getMessage());
+                alert.setContentText("Cet événement n'existe pas");
                 alert.show();
             }
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText(e.getMessage());
+            alert.show();
         }
     }
+
+
+    public void initData(int eventId) {
+        this.eventId = eventId;
+        // Update the label to display the event ID
+        eventIdLabel.setText("Event ID: " + eventId);
+    }
+
 }

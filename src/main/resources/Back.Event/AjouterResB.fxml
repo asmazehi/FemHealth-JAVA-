@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.ComboBox?>
-
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
+
+<?import javafx.scene.control.TextField?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AjouterResB">
    <children>
-      <TextField fx:id="id_evenement_idTF" layoutX="35.0" layoutY="98.0" promptText="id_evenement_id" />
-      <TextField fx:id="statut_paiementTF" layoutX="36.0" layoutY="147.0" promptText="statut_paiement" />
-      <ComboBox fx:id="mode_paiementCB" layoutX="37.0" layoutY="187.0" promptText="mode_paiement">
+      <TextField fx:id="statut_paiementTF" layoutX="36.0" layoutY="98.0" promptText="statut_paiement" />
+      <ComboBox fx:id="mode_paiementCB" layoutX="37.0" layoutY="147.0" promptText="mode_paiement">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="Chèque" />
@@ -20,7 +19,7 @@
             </FXCollections>
          </items>
       </ComboBox>
-      <Label layoutX="232.0" layoutY="27.0" text="ajouter reservation" />
+      <Label fx:id="eventIdLabel" layoutX="232.0" layoutY="27.0" text="ajouter reservation" />
       <Button layoutX="142.0" layoutY="305.0" mnemonicParsing="false" onAction="#AjouterResB" text="inserer" />
       <Button layoutX="282.0" layoutY="305.0" mnemonicParsing="false" onAction="#AfficherResB" text="afficher" />
    </children>
