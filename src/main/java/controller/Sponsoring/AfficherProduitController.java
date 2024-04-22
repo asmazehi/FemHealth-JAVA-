@@ -1,5 +1,6 @@
 package controller.Sponsoring;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.Sponsoring.Produit;
+import model.Sponsoring.Sponsor;
 import service.Sponsoring.ProduitService;
 
 import java.io.File;
@@ -38,6 +40,8 @@ public class AfficherProduitController {
     @FXML
     private TableColumn<Produit, String> imagePathP;
     @FXML
+    private TableColumn<Produit, String> sponsor;
+    @FXML
     private TableView<Produit> tableView;
     @FXML
     private Label welcomeLBL;
@@ -58,6 +62,12 @@ public class AfficherProduitController {
             categorieP.setCellValueFactory(new PropertyValueFactory<>("categorie"));
             descriptionP.setCellValueFactory(new PropertyValueFactory<>("description"));
             imagePathP.setCellValueFactory(new PropertyValueFactory<>("image"));
+            sponsor.setCellValueFactory(cellData -> {
+                Sponsor sponsor = cellData.getValue().getSponsor();
+                return new SimpleStringProperty(sponsor != null ? sponsor.getNom() : "");
+            });
+
+
 
             // Custom cell factory for displaying images
             imagePathP.setCellFactory(column -> {
