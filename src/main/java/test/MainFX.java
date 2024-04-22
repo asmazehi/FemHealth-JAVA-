@@ -18,6 +18,8 @@ public class MainFX extends Application {
     public void start(Stage primaryStage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherProduit.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherSponsor.fxml"));
+
             Parent root = loader.load();
             Scene scene= new Scene(root);
             primaryStage.setScene(scene);
