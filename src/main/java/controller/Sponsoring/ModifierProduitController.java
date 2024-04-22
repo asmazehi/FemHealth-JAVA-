@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import model.Sponsoring.Produit;
 import model.Sponsoring.Sponsor;
 import service.Sponsoring.ProduitService;
@@ -88,6 +89,17 @@ public class ModifierProduitController {
         sponsorList = FXCollections.observableArrayList(sponsors); // Initialize sponsorList
         sponsorChoiceBox.setItems(sponsorList);
         sponsorChoiceBox.setValue(produit.getSponsor());
+        sponsorChoiceBox.setConverter(new StringConverter<Sponsor>() {
+            @Override
+            public String toString(Sponsor sponsor) {
+                return sponsor != null ? sponsor.getNom() : "";
+            }
+
+            @Override
+            public Sponsor fromString(String string) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
     }
 
     @FXML

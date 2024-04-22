@@ -19,7 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-
+import javafx.util.StringConverter;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,7 +73,19 @@ public class AjouterProduitController {
         List<Sponsor> sponsors = sponsorService.select();
         sponsorList.addAll(sponsors);
         sponsorChoiceBox.setItems(sponsorList);
+        sponsorChoiceBox.setConverter(new StringConverter<Sponsor>() {
+            @Override
+            public String toString(Sponsor sponsor) {
+                return sponsor != null ? sponsor.getNom() : "";
+            }
+
+            @Override
+            public Sponsor fromString(String string) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
     }
+
 
     @FXML
     void ajouterProduit(ActionEvent event) {
@@ -139,11 +151,16 @@ public class AjouterProduitController {
                 String targetDir = "src/main/resources/img/";
                 Path targetPath = Files.copy(file.toPath(), new File(targetDir + file.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
                 imageView.setImage(new Image("file:" + targetDir + file.getName()));
+
+                // Set the image path in the Produit object
+                Produit produit = new Produit();
+                produit.setImage(targetDir + file.getName());
             } catch (IOException e) {
                 showAlert("Erreur", "Erreur lors de l'upload de l'image : " + e.getMessage());
             }
         }
     }
+
 
     private String controleNom(String nom) {
         if (nom.isEmpty()) {
@@ -231,5 +248,4 @@ public class AjouterProduitController {
         }
     }
 }
-
 
