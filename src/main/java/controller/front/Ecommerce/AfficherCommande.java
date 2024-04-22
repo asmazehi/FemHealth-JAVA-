@@ -1,12 +1,16 @@
 package controller.front.Ecommerce;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -53,11 +57,24 @@ public class AfficherCommande {
     private TableView<PanierItem> table;
 
     PanierService panierService= new PanierService();
-    int idPanier = 4;
 
     @FXML
-    void initialize() {
-        List<PanierItem> infosPanier = panierService.afficherinfopanier(idPanier);
+    void showcommnands(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/AfficherListCommandeparClient.fxml"));
+            Parent root = loader.load();
+            //AfficherPanierController controller = loader.getController();
+            commandsClient.getScene().setRoot(root);
+        }catch(IOException e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    void initialize(int idpanierafficher) {
+        System.out.println("ID du panier apres la methode setIdpanierafficher : " +idpanierafficher);
+
+        List<PanierItem> infosPanier = panierService.afficherinfopanier(idpanierafficher);
         List<PanierItem> panierItems = new ArrayList<>(); // Créer la liste en dehors de la boucle
         int size=infosPanier.size();
         String ch="You currently have "+size+" item(s) in your cart.";

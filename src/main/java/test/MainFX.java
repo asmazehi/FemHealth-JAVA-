@@ -16,8 +16,8 @@ public class MainFX extends Application {
     @Override
     public  void start(Stage primaryStage){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/AfficherPanier.fxml"));
-        Parent root=loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/ShowPanier1.fxml"));
+            Parent root=loader.load();
             Scene scene=new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Gérer Commande");

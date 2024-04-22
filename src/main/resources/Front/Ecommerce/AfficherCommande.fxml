@@ -18,7 +18,7 @@
 
 <AnchorPane prefHeight="487.0" prefWidth="636.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Ecommerce.AfficherCommande">
     <children>
-        <Pane disable="true" layoutX="15.0" layoutY="97.0" prefHeight="314.0" prefWidth="422.0" style="-fx-background-color: #FFFFFF;;">
+        <Pane  layoutX="15.0" layoutY="97.0" prefHeight="314.0" prefWidth="422.0" style="-fx-background-color: #FFFFFF;;">
             <effect>
                 <DropShadow>
                     <color>
@@ -41,9 +41,9 @@
                         <Insets />
                     </opaqueInsets>
                 </TableView>
-                <Button fx:id="commandsClient" layoutX="241.0" layoutY="257.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="167.0" style="-fx-opacity: #000000;" text="Show your commands &gt;" />
+                <Button fx:id="commandsClient" layoutX="241.0" layoutY="257.0" mnemonicParsing="false" onAction="#showcommnands" prefHeight="32.0" prefWidth="167.0" style="-fx-opacity: #000000;" text="Show your commands &gt;" />
                 <Button layoutX="4.0" layoutY="257.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="149.0" style="-fx-opacity: #000000;" text="&lt; Back to Checkout" />
-                <Label contentDisplay="TOP" layoutX="5.0" layoutY="-8.0" prefHeight="45.0" prefWidth="259.0" style="-fx-font-size: 25px; -fx-opacity: 2; -fx-font-weight: 5;" text="Shopping Cart" textFill="#0b0106">
+                <Label contentDisplay="TOP" layoutX="5.0" layoutY="-8.0" prefHeight="45.0" prefWidth="259.0" style="-fx-font-size: 25px; -fx-opacity: 2; -fx-font-weight: 5;" text="Shopping Cart" textFill="#f20d83">
                     <effect>
                         <Blend mode="LIGHTEN" />
                     </effect>
@@ -66,7 +66,7 @@
             <Line endX="217.00003051757812" layoutX="172.0" layoutY="182.0" startX="-151.79998779296875" stroke="#0000008e" />
             </children>
         </Pane>
-        <Pane disable="true" layoutX="446.0" layoutY="97.0" prefHeight="314.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;;">
+        <Pane layoutX="446.0" layoutY="97.0" prefHeight="314.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;;">
             <effect>
                 <DropShadow>
                     <color>

@@ -26,7 +26,7 @@
                <children>
                   <Button fx:id="addC" layoutX="317.0" layoutY="226.0" mnemonicParsing="false" onAction="#AddCommande" prefHeight="25.0" prefWidth="183.0" text="Continue to dilevry méthode &gt;" />
                   <Button fx:id="updateP" layoutX="49.0" layoutY="226.0" mnemonicParsing="false" onAction="#afficherpanier" prefHeight="25.0" prefWidth="112.0" text="&lt; Back to Basket" />
-                  <TextField id="phone" fx:id="phone" layoutX="293.0" layoutY="154.0" prefHeight="32.0" prefWidth="208.0" />
+                  <TextField id="phone" fx:id="phone" layoutX="293.0" layoutY="154.0" prefHeight="32.0" prefWidth="191.0" />
                   <Label layoutX="49.0" layoutY="53.0" text="Adress" />
                   <Label layoutX="26.0" layoutY="7.0" text="Checkout-informations" textFill="#ea309c">
                      <font>
