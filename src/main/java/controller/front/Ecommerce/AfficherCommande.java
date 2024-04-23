@@ -10,12 +10,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import model.Ecommerce.*;
 
 import service.Ecommerce.PanierService;
@@ -42,19 +43,25 @@ public class AfficherCommande {
     @FXML
     private Label nbrproduit;
     @FXML
-    private TableColumn<PanierItem, Float> price;
+    private Button ButtonCommand;
+
+
 
     @FXML
-    private TableColumn<PanierItem, String> produitN;
+    private HBox idcard;
+
+
 
     @FXML
-    private TableColumn<PanierItem, Integer> quantiteColumn;
+    private Button produitpage;
 
     @FXML
-    private TableColumn<PanierItem, Float> totalpr;
+    private VBox vBoxContainer;
+    private List<PanierItem> listItems;
 
-    @FXML
-    private TableView<PanierItem> table;
+    //int idPanier=2;
+
+
 
     PanierService panierService= new PanierService();
 
@@ -70,47 +77,83 @@ public class AfficherCommande {
         }
     }
 
-    @FXML
-    void initialize(int idpanierafficher) {
-        System.out.println("ID du panier apres la methode setIdpanierafficher : " +idpanierafficher);
 
-        List<PanierItem> infosPanier = panierService.afficherinfopanier(idpanierafficher);
-        List<PanierItem> panierItems = new ArrayList<>(); // Créer la liste en dehors de la boucle
-        int size=infosPanier.size();
-        String ch="You currently have "+size+" item(s) in your cart.";
 
-        // Déplacer l'accès à un élément de la liste après avoir ajouté des éléments dans la boucle
-        for (PanierItem info : infosPanier) {
-            int idpanier=info.getIdpanier();
-            int idproduit=info.getIdproduit();
-            int quantite = info.getQuantite();
-            float prix = info.getPrixUnitaire();
-            String nomProduit = info.getNomProduit();
-            float totalpanier = info.getTotalpanier();
-            String statut = info.getStatus();
-            PanierItem item = new PanierItem(idpanier,idproduit,nomProduit, prix, quantite, totalpanier, statut);
-            panierItems.add(item); // Ajouter chaque élément à la liste à l'intérieur de la boucle
+
+    public void initialize(int idp) {
+        List<PanierItem> objectList = panierService.afficherinfopanier(idp);
+        idcard.setSpacing(1000);
+        String ch = "You currently have " + objectList.size() + " item(s) in your cart.";
+        nbrproduit.setText(ch);
+        Insets margins = new Insets(0, 50, 0, -10);
+        for (PanierItem obj : objectList) {
+            HBox hbox = createHBoxForItem(obj,margins);
+            vBoxContainer.getChildren().addAll(hbox,createSeparator());
+            int lastIndex = vBoxContainer.getChildren().size() - 1;
         }
+        HBox totalBox = createTotalBox(objectList);
+        vBoxContainer.getChildren().add(totalBox);
 
-        // Accès à un élément de la liste après avoir ajouté des éléments dans la boucle
-        if (!panierItems.isEmpty()) {
-            float totalpanierDt = panierItems.get(0).getTotalpanier(); // Accès à l'élément à l'index 0
-            String totalpanierDtString = String.valueOf(totalpanierDt)+"DT";
-            float totalpanierApresDT = totalpanierDt + 10;
-            String totalpanierApresDtString = String.valueOf(totalpanierApresDT)+"DT";
-            TotalAvant.setText(totalpanierDtString);
-            totalpn.setText(totalpanierDtString);
-            TotalApres.setText(totalpanierApresDtString);
-            nbrproduit.setText(ch);
-        }
-
-        ObservableList<PanierItem> obs = FXCollections.observableArrayList(panierItems);
-        table.setItems(obs);
-        produitN.setCellValueFactory(new PropertyValueFactory<>("nomProduit"));
-        price.setCellValueFactory(new PropertyValueFactory<>("prixUnitaire"));
-        quantiteColumn.setCellValueFactory(new PropertyValueFactory<>("quantite"));
-        totalpr.setCellValueFactory(new PropertyValueFactory<>("totalProduit"));
     }
+
+    private Separator createSeparator() {
+        Separator separator = new Separator();
+        separator.setOpacity(0.4);
+        return separator;
+    }
+
+
+    private HBox createHBoxForItem(PanierItem obj,Insets margins) {
+        HBox hbox = new HBox();
+        hbox.setPadding(margins);
+        Label nameLabel = new Label("  "+obj.getNomProduit()+"                 ");
+        Label quantityLabel = new Label("    "+obj.getQuantite()+"");
+        Label priceLabel = new Label("   " + obj.getPrixUnitaire()+" DT    ");
+        Label prixprodLabel = new Label("" + obj.getTotalProduit()+" DT  ");
+
+
+
+
+        nameLabel.setStyle("-fx-text-fill: #ec1fbc;"); // Couleur du texte en rose
+        hbox.getChildren().addAll(nameLabel, quantityLabel, priceLabel, prixprodLabel);
+        hbox.setSpacing(30);
+        hbox.setAlignment(Pos.TOP_CENTER);
+        //idcard.setPadding(new Insets(0, 0, 0, 5000));
+        return hbox;
+    }
+    private HBox createTotalBox(List<PanierItem> objectList) {
+        HBox totalBox = new HBox();
+        totalBox.setSpacing(80); // Espace entre les éléments
+
+        // Calcul du total du panier
+        double total = 0;
+        for (PanierItem obj : objectList) {
+            total += obj.getTotalProduit();
+        }
+        double totalpanierApresDT2 = 0;
+        if (total != 0) {
+            totalpanierApresDT2 = total + 10;
+        }
+        String totalpanierApresDtString = String.valueOf(total) + "DT";
+        TotalAvant.setText(totalpanierApresDtString);
+        String totalpanierApresDtString2 = String.valueOf(totalpanierApresDT2) + "DT";
+        TotalApres.setText(totalpanierApresDtString2);
+
+        // Créez un label pour afficher le total
+        Label NPLabel = new Label("Total");
+        Label QttLabel = new Label("");
+        Label pxLabel = new Label("");
+        Label totalLabel = new Label("" + total + " DT");
+        // Ajoutez le label au HBox
+        totalBox.getChildren().addAll(NPLabel, QttLabel, pxLabel, totalLabel);
+        totalBox.setPadding(new Insets(0, 0, 10, 0));
+        NPLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        totalLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+
+        return totalBox;
+    }
+
+
 
 }
 

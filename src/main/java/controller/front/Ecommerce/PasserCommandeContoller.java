@@ -4,10 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.Ecommerce.Commande;
 import service.Ecommerce.CommandeService;
 
@@ -34,7 +31,16 @@ public class PasserCommandeContoller {
 
     @FXML
     private Button updateP;
+    @FXML
+    private Label livraisoncontrol;
 
+    @FXML
+    private Label paiementcontrol;
+
+    @FXML
+    private Label phonecontrol;
+    @FXML
+    private Label AdressControl;
 public void setIdp(int idp){
     this.idp=idp;
     System.out.println("ID du panier dans setIdp : " + idp);
@@ -48,6 +54,46 @@ public void setIdp(int idp){
         String MpaiementN = Mpaiement.getValue();
         Commande commande = new Commande(idp, AdressN, MpaiementN, phoneN, MlivraisonN);
         CommandeService commandeService = new CommandeService();
+        boolean isValid = true;
+
+            // Validation de l'adresse
+            if (Adress.getValue() == null || Adress.getValue().isEmpty()) {
+                AdressControl.setText("Veuillez sélectionner une adresse.");
+                isValid = false;
+            } else {
+                AdressControl.setText("");
+            }
+
+            // Validation du mode de paiement
+            if (Mpaiement.getValue() == null || Mpaiement.getValue().isEmpty()) {
+                paiementcontrol.setText("Veuillez sélectionner un mode de paiement.");
+                isValid = false;
+            } else {
+                paiementcontrol.setText("");
+            }
+
+            // Validation du mode de livraison
+            if (Mlivraison.getValue() == null || Mlivraison.getValue().isEmpty()) {
+                livraisoncontrol.setText("Veuillez sélectionner un mode de livraison.");
+                isValid = false;
+            } else {
+                livraisoncontrol.setText("");
+            }
+
+        if (phone.getText() == null || phone.getText().isEmpty()) {
+            phonecontrol.setText("Veuillez saisir un numéro de téléphone.");
+            isValid = false;
+        } else if (!phone.getText().matches("^19[0-9]{6,7}$")) {
+            phonecontrol.setText("Veuillez saisir un numéro de téléphone valide");
+            isValid = false;
+        } else {
+            phonecontrol.setText("");
+        }
+
+            // Si toutes les validations passent, ajoutez la commande
+            if (isValid) {
+                AddCommande(event);
+            }
         try {
             System.out.println("ID du panier avant de charger la nouvelle vue : " + idp);
 
@@ -64,9 +110,7 @@ public void setIdp(int idp){
         } catch (IOException e) {
             System.err.println(e.getMessage());
         } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
-            alert.show();
+            System.err.println(e.getMessage());
 }}
 
 

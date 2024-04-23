@@ -27,7 +27,7 @@
             </effect>
             <children>
                 <VBox fx:id="vBoxContainer" layoutX="13.0" layoutY="86.0" prefHeight="94.0" prefWidth="390.0" spacing="5.0" />
-                <Button fx:id="produitpage" layoutX="21.0" layoutY="257.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" style="-fx-opacity: #000000;" text="&lt;Continue shopping" textFill="#ef2cc5" />
+                <Button fx:id="produitpage" layoutX="21.0" layoutY="257.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" style="-fx-opacity: #000000;" text="&lt;Continue shopping" textFill="#230a1e" />
                 <Label contentDisplay="TOP" layoutX="5.0" layoutY="-8.0" prefHeight="45.0" prefWidth="259.0" style="-fx-font-size: 25px; -fx-opacity: 2; -fx-font-weight: 5;" text="Shopping Cart" textFill="#ec1fbc">
                     <effect>
                         <Blend mode="LIGHTEN" />
@@ -38,7 +38,7 @@
                 </Label>
                 <Label layoutX="14.0" layoutY="37.0" />
                 <Label fx:id="nbrproduit" layoutX="5.0" layoutY="29.0" text="You currently have 3 item(s) in your cart." />
-                <Button fx:id="ButtonCommand" layoutX="276.0" layoutY="257.0" mnemonicParsing="false" onAction="#CommandForm" prefHeight="32.0" prefWidth="132.0" style="-fx-opacity: 2;" text="Proceed to checkout" textFill="#e823bdee" />
+                <Button fx:id="ButtonCommand" layoutX="276.0" layoutY="257.0" mnemonicParsing="false" onAction="#CommandForm" prefHeight="32.0" prefWidth="132.0" style="-fx-opacity: 2;" text="Proceed to checkout" textFill="#1e0618ed" />
                 <HBox layoutX="9.0" layoutY="54.0" prefHeight="25.0" prefWidth="455.0" spacing="30.0" styleClass="-fx.">
                     <children>
                         <Label prefHeight="18.0" prefWidth="93.0" text="Product">
@@ -80,7 +80,7 @@
                 </HBox>
                 <Line endX="240.19998168945312" layoutX="157.0" layoutY="54.0" startX="-148.00001525878906" startY="1.52587890625E-5" stroke="#0000002b" />
                 <Line endX="240.19998168945312" layoutX="157.0" layoutY="79.0" startX="-148.00001525878906" startY="1.52587890625E-5" stroke="#0000003e" />
-                <HBox fx:id="idcard" layoutX="-16.0" layoutY="86.0" prefHeight="25.0" prefWidth="430.0" style="-fx-opacity: 10;" />
+                <HBox fx:id="idcard"  focusTraversable="true" layoutX="-16.0" layoutY="86.0" prefHeight="25.0" prefWidth="430.0" style="-fx-opacity: 10;" />
             </children>
         </Pane>
         <Pane layoutX="447.0" layoutY="97.0" prefHeight="314.0" prefWidth="174.0" style="-fx-background-color: #FFFFFF;;">

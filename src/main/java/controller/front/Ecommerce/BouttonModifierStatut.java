@@ -23,9 +23,9 @@ public class BouttonModifierStatut extends TableCell<Commande, Void> {
     private TableView<Commande> tableView; // Référence à la TableView
     private CommandeService commandeService = new CommandeService();
 
-    public BouttonModifierStatut(List<Commande> ls, TableView<Commande> tableView) {
-        this.tableView = tableView; // Initialisation de la TableView
-        this.MBoutton = new Button("annuler");
+    public BouttonModifierStatut(CommandeService commandeService) {
+        this.commandeService = commandeService;
+        this.MBoutton = new Button("Annuler");
         this.MBoutton.setOnAction(event -> {
             Commande commande = getTableView().getItems().get(getIndex());
             try {
