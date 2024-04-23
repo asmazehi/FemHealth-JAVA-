@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Sponsoring.ModifierProduitController">
+    <children>
+        <Label layoutX="50.0" layoutY="30.0" text="Modifier ce Produit">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Label layoutX="50.0" layoutY="80.0" text="Nom : " />
+        <TextField fx:id="nomP" layoutX="200.0" layoutY="80.0" />
+        <Text fx:id="erreurNom" fill="black" layoutX="200.0" layoutY="100.0" AnchorPane.topAnchor="107.05078125" />
+
+        <Label layoutX="50.0" layoutY="130.0" text="Prix : " />
+        <TextField fx:id="prixP" layoutX="200.0" layoutY="130.0" />
+        <Text fx:id="erreurPrix" fill="black" layoutX="200.0" layoutY="150.0" AnchorPane.topAnchor="157.05078125" />
+
+        <Label layoutX="50.0" layoutY="180.0" text="Taux de remise : " />
+        <TextField fx:id="tauxRemiseP" layoutX="200.0" layoutY="180.0" />
+        <Text fx:id="erreurTauxRemise" fill="black" layoutX="200.0" layoutY="200.0" AnchorPane.topAnchor="207.05078125" />
+
+        <Label layoutX="50.0" layoutY="230.0" text="Catégorie : " />
+        <TextField fx:id="categorieP" layoutX="200.0" layoutY="230.0" />
+        <Text fx:id="erreurCategorie" fill="black" layoutX="200.0" layoutY="250.0" AnchorPane.topAnchor="256.05078125" />
+
+        <Label layoutX="50.0" layoutY="280.0" text="Description : " />
+        <TextField fx:id="descriptionP" layoutX="200.0" layoutY="280.0" />
+        <Text fx:id="erreurDescription" fill="black" layoutX="200.0" layoutY="300.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="306.05078125" />
+
+        <Label layoutX="50.0" layoutY="330.0" text="Sponsor : " />
+        <ChoiceBox fx:id="sponsorChoiceBox" layoutX="200.0" layoutY="330.0" prefWidth="150.0" />
+
+        <Button layoutX="400.0" layoutY="330.0" onAction="#handleUploadAction" text="Retélecharger une autre image" />
+        <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="100.0" layoutX="400.0" layoutY="180.0" />
+
+        <Button layoutX="450.0" layoutY="370.0" onAction="#executerModification" text="Modifier" />
+    </children>
+</AnchorPane>

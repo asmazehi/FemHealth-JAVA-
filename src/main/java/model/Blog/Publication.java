@@ -11,8 +11,7 @@ public class Publication {
     public Publication() {
     }
 
-    public Publication(int id, String contenu, String image, String titre) {
-        this.id = id;
+    public Publication( String contenu, String image, String titre) {
         this.contenu = contenu;
         this.image = image;
         this.datepub = new Date();
@@ -43,11 +42,11 @@ public class Publication {
         this.image = image;
     }
 
-    public java.sql.Date getDatepub() {
-        return (java.sql.Date) datepub;
+    public java.util.Date getDatepub() {
+        return (java.util.Date) datepub;
     }
 
-    public java.sql.Date setDatepub() {
+    public java.util.Date setDatepub(java.util.Date datepub) {
         this.datepub = new Date();;
         return null;
     }

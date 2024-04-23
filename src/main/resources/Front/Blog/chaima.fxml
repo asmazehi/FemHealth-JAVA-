@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1100.0" stylesheets="@CardDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.affariety.controllers.FXMLDocumentController">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4e6e81" height="41.0" layoutX="-6.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="1112.0" />
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+        <ScrollPane layoutX="226.0" layoutY="40.0" prefHeight="614.0" prefWidth="873.0">
+            <content>
+                <GridPane fx:id="cardHolder" layoutX="12.0" layoutY="109.0">
+                </GridPane>
+            </content>
+        </ScrollPane>
+        <AnchorPane fx:id="idsidebar" layoutY="41.0" prefHeight="614.0" prefWidth="226.0" style="-fx-background-color: rgba(132, 151, 219, 0.9375);">
+            <children>
+                <ImageView fitHeight="204.0" fitWidth="200.0" layoutX="6.0" layoutY="-55.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@imageAF.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="56.0" layoutY="128.0" text="WELCOME ">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                </Label>
+                <Label layoutX="41.0" layoutY="156.0" text="TO AFFARIETY">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                </Label>
+                <Line endX="83.59999084472656" layoutX="106.0" layoutY="200.0" startX="-80.19999694824219" />
+                <ImageView fitHeight="73.0" fitWidth="100.0" layoutX="-6.0" layoutY="-73.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@imageAF.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="62.0" layoutY="-29.0" text="Dépot Vente Meuble">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

@@ -91,6 +91,11 @@ public class ProduitService implements IService<Produit> {
         return null;
     }
 
+
+
+
+    //ketbethaa iness afsa5 cmntr ki tchouffou :')
+
     public Produit selectProduitById(int idProduit)  {
         Produit produit = null;
         String sql = "SELECT * FROM produit WHERE id = ?";
@@ -116,4 +121,6 @@ public class ProduitService implements IService<Produit> {
         }
         return produit;
     }
+
+
 }

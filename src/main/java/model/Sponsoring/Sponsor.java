@@ -13,6 +13,10 @@ public class Sponsor {
         this.nom = nom;
         this.duree_contrat = duree_contrat;
     }
+    public Sponsor(String nom, String duree_contrat) {
+        this.nom = nom;
+        this.duree_contrat = duree_contrat;
+    }
 
     public int getId() {
         return id;
