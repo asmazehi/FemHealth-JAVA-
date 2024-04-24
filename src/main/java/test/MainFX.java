@@ -18,10 +18,13 @@ public class MainFX extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-           // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherSponsor.fxml"));
-       //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AfficherEventB.fxml"));
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AjouterEventB.fxml"));
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AjouterResB.fxml"));
+           // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AfficherEventB.fxml"));
+           // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AjouterResB.fxml"));
+
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
+
+
 
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -31,6 +34,8 @@ public class MainFX extends Application {
 
         } catch (IOException e) {
             System.err.println(e.getMessage());
+            e.printStackTrace();
+
         }
 
 }}

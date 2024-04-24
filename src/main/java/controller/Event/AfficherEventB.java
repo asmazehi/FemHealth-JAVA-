@@ -1,5 +1,7 @@
 package controller.Event;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,7 +16,6 @@ import javafx.stage.Stage;
 import model.events.Evenement;
 import model.events.Type;
 import service.events.EvenementC;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -29,6 +30,9 @@ public class AfficherEventB {
 
     @FXML
     private URL location;
+
+    @FXML
+    private Label reservationsLabel;
 
     @FXML
     private TableColumn<Evenement, Date> date_debutCol;
@@ -142,7 +146,12 @@ public class AfficherEventB {
             List<Evenement> list = ec.select();
             obs = FXCollections.observableArrayList(list);
             tableview.setItems(obs);
-            type_idCol.setCellValueFactory(new PropertyValueFactory<>("type_id"));
+            //type_idCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+            type_idCol.setCellValueFactory(cellData -> {
+                Type type = cellData.getValue().getType_id();
+               // String typeName = (type != null) ? type.getType() : "";
+                return new ReadOnlyObjectWrapper<>(type);            });
+
             nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
             localisationCol.setCellValueFactory(new PropertyValueFactory<>("localisation"));
             montantCol.setCellValueFactory(new PropertyValueFactory<>("montant"));
@@ -158,6 +167,7 @@ public class AfficherEventB {
                         Evenement evenement = getTableRow().getItem();
                         openReservationPage(evenement.getId());
                     });
+
                 }
 
                 @Override
@@ -197,4 +207,23 @@ public class AfficherEventB {
             alert.show();
         }
     }
+    @FXML
+    private void navigateToReservations(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/sampleres.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Failed to load AfficherResB.fxml");
+            alert.show();
+        }
+    }
+
 }

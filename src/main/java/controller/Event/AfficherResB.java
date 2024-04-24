@@ -97,6 +97,32 @@ public class AfficherResB {
             e.printStackTrace();
         }
     }
+    @FXML
+    void ModifierResBF(ActionEvent event) {
+        try {
+            Reservation selectedReservation = tableview.getSelectionModel().getSelectedItem();
+            if (selectedReservation != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/ModifResF.fxml"));
+                Parent root = loader.load();
+
+                ModifierResB controller = loader.getController();
+                controller.initData(selectedReservation);
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Aucune réservation sélectionnée");
+                alert.setHeaderText(null);
+                alert.setContentText("Veuillez sélectionner une réservation à modifier.");
+                alert.show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 
