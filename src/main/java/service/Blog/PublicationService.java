@@ -38,9 +38,12 @@ public class PublicationService {
     }
     public List<Publication> select() throws SQLException {
         List<Publication> publications = new ArrayList<>();
-        String sql = "SELECT * FROM Publication";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/femHealth","root", "");
+        // Préparer la requête SQL pour sélectionner toutes les publications
+        String query = "SELECT * FROM publication";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        // Exécuter la requête
+        ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             Publication publication = new Publication();
             publication.setId(resultSet.getInt("id"));
@@ -48,17 +51,21 @@ public class PublicationService {
             publication.setContenu(resultSet.getString("contenu"));
             publication.setImage(resultSet.getString("image"));
             publication.setDatepub(resultSet.getDate("datepub"));
-            System.out.println(resultSet.getDate("datepub"));
             publications.add(publication);
+
         }
-        return publications;
-    }
+        // Fermer les ressources
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        return publications;}
     public Publication getById(int id) {
         return null;
     }
 
     public Publication getPublicationById(int id_pub) throws SQLException {
         String req = "SELECT * FROM publication WHERE id = ?";
+
         PreparedStatement preparedStatement = connection.prepareStatement(req);
         preparedStatement.setInt(1, id_pub);
         ResultSet rs = preparedStatement.executeQuery();

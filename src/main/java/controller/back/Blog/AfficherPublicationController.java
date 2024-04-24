@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import controller.front.Blog.DetailsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Blog.Publication;
 import service.Blog.PublicationService;
@@ -66,29 +68,27 @@ public class AfficherPublicationController {
     }
     void modifierPublication(ActionEvent event) {
         PublicationService publicationService = new PublicationService();
-        Publication publication = tableView.getSelectionModel().getSelectedItem(); // Récupérer la publication sélectionnée dans le TableView
+        Publication publication = tableView.getSelectionModel().getSelectedItem(); // R?cup?rer la publication s?lectionn?e dans le TableView
         if (publication == null) {
-            // Aucune publication sélectionnée, afficher un message d'erreur
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
-            alert.setContentText("Veuillez sélectionner une publication à modifier.");
+            alert.setContentText("Veuillez s?lectionner une publication ? modifier.");
             alert.showAndWait();
             return;
         }
-        // Modifier les champs de la publication avec les valeurs saisies dans les champs de texte
         publication.setTitre(titreCol.getText());
         publication.setContenu(contenuCol.getText());
         publication.setImage(imageCol.getText());
 
         try {
-            publicationService.update(publication); // Appeler la méthode de service pour modifier la publication
-            // Afficher une boîte de dialogue de confirmation
+            publicationService.update(publication); // Appeler la m?thode de service pour modifier la publication
+            // Afficher une bo?te de dialogue de confirmation
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Succès");
-            alert.setContentText("Publication modifiée avec succès");
+            alert.setTitle("Succ?s");
+            alert.setContentText("Publication modifi?e avec succ?s");
             alert.showAndWait();
         } catch (SQLException e) {
-            // En cas d'erreur lors de la modification, afficher une boîte de dialogue d'erreur avec le message d'erreur
+            // En cas d'erreur lors de la modification, afficher une bo?te de dialogue d'erreur avec le message d'erreur
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setContentText("Erreur lors de la modification de la publication : " + e.getMessage());
@@ -117,17 +117,18 @@ public class AfficherPublicationController {
     @FXML
     public void modifierpublication(ActionEvent actionEvent) {
         Publication selectedPublication = tableView.getSelectionModel().getSelectedItem();
+
         if (selectedPublication == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Aucune publication sélectionnée");
-            alert.setContentText("Veuillez sélectionner une publication à modifier.");
+            alert.setTitle("Aucune publication s?lectionn?e");
+            alert.setContentText("Veuillez s?lectionner une publication ? modifier.");
             alert.showAndWait();
             return;
         }
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Modifier la publication");
         confirmationAlert.setHeaderText(null);
-        confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cette publication ?");
+        confirmationAlert.setContentText("?tes-vous s?r de vouloir modifier cette publication ?");
         Optional<ButtonType> result = confirmationAlert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             Dialog<ButtonType> dialog = new Dialog<>();
@@ -135,14 +136,28 @@ public class AfficherPublicationController {
             dialog.setHeaderText(null);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Blog/updatePublication.fxml"));
             try {
-                Parent root = loader.load();
-                dialog.getDialogPane().setContent(root);
-                ModifierPublicationController modifierPubController = loader.getController();
-                modifierPubController.setData(selectedPublication.getId());
 
-                // Set the userData property
-                Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-                stage.setUserData(this); // Assuming "this" refers to AfficherPubController
+
+                Parent root = loader.load();
+
+                controller.back.Blog.ModifierPublicationController controller = loader.getController();
+
+
+                controller.setData(selectedPublication.getId());
+                controller.initializeDetails();
+
+
+                Scene scene = new Scene(root);
+
+
+                Stage stage = new Stage();
+                stage.setScene(scene);
+
+
+                stage.initModality(Modality.APPLICATION_MODAL);
+
+                stage.showAndWait();
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -162,19 +177,19 @@ public class AfficherPublicationController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Blog/Addpublication.fxml"));
             Parent root = loader.load();
 
-            // Créer une nouvelle scène
+            // Cr?er une nouvelle sc?ne
             Scene scene = new Scene(root);
 
-            // Obtenir la fenêtre principale actuelle
+            // Obtenir la fen?tre principale actuelle
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
-            // Définir la nouvelle scène dans la fenêtre principale
+            // D?finir la nouvelle sc?ne dans la fen?tre principale
             stage.setScene(scene);
 
-            // Afficher la nouvelle scène
+            // Afficher la nouvelle sc?ne
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Gérer l'exception de chargement du fichier FXML
+            e.printStackTrace(); // G?rer l'exception de chargement du fichier FXML
         }
     }
 

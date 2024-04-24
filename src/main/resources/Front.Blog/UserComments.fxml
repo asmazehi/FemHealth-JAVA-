@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Blog.UserComments">
+   <children>
+      <Pane layoutX="124.0" prefHeight="400.0" prefWidth="478.0">
+         <children>
+            <TableView fx:id="tableView" layoutX="35.0" layoutY="47.0" prefHeight="248.0" prefWidth="392.0">
+              <columns>
+                <TableColumn fx:id="publicationCl" prefWidth="137.0" text="publication" />
+                <TableColumn fx:id="dateCl" prefWidth="123.0" text="date" />
+                  <TableColumn fx:id="descriptionCl" prefWidth="131.0" text="description" />
+              </columns>
+            </TableView>
+            <Button layoutX="231.0" layoutY="319.0" mnemonicParsing="false" onAction="#modifierCommentaire" text="modifier" />
+            <Button layoutX="356.0" layoutY="319.0" mnemonicParsing="false" onAction="#deleteComment" text="supprimer" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

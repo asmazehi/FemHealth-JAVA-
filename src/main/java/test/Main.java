@@ -10,15 +10,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Main {
-
     public static void main(String[] args) {
         Connection connection = MyDataBase.getInstance().getConnection();
-
         System.out.println(connection);
-
         SponsorService sponsorService = new SponsorService();
         ProduitService produitService = new ProduitService();
-
         try {
             // Test SponsorService
             //sponsorService.update(new Sponsor(4, "aaa", "16 mois"));
@@ -28,7 +24,6 @@ public class Main {
         //} catch (SQLException e) {
           //  System.out.println(e.getMessage());        }
    // }
-
             // Test ProduitService
             produitService.update(new Produit(3, "produit1", 100.0f, 10, "categorie1", "image1", "description1", new Sponsor(7, "", "")));
             //produitService.delete(2);

@@ -10,6 +10,7 @@ import model.Blog.Publication;
 import service.Blog.PublicationService;
 import javafx.stage.FileChooser;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,6 +35,10 @@ public class AddpublicationController {
 
     @FXML
     void ajouterPublication(ActionEvent event) {
+        if (contenuTf.getText().isEmpty() || titreTf.getText().isEmpty() || cheminphoto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "entrez votre demande et donnez un exemple.", "Erreur", JOptionPane.ERROR_MESSAGE);
+            return; // Sortir de la méthode si un champ est vide
+        }
         // Récupérer les valeurs depuis les champs de l'interface utilisateur
         String contenu = contenuTf.getText();
         String cheminPhoto = cheminphoto.getText(); // Assurez-vous que la label cheminphoto contient le chemin de la photo sélectionnée

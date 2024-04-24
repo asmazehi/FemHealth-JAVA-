@@ -103,24 +103,20 @@ public class CustomerCard extends Pane {
 
                 Parent root = loader.load();
 
-                // Obtenir le contrôleur de la vue details.fxml
                 DetailsController controller = loader.getController();
 
-                // Passer l'ID de la publication sélectionnée au contrôleur
                 controller.setPublicationId(publicationId);
                 controller.initializeDetails();
 
-                // Créer une nouvelle scène
                 Scene scene = new Scene(root);
 
-                // Créer une nouvelle fenêtre pour la vue détaillée
+
                 Stage stage = new Stage();
                 stage.setScene(scene);
 
-                // Modality.APPLICATION_MODAL bloque les interactions avec les autres fenêtres
+
                 stage.initModality(Modality.APPLICATION_MODAL);
 
-                // Afficher la nouvelle fenêtre
                 stage.showAndWait();
             } catch (IOException ex) {
                 ex.printStackTrace(); // Gérer l'exception de chargement du fichier FXML

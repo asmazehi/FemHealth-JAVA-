@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,7 +40,7 @@ public class AfficherCommentaire {
     private Label Welcome;
 
     @FXML
-    private TableColumn<Commentaire, Publication> pubCol;
+    private TableColumn<Commentaire, String> pubCol;
 
     @FXML
     private TableColumn<Commentaire, Integer> userCol;
@@ -48,6 +49,9 @@ public class AfficherCommentaire {
     private TableColumn<Commentaire, String> descriptionCol;
     CommentaireService cs = new CommentaireService();
     ObservableList<Commentaire> obsC;
+
+
+
     @FXML
     void cd107b(ActionEvent event) {
 
@@ -57,14 +61,24 @@ public class AfficherCommentaire {
     void initialize() {
         try {
             List<Commentaire> list = cs.select();
+
+
             obsC= FXCollections.observableArrayList(list);
             table1view.setItems(obsC);
+
             dateCCol.setCellValueFactory(new PropertyValueFactory<>("datecomnt"));
             ActionCol.setCellValueFactory(new PropertyValueFactory<>("active"));
-            pubCol.setCellValueFactory(new PropertyValueFactory<>("publication"));
-            userCol.setCellValueFactory(new PropertyValueFactory<>("user_id"));
+             userCol.setCellValueFactory(new PropertyValueFactory<>("user_id"));
             descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-
+            pubCol.setCellValueFactory(cellData -> {
+                Commentaire commentaire = cellData.getValue();
+                Publication publication = commentaire.getPublication();
+                if (publication != null) {
+                    return new SimpleStringProperty(publication.getTitre());
+                } else {
+                    return new SimpleStringProperty("");
+                }
+            });
 
         }catch (SQLException e)
         {

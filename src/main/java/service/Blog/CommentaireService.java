@@ -24,8 +24,10 @@ public class CommentaireService {
     }
     public void update(Commentaire commentaire) throws SQLException {
         String sql = "UPDATE commentaire SET publication_id=?, user_id=?, description=?, datecomnt=CURRENT_TIMESTAMP WHERE id=?";
+        Publication publication = commentaire.getPublication();
+        Integer publicationId = publication.getId();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, commentaire.getPublication().getId());
+        statement.setInt(1, publicationId);
         statement.setInt(2, commentaire.getUser_id());
         statement.setString(3, commentaire.getDescription());
         statement.setInt(4, commentaire.getId());
@@ -63,14 +65,33 @@ public class CommentaireService {
         ArrayList<Commentaire> listecommentaire = new ArrayList<>();
         while (resultSet.next()) {
             Commentaire commentaire= new Commentaire();
-            commentaire.setId(resultSet.getInt("id"));
+            commentaire.setPublication(fetchPublicationById(resultSet.getInt("publication_id")));
             commentaire.setUser_id(resultSet.getInt("user_id"));
             commentaire.setDescription(resultSet.getString("description"));
-
             commentaire.setDatecomnt(resultSet.getDate("datecomnt"));
             listecommentaire.add(commentaire);
         }
-        System.out.println("hrgjjh "+listecommentaire.size());
+        System.out.println(listecommentaire.size());
+        return listecommentaire;
+    }
+    public List<Commentaire> fetchCommentaireByUserID(int id) throws SQLException {
+        String sql="SELECT * FROM Commentaire WHERE user_id=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+
+        ArrayList<Commentaire> listecommentaire = new ArrayList<>();
+        while (resultSet.next()) {
+            System.out.println(resultSet.getString("publication_id"));
+            Commentaire commentaire= new Commentaire();
+            System.out.println(fetchPublicationTitleById(resultSet.getInt("publication_id")));
+            commentaire.setPublication(fetchPublicationById(resultSet.getInt("publication_id")));
+            commentaire.setDescription(resultSet.getString("description"));
+            commentaire.setDatecomnt(resultSet.getDate("datecomnt"));
+            listecommentaire.add(commentaire);
+        }
+
         return listecommentaire;
     }
     public Publication fetchPublicationById(int id) throws SQLException {
@@ -80,19 +101,46 @@ public class CommentaireService {
         ResultSet resultSet = statement.executeQuery();
         Publication publication = new Publication();
         if (resultSet.next()) {
-            System.out.println("dsfghjkl"+resultSet.getDate("datepub"));
+            System.out.println(resultSet.getDate("datepub"));
 
             publication.setId(resultSet.getInt("id"));
             publication.setTitre(resultSet.getString("titre"));
-
             publication.setContenu(resultSet.getString("contenu"));
             publication.setImage(resultSet.getString("image"));
             publication.setDatepub(resultSet.getDate("datepub"));
-
             System.out.println(resultSet.getString("image"));
         }
         System.out.println(publication.toString());
         return publication ;
 
+    }
+
+    public String fetchPublicationTitleById(int id) throws SQLException {
+        String sql = "SELECT titre FROM Publication WHERE id=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        String titre = null;
+        if (resultSet.next()) {
+            titre = resultSet.getString("titre");
+        }
+        return titre;
+    }
+    public Commentaire fetchCommentaireById(int id) throws SQLException {
+        Commentaire commentaire = null;
+        String sql = "SELECT * FROM commentaire WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    commentaire = new Commentaire();
+                    commentaire.setId(resultSet.getInt("id"));
+                    commentaire.setUser_id(resultSet.getInt("user_id"));
+                    commentaire.setDescription(resultSet.getString("description"));
+                    commentaire.setDatecomnt(resultSet.getDate("datecomnt"));
+                }
+            }
+        }
+        return commentaire;
     }
 }

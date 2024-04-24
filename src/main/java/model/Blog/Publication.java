@@ -1,5 +1,4 @@
 package model.Blog;
-import javafx.scene.image.Image;
 
 import java.util.Objects;
 import java.util.Date;
@@ -32,8 +31,9 @@ public class Publication {
         return contenu;
     }
 
-    public void setContenu(String contenu) {
+    public String setContenu(String contenu) {
         this.contenu = contenu;
+        return contenu;
     }
 
     public String getImage() {

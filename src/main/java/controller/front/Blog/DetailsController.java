@@ -4,16 +4,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Blog.Commentaire;
 import model.Blog.Publication;
 import service.Blog.CommentaireService;
 import service.Blog.PublicationService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
@@ -41,8 +48,7 @@ public class DetailsController {
 
     @FXML
     private TextArea AreaComment;
-    @FXML
-    private Label publicationIdLabel;
+
     CommentaireService cs=new CommentaireService();
     ObservableList<Commentaire> obs;
     @FXML
@@ -70,6 +76,7 @@ public class DetailsController {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Commentaire ajouté");
                         alert.setHeaderText(null);
+                        alert.setContentText("Commentaire ajouté avec succès!");
                         alert.setContentText("Commentaire ajouté avec succès!");
                         alert.showAndWait();
                         AreaComment.clear();
@@ -108,9 +115,17 @@ public class DetailsController {
         contenu.setText(pub.getContenu());
         System.out.println(pub.getImage());
 
-      ;
+        System.out.println(pub.getImage());
         date.setText(pub.getDatepub()+"");
-        imageView.setImage(new Image("C:/Users/ROYAUME MEDIAS/Downloads/images (3).jpg"));
+        String imageUrl = pub.getImage();
+        if (imageUrl == null || imageUrl.isEmpty()) {
+            System.out.println("url not found");
+        }else{
+            Image image = new Image(imageUrl);
+            imageView.setImage(image);
+
+        }
+
         setListView();
 
 
@@ -151,7 +166,31 @@ public class DetailsController {
 
     public void setPublicationId(int publicationId) {
         this.idpub=publicationId;
-        publicationIdLabel.setText("Publication ID: " + publicationId);
+    }
+    @FXML
+    void userCommentaire(ActionEvent event) {
+        try {
+            // Charger le fichier FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Blog/UserComments.fxml"));
+            Parent root = loader.load();
+           loader.getController();
+
+
+
+            Scene scene = new Scene(root);
+
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace(); // G?rer l'exception de chargement du fichier FXML
+        }
     }
 
 }

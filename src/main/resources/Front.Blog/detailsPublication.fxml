@@ -21,13 +21,13 @@
             <Label fx:id="titre" layoutX="14.0" layoutY="104.0" prefHeight="17.0" prefWidth="137.0" style="-fx-background-color: #ffffff;" text="titre" />
             <Label fx:id="date" layoutX="498.0" layoutY="95.0" prefHeight="17.0" prefWidth="110.0" style="-fx-background-color: #ffffff;" text="date" />
             <Label fx:id="contenu" layoutX="366.0" layoutY="128.0" prefHeight="44.0" prefWidth="248.0" style="-fx-background-color: #ffffff;" text="Contenu" />
-            <Label fx:id="publicationIdLabel" layoutX="14.0" layoutY="78.0" prefHeight="17.0" prefWidth="137.0" style="-fx-background-color: #ffffff;" text="publication_id" />
             <ImageView fx:id="imageView" fitHeight="183.0" fitWidth="329.0" layoutX="111.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true" />
+            <Button layoutX="513.0" layoutY="20.0" mnemonicParsing="false" onAction="#userCommentaire" text="Mes commentaire" />
          </children>
       </Pane>
        <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
            <children>
-               <ImageView fitHeight="154.0" fitWidth="200.0" layoutX="26.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView  fitHeight="154.0" fitWidth="200.0" layoutX="26.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
                    <image>
                        <Image url="@2.png" />
                    </image>
