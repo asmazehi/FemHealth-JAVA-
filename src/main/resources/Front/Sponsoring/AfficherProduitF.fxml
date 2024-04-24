@@ -1,46 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Sponsoring.AfficherProduitFrontController">
-    <children>
-        <Label layoutX="39.0" layoutY="41.0" text="Product Name" textFill="#333333">
-            <font>
-                <Font name="System Bold" size="18.0" />
-            </font>
-        </Label>
-        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="39.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="https://via.placeholder.com/200" />
-            </image>
-        </ImageView>
-        <Label layoutX="279.0" layoutY="71.0" text="Price: $100.00" textFill="#333333">
-            <font>
-                <Font name="System Regular" size="14.0" />
-            </font>
-        </Label>
-        <Label layoutX="279.0" layoutY="101.0" text="Discount: 20% (Price: $80.00)" textFill="#333333">
-            <font>
-                <Font name="System Regular" size="14.0" />
-            </font>
-        </Label>
-        <Label layoutX="279.0" layoutY="131.0" text="Description:" textFill="#333333">
-            <font>
-                <Font name="System Regular" size="14.0" />
-            </font>
-        </Label>
-        <Label layoutX="279.0" layoutY="161.0" prefHeight="200.0" prefWidth="300.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan odio quis justo eleifend, non tempus dolor tincidunt. Duis in velit ac tellus accumsan pellentesque. Sed sit amet metus nisi. Nunc in est eget libero interdum aliquam. Nulla facilisi. Vivamus nec turpis sed nibh feugiat rutrum. Integer feugiat metus nec urna malesuada tincidunt. Proin dapibus, odio at malesuada placerat, mi ipsum dapibus justo, eu pellentesque orci nulla ut justo. Morbi ultricies, neque quis congue commodo, justo lectus auctor justo, nec tincidunt neque nulla non dui." textFill="#333333" wrapText="true">
-            <font>
-                <Font name="System Regular" size="14.0" />
-            </font>
-        </Label>
-        <Button layoutX="39.0" layoutY="301.0" mnemonicParsing="false" text="Add to Cart" />
-    </children>
 
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
@@ -56,129 +14,129 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Sponsoring.AfficherProduitFrontController">
-   <children>
-      <!-- Left Pane -->
-      <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
-         <children>
-            <ImageView fitHeight="154.0" fitWidth="200.0" layoutX="26.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@2.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="17.0" layoutY="99.0" prefHeight="58.0" prefWidth="172.0" text="FemHealth" textAlignment="CENTER" textFill="#b4256f">
-               <font>
-                  <Font name="Edwardian Script ITC" size="42.0" />
-               </font>
-            </Label>
-            <Label layoutX="7.0" layoutY="171.0" prefHeight="46.0" prefWidth="201.0" text="Le début de votre ère optimale" textFill="#ffd3ee">
-               <font>
-                  <Font name="Edwardian Script ITC" size="24.0" />
-               </font>
-            </Label>
-            <Line endX="86.59999084472656" layoutX="107.0" layoutY="218.0" startX="-90.99998474121094" startY="-0.600006103515625" stroke="WHITE" />
-            <!-- Navigation ChoiceBoxes -->
-            <ChoiceBox layoutX="51.0" layoutY="262.0" prefHeight="25.0" prefWidth="150.0">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Mon Compte" />
-                  </FXCollections>
-               </items>
-            </ChoiceBox>
-            <ChoiceBox layoutX="51.0" layoutY="317.0" prefHeight="25.0" prefWidth="150.0">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Voir Événements" />
-                     <String fx:value="Voir Réservations" />
-                  </FXCollections>
-               </items>
-            </ChoiceBox>
-            <ChoiceBox layoutX="51.0" layoutY="373.0" prefHeight="25.0" prefWidth="150.0">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Publications" />
-                     <String fx:value="Mes Commentaires" />
-                  </FXCollections>
-               </items>
-            </ChoiceBox>
-            <ChoiceBox layoutX="51.0" layoutY="430.0" prefHeight="25.0" prefWidth="150.0">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Produits Disponibles" />
-                     <String fx:value="Voir Panier" />
-                     <String fx:value="Voir Commandes" />
-                  </FXCollections>
-               </items>
-            </ChoiceBox>
+    <children>
+        <!-- Left Pane -->
+        <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
+            <children>
+                <ImageView fitHeight="154.0" fitWidth="200.0" layoutX="26.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@2.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="17.0" layoutY="99.0" prefHeight="58.0" prefWidth="172.0" text="FemHealth" textAlignment="CENTER" textFill="#b4256f">
+                    <font>
+                        <Font name="Edwardian Script ITC" size="42.0" />
+                    </font>
+                </Label>
+                <Label layoutX="7.0" layoutY="171.0" prefHeight="46.0" prefWidth="201.0" text="Le début de votre ère optimale" textFill="#ffd3ee">
+                    <font>
+                        <Font name="Edwardian Script ITC" size="24.0" />
+                    </font>
+                </Label>
+                <Line endX="86.59999084472656" layoutX="107.0" layoutY="218.0" startX="-90.99998474121094" startY="-0.600006103515625" stroke="WHITE" />
+                <!-- Navigation ChoiceBoxes -->
+                <ChoiceBox layoutX="51.0" layoutY="262.0" prefHeight="25.0" prefWidth="150.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Mon Compte" />
+                        </FXCollections>
+                    </items>
+                </ChoiceBox>
+                <ChoiceBox layoutX="51.0" layoutY="317.0" prefHeight="25.0" prefWidth="150.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Voir Événements" />
+                            <String fx:value="Voir Réservations" />
+                        </FXCollections>
+                    </items>
+                </ChoiceBox>
+                <ChoiceBox layoutX="51.0" layoutY="373.0" prefHeight="25.0" prefWidth="150.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Publications" />
+                            <String fx:value="Mes Commentaires" />
+                        </FXCollections>
+                    </items>
+                </ChoiceBox>
+                <ChoiceBox layoutX="51.0" layoutY="430.0" prefHeight="25.0" prefWidth="150.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Produits Disponibles" />
+                            <String fx:value="Voir Panier" />
+                            <String fx:value="Voir Commandes" />
+                        </FXCollections>
+                    </items>
+                </ChoiceBox>
 
-            <!-- User Info -->
-            <AnchorPane layoutX="7.0" layoutY="506.0" prefHeight="70.0" prefWidth="195.0" style="-fx-background-color: #FFD1DC;">
-               <children>
-                  <Label layoutX="62.0" layoutY="14.0" text="Bonjour," />
-                  <Label layoutX="61.0" layoutY="32.0" text="Nom d'utilisateur" />
-                  <!-- Replace with actual logo icon -->
-                  <ImageView fx:id="imageView2" fitHeight="54.0" fitWidth="45.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
+                <!-- User Info -->
+                <AnchorPane layoutX="7.0" layoutY="506.0" prefHeight="70.0" prefWidth="195.0" style="-fx-background-color: #FFD1DC;">
+                    <children>
+                        <Label layoutX="62.0" layoutY="14.0" text="Bonjour," />
+                        <Label layoutX="61.0" layoutY="32.0" text="Nom d'utilisateur" />
+                        <!-- Replace with actual logo icon -->
+                        <ImageView fx:id="imageView2" fitHeight="54.0" fitWidth="45.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="166.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@deconnect.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+                <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="262.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
                         <Image url="@images.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="166.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@deconnect.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="262.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@blog.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@events.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@ecommerce.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="51.0" layoutY="251.0" prefHeight="18.0" prefWidth="121.0" text="Mon Compte" textFill="#514f4f">
-               <font>
-                  <Font name="System Bold Italic" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="51.0" layoutY="306.0" prefHeight="18.0" prefWidth="121.0" text="Evènements" textFill="#514f4f">
-               <font>
-                  <Font name="System Bold Italic" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="51.0" layoutY="362.0" prefHeight="18.0" prefWidth="121.0" text="Blog" textFill="#514f4f">
-               <font>
-                  <Font name="System Bold Italic" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="51.0" layoutY="419.0" prefHeight="18.0" prefWidth="121.0" text="E-Commerce" textFill="#514f4f">
-               <font>
-                  <Font name="System Bold Italic" size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <!-- Right Pane -->
-      <Pane layoutX="207.0" layoutY="-1.0" prefHeight="591.0" prefWidth="586.0" style="-fx-background-color: #ececec;">
-         <children>
-            <ScrollPane layoutX="10.0" layoutY="-1.0" prefHeight="591.0" prefWidth="586.0" style="-fx-background-color: #ececec;">
-               <content>
-                  <FlowPane fx:id="produitFlowPane" prefHeight="563.0" prefWidth="586.0" />
-               </content>
-            </ScrollPane>
-         </children>
-      </Pane>
-   </children>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@blog.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@events.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@ecommerce.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="51.0" layoutY="251.0" prefHeight="18.0" prefWidth="121.0" text="Mon Compte" textFill="#514f4f">
+                    <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                    </font>
+                </Label>
+                <Label layoutX="51.0" layoutY="306.0" prefHeight="18.0" prefWidth="121.0" text="Evènements" textFill="#514f4f">
+                    <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                    </font>
+                </Label>
+                <Label layoutX="51.0" layoutY="362.0" prefHeight="18.0" prefWidth="121.0" text="Blog" textFill="#514f4f">
+                    <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                    </font>
+                </Label>
+                <Label layoutX="51.0" layoutY="419.0" prefHeight="18.0" prefWidth="121.0" text="E-Commerce" textFill="#514f4f">
+                    <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <!-- Right Pane -->
+        <Pane layoutX="207.0" layoutY="-1.0" prefHeight="591.0" prefWidth="586.0" style="-fx-background-color: #ececec;">
+            <children>
+                <ScrollPane layoutX="10.0" layoutY="-1.0" prefHeight="591.0" prefWidth="586.0" style="-fx-background-color: #ececec;">
+                    <content>
+                        <FlowPane fx:id="produitFlowPane" prefHeight="563.0" prefWidth="586.0" />
+                    </content>
+                </ScrollPane>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>
