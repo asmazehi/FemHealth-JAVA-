@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Sponsoring.AfficherProduitFrontController">
+    <children>
+        <Label layoutX="39.0" layoutY="41.0" text="Product Name" textFill="#333333">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="39.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="https://via.placeholder.com/200" />
+            </image>
+        </ImageView>
+        <Label layoutX="279.0" layoutY="71.0" text="Price: $100.00" textFill="#333333">
+            <font>
+                <Font name="System Regular" size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="279.0" layoutY="101.0" text="Discount: 20% (Price: $80.00)" textFill="#333333">
+            <font>
+                <Font name="System Regular" size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="279.0" layoutY="131.0" text="Description:" textFill="#333333">
+            <font>
+                <Font name="System Regular" size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="279.0" layoutY="161.0" prefHeight="200.0" prefWidth="300.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan odio quis justo eleifend, non tempus dolor tincidunt. Duis in velit ac tellus accumsan pellentesque. Sed sit amet metus nisi. Nunc in est eget libero interdum aliquam. Nulla facilisi. Vivamus nec turpis sed nibh feugiat rutrum. Integer feugiat metus nec urna malesuada tincidunt. Proin dapibus, odio at malesuada placerat, mi ipsum dapibus justo, eu pellentesque orci nulla ut justo. Morbi ultricies, neque quis congue commodo, justo lectus auctor justo, nec tincidunt neque nulla non dui." textFill="#333333" wrapText="true">
+            <font>
+                <Font name="System Regular" size="14.0" />
+            </font>
+        </Label>
+        <Button layoutX="39.0" layoutY="301.0" mnemonicParsing="false" text="Add to Cart" />
+    </children>
 
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
