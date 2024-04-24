@@ -4,9 +4,11 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -43,7 +45,6 @@
             <ChoiceBox layoutX="51.0" layoutY="317.0" prefHeight="25.0" prefWidth="150.0">
                <items>
                   <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Événements" />
                      <String fx:value="Voir Événements" />
                      <String fx:value="Voir Réservations" />
                   </FXCollections>
@@ -52,7 +53,6 @@
             <ChoiceBox layoutX="51.0" layoutY="373.0" prefHeight="25.0" prefWidth="150.0">
                <items>
                   <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Blog" />
                      <String fx:value="Publications" />
                      <String fx:value="Mes Commentaires" />
                   </FXCollections>
@@ -61,7 +61,6 @@
             <ChoiceBox layoutX="51.0" layoutY="430.0" prefHeight="25.0" prefWidth="150.0">
                <items>
                   <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="ECommerce" />
                      <String fx:value="Produits Disponibles" />
                      <String fx:value="Voir Panier" />
                      <String fx:value="Voir Commandes" />
@@ -107,22 +106,22 @@
                   <Image url="@ecommerce.png" />
                </image>
             </ImageView>
-            <Label layoutX="60.0" layoutY="266.0" prefHeight="18.0" prefWidth="121.0" text="Mon Compte" textFill="#514f4f">
+            <Label layoutX="51.0" layoutY="251.0" prefHeight="18.0" prefWidth="121.0" text="Mon Compte" textFill="#514f4f">
                <font>
                   <Font name="System Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="60.0" layoutY="319.0" prefHeight="18.0" prefWidth="121.0" text="Evènements" textFill="#514f4f">
+            <Label layoutX="51.0" layoutY="306.0" prefHeight="18.0" prefWidth="121.0" text="Evènements" textFill="#514f4f">
                <font>
                   <Font name="System Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="60.0" layoutY="375.0" prefHeight="18.0" prefWidth="121.0" text="Blog" textFill="#514f4f">
+            <Label layoutX="51.0" layoutY="362.0" prefHeight="18.0" prefWidth="121.0" text="Blog" textFill="#514f4f">
                <font>
                   <Font name="System Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="60.0" layoutY="432.0" prefHeight="18.0" prefWidth="121.0" text="E-Commerce" textFill="#514f4f">
+            <Label layoutX="51.0" layoutY="419.0" prefHeight="18.0" prefWidth="121.0" text="E-Commerce" textFill="#514f4f">
                <font>
                   <Font name="System Bold Italic" size="15.0" />
                </font>
@@ -130,8 +129,14 @@
          </children>
       </AnchorPane>
       <!-- Right Pane -->
-      <Pane layoutX="207.0" layoutY="-1.0" prefHeight="591.0" prefWidth="616.0" style="-fx-background-color: #ececec;">
-         <!-- Add content here -->
+      <Pane layoutX="207.0" layoutY="-1.0" prefHeight="591.0" prefWidth="586.0" style="-fx-background-color: #ececec;">
+         <children>
+            <ScrollPane layoutX="10.0" layoutY="-1.0" prefHeight="591.0" prefWidth="586.0" style="-fx-background-color: #ececec;">
+               <content>
+                  <FlowPane fx:id="produitFlowPane" prefHeight="563.0" prefWidth="586.0" />
+               </content>
+            </ScrollPane>
+         </children>
       </Pane>
    </children>
 </AnchorPane>
