@@ -19,10 +19,10 @@ public class MainFX extends Application {
     public void start(Stage primaryStage) {
         try {
            // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AfficherEventB.fxml"));
-           // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AjouterResB.fxml"));
+       // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AfficherEventB.fxml"));
+         //   FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AjouterEventB.fxml"));
 
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
 
 
 

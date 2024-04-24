@@ -105,5 +105,26 @@ public class AjouterResB {
         // Update the label to display the event ID
         eventIdLabel.setText("Event ID: " + eventId);
     }
+    @FXML
+    void goBack(ActionEvent event) {
+        try {
+            // Load the previous page FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene
+            Scene scene = new Scene(root);
+
+            // Get the stage from the event source
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene and show the stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the error if loading the FXML fails
+        }
+    }
 
 }

@@ -1,7 +1,6 @@
 package controller.Event;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,10 +11,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.events.Evenement;
 import model.events.Type;
 import service.events.EvenementC;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -67,7 +70,8 @@ public class AfficherEventB {
     private EvenementC ec = new EvenementC();
     private ObservableList<Evenement> obs;
 
-    public void ajouterEventB(ActionEvent actionEvent) {
+    @FXML
+    void ajouterEventB(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/back.Event/AjouterEventB.fxml"));
             Parent root = loader.load();
@@ -81,11 +85,8 @@ public class AfficherEventB {
             currentStage.close();
         } catch (IOException e) {
             e.printStackTrace();
-            // Gérer l'erreur de chargement de la vue AjouterFXML.fxml
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("Failed to load AjouterFXML.fxml");
-            alert.show();
+            // Handle loading error
+            showErrorAlert("Failed to load AjouterFXML.fxml");
         }
 
     }
@@ -97,48 +98,37 @@ public class AfficherEventB {
             ec.delete(e.getId());
             obs.remove(e);
         } catch (SQLException e) {
+            e.printStackTrace();
             System.err.println(e.getMessage());
         }
     }
+
     @FXML
     void modifierEventB(ActionEvent event) {
-        // Récupérer l'événement sélectionné dans le TableView
         Evenement evenement = tableview.getSelectionModel().getSelectedItem();
 
         if (evenement != null) {
             try {
-                // Charger la vue de modification avec le contrôleur correspondant
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/ModifierEventB.fxml"));
                 Parent root = loader.load();
 
-                // Passer l'événement à modifier au contrôleur de modification
                 ModifierEventB controller = loader.getController();
                 controller.initData(evenement);
 
-                // Créer une nouvelle scène
                 Scene scene = new Scene(root);
-
-                // Obtenir la scène actuelle et changer sa racine
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
-                // Gérer l'erreur de chargement de la vue de modification
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Failed to load ModifierEventB.fxml");
-                alert.show();
+                // Handle loading error
+                showErrorAlert("Failed to load ModifierEventB.fxml");
             }
         } else {
-            // Afficher un message si aucun événement n'est sélectionné
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Attention");
-            alert.setContentText("Veuillez sélectionner un événement à modifier");
-            alert.show();
+            // Show a warning if no event is selected
+            showAlert(Alert.AlertType.WARNING, "Attention", "Veuillez sélectionner un événement à modifier");
         }
     }
-
 
     @FXML
     void initialize() {
@@ -146,16 +136,15 @@ public class AfficherEventB {
             List<Evenement> list = ec.select();
             obs = FXCollections.observableArrayList(list);
             tableview.setItems(obs);
-            //type_idCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+
             type_idCol.setCellValueFactory(cellData -> {
                 Type type = cellData.getValue().getType_id();
-               // String typeName = (type != null) ? type.getType() : "";
-                return new ReadOnlyObjectWrapper<>(type);            });
+                return new ReadOnlyObjectWrapper<>(type);
+            });
 
             nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
             localisationCol.setCellValueFactory(new PropertyValueFactory<>("localisation"));
             montantCol.setCellValueFactory(new PropertyValueFactory<>("montant"));
-            imageCol.setCellValueFactory(new PropertyValueFactory<>("image"));
             date_debutCol.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
             date_finCol.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
 
@@ -167,7 +156,6 @@ public class AfficherEventB {
                         Evenement evenement = getTableRow().getItem();
                         openReservationPage(evenement.getId());
                     });
-
                 }
 
                 @Override
@@ -181,7 +169,34 @@ public class AfficherEventB {
                 }
             });
 
+            imageCol.setCellFactory(column -> new TableCell<Evenement, String>() {
+                private final ImageView imageView = new ImageView();
+
+                @Override
+                protected void updateItem(String imagePath, boolean empty) {
+                    super.updateItem(imagePath, empty);
+
+                    if (empty || imagePath == null) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        File file = new File(imagePath);
+                        if (file.exists()) {
+                            Image image = new Image(file.toURI().toString());
+                            imageView.setImage(image);
+                            imageView.setFitWidth(100);
+                            imageView.setFitHeight(100);
+                            setGraphic(imageView);
+                            setText(null);
+                        } else {
+                            setText("Image not found");
+                        }
+                    }
+                }
+            });
+
         } catch (SQLException e) {
+            e.printStackTrace();
             System.err.println(e.getMessage());
         }
     }
@@ -191,7 +206,6 @@ public class AfficherEventB {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/back.Event/AjouterResB.fxml"));
             Parent root = loader.load();
 
-            // Pass the event ID to the controller for AjouterResB.fxml
             AjouterResB controller = loader.getController();
             controller.initData(eventId);
 
@@ -201,12 +215,11 @@ public class AfficherEventB {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("Failed to load AjouterResB.fxml");
-            alert.show();
+            // Handle loading error
+            showErrorAlert("Failed to load AjouterResB.fxml");
         }
     }
+
     @FXML
     private void navigateToReservations(ActionEvent event) {
         try {
@@ -219,11 +232,19 @@ public class AfficherEventB {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("Failed to load AfficherResB.fxml");
-            alert.show();
+            // Handle loading error
+            showErrorAlert("Failed to load AfficherResB.fxml");
         }
     }
 
+    private void showAlert(Alert.AlertType type, String title, String contentText) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(contentText);
+        alert.show();
+    }
+
+    private void showErrorAlert(String contentText) {
+        showAlert(Alert.AlertType.ERROR, "Error", contentText);
+    }
 }

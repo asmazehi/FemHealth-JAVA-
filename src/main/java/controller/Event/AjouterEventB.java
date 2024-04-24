@@ -145,7 +145,7 @@ public class AjouterEventB {
                 String imageFileName = imageView.getImage().getUrl().substring(imageView.getImage().getUrl().lastIndexOf('/') + 1);
 
                 // Set the image path for the event
-                ev.setImage("imgEvent/" + imageFileName);
+                ev.setImage("src/main/resources/imgEvent/" + imageFileName);
 
                 // Call the add method from EvenementC to add the event
                 EvenementC ec = new EvenementC();
@@ -191,7 +191,8 @@ public class AjouterEventB {
             try {
                 String targetDir = "src/main/resources/imgEvent/";
                 Path targetPath = Files.copy(file.toPath(), new File(targetDir + file.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
-                imageView.setImage(new Image("file:" + targetDir + file.getName()));
+                Image image = new Image(targetPath.toUri().toString()); // Load the image from the copied file
+                imageView.setImage(image);
             } catch (IOException e) {
                 showAlert("Erreur", "Erreur lors de l'upload de l'image : " + e.getMessage());
             }

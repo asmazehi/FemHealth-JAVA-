@@ -1,6 +1,9 @@
 package controller.Event;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,6 +14,7 @@ import model.events.Evenement;
 import service.events.EvenementC;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -83,7 +87,32 @@ public class AffichageEventF {
         montantLabel.setLayoutY(260);
         montantLabel.getStyleClass().add("evenement-montant");
 
-        card.getChildren().addAll(imageView, nomLabel, dateDebutLabel, dateFinLabel, localisationLabel, montantLabel);
+        Button reserverButton = new Button("Réserver");
+        reserverButton.setLayoutX(15);
+        reserverButton.setLayoutY(280);
+        reserverButton.getStyleClass().add("evenement-reserver-button");
+        reserverButton.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/ReserverF.fxml"));
+                AnchorPane reservationPage = loader.load();
+
+                // Pass the event ID to the AjouterResB controller
+                AjouterResB controller = loader.getController();
+                controller.initData(evenement.getId()); // Pass the event ID here
+
+                // Access the scene and root node of the current anchor pane
+                Scene scene = card.getScene();
+                AnchorPane root = (AnchorPane) scene.getRoot();
+
+                // Replace the content of the root with the reservation page
+                root.getChildren().setAll(reservationPage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+
+        card.getChildren().addAll(imageView, nomLabel, dateDebutLabel, dateFinLabel, localisationLabel, montantLabel, reserverButton);
         return card;
     }
 }
