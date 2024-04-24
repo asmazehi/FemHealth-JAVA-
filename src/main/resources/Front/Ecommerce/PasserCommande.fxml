@@ -13,9 +13,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Ecommerce.PasserCommandeContoller">
     <children>
-        <Pane prefHeight="400.0" prefWidth="606.0">
+        <Pane layoutX="-14.0" layoutY="11.0" prefHeight="574.0" prefWidth="856.0">
             <children>
-                <Pane layoutX="31.0" layoutY="105.0" prefHeight="265.0" prefWidth="544.0" style="-fx-background-color: #FFFFFF;">
+                <Pane layoutX="31.0" layoutY="105.0" prefHeight="364.0" prefWidth="734.0" style="-fx-background-color: #FFFFFF;">
                     <effect>
                         <DropShadow>
                             <color>
@@ -26,27 +26,27 @@
                     <children>
                         <Button fx:id="addC" layoutX="317.0" layoutY="226.0" mnemonicParsing="false" onAction="#AddCommande" prefHeight="25.0" prefWidth="183.0" text="Continue to dilevry méthode &gt;" />
                         <Button fx:id="updateP" layoutX="49.0" layoutY="226.0" mnemonicParsing="false" onAction="#afficherpanier" prefHeight="25.0" prefWidth="112.0" text="&lt; Back to Basket" />
-                        <TextField id="phone" fx:id="phone" layoutX="293.0" layoutY="154.0" prefHeight="32.0" prefWidth="191.0" />
+                        <TextField id="phone" fx:id="phone" layoutX="350.0" layoutY="154.0" prefHeight="32.0" prefWidth="191.0" />
                         <Label layoutX="49.0" layoutY="53.0" text="Adress" />
                         <Label layoutX="26.0" layoutY="7.0" text="Checkout-informations" textFill="#ea309c">
                             <font>
                                 <Font size="25.0" />
                             </font>
                         </Label>
-                        <Label layoutX="293.0" layoutY="53.0" text="Methode de paiement" />
+                        <Label layoutX="345.0" layoutY="53.0" text="Methode de paiement" />
                         <Label layoutX="49.0" layoutY="132.0" text="Méthode de livraison" />
-                        <Label layoutX="293.0" layoutY="132.0" text="phone" />
+                        <Label layoutX="364.0" layoutY="132.0" text="phone" />
                         <Line endX="165.20001220703125" endY="-1.52587890625E-5" layoutX="331.0" layoutY="44.0" startX="-301.0" startY="-1.52587890625E-5" stroke="#ec1fa8" />
                         <ChoiceBox fx:id="Mlivraison" layoutX="52.0" layoutY="154.0" prefHeight="32.0" prefWidth="201.0" />
-                        <ChoiceBox fx:id="Mpaiement" layoutX="279.0" layoutY="69.0" prefHeight="32.0" prefWidth="201.0" />
+                        <ChoiceBox fx:id="Mpaiement" layoutX="345.0" layoutY="69.0" prefHeight="32.0" prefWidth="201.0" />
                         <ChoiceBox fx:id="Adress" layoutX="49.0" layoutY="69.0" prefHeight="32.0" prefWidth="201.0" />
-                        <Label fx:id="AdressControl" layoutX="49.0" layoutY="109.0" prefHeight="17.0" prefWidth="201.0" style="-fx-font-weight: 15px;" />
-                        <Label fx:id="livraisoncontrol" layoutX="52.0" layoutY="193.0" prefHeight="32.0" prefWidth="208.0" />
-                        <Label fx:id="phonecontrol" layoutX="293.0" layoutY="193.0" prefHeight="17.0" prefWidth="191.0" />
-                        <Label fx:id="paiementcontrol" layoutX="280.0" layoutY="109.0" prefHeight="17.0" prefWidth="201.0" />
+                        <Label fx:id="AdressControl" layoutX="49.0" layoutY="109.0" prefHeight="17.0" prefWidth="278.0" style="-fx-font-weight: 15px;" textFill="#e10303" />
+                        <Label fx:id="livraisoncontrol" layoutX="52.0" layoutY="193.0" prefHeight="32.0" prefWidth="278.0" textFill="#e10303" />
+                        <Label fx:id="phonecontrol" layoutX="354.0" layoutY="193.0" prefHeight="17.0" prefWidth="351.0" textFill="#e10303" />
+                        <Label fx:id="paiementcontrol" layoutX="350.0" layoutY="109.0" prefHeight="17.0" prefWidth="351.0" textFill="#e10303" />
                     </children>
                 </Pane>
-                <Pane layoutX="31.0" layoutY="66.0" prefHeight="32.0" prefWidth="544.0" style="-fx-background-color: #FFFFFF;">
+                <Pane layoutX="31.0" layoutY="66.0" prefHeight="32.0" prefWidth="734.0" style="-fx-background-color: #FFFFFF;">
                     <effect>
                         <DropShadow>
                             <color>

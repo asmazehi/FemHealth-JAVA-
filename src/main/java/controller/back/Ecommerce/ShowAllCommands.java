@@ -1,29 +1,29 @@
-package controller.front.Ecommerce;
+package controller.back.Ecommerce;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import controller.front.Ecommerce.DetailCommand;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import model.Ecommerce.*;
+import model.Ecommerce.Commande;
 import service.Ecommerce.CommandeService;
 import service.Ecommerce.PanierService;
 
-public class AfficherListCommandeparClient {
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class ShowAllCommands {
+
     @FXML
     private ResourceBundle resources;
 
@@ -62,7 +62,7 @@ public class AfficherListCommandeparClient {
 
     @FXML
     private VBox vBoxContainer;
-  int idClient=1;
+    int idClient=1;
     PanierService panierService= new PanierService();
     CommandeService commandeService= new CommandeService();
     List<Commande> objectList;
@@ -104,7 +104,7 @@ public class AfficherListCommandeparClient {
         Label PaiementLable = new Label("" + obj.getMpaiement() + "");
         Label LivraisonLabel = new Label("" + obj.getMlivraison());
         Label StatutLabel = new Label("" + obj.getStatut());
-        Button annulerButton = new Button("annuler");
+        Button annulerButton = new Button("Terminer");
         Button detailButton = new Button("Detail");
 
         hbox.getChildren().addAll(DateLable, AdressLabel, PaiementLable, LivraisonLabel, StatutLabel, annulerButton, detailButton);
@@ -113,7 +113,7 @@ public class AfficherListCommandeparClient {
 
         annulerButton.setOnAction(event -> {
             try {
-                obj.setStatut("Annulée"); // Modifier le statut de la commande à "Annulée"
+                obj.setStatut("Terminé"); // Modifier le statut de la commande à "Annulée"
                 commandeService.update(obj); // Mettre à jour la commande dans la base de données
 
                 // Mettre à jour les Labels existants avec les nouvelles valeurs de commande
@@ -135,7 +135,7 @@ public class AfficherListCommandeparClient {
             }
         });
 
-        if (obj.getStatut().equals("Annulée")) {
+        if (obj.getStatut().equals("Annulée")||obj.getStatut().equals("Terminé")) {
             // Si le statut est "Annulée", masquez le bouton "Annuler"
             annulerButton.setVisible(false);
         }
@@ -159,5 +159,3 @@ public class AfficherListCommandeparClient {
 
 
 }
-
-

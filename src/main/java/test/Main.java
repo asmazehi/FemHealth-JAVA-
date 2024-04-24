@@ -45,7 +45,7 @@ public class Main {
 
         PanierService panierService = new PanierService();
 
-        int idPanier = 4; // Remplacez 5 par l'ID du panier que vous souhaitez afficher
+        int idPanier = 2; // Remplacez 5 par l'ID du panier que vous souhaitez afficher
 
         List<PanierItem> infosPanier = panierService.afficherinfopanier(idPanier);
         System.out.println(infosPanier.size());

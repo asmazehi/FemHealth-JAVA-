@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import model.Ecommerce.Lignepanier;
 import model.Ecommerce.Panier;
 import model.Ecommerce.PanierItem;
 import service.Ecommerce.LignepanierService;
@@ -103,8 +104,8 @@ public class ShowPanier implements Initializable {
     private HBox createHBoxForItem(PanierItem obj,Insets margins) {
         HBox hbox = new HBox();
         hbox.setPadding(margins);
-        Label nameLabel = new Label("  "+obj.getNomProduit()+"             ");
-        Label priceLabel = new Label("   " + obj.getPrixUnitaire()+" DT  ");
+        Label nameLabel = new Label("  "+obj.getNomProduit()+"         ");
+        Label priceLabel = new Label("   " + obj.getPrixUnitaire()+" DT   ");
         Label prixprodLabel = new Label("" + obj.getTotalProduit()+" DT  ");
         Button delet = new Button("Delet");
         Spinner<Integer> quant=new Spinner<>(1, Integer.MAX_VALUE, obj.getQuantite()); // Plage de valeurs de 0 à Integer.MAX_VALUE (valeur maximale d'un entier), valeur initiale à 0
@@ -118,8 +119,37 @@ public class ShowPanier implements Initializable {
 
         nameLabel.setStyle("-fx-text-fill: #ec1fbc;"); // Couleur du texte en rose
         hbox.getChildren().addAll(nameLabel, quant, priceLabel, prixprodLabel,delet);
-        hbox.setSpacing(18);
+        hbox.setSpacing(60);
         hbox.setAlignment(Pos.TOP_CENTER);
+
+// Ajouter un écouteur d'événements au Spinner pour détecter les changements de valeur
+        quant.valueProperty().addListener((obs, oldValue, newValue) -> {
+            // Mettre à jour le prix du produit en fonction de la nouvelle quantité sélectionnée
+            int newQuantity = newValue;
+            float newPrice = newQuantity * obj.getPrixUnitaire();
+            obj.setQuantite(newQuantity); // Mettre à jour la quantité dans l'objet PanierItem
+            obj.setTotalProduit(newPrice); // Mettre à jour le prix total du produit dans l'objet PanierItem
+            //total=total+newPrice-oldValue*obj.getPrixUnitaire();
+            // Mettre à jour l'affichage du prix du produit
+            //prixprodLabel.setText(String.valueOf(newPrice) + " DT");
+            updateTotals(objectList);
+            Lignepanier lignepanier=lignepanierService.selectlignepanier(obj.getIdpanier(), obj.getIdproduit());
+            System.out.println("id ta3 lignepanier prod :  "+lignepanier.getIdProduit());
+            System.out.println("id ta3 lignepanier panier:  "+lignepanier.getIdPanier());
+            System.out.println("id prod ; "+obj.getIdproduit());
+            lignepanier.setQuantité(newValue);
+            try {
+                lignepanierService.update(lignepanier);
+                System.out.println("id ta3 lignepanier prod ba3ed :  "+lignepanier.getIdProduit());
+                System.out.println("id ta3 lignepanier panier ba3ed :  "+lignepanier.getIdPanier());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            // Mettre à jour le prix total du panier en recalculant le total
+
+        });
+
+
 
         delet.setOnAction(event -> {
             try {
@@ -156,9 +186,8 @@ public class ShowPanier implements Initializable {
         return hbox;
     }
     private HBox createTotalBox(double total) {
-
         HBox totalBox = new HBox();
-        totalBox.setSpacing(80); // Espace entre les éléments
+        totalBox.setSpacing(120); // Espace entre les éléments
 
         // Calcul du total du panier
 
