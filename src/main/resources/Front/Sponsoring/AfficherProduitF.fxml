@@ -33,14 +33,14 @@
             </Label>
             <Line endX="86.59999084472656" layoutX="107.0" layoutY="218.0" startX="-90.99998474121094" startY="-0.600006103515625" stroke="WHITE" />
             <!-- Navigation ChoiceBoxes -->
-            <ChoiceBox layoutX="28.0" layoutY="262.0" prefHeight="25.0" prefWidth="150.0">
+            <ChoiceBox layoutX="51.0" layoutY="262.0" prefHeight="25.0" prefWidth="150.0">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Mon Compte" />
                   </FXCollections>
                </items>
             </ChoiceBox>
-            <ChoiceBox layoutX="28.0" layoutY="317.0" prefHeight="25.0" prefWidth="150.0">
+            <ChoiceBox layoutX="51.0" layoutY="317.0" prefHeight="25.0" prefWidth="150.0">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Événements" />
@@ -49,7 +49,7 @@
                   </FXCollections>
                </items>
             </ChoiceBox>
-            <ChoiceBox layoutX="28.0" layoutY="373.0" prefHeight="25.0" prefWidth="150.0">
+            <ChoiceBox layoutX="51.0" layoutY="373.0" prefHeight="25.0" prefWidth="150.0">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Blog" />
@@ -58,7 +58,7 @@
                   </FXCollections>
                </items>
             </ChoiceBox>
-            <ChoiceBox layoutX="28.0" layoutY="430.0" prefHeight="25.0" prefWidth="150.0">
+            <ChoiceBox layoutX="51.0" layoutY="430.0" prefHeight="25.0" prefWidth="150.0">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="ECommerce" />
@@ -87,46 +87,46 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Label layoutX="35.0" layoutY="266.0" prefHeight="18.0" prefWidth="118.0" text="Mon Compte" textFill="#545454">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="35.0" layoutY="376.0" prefHeight="18.0" prefWidth="118.0" text="Blog" textFill="#545454">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="35.0" layoutY="320.0" prefHeight="18.0" prefWidth="118.0" text="Evènements" textFill="#545454">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="35.0" layoutY="433.0" prefHeight="18.0" prefWidth="118.0" text="E-Commerce" textFill="#545454">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="1.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="262.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@ecommerce.png" />
+                  <Image url="@images.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="1.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@blog.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="4.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="events.png" />
+                  <Image url="@events.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="4.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@compte.png" />
+                  <Image url="@ecommerce.png" />
                </image>
             </ImageView>
+            <Label layoutX="60.0" layoutY="266.0" prefHeight="18.0" prefWidth="121.0" text="Mon Compte" textFill="#514f4f">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="60.0" layoutY="319.0" prefHeight="18.0" prefWidth="121.0" text="Evènements" textFill="#514f4f">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="60.0" layoutY="375.0" prefHeight="18.0" prefWidth="121.0" text="Blog" textFill="#514f4f">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="60.0" layoutY="432.0" prefHeight="18.0" prefWidth="121.0" text="E-Commerce" textFill="#514f4f">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <!-- Right Pane -->
