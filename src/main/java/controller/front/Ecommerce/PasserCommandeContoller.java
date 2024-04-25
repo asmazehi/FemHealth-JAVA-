@@ -97,7 +97,6 @@ public void setIdp(int idp){
         try {
             System.out.println("ID du panier avant de charger la nouvelle vue : " + idp);
 
-            // Ajouter la commande avant de charger la nouvelle vue
             commandeService.add(commande);
 
             // Charger la vue AfficherCommande.fxml après avoir ajouté la commande

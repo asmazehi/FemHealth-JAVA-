@@ -146,14 +146,20 @@ public class AfficherProduitFrontController {
     @FXML
     void afficherpanier(ActionEvent event) {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/ShowPanier1.fxml"));
             Parent root = loader.load();
-            //ShowPanier controller = loader.getController();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Afficher Panier");
+            alert.setHeaderText(null);
+            alert.setContentText("Voulez-vous vraiment afficher le panier?");
+            alert.showAndWait();
+
+            // Modification de la scène pour afficher le panier
             afficherpanier.getScene().setRoot(root);
-        }catch(IOException e){
+        } catch(IOException e) {
             System.err.println("Error loading PasserCommande.fxml: " + e.getMessage());
         }
-
     }
+
+
 }
