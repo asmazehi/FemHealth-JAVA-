@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="576.0" prefWidth="713.0" style="-fx-background-color: #C291A4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.User.EditProfilController">
+   <children>
+      <Label layoutX="422.0" layoutY="-89.0" text="Label" />
+      <Label layoutX="175.0" layoutY="25.0" text="Edit Profil">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <TextField fx:id="EmailTF" layoutX="28.0" layoutY="140.0" prefHeight="25.0" prefWidth="211.0" promptText="Email" />
+      <Pane layoutX="269.0" layoutY="78.0" prefHeight="357.0" prefWidth="334.0">
+         <children>
+            <CheckBox fx:id="changemdp" layoutX="16.0" layoutY="11.0" mnemonicParsing="false" onAction="#Modifiermdp" text="changer mot de passe" />
+            <Label layoutX="16.0" layoutY="93.0" prefHeight="17.0" prefWidth="211.0" text="mot de passe incorrecte" />
+            <Label layoutX="16.0" layoutY="148.0" prefHeight="17.0" prefWidth="211.0" text="Veuillez saisir un mot de passe valide" />
+            <Label layoutX="16.0" layoutY="197.0" prefHeight="17.0" prefWidth="211.0" text="Veuillez saisir un mot de passe correcte" />
+            <TextField layoutX="16.0" layoutY="68.0" />
+            <TextField layoutX="16.0" layoutY="122.0" />
+            <TextField layoutX="16.0" layoutY="171.0" />
+            <PasswordField fx:id="mdpAC_TF" layoutX="16.0" layoutY="68.0" prefHeight="25.0" prefWidth="211.0" promptText="mot de passe actuel" />
+            <PasswordField fx:id="mdpNV_TF" layoutX="16.0" layoutY="122.0" prefHeight="25.0" prefWidth="218.0" promptText="nouveau mot de passe" />
+            <PasswordField fx:id="mdpC_TF" layoutX="16.0" layoutY="171.0" prefHeight="25.0" prefWidth="218.0" promptText="Confirmer mot de passe" />
+            <Button layoutX="181.0" layoutY="68.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="39.0">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="1.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../pngtree-eye-password-icon-for-web-and-mobile-design-vector-png-image_12859876.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button layoutX="189.0" layoutY="122.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="0.0">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Button>
+            <Button layoutX="187.0" layoutY="170.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="28.0">
+               <graphic>
+                  <ImageView fitHeight="19.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Button>
+            <ImageView fitHeight="17.0" fitWidth="20.0" layoutX="191.0" layoutY="72.0">
+               <image>
+                  <Image url="@../../../Image/eye.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Button fx:id="ConfirmationTF" layoutX="537.0" layoutY="455.0" mnemonicParsing="false" onAction="#ModifierInfo" style="-fx-background-color: #FFD1DC;" text="Confirmation" />
+      <Label layoutX="28.0" layoutY="122.0" text="Veuillez saisir votre Email" />
+   </children>
+</AnchorPane>

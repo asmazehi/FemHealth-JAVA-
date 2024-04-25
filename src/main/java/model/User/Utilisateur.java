@@ -1,48 +1,56 @@
 package model.User;
 
+import java.util.Date;
+
 public class Utilisateur {
     private int id;
     private String nom;
-    private String mail;
-    private String mdp;
-    private String role;
+    private String email;
+    private String password;
+    private String roles;
+    private int active;
+    private Date Registred_at;
 
+    private String status;
     public Utilisateur() {
     }
 
-    public Utilisateur(int id) {
-        this.id = id;
+    public String getStatus() {
+        return status;
     }
 
-    public Utilisateur(String nom, String mail) {
-        this.nom = nom;
-        this.mail = mail;
-
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Utilisateur(String nom, String mail, String mdp ) {
-        this.nom = nom;
-        this.mail = mail;
-        this.mdp = mdp;
-
-    }
-
-
-    public Utilisateur(int id, String nom, String mail, String mdp, String role) {
+    public Utilisateur(int id, String nom, String email, String mdp) {
         this.id = id;
         this.nom = nom;
-        this.mail = mail;
-        this.mdp = mdp;
-        this.role = role;
+        this.email = email;
+        this.password = mdp;
+        this.roles = "[\"ROLE_CLIENT\"]\n";
+        Date DT=new Date();
+        this.Registred_at=new java.sql.Date(DT.getTime());
 
     }
 
-    public Utilisateur(String nom, String mail, String mdp, String role) {
-        this.nom = nom;
-        this.mail = mail;
-        this.mdp = mdp;
+    public String getEmail() {
+        return email;
+    }
 
-        this.role = role;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Utilisateur(String nom, String email, String mdp) {
+        this.nom = nom;
+        this.email = email;
+        this.password = mdp;
+
+        this.roles = "[\"ROLE_CLIENT\"]\n";
+        this.active=1;
+        Date DT=new Date();
+        this.Registred_at= new java.sql.Date(DT.getTime());
 
     }
 
@@ -56,17 +64,17 @@ public class Utilisateur {
     }
 
     public String getMail() {
-        return mail;
+        return email;
     }
 
     public String getMdp() {
-        return mdp;
+        return password;
     }
 
 
 
     public String getRole() {
-        return role;
+        return roles;
     }
 
 
@@ -80,23 +88,38 @@ public class Utilisateur {
 
 
     public void setMail(String mail) {
-        this.mail = mail;
+        this.email = mail;
     }
 
     public void setMdp(String mdp) {
-        this.mdp = mdp;
+        this.password = mdp;
     }
 
 
 
     public void setRole(String role) {
-        this.role = role;
+        this.roles = role;
     }
 
+    public int getActive() {
+        return active;
+    }
+
+    public java.sql.Date getRegistred_at() {
+        return (java.sql.Date) Registred_at;
+    }
+
+    public void setRegistred_at(Date registred_at) {
+        Registred_at = registred_at;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
 
     @Override
     public String toString() {
-        return "Utilisateur{" + "id=" + id + ", nom=" + nom +  ", mail=" + mail + ", mdp=" + mdp + ", role=" + role +  '}';
+        return "Utilisateur{" + "id=" + id + ", nom=" + nom +  ", email=" + email + ", mdp=" + password + ", role=" + roles +  "active=" + active +  "Registred_ar=" + Registred_at +  '}';
     }
 
 
@@ -106,5 +129,3 @@ public class Utilisateur {
 
 
 }
-
-

@@ -2,6 +2,7 @@ package service.User;
 
 import model.User.Utilisateur;
 import utils.MyDataBase;
+import utils.PasswordUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,40 +17,47 @@ public class UtilisateurService implements IService<Utilisateur> {
         connection = MyDataBase.getInstance().getConnection();
     }
 
+
     public Utilisateur afficheUser(int id) {
         Utilisateur p = new Utilisateur();
         try {
-            String req = "Select * from  `utilisateur` where id=" + id;
+            String req = "Select * from  `user` where id=" + id;
             Statement st = connection.createStatement();
             ResultSet RS = st.executeQuery(req);
             RS.next();
             p.setId(RS.getInt("id"));
             p.setNom(RS.getString("nom"));
-            p.setMail(RS.getString("mail"));
-            p.setMdp(RS.getString("mdp"));
-            p.setRole(RS.getString("role"));
+            p.setMail(RS.getString("email"));
+            p.setMdp(RS.getString("password"));
+            p.setRole(RS.getString("roles"));
+            p.setRole(RS.getString("active"));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return p;
     }
-    public Object authentification(String mail, String mdp) {
-        Utilisateur p = new Utilisateur();
-        try {
-            String req = "Select * from  `utilisateur` where mail ='" + mail + "' AND mdp ='" + mdp + "'";
-            Statement st = connection.createStatement();
-            System.out.println(req);
-            ResultSet RS = st.executeQuery(req);
-            RS.next();
-            p.setId(RS.getInt("id"));
-            p.setNom(RS.getString("nom"));
-            p.setMail(RS.getString("mail"));
-            p.setMdp(RS.getString("mdp"));
-            p.setRole(RS.getString("role"));
+    public Utilisateur authentification(String email) {
+        Utilisateur utilisateur = null;
+        String query = "SELECT * FROM user WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    utilisateur = new Utilisateur();
+                    utilisateur.setId(resultSet.getInt("id"));
+                    utilisateur.setNom(resultSet.getString("nom"));
+                    utilisateur.setMail(resultSet.getString("email"));
+                    utilisateur.setMdp(resultSet.getString("password"));
+                    utilisateur.setRole(resultSet.getString("roles"));
+                    utilisateur.setActive(resultSet.getInt("active"));
+                }
+            }
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+            // Handle the exception or throw it to be handled at a higher level
         }
-        return p;
+        return utilisateur;
+    }
 
 
         //class ValidationUtil {
@@ -77,7 +85,7 @@ public class UtilisateurService implements IService<Utilisateur> {
 
 
 
-        }
+
 
 
     //}
@@ -85,19 +93,27 @@ public class UtilisateurService implements IService<Utilisateur> {
     @Override
     public void add(Utilisateur utilisateur) throws SQLException {
         try {
-            String req = "INSERT INTO `utilisateur`(`id`, `nom`, `mail`, `mdp`, `role`) VALUES (?,?,?,?,?)";
+            String req = "INSERT INTO `user` (`nom`, `email`, `password`,`roles`,`registered_at`,`active`) VALUES (?, ?, ?,?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(req);
-            statement.setInt(1, utilisateur.getId());
-            statement.setString(2, utilisateur.getNom());
-            statement.setString(3, utilisateur.getMail());
-            statement.setString(4, utilisateur.getMdp());
-            statement.setString(5, utilisateur.getRole());
-            statement.executeUpdate();
-            System.out.println("Utilisateur inséré");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            statement.setString(1, utilisateur.getNom());
+            statement.setString(2, utilisateur.getMail());
+
+            statement.setString(3, PasswordUtils.hashPasswrd(utilisateur.getMdp()));
+            statement.setString(4, utilisateur.getRole());
+            statement.setDate(5, utilisateur.getRegistred_at());
+            statement.setInt(6, utilisateur.getActive());
+
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Utilisateur inséré");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
         }
     }
+
 
 
 
@@ -106,24 +122,27 @@ public class UtilisateurService implements IService<Utilisateur> {
     @Override
     public void update(Utilisateur utilisateur) throws SQLException {
         try {
-            String req = "UPDATE `utilisateur` SET `nom` = ?, `mail` = ?, `mdp` = ?, `role` = ? WHERE `id` = ?";
+            String req = "UPDATE `user` SET `nom` = ?, `email` = ?, `roles` = ?, `active` = ?, `registered_at` = ? WHERE `id` = ?";
             PreparedStatement statement = connection.prepareStatement(req);
             statement.setString(1, utilisateur.getNom());
-            statement.setString(2, utilisateur.getMail());
-            statement.setString(3, utilisateur.getMdp());
-            statement.setString(4, utilisateur.getRole());
-            statement.setInt(5, utilisateur.getId());
+            statement.setString(2, utilisateur.getEmail());
+            statement.setString(3, utilisateur.getRole());
+            statement.setInt(4, utilisateur.getActive());
+            statement.setDate(5, utilisateur.getRegistred_at());
+            statement.setInt(6, utilisateur.getId());
             statement.executeUpdate();
             System.out.println("Utilisateur mis à jour");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            throw ex;
         }
     }
+
 
     @Override
     public void delete(int id) throws SQLException {
         try {
-            String req = "DELETE FROM `utilisateur` WHERE id = ?";
+            String req = "DELETE FROM `user` WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(req);
             statement.setInt(1, id);
             statement.executeUpdate();
@@ -137,23 +156,23 @@ public class UtilisateurService implements IService<Utilisateur> {
     public List<Utilisateur> select() throws SQLException {
         List<Utilisateur> list = new ArrayList<>();
         try {
-            String req = "Select * from  `utilisateur` order by id";
+            String req = "SELECT * FROM `user` ORDER BY id";
             Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                Utilisateur utilisateur = new Utilisateur();
+                utilisateur.setId(rs.getInt("id"));
+                utilisateur.setActive(rs.getInt("active"));
+                utilisateur.setEmail(rs.getString("email"));
+                utilisateur.setRole(rs.getString("roles"));
 
-            ResultSet RS = st.executeQuery(req);
-            while (RS.next()) {
-                Utilisateur p = new Utilisateur();
-                p.setId(RS.getInt("id"));
-                p.setNom(RS.getString("nom"));
-                p.setMail(RS.getString("mail"));
-                p.setMdp(RS.getString("mdp"));
-                p.setRole(RS.getString("role"));
-                list.add(p);
+                utilisateur.setRegistred_at(rs.getDate("registered_at"));
+                list.add(utilisateur);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            throw ex;
         }
         return list;
     }
-
 }
