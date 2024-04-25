@@ -1,113 +1,43 @@
 package controller.Sponsoring;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import controller.front.Ecommerce.PasserCommandeContoller;
+import controller.front.Ecommerce.ShowPanier;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import model.Ecommerce.Lignepanier;
+import model.Ecommerce.Panier;
 import model.Sponsoring.Produit;
+import service.Ecommerce.CommandeService;
+import service.Ecommerce.LignepanierService;
+import service.Ecommerce.PanierService;
 import service.Sponsoring.ProduitService;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public class AfficherProduitFrontController {
-    ProduitService ps = new ProduitService();
-    ObservableList<Produit> obs;
 
     @FXML
-    private TableColumn<Produit, String> nomP;
-    @FXML
-    private TableColumn<Produit, Double> prixP;
-    @FXML
-    private TableColumn<Produit, Double> tauxRemiseP;
-    @FXML
-    private TableColumn<Produit, String> categorieP;
-    @FXML
-    private TableColumn<Produit, String> descriptionP;
-    @FXML
-    private TableColumn<Produit, String> imagePathP;
-    @FXML
-    private TableView<Produit> tableView;
-    @FXML
-    private Label welcomeLBL;
-
-    private static boolean ajouterProduitPageOpen = false;
-
-
-    @FXML
-    void initialize() {
-        try {
-            List<Produit> list = ps.select();
-            obs = FXCollections.observableArrayList(list);
-
-            tableView.setItems(obs);
-            nomP.setCellValueFactory(new PropertyValueFactory<>("nom"));
-            prixP.setCellValueFactory(new PropertyValueFactory<>("prix"));
-            tauxRemiseP.setCellValueFactory(new PropertyValueFactory<>("taux_remise"));
-            categorieP.setCellValueFactory(new PropertyValueFactory<>("categorie"));
-            descriptionP.setCellValueFactory(new PropertyValueFactory<>("description"));
-            imagePathP.setCellValueFactory(new PropertyValueFactory<>("image"));
-
-            // Custom cell factory for displaying images
-            imagePathP.setCellFactory(column -> {
-                return new TableCell<Produit, String>() {
-                    private final ImageView imageView = new ImageView();
-
-                    @Override
-                    protected void updateItem(String imagePath, boolean empty) {
-                        super.updateItem(imagePath, empty);
-
-                        if (empty || imagePath == null) {
-                            setGraphic(null);
-                            setText(null);
-                        } else {
-                            File file = new File(imagePath);
-                            if (file.exists()) {
-                                Image image = new Image(file.toURI().toString());
-                                imageView.setImage(image);
-                                imageView.setFitWidth(100);
-                                imageView.setFitHeight(100);
-                                setGraphic(imageView);
-                                setText(null);
-                            } else {
-                                setText("Image not found");
-                            }
-                        }
-                    }
-                };
-            });
-
-=======
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
-import model.Sponsoring.Produit;
-import service.Sponsoring.ProduitService;
-import javafx.scene.layout.AnchorPane;
-
-import java.io.File;
-import java.sql.SQLException;
-import java.util.List;
-
-public class AfficherProduitFrontController {
+    private Button afficherpanier;
 
     @FXML
     private FlowPane produitFlowPane;
 
+    LignepanierService lignepanierService = new LignepanierService();
+    PanierService panierService = new PanierService();
+    CommandeService commandeService = new CommandeService();
     private ProduitService ps = new ProduitService();
 
     @FXML
@@ -124,80 +54,6 @@ public class AfficherProduitFrontController {
         }
     }
 
-
-    @FXML
-    void supprimerProduit(ActionEvent event) {
-        Produit p = tableView.getSelectionModel().getSelectedItem();
-        if (p != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation de suppression");
-            alert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce produit ?");
-            alert.setContentText("Cette action est irréversible.");
-
-            alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-            alert.getButtonTypes().forEach(buttonType -> {
-                if (buttonType.getButtonData().isCancelButton()) {
-                    ((Button) alert.getDialogPane().lookupButton(buttonType)).setText("Non");
-                } else {
-                    ((Button) alert.getDialogPane().lookupButton(buttonType)).setText("Oui");
-                }
-            });
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.YES) {
-                try {
-                    ps.delete(p.getId());
-                    obs.remove(p);
-
-                    // Delete the image file
-                    String imagePath = p.getImage();
-                    if (imagePath != null && !imagePath.isEmpty()) {
-                        File imageFile = new File(imagePath);
-                        if (imageFile.exists() && !imageFile.delete()) {
-                            System.err.println("Failed to delete image file: " + imageFile.getAbsolutePath());
-                        } else {
-                            System.out.println("Image file deleted successfully: " + imageFile.getAbsolutePath());
-                        }
-                    }
-                } catch (SQLException e) {
-                    System.err.println("Error deleting product: " + e.getMessage());
-                }
-            }
-        }
-    }
-
-
-    @FXML
-    void naviguerVersAjouterProduit(ActionEvent event) {
-        try {
-            // Load the AjouterProduit page
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AjouterProduit.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Ajouter un Produit");
-            stage.setOnCloseRequest(e -> {
-                ajouterProduitPageOpen = false; // Reset the flag in the AfficherProduitController
-            });
-            stage.show();
-
-            ajouterProduitPageOpen = true;
-
-            // Close the current stage
-            Stage currentStage = (Stage) tableView.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException e) {
-            System.err.println("Error loading AjouterProduit.fxml: " + e.getMessage());
-        }
-    }
-    public void refreshData() {
-        try {
-            List<Produit> list = ps.select();
-            obs.setAll(list);
-        } catch (SQLException e) {
-            System.err.println("Error refreshing data: " + e.getMessage());
-        }
     private AnchorPane createProduitCard(Produit produit) {
         AnchorPane card = new AnchorPane();
         card.setPrefSize(180, 300); // Taille fixe pour chaque carte
@@ -243,10 +99,61 @@ public class AfficherProduitFrontController {
         newPriceLabel.setLayoutY(240);
         newPriceLabel.setTextFill(Color.BLACK);
         newPriceLabel.getStyleClass().add("produit-nouveau-prix");
+        Button Ajouter = new Button("Ajouter");
 
-        card.getChildren().addAll(imageView, nomLabel, marqueLabel, prixLabel, newPriceLabel);
+
+        Ajouter.setOnAction(event -> {
+            try {
+                int panierActifId = commandeService.getPanierActif();
+                if (panierActifId == -1) {
+                    Panier panier = new Panier();
+                    panier.setIdUser(1);
+                    panier.setPrixTotal(0);
+                    panier.setStatut("En Cour");
+                    panierService.add(panier);
+
+                    Lignepanier lignepanier = new Lignepanier();
+                    lignepanier.setQuantité(1);
+                    lignepanier.setIdProduit(produit.getId());
+                    lignepanier.setIdPanier(panier.getId());
+                    lignepanierService.add(lignepanier);
+                    panier.setPrixTotal(panierService.calculTotalPanier(panier.getId()));
+                    panierService.update(panier);
+                } else {
+                    Lignepanier lignePanierExistante = lignepanierService.selectlignepanier(panierActifId, produit.getId());
+                    if (lignePanierExistante == null) {
+                        Lignepanier lignepanier2 = new Lignepanier();
+                        lignepanier2.setQuantité(1);
+                        lignepanier2.setIdProduit(produit.getId());
+                        lignepanier2.setIdPanier(panierActifId);
+                        lignepanierService.add(lignepanier2);
+                    } else {
+                        lignePanierExistante.setQuantité(lignePanierExistante.getQuantité() + 1);
+                        lignepanierService.update(lignePanierExistante);
+                    }
+                    Panier panier = panierService.selectPanierById(panierActifId);
+                    panier.setPrixTotal(panierService.calculTotalPanier(panier.getId()));
+                    panierService.update(panier);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        card.getChildren().addAll(imageView, nomLabel, marqueLabel, prixLabel, newPriceLabel, Ajouter);
         return card;
     }
+    @FXML
+    void afficherpanier(ActionEvent event) {
+        try {
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/ShowPanier1.fxml"));
+            Parent root = loader.load();
+            //ShowPanier controller = loader.getController();
+            afficherpanier.getScene().setRoot(root);
+        }catch(IOException e){
+            System.err.println("Error loading PasserCommande.fxml: " + e.getMessage());
+        }
 
+    }
 }

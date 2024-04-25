@@ -1,4 +1,5 @@
 package controller.front.Ecommerce;
+import controller.Sponsoring.AfficherProduitFrontController;
 import javafx.geometry.Insets;
 
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.layout.*;
 import model.Ecommerce.Lignepanier;
 import model.Ecommerce.Panier;
 import model.Ecommerce.PanierItem;
+import service.Ecommerce.CommandeService;
 import service.Ecommerce.LignepanierService;
 import service.Ecommerce.PanierService;
 
@@ -73,14 +75,22 @@ public class ShowPanier implements Initializable {
     private List<PanierItem> listItems;
     PanierService panierService= new PanierService();
     LignepanierService lignepanierService=new LignepanierService();
-    int idPanier=2;
+    CommandeService commandeService=new CommandeService();
+    int idPanier=commandeService.getPanierActif();
+    /*public void setidpanier(int id){
+        this.idPanier=id;
+    }*/
     @FXML
     double total=0;
     List<PanierItem> objectList = panierService.afficherinfopanier(idPanier);
 
+
     @Override
         public void initialize(URL location, ResourceBundle resources) {
-            String ch = "You currently have " + objectList.size() + " item(s) in your cart.";
+        int idPanier=commandeService.getPanierActif();
+        List<PanierItem> objectList = panierService.afficherinfopanier(idPanier);
+
+        String ch = "You currently have " + objectList.size() + " item(s) in your cart.";
             nbrproduit.setText(ch);
             Insets margins = new Insets(0, 50, 0, -10);
             for (PanierItem obj : objectList) {
@@ -217,10 +227,13 @@ public class ShowPanier implements Initializable {
     void CommandForm(ActionEvent event) {
         try {
             System.out.println("Méthode CommandForm appelée.");
+            System.out.println(idPanier+"fi passage");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/PasserCommande.fxml"));
             Parent root = loader.load();
             PasserCommandeContoller controller = loader.getController();
+            System.out.println(idPanier+"fi passage9al toull");
             controller.setIdp(idPanier);
+
             ButtonCommand.getScene().setRoot(root);
         }catch(IOException e){
             System.err.println("Error loading PasserCommande.fxml: " + e.getMessage());
@@ -243,5 +256,17 @@ public class ShowPanier implements Initializable {
 
     }
 
+    @FXML
+    void showproducts(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Sponsoring/AfficherProduitF.fxml"));
+            Parent root = loader.load();
+            AfficherProduitFrontController controller = loader.getController();
 
+            produitpage.getScene().setRoot(root);
+        }catch(IOException e){
+            System.err.println("Error loading PasserCommande.fxml: " + e.getMessage());
+        }
+
+    }
 }

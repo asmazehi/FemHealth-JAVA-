@@ -69,5 +69,18 @@ public class CommandeService  implements IService<Commande> {
         }
         return commandes;
     }
+
+    public int getPanierActif() {
+        String sql = "SELECT id FROM panier WHERE id NOT IN (SELECT panier_id FROM commande)";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
     }
 

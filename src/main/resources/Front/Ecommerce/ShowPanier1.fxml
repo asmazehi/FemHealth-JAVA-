@@ -27,7 +27,7 @@
             </effect>
             <children>
                 <VBox fx:id="vBoxContainer" layoutX="13.0" layoutY="86.0" prefHeight="147.0" prefWidth="576.0" spacing="5.0" />
-                <Button fx:id="produitpage" layoutX="21.0" layoutY="257.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" style="-fx-opacity: #000000;" text="&lt;Continue shopping" textFill="#230a1e" />
+                <Button fx:id="produitpage" layoutX="21.0" layoutY="257.0" mnemonicParsing="false" onAction="#showproducts" prefHeight="32.0" prefWidth="132.0" style="-fx-opacity: #000000;" text="&lt;Continue shopping" textFill="#230a1e" />
                 <Label contentDisplay="TOP" layoutX="5.0" layoutY="-8.0" prefHeight="45.0" prefWidth="259.0" style="-fx-font-size: 25px; -fx-opacity: 2; -fx-font-weight: 5;" text="Shopping Cart" textFill="#ec1fbc">
                     <effect>
                         <Blend mode="LIGHTEN" />
@@ -38,7 +38,7 @@
                 </Label>
                 <Label layoutX="14.0" layoutY="37.0" />
                 <Label fx:id="nbrproduit" layoutX="5.0" layoutY="29.0" text="You currently have 3 item(s) in your cart." />
-                <Button fx:id="ButtonCommand" layoutX="276.0" layoutY="257.0" mnemonicParsing="false" onAction="#CommandForm" prefHeight="32.0" prefWidth="132.0" style="-fx-opacity: 2;" text="Proceed to checkout" textFill="#1e0618ed" />
+                <Button fx:id="ButtonCommand" layoutX="398.0" layoutY="257.0" mnemonicParsing="false" onAction="#CommandForm" prefHeight="32.0" prefWidth="132.0" style="-fx-opacity: 2;" text="Proceed to checkout" textFill="#1e0618ed" />
                 <HBox layoutX="9.0" layoutY="54.0" prefHeight="25.0" prefWidth="585.0" spacing="60.0" styleClass="-fx.">
                     <children>
                         <Label prefHeight="18.0" prefWidth="93.0" text="Product">

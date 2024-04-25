@@ -6,12 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import java.io.IOException;
 import java.io.IOException;
 
 import static javafx.application.Application.launch;
 
-public class MainFX extends Application {
+/*public class MainFX extends Application {
     public static void main(String[] args) {launch(args);}
     @Override
     public  void start(Stage primaryStage){
@@ -27,14 +32,9 @@ public class MainFX extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }}
+    }}*/
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import java.io.IOException;
+
 
 public class MainFX extends Application {
 
@@ -47,7 +47,7 @@ public class MainFX extends Application {
         try {
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherProduit.fxml"));
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherSponsor.fxml"));            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherSponsor.fxml"));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Sponsoring/AfficherProduitF.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/ShowPanier1.fxml"));
             Parent root = loader.load();
             Scene scene= new Scene(root);
             primaryStage.setScene(scene);
