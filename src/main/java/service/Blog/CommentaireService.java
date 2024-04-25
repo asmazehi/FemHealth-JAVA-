@@ -1,6 +1,5 @@
 package service.Blog;
 
-import javafx.collections.ObservableList;
 import model.Blog.Commentaire;
 import model.Blog.Publication;
 import utils.MyDataBase;
@@ -23,14 +22,12 @@ public class CommentaireService {
         statement.executeUpdate();
     }
     public void update(Commentaire commentaire) throws SQLException {
-        String sql = "UPDATE commentaire SET publication_id=?, user_id=?, description=?, datecomnt=CURRENT_TIMESTAMP WHERE id=?";
-        Publication publication = commentaire.getPublication();
-        Integer publicationId = publication.getId();
+
+        String sql = "UPDATE commentaire SET  description=?, datecomnt=CURRENT_TIMESTAMP WHERE id=?";
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, publicationId);
-        statement.setInt(2, commentaire.getUser_id());
-        statement.setString(3, commentaire.getDescription());
-        statement.setInt(4, commentaire.getId());
+
+        statement.setString(1, commentaire.getDescription());
+        statement.setInt(2, commentaire.getId());
         statement.executeUpdate();
     }
     public void delete(int id) throws SQLException {
@@ -85,6 +82,7 @@ public class CommentaireService {
         while (resultSet.next()) {
             System.out.println(resultSet.getString("publication_id"));
             Commentaire commentaire= new Commentaire();
+            commentaire.setId(resultSet.getInt("id"));
             System.out.println(fetchPublicationTitleById(resultSet.getInt("publication_id")));
             commentaire.setPublication(fetchPublicationById(resultSet.getInt("publication_id")));
             commentaire.setDescription(resultSet.getString("description"));
@@ -125,22 +123,5 @@ public class CommentaireService {
             titre = resultSet.getString("titre");
         }
         return titre;
-    }
-    public Commentaire fetchCommentaireById(int id) throws SQLException {
-        Commentaire commentaire = null;
-        String sql = "SELECT * FROM commentaire WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    commentaire = new Commentaire();
-                    commentaire.setId(resultSet.getInt("id"));
-                    commentaire.setUser_id(resultSet.getInt("user_id"));
-                    commentaire.setDescription(resultSet.getString("description"));
-                    commentaire.setDatecomnt(resultSet.getDate("datecomnt"));
-                }
-            }
-        }
-        return commentaire;
     }
 }

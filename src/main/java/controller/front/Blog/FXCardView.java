@@ -19,9 +19,7 @@ public class FXCardView extends Application {
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
         launch(args);
     }

@@ -41,6 +41,7 @@ public class UserComments {
     @FXML
     void modifierCommentaire(ActionEvent event) {
         Commentaire commentaireSelected = tableView.getSelectionModel().getSelectedItem();
+        System.out.println("bonjour"+commentaireSelected);
         if (commentaireSelected == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Aucune commentaire sélectionnée");
@@ -63,6 +64,7 @@ public class UserComments {
                 dialog.getDialogPane().setContent(root);
                 UpdateComment updateComment= loader.getController();
                 updateComment.setData(commentaireSelected.getId());
+                System.out.println(commentaireSelected.getId());
                 Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
                 stage.setUserData(this);
             } catch (IOException e) {

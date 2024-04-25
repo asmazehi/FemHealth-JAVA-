@@ -75,18 +75,7 @@ public class ModifierPublicationController implements Initializable {
             }
         }
     }
-    public void  initializeDetails(){
-        CommentaireService cs=new CommentaireService();
 
-        try {
-            Publication pub= cs.fetchPublicationById(this.idpub);
-            TitreTF.setText(pub.getTitre());
-            ContenuTF.setText(pub.getContenu());
-            cheminphoto.setText(pub.getImage());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
     private void afficherAlerte(String titre, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titre);
@@ -126,8 +115,18 @@ public class ModifierPublicationController implements Initializable {
         }}
     void publicationFieldsWithData(Publication publication)
     {
+    }
+    public void  initializeDetails(){
+        CommentaireService cs=new CommentaireService();
 
-
+        try {
+            Publication pub= cs.fetchPublicationById(this.idpub);
+            TitreTF.setText(pub.getTitre());
+            ContenuTF.setText(pub.getContenu());
+            cheminphoto.setText(pub.getImage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

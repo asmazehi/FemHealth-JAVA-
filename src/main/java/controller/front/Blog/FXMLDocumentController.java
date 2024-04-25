@@ -3,15 +3,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Blog.Publication;
 import service.Blog.PublicationService;
+import javafx.geometry.Insets;
 
+import java.awt.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -42,24 +41,29 @@ public class FXMLDocumentController implements Initializable {
                         allpublication.select().get(i).getTitre(),
                         dateresult,
                         allpublication.select().get(i).getImage()));
-                System.out.println(list.get(i));
+
             }
 
             int count = 0;
             int maxCardsPerRow = 3;
+            double topMargin = 15;
 
             for (int i = 0; i < allpublication.select().size(); i += maxCardsPerRow) {
+
                 for (int j = 0; j < maxCardsPerRow && (i + j) < allpublication.select().size(); j++) {
+                    cardHolder.setMargin(list.get(count), new Insets(20,15 , 0, 0));
+
                     cardHolder.add(list.get(count), j, i / maxCardsPerRow);
                     count++;
                 }
             }
 
 
-            VBox labelContainer = new VBox(10);
-            labelContainer.setStyle("-fx-padding: 250 50 0 0;");
+            VBox labelContainer = new VBox(20);
 
-            // Ajoutez le labelContainer à idsidebar
+
+
+
             idsidebar.getChildren().add(labelContainer);
 
 

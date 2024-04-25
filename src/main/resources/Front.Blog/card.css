@@ -5,3 +5,14 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
 }
+.white-background{
+    -fx-background-color:C291A4 ;
+
+}
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+.round-layout{
+    -fx-border-radius:30;
+    -fx-background-color: #ececec;
+}
