@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Line?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1100.0" stylesheets="@card.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Blog.FXMLDocumentController">
+<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.back.Blog.AfficherPublicationController">
     <children>
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-        <ScrollPane layoutX="225.0" layoutY="-1.0" prefHeight="655.0" prefWidth="874.0">
-            <content>
-                <GridPane fx:id="cardHolder" layoutX="12.0" layoutY="109.0" />
-            </content>
-        </ScrollPane>
-        <AnchorPane fx:id="idsidebar" prefHeight="655.0" prefWidth="226.0" style="-fx-background-color:#C291A4;">
+        <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
             <children>
                 <ImageView fitHeight="154.0" fitWidth="200.0" layoutX="26.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -55,5 +55,25 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
+        <Pane layoutX="208.0" layoutY="-1.0" prefHeight="585.0" prefWidth="632.0" style="-fx-background-color: ececec;">
+           <children>
+               <TableView fx:id="tableView" layoutX="55.0" layoutY="84.0" prefHeight="247.0" prefWidth="521.0">
+                   <columns>
+                       <TableColumn fx:id="titreCol" prefWidth="126.0" text="Titre" />
+                       <TableColumn fx:id="dateCol" prefWidth="127.0" text="Date" />
+                       <TableColumn fx:id="contenuCol" prefWidth="136.0" text="Contenu" />
+                       <TableColumn fx:id="imageCol" prefWidth="131.0" text="Image" />
+                   </columns>
+               </TableView>
+               <Button layoutX="506.0" layoutY="344.0" mnemonicParsing="false" onAction="#supprimerPublication" text="supprimer" />
+               <Button layoutX="319.0" layoutY="344.0" mnemonicParsing="false" onAction="#addpublication" text="ajouter" />
+               <Button layoutX="419.0" layoutY="344.0" mnemonicParsing="false" onAction="#modifierpublication" text="modifier" />
+            <HBox layoutX="144.0" layoutY="37.0" prefHeight="45.0" prefWidth="218.0">
+               <children>
+                  <TextField fx:id="searchTextField" prefHeight="31.0" prefWidth="207.0" promptText="🔎 Rechercher des publications..." />
+               </children>
+            </HBox>
+           </children>
+        </Pane>
     </children>
 </AnchorPane>

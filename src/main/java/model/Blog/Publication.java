@@ -1,4 +1,5 @@
 package model.Blog;
+
 import java.util.Objects;
 import java.util.Date;
 public class Publication {
@@ -30,8 +31,9 @@ public class Publication {
         return contenu;
     }
 
-    public void setContenu(String contenu) {
+    public String setContenu(String contenu) {
         this.contenu = contenu;
+        return contenu;
     }
 
     public String getImage() {
@@ -42,13 +44,13 @@ public class Publication {
         this.image = image;
     }
 
-    public java.util.Date getDatepub() {
-        return (java.util.Date) datepub;
+    public Date getDatepub() {
+        return  this.datepub;
     }
 
-    public java.util.Date setDatepub(java.util.Date datepub) {
-        this.datepub = new Date();;
-        return null;
+    public void setDatepub(java.util.Date datepub) {
+        this.datepub =datepub;;
+
     }
 
     public String getTitre() {
