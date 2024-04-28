@@ -90,4 +90,37 @@ public class ProduitService implements IService<Produit> {
         }
         return null;
     }
+
+
+
+
+    //ketbethaa iness afsa5 cmntr ki tchouffou :')
+
+    public Produit selectProduitById(int idProduit)  {
+        Produit produit = null;
+        String sql = "SELECT * FROM produit WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idProduit);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    produit = new Produit();
+                    produit.setId(resultSet.getInt("id"));
+                    produit.setNom(resultSet.getString("nom"));
+                    produit.setPrix(resultSet.getFloat("prix"));
+                    produit.setTaux_remise(resultSet.getInt("taux_remise"));
+                    produit.setCategorie(resultSet.getString("categorie"));
+                    produit.setImage(resultSet.getString("image"));
+                    produit.setDescription(resultSet.getString("description"));
+
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return produit;
+    }
+
+
 }

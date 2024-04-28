@@ -21,6 +21,7 @@ public class PublicationService {
         statement.executeUpdate();
     }
     public void update(Publication publication) throws SQLException {
+        System.out.println(publication.getId());
         String sql = "UPDATE Publication SET titre=?, contenu=?, image=? WHERE id=?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, publication.getTitre());
@@ -37,21 +38,48 @@ public class PublicationService {
     }
     public List<Publication> select() throws SQLException {
         List<Publication> publications = new ArrayList<>();
-        String sql = "SELECT * FROM Publication";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/femHealth","root", "");
+        // Préparer la requête SQL pour sélectionner toutes les publications
+        String query = "SELECT * FROM publication";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        // Exécuter la requête
+        ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             Publication publication = new Publication();
             publication.setId(resultSet.getInt("id"));
             publication.setTitre(resultSet.getString("titre"));
             publication.setContenu(resultSet.getString("contenu"));
             publication.setImage(resultSet.getString("image"));
-            // Set other attributes of Publication as needed
+            publication.setDatepub(resultSet.getDate("datepub"));
             publications.add(publication);
+
         }
-        return publications;
-    }
+        // Fermer les ressources
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        return publications;}
     public Publication getById(int id) {
         return null;
+    }
+
+    public Publication getPublicationById(int id_pub) throws SQLException {
+        String req = "SELECT * FROM publication WHERE id = ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        preparedStatement.setInt(1, id_pub);
+        ResultSet rs = preparedStatement.executeQuery();
+        if (rs.next()) {
+            Publication publication = new Publication();
+            publication.setId(rs.getInt("id"));
+            publication.setContenu(rs.getString("contenu"));
+            publication.setTitre(rs.getString("titre"));
+            publication.setImage(rs.getString("image"));
+            publication.setDatepub(rs.getTimestamp("datepub"));
+            return publication;
+        } else {
+            // Handle the case where no publication with the given ID was found
+            return null;
+        }
     }
 }
