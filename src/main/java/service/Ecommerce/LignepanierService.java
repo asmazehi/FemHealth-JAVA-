@@ -35,6 +35,15 @@ public class LignepanierService implements IService<Lignepanier>{
     public void delete(int id) throws SQLException {
 
     }
+    public void delete(int idpanier, int idproduit) throws SQLException {
+        String sql = "DELETE FROM lignepanier WHERE panier_id = ? AND produit_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idpanier);
+            preparedStatement.setInt(2, idproduit);
+            preparedStatement.executeUpdate();
+        }
+    }
+
 
     @Override
     public List<Lignepanier> select() throws SQLException {
@@ -50,5 +59,27 @@ public class LignepanierService implements IService<Lignepanier>{
         }
         return lignepaniers;
     }
+
+    public List<Lignepanier> selectLignepanierByPanierId(int idPanier) {
+        List<Lignepanier> lignepaniers = new ArrayList<>();
+        String sql = "SELECT * FROM lignepanier WHERE panier_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idPanier);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Lignepanier lignepanier = new Lignepanier();
+                    lignepanier.setId(resultSet.getInt("id"));
+                    lignepanier.setQuantité(resultSet.getInt("quantite"));
+                    lignepanier.setIdProduit(resultSet.getInt("produit_id"));
+                    lignepanier.setIdPanier(idPanier); // Set the panier ID from the method parameter
+                    lignepaniers.add(lignepanier);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lignepaniers;
     }
+
+}
 
