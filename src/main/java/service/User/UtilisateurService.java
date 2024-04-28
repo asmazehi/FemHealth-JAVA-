@@ -7,6 +7,11 @@ import utils.PasswordUtils;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 public class UtilisateurService implements IService<Utilisateur> {
 
@@ -54,7 +59,7 @@ public class UtilisateurService implements IService<Utilisateur> {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            // Handle the exception or throw it to be handled at a higher level
+
         }
         return utilisateur;
     }
@@ -121,15 +126,18 @@ public class UtilisateurService implements IService<Utilisateur> {
 
     @Override
     public void update(Utilisateur utilisateur) throws SQLException {
+
         try {
-            String req = "UPDATE `user` SET `nom` = ?, `email` = ?, `roles` = ?, `active` = ?, `registered_at` = ? WHERE `id` = ?";
+            String req = "UPDATE `user` SET `nom` = ?, `email` = ?, `roles` = ?, `active` = ?, `password` = ?, `registered_at` = ? WHERE `id` = ?";
             PreparedStatement statement = connection.prepareStatement(req);
             statement.setString(1, utilisateur.getNom());
             statement.setString(2, utilisateur.getEmail());
             statement.setString(3, utilisateur.getRole());
             statement.setInt(4, utilisateur.getActive());
-            statement.setDate(5, utilisateur.getRegistred_at());
-            statement.setInt(6, utilisateur.getId());
+            statement.setString(5, utilisateur.getMdp());
+
+            statement.setDate(6, utilisateur.getRegistred_at());
+            statement.setInt(7, utilisateur.getId());
             statement.executeUpdate();
             System.out.println("Utilisateur mis à jour");
         } catch (SQLException ex) {
@@ -175,4 +183,21 @@ public class UtilisateurService implements IService<Utilisateur> {
         }
         return list;
     }
+
+    public boolean validerMotDePasse(String email, String motDePasseActuel) {
+        String query = "SELECT password FROM user WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    String motDePasseBD = resultSet.getString("password");
+                    return PasswordUtils.verifyPassword(motDePasseActuel, motDePasseBD);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
 }
+

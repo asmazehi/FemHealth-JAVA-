@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import model.User.Utilisateur;
 
 import java.io.IOException;
 
@@ -22,12 +23,24 @@ public class HomePageClientController {
 
     }
 
+    private Utilisateur CurrentUser;
+    public void SetData(Utilisateur user){
+        this.CurrentUser = user;
+
+    }
     @FXML
     private void gererProfil() {
 
         try {
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/EditProfil.fxml"));
             Parent root = loader.load();
+
+            EditProfilController controller = loader.getController();
+            System.out.println(CurrentUser + "fi homepage");
+
+            controller.setData(CurrentUser);
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();

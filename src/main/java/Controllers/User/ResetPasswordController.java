@@ -4,20 +4,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.control.PasswordField;
+
+
 
 import java.io.IOException;
 
 public class ResetPasswordController {
     @FXML
-    private TextField mdp1TF;
+    private PasswordField mdp1TF;
 
     @FXML
-    private TextField mdp2TF;
+    private PasswordField mdp2TF;
 
     @FXML
     private Button confirmerTF;
+
+    @FXML
+    private Button retour_TF;
 
     @FXML
     public void initialize() {
@@ -35,6 +40,18 @@ public class ResetPasswordController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePageClient.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) confirmerTF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void retour() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) retour_TF.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {

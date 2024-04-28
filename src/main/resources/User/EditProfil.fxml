@@ -60,5 +60,6 @@
       </Pane>
       <Button fx:id="ConfirmationTF" layoutX="537.0" layoutY="455.0" mnemonicParsing="false" onAction="#ModifierInfo" style="-fx-background-color: #FFD1DC;" text="Confirmation" />
       <Label layoutX="28.0" layoutY="122.0" text="Veuillez saisir votre Email" />
+      <Button fx:id="retour_TF" layoutX="28.0" layoutY="25.0" mnemonicParsing="false" onAction="#retour" style="-fx-background-color: #FFD1DC;" text="retour" />
    </children>
 </AnchorPane>
