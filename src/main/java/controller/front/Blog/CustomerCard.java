@@ -49,24 +49,20 @@ public class CustomerCard extends Pane {
         iconContainer = new HBox();
         deleteButton = new Button();
         modifyButton = new Button();
-
         setId(Id + "");
         setPrefHeight(233.0);
         setPrefWidth(245.0);
         setStyle("-fx-background-color:#FFF; -fx-border-radius: 10px; -fx-background-radius: 10px;");
-
         DropShadow dropShadow = new DropShadow();
         dropShadow.setHeight(3);
         dropShadow.setWidth(3);
         dropShadow.setBlurType(BlurType.TWO_PASS_BOX);
         setEffect(dropShadow);
-
         photo.setImage(new Image(Image));
         photo.setLayoutX(50);
         photo.setLayoutY(25);
         photo.setFitHeight(100);
         photo.setFitWidth(150);
-
         name.setAlignment(Pos.TOP_LEFT);
         name.setContentDisplay(ContentDisplay.CENTER);
         name.setLayoutX(14.0);
@@ -83,9 +79,6 @@ public class CustomerCard extends Pane {
         mobile.setPrefWidth(215.0);
         mobile.setText(String.valueOf(contenu));
         mobile.setFont(Font.font("System", FontWeight.BOLD, 17.0));
-
-
-
         iconContainer.setAlignment(Pos.CENTER_RIGHT);
         iconContainer.setPrefHeight(40.0);
         iconContainer.setPrefWidth(200.0);
@@ -100,35 +93,22 @@ public class CustomerCard extends Pane {
                 int publicationId = Integer.parseInt(getId());
                 System.out.println(publicationId);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Blog/detailsPublication.fxml"));
-
                 Parent root = loader.load();
-
                 DetailsController controller = loader.getController();
-
                 controller.setPublicationId(publicationId);
                 controller.initializeDetails();
-
                 Scene scene = new Scene(root);
-
-
                 Stage stage = new Stage();
                 stage.setScene(scene);
-
-
                 stage.initModality(Modality.APPLICATION_MODAL);
-
                 stage.showAndWait();
             } catch (IOException ex) {
-                ex.printStackTrace(); // Gérer l'exception de chargement du fichier FXML
+                ex.printStackTrace();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-
         });
-
-
         iconContainer.getChildren().addAll(deleteButton);
-
         getChildren().addAll(photo, name,mobile, label, label0, iconContainer);
 
     }

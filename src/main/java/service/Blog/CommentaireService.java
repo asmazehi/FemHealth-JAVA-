@@ -71,6 +71,25 @@ public class CommentaireService {
         System.out.println(listecommentaire.size());
         return listecommentaire;
     }
+    public List<Commentaire> fetchCommentaireByID(int id) throws SQLException {
+        String sql="SELECT * FROM Commentaire WHERE id=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+
+        ArrayList<Commentaire> listecommentaire = new ArrayList<>();
+        while (resultSet.next()) {
+            Commentaire commentaire= new Commentaire();
+            commentaire.setPublication(fetchPublicationById(resultSet.getInt("publication_id")));
+            commentaire.setUser_id(resultSet.getInt("user_id"));
+            commentaire.setDescription(resultSet.getString("description"));
+            commentaire.setDatecomnt(resultSet.getDate("datecomnt"));
+            listecommentaire.add(commentaire);
+        }
+        System.out.println(listecommentaire.size());
+        return listecommentaire;
+    }
     public List<Commentaire> fetchCommentaireByUserID(int id) throws SQLException {
         String sql="SELECT * FROM Commentaire WHERE user_id=?";
         PreparedStatement statement = connection.prepareStatement(sql);

@@ -64,7 +64,8 @@ public class UserComments {
                 dialog.getDialogPane().setContent(root);
                 UpdateComment updateComment= loader.getController();
                 updateComment.setData(commentaireSelected.getId());
-                System.out.println(commentaireSelected.getId());
+
+                System.out.println(commentaireSelected.getId() + "ena fi user comments");
                 Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
                 stage.setUserData(this);
             } catch (IOException e) {
@@ -77,7 +78,6 @@ public class UserComments {
                 initialize();
             }
         }
-
     }
     @FXML
     void deleteComment(ActionEvent event) throws SQLException {

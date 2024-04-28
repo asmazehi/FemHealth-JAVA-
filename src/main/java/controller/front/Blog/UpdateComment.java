@@ -68,25 +68,29 @@ public class UpdateComment {
     }
     public void setData(int id) {
         this.idComnnt=id;
+        System.out.println("id de set data"+id);
+        System.out.println("id de set data"+this.idComnnt);
         System.out.println(id);
     }
     public void initializeDetailsCom() {
         try {
+            System.out.println("id de set data de initializeDetailsCom"+this.idComnnt);
+
             CommentaireService cs = new CommentaireService();
-            List<Commentaire> commentaires = cs.fetchCommentaireByUserID(this.idComnnt);
+            List<Commentaire> commentaires = cs.fetchCommentaireByID(this.idComnnt);
+            System.out.println(this.idComnnt + "pleaseeeee");
+
             if (!commentaires.isEmpty()) {
                 Commentaire com = commentaires.get(idComnnt);
                 descriptionFld.setText(com.getDescription());
                 System.out.println("aaa"+com.getDescription());
             } else {
-                //descriptionFld.setText("Aucun commentaire trouvé pour cet utilisateur.");
+                descriptionFld.setText("Aucun commentaire trouvé pour cet utilisateur.");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void initialize() {
+    }public void initialize() {
         initializeDetailsCom();
     }
 }

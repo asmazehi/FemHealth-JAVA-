@@ -96,7 +96,6 @@ public class DetailsController {
             }
         }
     }
-
     public void setIdpub(int id) {
         this.idpub=id;
         System.out.println(id);
@@ -106,15 +105,11 @@ public class DetailsController {
     }
     CommentaireService commentaireService=new CommentaireService();
     public void initializeDetails() throws SQLException {
-
         PublicationService allpublication = new PublicationService();
-
         Publication pub=  commentaireService.fetchPublicationById(this.idpub);
-
         titre.setText(pub.getTitre());
         contenu.setText(pub.getContenu());
         System.out.println(pub.getImage());
-
         System.out.println(pub.getImage());
         date.setText(pub.getDatepub()+"");
         String imageUrl = pub.getImage();
@@ -123,28 +118,17 @@ public class DetailsController {
         }else{
             Image image = new Image(imageUrl);
             imageView.setImage(image);
-
         }
-
         setListView();
-
-
     }
-
     public void setListView() throws SQLException {
         CommentaireService cp=new CommentaireService();
         for (int i=0;i<cp.fetchCommentaireByPublicationID(this.idpub).size();i++){
             stringList.add((cp.fetchCommentaireByPublicationID(this.idpub).get(i).getDescription()));
-
             System.out.println(cp.fetchCommentaireByPublicationID(this.idpub).get(i).getDescription()+ " "+ cp.fetchCommentaireByPublicationID(this.idpub).get(i).getDatecomnt());
-
         }
-
-
         observableList.setAll(stringList);
-
         ListComment.setItems(observableList);
-
         ListComment.setCellFactory(
                 new Callback<ListView<String>, ListCell<String>>() {
                     @Override
@@ -153,7 +137,6 @@ public class DetailsController {
                     }
                 });
     }
-
     @FXML
     void initialize() throws SQLException {
 

@@ -31,7 +31,6 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         PublicationService allpublication = new PublicationService();
-
         try {
             for (int i = 0; i < allpublication.select().size(); i++) {
                 System.out.println(allpublication.select().get(i).getImage());
@@ -41,15 +40,11 @@ public class FXMLDocumentController implements Initializable {
                         allpublication.select().get(i).getTitre(),
                         dateresult,
                         allpublication.select().get(i).getImage()));
-
             }
-
             int count = 0;
             int maxCardsPerRow = 3;
             double topMargin = 15;
-
             for (int i = 0; i < allpublication.select().size(); i += maxCardsPerRow) {
-
                 for (int j = 0; j < maxCardsPerRow && (i + j) < allpublication.select().size(); j++) {
                     cardHolder.setMargin(list.get(count), new Insets(20,15 , 0, 0));
 
@@ -57,19 +52,8 @@ public class FXMLDocumentController implements Initializable {
                     count++;
                 }
             }
-
-
             VBox labelContainer = new VBox(20);
-
-
-
-
             idsidebar.getChildren().add(labelContainer);
-
-
-
-
-
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }

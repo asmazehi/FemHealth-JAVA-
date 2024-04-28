@@ -25,35 +25,30 @@ import model.Blog.Publication;
 import service.Blog.PublicationService;
 
 public class AfficherPublicationController {
-
     @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
-
     @FXML
     private TableColumn<Publication, String> titreCol;
-
     @FXML
     private Label welcomeLBL;
-
     @FXML
     private TableColumn<Publication, String> contenuCol;
-
     @FXML
     private TableColumn<Publication, Date> dateCol;
-
     @FXML
     private TableColumn<Publication, String> imageCol;
-
     @FXML
     private TableView<Publication> tableView;
+    @FXML
+    private TextField searchTextField;
+    private ObservableList<Publication> allPublications;
+    private ObservableList<Publication> filteredPublications;
     PublicationService ps = new PublicationService();
     ObservableList<Publication> obs ;
     @FXML
     void supprimerPublication(ActionEvent event) throws SQLException {
-
         try
         {
             Publication p =tableView.getSelectionModel().getSelectedItem();
@@ -64,11 +59,10 @@ public class AfficherPublicationController {
         {
             System.out.println(e.getMessage());
         }
-
     }
     void modifierPublication(ActionEvent event) {
         PublicationService publicationService = new PublicationService();
-        Publication publication = tableView.getSelectionModel().getSelectedItem(); // R?cup?rer la publication s?lectionn?e dans le TableView
+        Publication publication = tableView.getSelectionModel().getSelectedItem();
         if (publication == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
@@ -79,33 +73,31 @@ public class AfficherPublicationController {
         publication.setTitre(titreCol.getText());
         publication.setContenu(contenuCol.getText());
         publication.setImage(imageCol.getText());
-
         try {
-            publicationService.update(publication); // Appeler la m?thode de service pour modifier la publication
-            // Afficher une bo?te de dialogue de confirmation
+            publicationService.update(publication);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Succ?s");
             alert.setContentText("Publication modifi?e avec succ?s");
             alert.showAndWait();
         } catch (SQLException e) {
-            // En cas d'erreur lors de la modification, afficher une bo?te de dialogue d'erreur avec le message d'erreur
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setContentText("Erreur lors de la modification de la publication : " + e.getMessage());
             alert.showAndWait();
         }
-
-    }
-    @FXML
+    }@FXML
     void initialize() {
         try {
             List<Publication> list = ps.select();
             obs = FXCollections.observableArrayList(list);
+            allPublications = FXCollections.observableArrayList(list);
+            filteredPublications = FXCollections.observableArrayList(list);
             tableView.setItems(obs);
             titreCol.setCellValueFactory(new PropertyValueFactory<>("titre"));
             dateCol.setCellValueFactory(new PropertyValueFactory<>("datepub"));
             contenuCol.setCellValueFactory(new PropertyValueFactory<>("contenu"));
             imageCol.setCellValueFactory(new PropertyValueFactory<>("image"));
+            searchTextField.textProperty().addListener((observable, oldValue, newValue) -> searchPublication());
         }catch (SQLException e)
         {
             System.out.println(e.getMessage());
@@ -117,11 +109,10 @@ public class AfficherPublicationController {
     @FXML
     public void modifierpublication(ActionEvent actionEvent) {
         Publication selectedPublication = tableView.getSelectionModel().getSelectedItem();
-
         if (selectedPublication == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Aucune publication s?lectionn?e");
-            alert.setContentText("Veuillez s?lectionner une publication ? modifier.");
+            alert.setContentText("Veuillez selectionner une publication ? modifier.");
             alert.showAndWait();
             return;
         }
@@ -136,29 +127,15 @@ public class AfficherPublicationController {
             dialog.setHeaderText(null);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Blog/updatePublication.fxml"));
             try {
-
-
                 Parent root = loader.load();
-
                 controller.back.Blog.ModifierPublicationController controller = loader.getController();
-
-
                 controller.setData(selectedPublication.getId());
                 controller.initializeDetails();
-
-
                 Scene scene = new Scene(root);
-
-
                 Stage stage = new Stage();
                 stage.setScene(scene);
-
-
                 stage.initModality(Modality.APPLICATION_MODAL);
-
                 stage.showAndWait();
-
-
             } catch (IOException e) {
                 e.printStackTrace();
                 return;
@@ -173,25 +150,25 @@ public class AfficherPublicationController {
     @FXML
     public void addpublication(ActionEvent actionEvent) {
         try {
-            // Charger le fichier FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Blog/Addpublication.fxml"));
             Parent root = loader.load();
-
-            // Cr?er une nouvelle sc?ne
             Scene scene = new Scene(root);
-
-            // Obtenir la fen?tre principale actuelle
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
-            // D?finir la nouvelle sc?ne dans la fen?tre principale
             stage.setScene(scene);
-
-            // Afficher la nouvelle sc?ne
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // G?rer l'exception de chargement du fichier FXML
+            e.printStackTrace();
         }
     }
-
+    @FXML
+    public void searchPublication() {
+        String searchText = searchTextField.getText().toLowerCase().trim();
+        filteredPublications.clear();
+        for (Publication publication : allPublications) {
+            if (publication.getContenu().toLowerCase().contains(searchText)) {
+                filteredPublications.add(publication);
+            }
+        }
+    }
     }
 

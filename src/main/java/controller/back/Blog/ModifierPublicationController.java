@@ -118,7 +118,6 @@ public class ModifierPublicationController implements Initializable {
     }
     public void  initializeDetails(){
         CommentaireService cs=new CommentaireService();
-
         try {
             Publication pub= cs.fetchPublicationById(this.idpub);
             TitreTF.setText(pub.getTitre());
