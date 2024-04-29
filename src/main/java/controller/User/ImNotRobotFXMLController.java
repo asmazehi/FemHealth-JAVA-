@@ -1,4 +1,4 @@
-package Controllers.User;
+package controller.User;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 
