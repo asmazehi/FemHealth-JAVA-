@@ -21,6 +21,7 @@ public class MainFX extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherSponsor.fxml"));
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Sponsoring/AfficherProduitF.fxml"));
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Blog/AfficherCommentaire.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/HomePage" + ".fxml"));
             Parent root = loader.load();
             Scene scene= new Scene(root);
             primaryStage.setScene(scene);
