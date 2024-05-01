@@ -76,6 +76,11 @@ public class EditProfilController {
         String nouveauMotDePasse = mdpNV_TF.getText();
         String confirmationMotDePasse = mdpC_TF.getText();
 
+        if (!nouveauMotDePasse.equals(confirmationMotDePasse)) {
+            showAlert("Confirmation invalide", "La confirmation du mot de passe ne correspond pas au nouveau mot de passe.");
+            return;
+        }
+
         System.out.println(EmailTF);
 
         if(email.equals(user.getEmail()))

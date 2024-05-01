@@ -16,6 +16,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Date;
 import javafx.scene.control.Button;
+import utils.EmailUtils;
+
+import javax.mail.MessagingException;
 
 public class GererUtilisateurController {
 
@@ -50,6 +53,8 @@ public class GererUtilisateurController {
 
     @FXML
     private TableColumn<Utilisateur, String> activeCol;
+    @FXML
+    private TableColumn<Utilisateur, String> passwordCol;
 
     @FXML
     private TableColumn<Utilisateur, String> registred_atCol;
@@ -69,11 +74,20 @@ public class GererUtilisateurController {
         activeCol.setCellValueFactory(new PropertyValueFactory<>("active"));
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         roleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
+        passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
+
+
         registred_atCol.setCellValueFactory(new PropertyValueFactory<>("registred_at"));
 
 
 
-        choix_type.getItems().addAll("Admin", "Client");
+        choix_type.getItems().addAll("[\"ROLE_CLIENT\"]","[\"ROLE_ADMIN\"]");
+
+        tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                choix_type.setValue(newSelection.getRole());
+            }
+        });
     }
 
     private void chargerUtilisateurs() {
@@ -121,11 +135,19 @@ public class GererUtilisateurController {
             return;
         }
 
-        utilisateurSelectionne.setRole(nouveauRole);
+        utilisateurSelectionne.setRole(nouveauRole); // Met à jour le rôle de l'utilisateur
+        try {
+            // Met à jour l'utilisateur dans la base de données
+            utilisateurService.update(utilisateurSelectionne);
+            afficherAlerte("Rôle de l'utilisateur mis à jour avec succès !");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            afficherAlerte("Erreur lors de la mise à jour du rôle de l'utilisateur");
+        }
 
-        // Utilisez la méthode updateUser pour mettre à jour l'utilisateur
-        //updateUser(utilisateurSelectionne);
+        tableView.refresh(); // Rafraîchit la table pour refléter les modifications
     }
+
 
 
     @FXML
@@ -140,16 +162,31 @@ public class GererUtilisateurController {
         utilisateurSelectionne.setActive(nouvelEtat);
 
         try {
-            utilisateurService.update(utilisateurSelectionne);
+            utilisateurService.updateActivation(utilisateurSelectionne.getId(), nouvelEtat);
             String message = nouvelEtat == 1 ? "Compte activé" : "Compte désactivé";
             afficherAlerte(message);
+
+            // Envoi de l'email d'information
+            String sujet = "Modification de l'état de votre compte";
+            String contenu = "Cher utilisateur,\n\n"
+                    + "Votre compte a été " + (nouvelEtat == 1 ? "activé." : "désactivé.") + "\n\n"
+                    + "Cordialement,\n"
+                    + "Votre équipe.";
+
+            // Récupérez l'email de l'utilisateur et envoyez-lui un email
+            String emailUtilisateur = utilisateurSelectionne.getEmail();
+            EmailUtils.sendEmail("smtp.example.com", "587", "votre-email@example.com", "votre-email-password", emailUtilisateur, sujet, contenu);
         } catch (SQLException e) {
             e.printStackTrace();
             afficherAlerte("Erreur lors de la mise à jour du statut du compte");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            afficherAlerte("Erreur lors de l'envoi de l'email");
         }
 
         tableView.refresh();
     }
+
     private void afficherAlerte(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");

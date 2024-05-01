@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Set;
+//import java.tanesha.recaptcha.ReCaptcha;
+//import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import javafx.scene.control.PasswordField;
 
@@ -89,25 +91,28 @@ public class AuthentificationController {
 
         Utilisateur utilisateur = utilisateurService.authentification(email);
         System.out.println(utilisateur);
-        if (utilisateur != null && PasswordUtils.verifyPassword(motDePasse, utilisateur.getMdp())) {
 
-            SetData(utilisateur);
+        if (utilisateur != null) {
+            if (utilisateur.getActive() == 0) {
+                showAlert("Votre compte a été désactivé.");
+                return; // Arrêter le processus de connexion
+            }
 
-            if (utilisateur.getRole().contains("[\"ROLE_ADMIN\"]")) {
+            if (PasswordUtils.verifyPassword(motDePasse, utilisateur.getMdp())) {
+                SetData(utilisateur);
 
-                System.out.println("Redirecting to BaseAdmin");
-                try {
+                if (utilisateur.getRole().contains("[\"ROLE_ADMIN\"]")) {
+                    System.out.println("Redirecting to BaseAdmin");
                     redirectToBaseAdmin();
-                } catch (Exception e) {
-                    showAlert("Erreur lors de la redirection vers l'interface administrateur.");
-                    e.printStackTrace();
+                } else if (utilisateur.getRole().contains("[\"ROLE_CLIENT\"]")) {
+                    System.out.println("Redirecting to HomePageClient");
+                    redirectToHomePageClient();
                 }
-            } else if (utilisateur.getRole().contains("[\"ROLE_CLIENT\"]")) {
-                System.out.println("Redirecting to HomePageClient");
-                redirectToHomePageClient();
+            } else {
+                showAlert("Email ou mot de passe incorrect !");
             }
         } else {
-            showAlert("Email ou mot de passe incorrect !");
+            showAlert("Email incorrect !");
         }
     }
 
@@ -121,8 +126,6 @@ public class AuthentificationController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/BaseAdmin.fxml"));
             Parent root = loader.load();
-
-
 
             Stage stage = (Stage) seConnecterTF.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -175,6 +178,15 @@ public class AuthentificationController {
             e.printStackTrace();
         }
     }
+
+
+    // Méthode pour vérifier la réponse reCAPTCHA
+//    public boolean verifyRecaptcha(String remoteAddr, String response) {
+//        String privateKey = "6Le1VIMpAAAAAOLnzO7R8vYo3-ySZlo0w6WxLRj2";
+//        ReCaptcha reCaptcha = new ReCaptcha(privateKey);
+//        ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddr, response);
+//        return reCaptchaResponse.isValid();
+//    }
 
 
     public void retour() {

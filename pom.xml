@@ -14,7 +14,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
+            <id>github-releases</id>
+            <name>GitHub Releases</name>
+            <url>https://maven.pkg.github.com/coolnalu/recaptcha4j</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+        <!-- Vos autres dépendances ici -->
 
         <dependency>
             <groupId>com.mysql</groupId>
@@ -37,9 +51,33 @@
             <version>0.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
 
 
+        <!--        <dependency>-->
+<!--            <groupId>com.github.coolnalu</groupId>-->
+<!--            <artifactId>recaptcha4j</artifactId>-->
+<!--            <version>0.0.7</version>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

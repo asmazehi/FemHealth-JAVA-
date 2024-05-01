@@ -35,7 +35,8 @@ public class UtilisateurService implements IService<Utilisateur> {
             p.setMail(RS.getString("email"));
             p.setMdp(RS.getString("password"));
             p.setRole(RS.getString("roles"));
-            p.setRole(RS.getString("active"));
+            p.setActive(RS.getInt("active"));
+            p.setRegistred_at(RS.getDate("registered_at"));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -145,6 +146,21 @@ public class UtilisateurService implements IService<Utilisateur> {
             throw ex;
         }
     }
+    @Override
+    public void updateActivation(int userId, int newActivationState) throws SQLException {
+        try {
+            String req = "UPDATE `user` SET `active` = ? WHERE `id` = ?";
+            PreparedStatement statement = connection.prepareStatement(req);
+            statement.setInt(1, newActivationState);
+            statement.setInt(2, userId);
+            statement.executeUpdate();
+            System.out.println("Statut d'activation de l'utilisateur mis à jour");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+    }
+
 
 
     @Override
@@ -173,8 +189,9 @@ public class UtilisateurService implements IService<Utilisateur> {
                 utilisateur.setActive(rs.getInt("active"));
                 utilisateur.setEmail(rs.getString("email"));
                 utilisateur.setRole(rs.getString("roles"));
-
+                utilisateur.setMdp(rs.getString("password")); // Ajout du mot de passe
                 utilisateur.setRegistred_at(rs.getDate("registered_at"));
+                list.add(utilisateur);
                 list.add(utilisateur);
             }
         } catch (SQLException ex) {
@@ -199,5 +216,22 @@ public class UtilisateurService implements IService<Utilisateur> {
         }
         return false;
     }
+
+    public boolean emailExiste(String email) {
+        String query = "SELECT COUNT(*) AS count FROM user WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt("count");
+                    return count > 0;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
 }
+
 

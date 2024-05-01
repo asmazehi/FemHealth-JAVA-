@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -25,24 +24,24 @@
       </Label>
       <ChoiceBox fx:id="choix_type" layoutX="322.0" layoutY="122.0" prefWidth="150.0" style="-fx-background-color: #C291A4;" />
        <Button fx:id="btnModifier" layoutX="530.0" layoutY="122.0" mnemonicParsing="false" onAction="#modifierRole" prefHeight="25.0" prefWidth="122.0" style="-fx-background-color: #C291A4;" text="modifier" />
-       <TextField fx:id="idFX" layoutX="355.0" layoutY="196.0" prefHeight="25.0" prefWidth="69.0" promptText="id" />
        <Button fx:id="btnbloquer" layoutX="462.0" layoutY="196.0" mnemonicParsing="false" onAction="#bloquerUtilisateur" text="Bloquer" />
 
-       <Pane layoutX="223.0" layoutY="258.0" prefHeight="200.0" prefWidth="589.0">
+       <Pane layoutX="120.0" layoutY="261.0" prefHeight="200.0" prefWidth="750.0">
          <children>
-             <TableView fx:id="tableView" layoutX="-1.0" prefHeight="200.0" prefWidth="590.0">
+             <TableView fx:id="tableView" layoutX="-1.0" prefHeight="200.0" prefWidth="751.0">
                  <columns>
-                     <TableColumn fx:id="idCol" prefWidth="90.28575134277344" text="id" />
-                     <TableColumn fx:id="emailCol" minWidth="0.0" prefWidth="141.7142333984375" text="email" />
-                     <TableColumn fx:id="activeCol" prefWidth="134.85711669921875" text="active" />
-                     <TableColumn fx:id="roleCol" prefWidth="115.4285888671875" text="roles" />
-                     <TableColumn fx:id="registred_atCol" minWidth="0.0" prefWidth="107.4285888671875" text="registered_at" />
+                     <TableColumn fx:id="idCol" prefWidth="64.0" text="id" />
+                     <TableColumn fx:id="emailCol" minWidth="0.0" prefWidth="158.85714721679688" text="email" />
+                     <TableColumn fx:id="activeCol" prefWidth="111.4285888671875" text="active" />
+                     <TableColumn fx:id="roleCol" prefWidth="102.857177734375" text="roles" />
+                     <TableColumn fx:id="passwordCol" minWidth="0.0" prefWidth="163.99993896484375" text="password" />
+                  <TableColumn fx:id="registred_atCol" minWidth="0.0" prefWidth="148.0" text="registered_at" />
                  </columns>
              </TableView>
 
          </children>
       </Pane>
-      <BorderPane layoutX="14.0" layoutY="121.0" prefHeight="371.0" prefWidth="200.0" />
+      <BorderPane layoutX="14.0" layoutY="121.0" prefHeight="371.0" prefWidth="83.0" />
        <Button fx:id="btnDeconnecter" layoutX="786.0" layoutY="30.0" mnemonicParsing="false" onAction="#deconnecter" style="-fx-background-color: #C291A4;" text="Se deconnecter" />
       <Button fx:id="retour_TF" layoutX="20.0" layoutY="18.0" mnemonicParsing="false" onAction="#retour" style="-fx-background-color: #C291A4;" text="retour" />
 
