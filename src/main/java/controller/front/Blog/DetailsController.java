@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +13,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -23,12 +28,19 @@ import service.Blog.PublicationService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static javax.swing.text.StyleConstants.Bold;
 
 public class DetailsController {
     public int idpub;
     @FXML
     private ResourceBundle resources;
+
+    @FXML
+    private ScrollPane idcomentaire;
 
     @FXML
     private URL location;
@@ -51,6 +63,7 @@ public class DetailsController {
 
     CommentaireService cs=new CommentaireService();
     ObservableList<Commentaire> obs;
+    ObservableList<cardcomentairepub> list = FXCollections.observableArrayList();
     @FXML
     void AddCommentaire(ActionEvent event) throws SQLException {
         CommentaireService commentaireService = new CommentaireService();
@@ -121,21 +134,89 @@ public class DetailsController {
         }
         setListView();
     }
-    public void setListView() throws SQLException {
-        CommentaireService cp=new CommentaireService();
-        for (int i=0;i<cp.fetchCommentaireByPublicationID(this.idpub).size();i++){
-            stringList.add((cp.fetchCommentaireByPublicationID(this.idpub).get(i).getDescription()));
-            System.out.println(cp.fetchCommentaireByPublicationID(this.idpub).get(i).getDescription()+ " "+ cp.fetchCommentaireByPublicationID(this.idpub).get(i).getDatecomnt());
+
+    /*
+    *  CommentaireService cp = new CommentaireService();
+        List<Commentaire> commentaires = cp.fetchCommentaireByPublicationID(this.idpub);
+
+        List<Commentaire> commentairesActifs = commentaires.stream()
+                .filter(Commentaire::isActive)
+                .collect(Collectors.toList());
+
+        for (Commentaire commentaire : commentairesActifs) {
+            String descirption="description";
+
+            stringList.add( "description: "+commentaire.getDescription()+"\n"+" date:"+ commentaire.getDatecomnt());
+            System.out.println(commentaire.getDescription() + " " + commentaire.getDatecomnt());
         }
+
         observableList.setAll(stringList);
         ListComment.setItems(observableList);
-        ListComment.setCellFactory(
-                new Callback<ListView<String>, ListCell<String>>() {
-                    @Override
-                    public ListCell<String> call(ListView<String> listView) {
-                        return new ListeViewCell();
+        ListComment.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> listView) {
+                return new ListeViewCell();
+            }
+        });*/
+    public void setListView() throws SQLException {
+        try {
+            CommentaireService cp = new CommentaireService();
+            List<Commentaire> commentaires = cp.fetchCommentaireByPublicationID(this.idpub);
+
+            VBox commentaireContainer = new VBox();
+            commentaireContainer.setSpacing(10);
+
+            for (Commentaire commentaire : commentaires) {
+                SimpleDateFormat sdfNouveau = new SimpleDateFormat("yyyy-MM-dd");
+                String dateresult = sdfNouveau.format(commentaire.getDatecomnt());
+
+
+                HBox commentaireContent = new HBox();
+
+
+                ImageView likeIcon = new ImageView("/Front/Blog/like.png");
+                likeIcon.setFitHeight(20);
+                likeIcon.setFitWidth(20);
+
+
+                likeIcon.setOnMouseClicked(event -> {
+                   commentaire.setBrlike(commentaire.getBrlike()+1);
+                   commentaire.setId(commentaire.getId());
+                    System.out.println("like "+  commentaire.getBrlike());
+                      commentaireService.incrimentelike(commentaire);
+                    try {
+                        initialize();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
                     }
                 });
+
+                  if (commentaire.getBrlike()>0){
+                        String nbrlike=commentaire.getBrlike()+"";
+                commentaireContent.getChildren().addAll( new Label(commentaire.getDescription()+" "),likeIcon,new Label(" "+commentaire.getBrlike()));
+
+                  }else {
+                      commentaireContent.getChildren().addAll( new Label(commentaire.getDescription()+" "),likeIcon);
+
+                  }
+                Label username = new Label(commentaire.getUser_id().getNom());
+                username.setStyle("-fx-font-family: 'SansSerif'; -fx-font-weight: bold; -fx-font-size: 14px;");
+                Label dateLabel = new Label(dateresult);
+
+
+                VBox commentaireBox = new VBox(username, commentaireContent, dateLabel);
+                commentaireBox.setStyle("-fx-border-color: black; -fx-padding: 10px;");
+
+                // Ajoutez la VBox du commentaire au conteneur principal
+                commentaireContainer.getChildren().add(commentaireBox);
+            }
+
+            // Définissez le contenu de la ScrollPane comme le conteneur de commentaire
+            idcomentaire.setContent(commentaireContainer);
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
     @FXML
     void initialize() throws SQLException {
@@ -154,7 +235,7 @@ public class DetailsController {
     void userCommentaire(ActionEvent event) {
         try {
             // Charger le fichier FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Blog/UserComments.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/UserComments.fxml"));
             Parent root = loader.load();
            loader.getController();
 

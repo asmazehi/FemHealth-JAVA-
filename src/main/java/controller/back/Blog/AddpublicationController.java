@@ -72,7 +72,7 @@ public class AddpublicationController {
 
     @FXML
     void afficherPublication(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Blog/AfficherPublication.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/AfficherPublication.fxml"));
         try {
             Parent root = loader.load();
             AfficherPublicationController controller = loader.getController();

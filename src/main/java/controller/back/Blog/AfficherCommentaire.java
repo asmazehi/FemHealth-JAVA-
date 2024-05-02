@@ -4,26 +4,33 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Blog.Commentaire;
 import model.Blog.Publication;
+import model.User.Utilisateur;
 import service.Blog.CommentaireService;
+import javafx.scene.control.cell.ComboBoxTableCell;
 public class AfficherCommentaire {
     @FXML
     private ResourceBundle resources;
     @FXML
     private URL location;
+
+
+
     @FXML
     private TableView<Commentaire> table1view;
+    @FXML
+    private TableColumn<Commentaire, Boolean>  Action;
     @FXML
     private TableColumn<Commentaire, Date> dateCCol;
     @FXML
@@ -33,7 +40,7 @@ public class AfficherCommentaire {
     @FXML
     private TableColumn<Commentaire, String> pubCol;
     @FXML
-    private TableColumn<Commentaire, Integer> userCol;
+    private TableColumn<Commentaire, String> userCol;
     @FXML
     private TableColumn<Commentaire, String> descriptionCol;
     CommentaireService cs = new CommentaireService();
@@ -48,8 +55,74 @@ public class AfficherCommentaire {
             obsC= FXCollections.observableArrayList(list);
             table1view.setItems(obsC);
             dateCCol.setCellValueFactory(new PropertyValueFactory<>("datecomnt"));
-            ActionCol.setCellValueFactory(new PropertyValueFactory<>("active"));
-             userCol.setCellValueFactory(new PropertyValueFactory<>("user_id"));
+            //ActionCol.setCellValueFactory(new PropertyValueFactory<>("active"));
+
+            ActionCol.setCellFactory(col -> {
+                TableCell<Commentaire, Boolean> cell = new TableCell<Commentaire, Boolean>() {
+                    private final ChoiceBox<Boolean> choiceBox = new ChoiceBox<>();
+
+                    {
+                        choiceBox.getItems().addAll(true, false);
+
+
+                        choiceBox.setOnAction(event -> {
+
+                            Boolean selectedAction = choiceBox.getValue();
+                            if (selectedAction != null) {
+
+                                Commentaire commentaire = getTableRow().getItem();
+
+                                if (commentaire != null && !(commentaire.isActive())==selectedAction) {
+                                    if (confirmAction("Are you sure you want to change the state of this Commentaire?")) {
+                                        commentaire.setActive(selectedAction);
+                                        System.out.println("sssss  "+selectedAction);
+                                        try {
+
+                                            cs.ActiveDesactiveComentaire(commentaire);
+                                        } catch (SQLException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                        if (!selectedAction) {
+
+                                        }
+                                        System.out.println("Updated Commentaire: " + commentaire);
+                                    } else {
+
+                                        choiceBox.setValue(commentaire.isActive());
+                                    }
+                                }
+                            }
+                        });
+                    }
+
+
+                    @Override
+                    protected void updateItem(Boolean item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            Commentaire commentaire = getTableRow().getItem();
+                            if (commentaire != null) {
+                                choiceBox.setValue(commentaire.isActive());
+                                setGraphic(choiceBox);
+                            } else {
+                                setGraphic(null);
+                            }
+                        }
+                    }
+                };
+                return cell;
+            });
+            userCol.setCellValueFactory(cellData -> {
+                Commentaire commentaire = cellData.getValue();
+                Utilisateur utilisateur = commentaire.getUser_id();
+                if (utilisateur != null) {
+                    return new SimpleStringProperty(utilisateur.getNom());
+                } else {
+                    return new SimpleStringProperty("");
+                }
+            });
             descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
             pubCol.setCellValueFactory(cellData -> {
                 Commentaire commentaire = cellData.getValue();
@@ -68,4 +141,12 @@ public class AfficherCommentaire {
      public void setData(String msg){
         Welcome.setText("Welcome" + msg);
     }
+        private boolean confirmAction(String message) {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            Optional<ButtonType> result = alert.showAndWait();
+            return result.isPresent() && result.get() == ButtonType.OK;
+        }
 }

@@ -138,6 +138,17 @@ public class AjouterProduitController {
         } catch (SQLException e) {
             showAlert("Erreur", "Erreur lors de l'ajout du produit : " + e.getMessage());
         }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherProduit.fxml"));
+            Parent root = loader.load();
+            AfficherProduitController controller = loader.getController();
+            controller.initialize();
+            Stage stage = (Stage) nomP.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Erreur lors de la navigation : " + e.getMessage());
+        }
     }
 
 

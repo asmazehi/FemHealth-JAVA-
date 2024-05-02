@@ -17,11 +17,19 @@ public class MainFX extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Blog/AfficherCommentaire.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherProduit.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherSponsor.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Sponsoring/AfficherProduitF.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/AfficherCommentaire.fxml"));
+          // FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Inscription.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/carCard.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/UserComments.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/HomePage" + ".fxml"));
             Parent root = loader.load();
             Scene scene= new Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Gérer les publication");
+            primaryStage.setTitle("FemHealth");
             primaryStage.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());
