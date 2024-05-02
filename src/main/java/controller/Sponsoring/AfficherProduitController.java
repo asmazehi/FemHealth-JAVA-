@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class AfficherProduitController {
     ProduitService ps = new ProduitService();
@@ -45,9 +46,9 @@ public class AfficherProduitController {
     private TableView<Produit> tableView;
     @FXML
     private Label welcomeLBL;
-
     private static boolean ajouterProduitPageOpen = false;
-
+    @FXML
+    private TextField searchField;
 
     @FXML
     void initialize() {
@@ -66,8 +67,6 @@ public class AfficherProduitController {
                 Sponsor sponsor = cellData.getValue().getSponsor();
                 return new SimpleStringProperty(sponsor != null ? sponsor.getNom() : "");
             });
-
-
 
             // Custom cell factory for displaying images
             imagePathP.setCellFactory(column -> {
@@ -96,6 +95,15 @@ public class AfficherProduitController {
                         }
                     }
                 };
+            });
+
+            // Listener for search field to filter results
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.isEmpty()) {
+                    refreshData(); // Reset the table to show all products when the search field is cleared
+                } else {
+                    search();
+                }
             });
 
         } catch (SQLException e) {
@@ -145,7 +153,6 @@ public class AfficherProduitController {
         }
     }
 
-
     @FXML
     void naviguerVersAjouterProduit(ActionEvent event) {
         try {
@@ -170,7 +177,6 @@ public class AfficherProduitController {
             System.err.println("Error loading AjouterProduit.fxml: " + e.getMessage());
         }
     }
-
 
     @FXML
     void modifierProduit(ActionEvent event) {
@@ -203,7 +209,6 @@ public class AfficherProduitController {
         }
     }
 
-
     public void refreshData() {
         try {
             List<Produit> list = ps.select();
@@ -211,6 +216,22 @@ public class AfficherProduitController {
         } catch (SQLException e) {
             System.err.println("Error refreshing data: " + e.getMessage());
         }
+    }
+    @FXML
+    void search() {
+        String searchText = searchField.getText().toLowerCase();
+        List<Produit> filteredList = obs.stream()
+                .filter(produit -> produit.getNom().toLowerCase().contains(searchText)
+                        || produit.getDescription().toLowerCase().contains(searchText)
+                        || produit.getSponsor().getNom().toLowerCase().contains(searchText))
+                .collect(Collectors.toList());
+        obs.setAll(filteredList);
+    }
+
+    @FXML
+    void clearSearch(ActionEvent event) {
+        searchField.clear();
+        refreshData(); // Reset the table to show all products
     }
 
 

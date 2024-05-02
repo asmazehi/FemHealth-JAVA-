@@ -2,7 +2,6 @@ package service.User;
 
 import model.User.Utilisateur;
 import utils.MyDataBase;
-import utils.PasswordUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -103,7 +102,7 @@ public class UtilisateurService implements IService<Utilisateur> {
             statement.setString(1, utilisateur.getNom());
             statement.setString(2, utilisateur.getMail());
 
-            statement.setString(3, PasswordUtils.hashPasswrd(utilisateur.getMdp()));
+            //statement.setString(3, PasswordUtils.hashPasswrd(utilisateur.getMdp()));
             statement.setString(4, utilisateur.getRole());
             statement.setDate(5, utilisateur.getRegistred_at());
             statement.setInt(6, utilisateur.getActive());
@@ -191,7 +190,7 @@ public class UtilisateurService implements IService<Utilisateur> {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     String motDePasseBD = resultSet.getString("password");
-                    return PasswordUtils.verifyPassword(motDePasseActuel, motDePasseBD);
+                    //return PasswordUtils.verifyPassword(motDePasseActuel, motDePasseBD);
                 }
             }
         } catch (SQLException ex) {

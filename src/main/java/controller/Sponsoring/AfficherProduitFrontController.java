@@ -1,6 +1,7 @@
 package controller.Sponsoring;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,6 +19,9 @@ public class AfficherProduitFrontController {
 
     @FXML
     private FlowPane produitFlowPane;
+
+    @FXML
+    private ChoiceBox<String> categorieComboBox;
 
     private ProduitService ps = new ProduitService();
 
@@ -85,5 +89,25 @@ public class AfficherProduitFrontController {
         return card;
     }
 
+    @FXML
+    private void filterByCategory() {
+        try {
+            String selectedCategory = categorieComboBox.getValue();
+            List<Produit> produitList;
+            if (selectedCategory.equals("Toutes les catégories")) {
+                produitList = ps.select();
+            } else {
+                produitList = ps.selectByCategory(selectedCategory);
+            }
+
+            produitFlowPane.getChildren().clear(); // Clear existing cards
+            for (Produit produit : produitList) {
+                AnchorPane card = createProduitCard(produit);
+                produitFlowPane.getChildren().add(card);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error loading products: " + e.getMessage());
+        }
+    }
 
 }
