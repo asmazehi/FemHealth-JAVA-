@@ -25,7 +25,8 @@ public class AfficherCommentaire {
     @FXML
     private URL location;
 
-
+    @FXML
+    private TextField recherche;
 
     @FXML
     private TableView<Commentaire> table1view;
@@ -51,6 +52,13 @@ public class AfficherCommentaire {
     @FXML
     void initialize() {
         try {
+            recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+                try {
+                    searchCommentsByPublicationTitle(newValue);
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            });
             List<Commentaire> list = cs.select();
             obsC= FXCollections.observableArrayList(list);
             table1view.setItems(obsC);
@@ -149,4 +157,14 @@ public class AfficherCommentaire {
             Optional<ButtonType> result = alert.showAndWait();
             return result.isPresent() && result.get() == ButtonType.OK;
         }
+    private void searchCommentsByPublicationTitle(String publicationTitle) throws SQLException {
+        if (!publicationTitle.isEmpty()) {
+            List<Commentaire> list = cs.fetchCommentaireByCommentDescription(publicationTitle);
+            obsC = FXCollections.observableArrayList(list);
+            table1view.setItems(obsC);
+        } else {
+            // Si le champ de recherche est vide, réinitialiser le TableView
+            initialize();
+        }
+    }
 }

@@ -33,6 +33,8 @@ public class AfficherPublicationController {
     @FXML
     private URL location;
     @FXML
+    private TextField recherche;
+    @FXML
     private TableColumn<Publication, String> titreCol;
     @FXML
     private Label welcomeLBL;
@@ -94,6 +96,13 @@ public class AfficherPublicationController {
     }@FXML
     void initialize() {
         try {
+            recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+                try {
+                    updatePublicationsByTitreAndContenu(newValue,newValue);
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            });
             List<Publication> list = ps.select();
             obs = FXCollections.observableArrayList(list);
             allPublications = FXCollections.observableArrayList(list);
@@ -233,6 +242,22 @@ return  null;
                     e.printStackTrace();
                 }
             }
+        }
+    }
+    private void updatePublicationsByTitreAndContenu(String titre, String contenu) throws SQLException {
+        if (!titre.isEmpty() || !contenu.isEmpty()) {
+            List<Publication> list = ps.fetchPublicationByTitreAndContenu(titre, contenu);
+            ObservableList<Publication> obs = FXCollections.observableArrayList(list);
+            tableView.setItems(obs);
+
+            // Configurer les cellules du TableView
+            titreCol.setCellValueFactory(new PropertyValueFactory<>("titre"));
+            contenuCol.setCellValueFactory(new PropertyValueFactory<>("contenu"));
+            dateCol.setCellValueFactory(new PropertyValueFactory<>("datepub"));
+            imageCol.setCellValueFactory(new PropertyValueFactory<>("image"));
+        } else {
+            // Si les champs titre et contenu sont vides, réinitialiser le TableView
+            initialize();
         }
     }
     }

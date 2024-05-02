@@ -57,24 +57,25 @@
        </AnchorPane>
        <Pane layoutX="194.0" layoutY="3.0" prefHeight="651.0" prefWidth="989.0" style="-fx-background-color: ececec;">
           <children>
-         <TableView fx:id="tableView" layoutX="31.0" layoutY="84.0" prefHeight="298.0" prefWidth="887.0">
+         <TableView fx:id="tableView" layoutX="33.0" layoutY="119.0" prefHeight="361.0" prefWidth="665.0">
            <columns>
              <TableColumn fx:id="titreCol" prefWidth="93.0" text="Titre" />
              <TableColumn fx:id="dateCol" prefWidth="107.0" text="Date" />
                <TableColumn fx:id="contenuCol" prefWidth="123.0" text="Contenu" />
                <TableColumn fx:id="imageCol" prefWidth="105.0" text="Image" />
-                  <TableColumn fx:id="idCommentaire" prefWidth="500.0" text="Les Commentaires" />
+                  <TableColumn fx:id="idCommentaire" prefWidth="234.0" text="Les Commentaires" />
            </columns>
          </TableView>
-         <Label fx:id="welcomeLBL" layoutX="281.0" layoutY="20.0" text="Label">
-            <font>
-               <Font size="23.0" />
-            </font>
-         </Label>
-         <Button layoutX="424.0" layoutY="433.0" mnemonicParsing="false" onAction="#supprimerPublication" prefHeight="25.0" prefWidth="108.0" text="supprimer" />
-          <Button layoutX="160.0" layoutY="433.0" mnemonicParsing="false" onAction="#addpublication" prefHeight="25.0" prefWidth="84.0" text="ajouter" />
-          <Button layoutX="286.0" layoutY="433.0" mnemonicParsing="false" onAction="#modifierpublication" prefHeight="25.0" prefWidth="99.0" text="modifier" />
-            <Button layoutX="442.0" layoutY="512.0" mnemonicParsing="false" onAction="#listeCommentaire" prefHeight="34.0" prefWidth="162.0" text="Liste des commentaires" />
+         <Button layoutX="441.0" layoutY="508.0" mnemonicParsing="false" onAction="#supprimerPublication" prefHeight="25.0" prefWidth="108.0" text="supprimer" />
+          <Button layoutX="159.0" layoutY="508.0" mnemonicParsing="false" onAction="#addpublication" prefHeight="25.0" prefWidth="84.0" text="ajouter" />
+          <Button layoutX="294.0" layoutY="508.0" mnemonicParsing="false" onAction="#modifierpublication" prefHeight="25.0" prefWidth="99.0" text="modifier" />
+            <Button layoutX="451.0" layoutY="580.0" mnemonicParsing="false" onAction="#listeCommentaire" prefHeight="34.0" prefWidth="162.0" text="Liste des commentaires" />
+            <TextField fx:id="recherche" layoutX="421.0" layoutY="49.0" prefHeight="37.0" prefWidth="222.0" />
+            <Label layoutX="58.0" layoutY="42.0" prefHeight="44.0" prefWidth="228.0" text="Mes publications" textFill="#d0469b">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Label>
           </children>
        </Pane>
    </children>

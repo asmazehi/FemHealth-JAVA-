@@ -61,7 +61,7 @@
 
        <Pane layoutX="208.0" layoutY="-1.0" prefHeight="585.0" prefWidth="750.0" style="-fx-background-color: ececec;">
    <children>
-         <TableView fx:id="table1view" layoutX="12.0" layoutY="92.0" prefHeight="296.0" prefWidth="700.0">
+         <TableView fx:id="table1view" layoutX="14.0" layoutY="180.0" prefHeight="296.0" prefWidth="700.0">
            <columns>
              <TableColumn fx:id="pubCol" prefWidth="157.0" text="publication_id" />
              <TableColumn fx:id="userCol" prefWidth="138.0" text="user_id" />
@@ -78,6 +78,7 @@
                <Font size="24.0" />
             </font>
          </Label>
+            <TextField fx:id="recherche" layoutX="86.0" layoutY="93.0" prefHeight="25.0" prefWidth="225.0" />
    </children>
        </Pane>
    </children>

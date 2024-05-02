@@ -82,4 +82,21 @@ public class PublicationService {
             return null;
         }
     }
+    public List<Publication> fetchPublicationByTitreAndContenu(String titre, String contenu) throws SQLException {
+        List<Publication> publications = new ArrayList<>();
+        String query = "SELECT * FROM publication WHERE titre LIKE ? ";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, "%" + titre + "%");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            Publication publication = new Publication();
+            publication.setId(resultSet.getInt("id"));
+            publication.setTitre(resultSet.getString("titre"));
+            publication.setContenu(resultSet.getString("contenu"));
+            publication.setImage(resultSet.getString("image"));
+            publication.setDatepub(resultSet.getDate("datepub"));
+            publications.add(publication);
+        }
+        return publications;
+    }
 }
