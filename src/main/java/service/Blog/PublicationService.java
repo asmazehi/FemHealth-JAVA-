@@ -39,10 +39,8 @@ public class PublicationService {
     public List<Publication> select() throws SQLException {
         List<Publication> publications = new ArrayList<>();
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/femHealth","root", "");
-        // Préparer la requête SQL pour sélectionner toutes les publications
         String query = "SELECT * FROM publication";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        // Exécuter la requête
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             Publication publication = new Publication();
@@ -54,7 +52,6 @@ public class PublicationService {
             publications.add(publication);
 
         }
-        // Fermer les ressources
         resultSet.close();
         preparedStatement.close();
         connection.close();

@@ -96,7 +96,7 @@ public class DetailsController {
                        /* ListComment.setAll(commentaireService.select(publicationSelectionné.getId()));
                         ListCommentView.setItems(ListComment);*/
                     } catch (SQLException e) {
-                        e.printStackTrace(); // Handle the exception appropriately
+                        e.printStackTrace();
                     }
                 }
             } else {
@@ -170,53 +170,56 @@ public class DetailsController {
                 SimpleDateFormat sdfNouveau = new SimpleDateFormat("yyyy-MM-dd");
                 String dateresult = sdfNouveau.format(commentaire.getDatecomnt());
 
-
                 HBox commentaireContent = new HBox();
-
 
                 ImageView likeIcon = new ImageView("/Front/Blog/like.png");
                 likeIcon.setFitHeight(20);
                 likeIcon.setFitWidth(20);
 
-
                 likeIcon.setOnMouseClicked(event -> {
-                   commentaire.setBrlike(commentaire.getBrlike()+1);
-                   commentaire.setId(commentaire.getId());
-                    System.out.println("like "+  commentaire.getBrlike());
-                      commentaireService.incrimentelike(commentaire);
+                    commentaire.setBrlike(commentaire.getBrlike() + 1);
+                    commentaire.setId(commentaire.getId());
+                    System.out.println("like " + commentaire.getBrlike());
+                    commentaireService.incrimentelike(commentaire);
                     try {
-                        initialize();
+
+                        updateListView();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
                 });
 
-                  if (commentaire.getBrlike()>0){
-                        String nbrlike=commentaire.getBrlike()+"";
-                commentaireContent.getChildren().addAll( new Label(commentaire.getDescription()+" "),likeIcon,new Label(" "+commentaire.getBrlike()));
+                if (commentaire.getBrlike() > 0) {
+                    String nbrlike = commentaire.getBrlike() + "";
+                    commentaireContent.getChildren().addAll(new Label(commentaire.getDescription() + " "), likeIcon, new Label(" " + commentaire.getBrlike()));
+                } else {
+                    commentaireContent.getChildren().addAll(new Label(commentaire.getDescription() + " "), likeIcon);
+                }
 
-                  }else {
-                      commentaireContent.getChildren().addAll( new Label(commentaire.getDescription()+" "),likeIcon);
-
-                  }
                 Label username = new Label(commentaire.getUser_id().getNom());
                 username.setStyle("-fx-font-family: 'SansSerif'; -fx-font-weight: bold; -fx-font-size: 14px;");
                 Label dateLabel = new Label(dateresult);
 
-
                 VBox commentaireBox = new VBox(username, commentaireContent, dateLabel);
                 commentaireBox.setStyle("-fx-border-color: black; -fx-padding: 10px;");
 
-                // Ajoutez la VBox du commentaire au conteneur principal
                 commentaireContainer.getChildren().add(commentaireBox);
             }
 
-            // Définissez le contenu de la ScrollPane comme le conteneur de commentaire
             idcomentaire.setContent(commentaireContainer);
-
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+
+    private void updateListView() throws SQLException {
+        setListView();
+
+
+        Label updatedLabel = new Label("is updated");
+        updatedLabel.setStyle("-fx-font-weight: bold;");
+        ((VBox) idcomentaire.getContent()).getChildren().add(updatedLabel);
     }
     @FXML
     void initialize() throws SQLException {
@@ -234,7 +237,7 @@ public class DetailsController {
     @FXML
     void userCommentaire(ActionEvent event) {
         try {
-            // Charger le fichier FXML
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/UserComments.fxml"));
             Parent root = loader.load();
            loader.getController();
@@ -253,7 +256,7 @@ public class DetailsController {
 
             stage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace(); // G?rer l'exception de chargement du fichier FXML
+            e.printStackTrace();
         }
     }
 

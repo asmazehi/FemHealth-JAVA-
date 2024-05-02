@@ -2,10 +2,8 @@ package controller.back.Blog;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,6 +62,7 @@ public class AfficherCommentaire {
             table1view.setItems(obsC);
             dateCCol.setCellValueFactory(new PropertyValueFactory<>("datecomnt"));
             //ActionCol.setCellValueFactory(new PropertyValueFactory<>("active"));
+            obsC.sort(Comparator.comparing(Commentaire::getDatecomnt).reversed());
 
             ActionCol.setCellFactory(col -> {
                 TableCell<Commentaire, Boolean> cell = new TableCell<Commentaire, Boolean>() {
@@ -163,7 +162,6 @@ public class AfficherCommentaire {
             obsC = FXCollections.observableArrayList(list);
             table1view.setItems(obsC);
         } else {
-            // Si le champ de recherche est vide, réinitialiser le TableView
             initialize();
         }
     }

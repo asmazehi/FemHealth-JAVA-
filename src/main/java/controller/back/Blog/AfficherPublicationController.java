@@ -249,14 +249,12 @@ return  null;
             List<Publication> list = ps.fetchPublicationByTitreAndContenu(titre, contenu);
             ObservableList<Publication> obs = FXCollections.observableArrayList(list);
             tableView.setItems(obs);
-
-            // Configurer les cellules du TableView
             titreCol.setCellValueFactory(new PropertyValueFactory<>("titre"));
             contenuCol.setCellValueFactory(new PropertyValueFactory<>("contenu"));
             dateCol.setCellValueFactory(new PropertyValueFactory<>("datepub"));
             imageCol.setCellValueFactory(new PropertyValueFactory<>("image"));
         } else {
-            // Si les champs titre et contenu sont vides, réinitialiser le TableView
+
             initialize();
         }
     }

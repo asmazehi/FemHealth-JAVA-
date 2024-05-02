@@ -63,7 +63,7 @@ public class UserComments {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setTitle("Modifier la publication");
             dialog.setHeaderText(null);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Blog/updateComment.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/updateComment.fxml"));
             try {
                 Parent root = loader.load();
                 dialog.getDialogPane().setContent(root);
