@@ -1,5 +1,6 @@
 package controller.front.Blog;
 
+import utils.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,7 +39,8 @@ public class DetailsController {
     public int idpub;
     @FXML
     private ResourceBundle resources;
-
+    @FXML
+    private ChoiceBox<String> BoxConx;
     @FXML
     private ScrollPane idcomentaire;
 
@@ -50,7 +52,7 @@ public class DetailsController {
     private Label titre;
     @FXML
     private Label contenu;
-
+    private Session session;
     @FXML
     private ListView<String> ListComment;
     @FXML
@@ -134,7 +136,9 @@ public class DetailsController {
         }
         setListView();
     }
+    public void choiceBoxConnexion(){
 
+    }
     /*
     *  CommentaireService cp = new CommentaireService();
         List<Commentaire> commentaires = cp.fetchCommentaireByPublicationID(this.idpub);
@@ -226,11 +230,51 @@ public class DetailsController {
 
         initializeDetails();
         setListView();
+        BoxConx.getItems().addAll("Edit Profile", "Déconnexion");
+
+        // Définir une action à effectuer lorsqu'une option est sélectionnée
+        BoxConx.setOnAction((ActionEvent event) -> {
+            String selectedOption = BoxConx.getValue();
+            if(selectedOption.equals("Edit Profile")) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/EditProfil.fxml"));
+                    Parent root = loader.load();
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Naviguer vers Edit Profile");
+            } else if(selectedOption.equals("Déconnexion")) {
+
+                    session.clearSession();
+                    afficherMessageDeconnexion();
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
+                    Parent root = loader.load();
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Déconnexion de l'utilisateur");
+            }
+        });
 
 
 
     }
-
+    private void afficherMessageDeconnexion() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Déconnexion");
+        alert.setHeaderText(null);
+        alert.setContentText("Vous avez été déconnecté avec succès.");
+        alert.showAndWait();
+    }
     public void setPublicationId(int publicationId) {
         this.idpub=publicationId;
     }

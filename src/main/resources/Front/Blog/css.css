@@ -6,7 +6,7 @@
     -fx-background-color: rgba(0,0,0,0);
 }
 .round-layout{
-    -fx-border-radius:60;
+    -fx-border-radius:80;
     -fx-background-color: #ececec;
 }
 .border{
