@@ -93,4 +93,57 @@ public class EvenementC implements IEvenement<Evenement> {
         }
         return evenements;
     }
+    public List<Evenement> searchByName(String name) throws SQLException {
+        List<Evenement> evenements = new ArrayList<>();
+        String sql = "SELECT * FROM Evenement WHERE nom LIKE ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, "%" + name + "%");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Evenement evenement = new Evenement();
+                    evenement.setId(resultSet.getInt("id"));
+                    evenement.setNom(resultSet.getString("nom"));
+                    evenement.setDateDebut(resultSet.getDate("date_debut"));
+                    evenement.setDateFin(resultSet.getDate("date_fin"));
+                    evenement.setImage(resultSet.getString("image"));
+                    evenement.setLocalisation(resultSet.getString("localisation"));
+                    evenement.setMontant(resultSet.getFloat("montant"));
+
+                    // Récupère la référence du type à partir de son ID et l'associe à l'événement
+                    int typeId = resultSet.getInt("type_id");
+                    TypeC typeService = new TypeC();
+                    Type type = typeService.selectById(typeId);
+                    evenement.setType_id(type);
+
+                    evenements.add(evenement);
+                }
+            }
+        }
+        return evenements;
+    }
+    public Evenement getEventInformationFromDatabase(int eventId) throws SQLException {
+        Evenement evenement = null;
+        String sql = "SELECT * FROM Evenement WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, eventId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    evenement = new Evenement();
+                    evenement.setId(resultSet.getInt("id"));
+                    evenement.setNom(resultSet.getString("nom"));
+                    evenement.setDateDebut(resultSet.getDate("date_debut"));
+                    evenement.setDateFin(resultSet.getDate("date_fin"));
+                    evenement.setImage(resultSet.getString("image"));
+                    evenement.setLocalisation(resultSet.getString("localisation"));
+                    evenement.setMontant(resultSet.getFloat("montant"));
+
+                    int typeId = resultSet.getInt("type_id");
+                    TypeC typeService = new TypeC();
+                    Type type = typeService.selectById(typeId);
+                    evenement.setType_id(type);
+                }
+            }
+        }
+        return evenement;
+    }
 }

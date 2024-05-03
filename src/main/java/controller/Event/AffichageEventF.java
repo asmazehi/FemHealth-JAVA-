@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -22,7 +23,8 @@ public class AffichageEventF {
 
     @FXML
     private FlowPane eventFlowPane;
-
+    @FXML
+    private TextField searchField;
     private EvenementC evenementService = new EvenementC();
 
     @FXML
@@ -37,6 +39,36 @@ public class AffichageEventF {
         } catch (SQLException e) {
             System.err.println("Error loading events: " + e.getMessage());
         }
+        loadEvents();
+        // Add listener to searchField text property
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Perform search whenever the text changes
+            loadEvents();
+        });
+    }
+    private void loadEvents() {
+        try {
+            eventFlowPane.getChildren().clear();
+
+            List<Evenement> evenementList;
+            if (searchField.getText().isEmpty()) {
+                evenementList = evenementService.select();
+            } else {
+                evenementList = evenementService.searchByName(searchField.getText());
+            }
+
+            for (Evenement evenement : evenementList) {
+                AnchorPane card = createEvenementCard(evenement);
+                eventFlowPane.getChildren().add(card);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error loading events: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void searchEvents() {
+        loadEvents();
     }
 
     private AnchorPane createEvenementCard(Evenement evenement) {

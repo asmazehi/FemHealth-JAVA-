@@ -145,7 +145,7 @@
                 <Label fx:id="eventIdLabel" layoutX="232.0" layoutY="27.0" text="ajouter reservation" />
                 <Button layoutX="190.0" layoutY="215.0" mnemonicParsing="false" onAction="#AjouterResB" stylesheets="@../styles.css" text="inserer" />
                 <Button layoutX="329.0" layoutY="215.0" onAction="#goBack" stylesheets="@../styles.css" text="Back" />
-
+                <Button layoutX="261.0" layoutY="269.0" mnemonicParsing="false" onAction="#generatePDF" text="Generate PDF" />
             </children>
         </Pane>
     </children>

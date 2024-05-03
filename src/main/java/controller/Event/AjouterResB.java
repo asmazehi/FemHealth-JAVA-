@@ -1,5 +1,7 @@
 package controller.Event;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,12 +12,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.events.Evenement;
 import model.events.Reservation;
+import service.events.EvenementC;
 import service.events.ReservationC;
 
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 
 public class AjouterResB {
@@ -32,6 +36,12 @@ public class AjouterResB {
     private Label eventIdLabel;
 
     private int eventId;
+
+    private EvenementC evenementService; // Instance of EvenementC
+
+    public AjouterResB() {
+        evenementService = new EvenementC(); // Initialize EvenementC instance
+    }
 
     @FXML
     void AfficherResB(ActionEvent event) {
@@ -74,7 +84,7 @@ public class AjouterResB {
 
         try {
             // Vérifier si l'événement existe (you might need to pass or retrieve the eventId from another source)
-            evenement = rc.getEvenementById(eventId); // Assuming eventId is initialized somewhere
+            evenement = evenementService.getEventInformationFromDatabase(eventId); // Call getEventInformationFromDatabase from EvenementC
             if (evenement != null) {
                 r.setId_evenement_id(evenement);
                 r.setStatut_paiement(statut_paiement);
@@ -126,5 +136,70 @@ public class AjouterResB {
             // Handle the error if loading the FXML fails
         }
     }
+    @FXML
+    void generatePDF(ActionEvent event) throws SQLException {
+        // Retrieve the information of the event that was clicked on
+        Evenement eventClicked = evenementService.getEventInformationFromDatabase(eventId);
+
+        // Create a new PDF document
+        Document document = new Document();
+        try {
+            // Create a FileChooser to allow the user to choose the file name and location
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save PDF");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+            File file = fileChooser.showSaveDialog(((Node) event.getSource()).getScene().getWindow());
+
+            if (file != null) {
+                // Open the document to start adding content
+                PdfWriter.getInstance(document, new FileOutputStream(file));
+
+                document.open();
+
+                // Set title font and color
+                Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 24);
+                titleFont.setColor(255, 105, 180); // Pink color
+
+                // Add title message
+                Paragraph title = new Paragraph("Vous avez réservé pour cet événement:", titleFont);
+                title.setAlignment(Element.ALIGN_CENTER);
+                document.add(title);
+                document.add(new Paragraph("\n")); // Add some space after the title
+
+                // Add event information to the PDF
+                document.add(new Paragraph("Event ID: " + eventClicked.getId()));
+                document.add(new Paragraph("Event Name: " + eventClicked.getNom()));
+                document.add(new Paragraph("La localisation: " + eventClicked.getLocalisation()));
+                document.add(new Paragraph("Montant: " + eventClicked.getMontant()));
+                document.add(new Paragraph("La date de début de l'event: " + eventClicked.getDateDebut()));
+                document.add(new Paragraph("La date de Fin de l'event: " + eventClicked.getDateFin()));
+
+                // Add event image if available
+                if (eventClicked.getImage() != null && !eventClicked.getImage().isEmpty()) {
+                    Image image = Image.getInstance(eventClicked.getImage());
+                    document.add(image);
+                }
+
+                // Add more event information as needed
+
+                // Close the document
+                document.close();
+
+                // Show a success message
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("PDF Generated");
+                alert.setContentText("PDF generated successfully!");
+                alert.show();
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+            // Handle any exceptions that occur during PDF generation
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Failed to generate PDF");
+            alert.show();
+        }
+    }
+
 
 }
