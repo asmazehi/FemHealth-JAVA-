@@ -76,6 +76,7 @@
                   <Font size="29.0" />
                </font>
             </Label>
+            <Button layoutX="344.0" layoutY="580.0" mnemonicParsing="false" onAction="#IdStatistique" text="Stat" />
           </children>
        </Pane>
    </children>

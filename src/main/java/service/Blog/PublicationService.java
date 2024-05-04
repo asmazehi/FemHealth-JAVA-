@@ -96,4 +96,23 @@ public class PublicationService {
         }
         return publications;
     }
+    public List<Object[]> findPublicationWithCommentCount() throws SQLException {
+        String sql = "SELECT p.id AS publicationId, COUNT(c.id) AS commentCount " +
+                "FROM Publication p " +
+                "LEFT JOIN Commentaire c ON p.id = c.publication_id " +
+                "GROUP BY p.id";
+
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+
+        List<Object[]> result = new ArrayList<>();
+        while (resultSet.next()) {
+            int publicationId = resultSet.getInt("publicationId");
+            int commentCount = resultSet.getInt("commentCount");
+            result.add(new Object[]{publicationId, commentCount});
+        }
+
+        return result;
+    }
 }
