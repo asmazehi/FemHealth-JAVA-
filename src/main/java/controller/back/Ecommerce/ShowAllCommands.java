@@ -16,7 +16,10 @@ import model.Ecommerce.Commande;
 import service.Ecommerce.CommandeService;
 import service.Ecommerce.PanierService;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -52,13 +55,15 @@ public class ShowAllCommands {
     private Label StatutLabel;
 
     @FXML
-    Button annulerButton;
+    Button TerminerButton;
 
     @FXML
     Button DetailButton;
 
     @FXML
     private HBox idcard;
+    @FXML
+    private Button Dashboard;
 
     @FXML
     private VBox vBoxContainer;
@@ -104,26 +109,26 @@ public class ShowAllCommands {
         Label PaiementLable = new Label("" + obj.getMpaiement() + "");
         Label LivraisonLabel = new Label("" + obj.getMlivraison());
         Label StatutLabel = new Label("" + obj.getStatut());
-        Button annulerButton = new Button("Terminer");
+        Button TerminerButton = new Button("Terminer");
         Button detailButton = new Button("Detail");
 
-        hbox.getChildren().addAll(DateLable, AdressLabel, PaiementLable, LivraisonLabel, StatutLabel, annulerButton, detailButton);
-        hbox.setSpacing(60);
-        hbox.setAlignment(Pos.CENTER_RIGHT);
+        hbox.getChildren().addAll(DateLable, AdressLabel, PaiementLable, LivraisonLabel, StatutLabel, TerminerButton, detailButton);
+        hbox.setSpacing(70);
+        hbox.setAlignment(Pos.CENTER_LEFT);
 
-        annulerButton.setOnAction(event -> {
+        TerminerButton.setOnAction(event -> {
             try {
-                obj.setStatut("Terminé"); // Modifier le statut de la commande à "Annulée"
+                obj.setStatut("Terminé");
                 commandeService.update(obj); // Mettre à jour la commande dans la base de données
 
-                // Mettre à jour les Labels existants avec les nouvelles valeurs de commande
+                //this.padString(o)
                 DateLable.setText("" + obj.getDateC() + "");
                 AdressLabel.setText(obj.getAdresse() + "");
                 PaiementLable.setText("" + obj.getMpaiement() + "");
                 LivraisonLabel.setText("" + obj.getMlivraison());
                 StatutLabel.setText("" + obj.getStatut());
 
-                annulerButton.setVisible(false); // Masquer le bouton "Annuler"
+                TerminerButton.setVisible(false); // Masquer le bouton "Annuler"
 
             } catch (SQLException e) {
                 // Afficher une alerte en cas d'échec de mise à jour
@@ -137,16 +142,16 @@ public class ShowAllCommands {
 
         if (obj.getStatut().equals("Annulée")||obj.getStatut().equals("Terminé")) {
             // Si le statut est "Annulée", masquez le bouton "Annuler"
-            annulerButton.setVisible(false);
+            TerminerButton.setVisible(false);
         }
 
         detailButton.setOnAction(event -> {
             Commande commande = obj;
             try {
                 int idp = commande.getIdPanier();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/DetailCommand.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Ecommerce/DetailCommand.fxml"));
                 Parent root = loader.load();
-                DetailCommand controller = loader.getController();
+                DetailCommandeBack controller = loader.getController();
                 controller.initialize(idp);
                 detailButton.getScene().setRoot(root);
             } catch (IOException e) {
@@ -155,6 +160,31 @@ public class ShowAllCommands {
         });
 
         return hbox;
+    }
+
+    public static String padString(String input, int desiredLength) {
+        if (input.length() >= desiredLength) {
+            return input; // Si la longueur de la chaîne est déjà supérieure ou égale à desiredLength, retourne la chaîne d'origine
+        } else {
+            // Calcule le nombre d'espaces à ajouter
+            int spacesToAdd = desiredLength - input.length();
+            // Crée une chaîne contenant le nombre d'espaces requis
+            String spaces = new String(new char[spacesToAdd]).replace("\0", " ");
+            // Concatène la chaîne d'origine avec les espaces
+            return input + spaces;
+        }
+    }
+@FXML
+    private void ouvrirPageWeb() {
+        try {
+            // URL de la page à ouvrir
+            String url = "https://app.powerbi.com/view?r=eyJrIjoiNWM2NDViZjQtZWVlNS00ZGFlLTliZjYtM2FiNTQ0OWZhZTkzIiwidCI6ImRiZDY2NjRkLTRlYjktNDZlYi05OWQ4LTVjNDNiYTE1M2M2MSIsImMiOjl9";
+
+            // Ouvrir la page dans le navigateur par défaut du système
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

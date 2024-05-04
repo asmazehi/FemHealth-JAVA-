@@ -100,18 +100,22 @@ public class AfficherProduitFrontController {
         newPriceLabel.setTextFill(Color.BLACK);
         newPriceLabel.getStyleClass().add("produit-nouveau-prix");
         Button Ajouter = new Button("Ajouter");
+        Ajouter.setLayoutX(15);
+        Ajouter.setLayoutY(280);
+        Ajouter.getStyleClass().add("evenement-reserver-button");
 
 
         Ajouter.setOnAction(event -> {
             try {
                 int panierActifId = commandeService.getPanierActif();
                 if (panierActifId == -1) {
+                    System.out.println("panier cruer"+panierActifId);
                     Panier panier = new Panier();
                     panier.setIdUser(1);
                     panier.setPrixTotal(0);
                     panier.setStatut("En Cour");
                     panierService.add(panier);
-
+                    System.out.println("hethi fi sone3 ta3 panier"+panier.getId());
                     Lignepanier lignepanier = new Lignepanier();
                     lignepanier.setQuantité(1);
                     lignepanier.setIdProduit(produit.getId());
@@ -119,7 +123,9 @@ public class AfficherProduitFrontController {
                     lignepanierService.add(lignepanier);
                     panier.setPrixTotal(panierService.calculTotalPanier(panier.getId()));
                     panierService.update(panier);
+                    System.out.println("idpanier loulljdid"+panier.getId());
                 } else {
+                    System.out.println("panier modifier"+panierActifId);
                     Lignepanier lignePanierExistante = lignepanierService.selectlignepanier(panierActifId, produit.getId());
                     if (lignePanierExistante == null) {
                         Lignepanier lignepanier2 = new Lignepanier();

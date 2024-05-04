@@ -32,8 +32,7 @@ public class DetailCommand {
 
 
 
-    @FXML
-    private Label totalpn;
+
     @FXML
     private Label nbrproduit;
     @FXML

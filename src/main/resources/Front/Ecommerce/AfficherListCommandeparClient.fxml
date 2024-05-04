@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,11 +13,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="577.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Ecommerce.AfficherListCommandeparClient">
+<AnchorPane prefHeight="755.0" prefWidth="1077.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Ecommerce.AfficherListCommandeparClient">
     <children>
-        <Pane layoutX="86.0" layoutY="-23.0" prefHeight="614.0" prefWidth="950.0">
+        <Pane layoutX="-63.0" layoutY="-25.0" prefHeight="782.0" prefWidth="1084.0">
             <children>
-                <Pane layoutX="-65.0" layoutY="57.0" prefHeight="32.0" prefWidth="988.0" style="-fx-background-color: #FFFFFF;">
+                <Pane layoutX="69.0" layoutY="56.0" prefHeight="32.0" prefWidth="988.0" style="-fx-background-color: #FFFFFF;">
                     <effect>
                         <DropShadow>
                             <color>
@@ -28,7 +29,7 @@
                         <Label layoutX="14.0" layoutY="4.0" prefHeight="25.0" prefWidth="136.0" text="Cart/Commands" textFill="#e540c7" />
                     </children>
                 </Pane>
-            <Pane layoutX="-65.0" layoutY="99.0" prefHeight="494.0" prefWidth="988.0" style="-fx-background-color: #FFFFFF;;">
+            <Pane layoutX="69.0" layoutY="95.0" prefHeight="655.0" prefWidth="988.0" style="-fx-background-color: #FFFFFF;;">
                <effect>
                   <DropShadow>
                      <color>
@@ -37,7 +38,6 @@
                   </DropShadow>
                </effect>
                <children>
-                  <VBox fx:id="vBoxContainer" layoutX="9.0" layoutY="86.0" prefHeight="333.0" prefWidth="963.0" spacing="5.0" />
                   <Label contentDisplay="TOP" layoutX="5.0" layoutY="-8.0" prefHeight="45.0" prefWidth="259.0" style="-fx-font-size: 25px; -fx-opacity: 2; -fx-font-weight: 5;" text="Your Commands" textFill="#ec1fbc">
                      <effect>
                         <Blend mode="LIGHTEN" />
@@ -102,6 +102,11 @@
                         <Insets left="-10.0" right="50.0" />
                      </padding></HBox>
                   <Line endX="776.4000244140625" endY="0.999969482421875" layoutX="161.0" layoutY="36.0" startX="-156.0" startY="0.9999847412109375" stroke="#e012bbfa" />
+                  <ScrollPane layoutX="11.0" layoutY="85.0" prefHeight="556.0" prefWidth="970.0">
+                     <content>
+                        <VBox fx:id="vBoxContainer" prefHeight="552.0" prefWidth="970.0" spacing="5.0" />
+                     </content>
+                  </ScrollPane>
                </children>
             </Pane>
             </children>

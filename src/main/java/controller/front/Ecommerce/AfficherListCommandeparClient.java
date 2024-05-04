@@ -108,8 +108,8 @@ public class AfficherListCommandeparClient {
         Button detailButton = new Button("Detail");
 
         hbox.getChildren().addAll(DateLable, AdressLabel, PaiementLable, LivraisonLabel, StatutLabel, annulerButton, detailButton);
-        hbox.setSpacing(60);
-        hbox.setAlignment(Pos.CENTER_RIGHT);
+        hbox.setSpacing(75);
+        hbox.setAlignment(Pos.CENTER_LEFT);
 
         annulerButton.setOnAction(event -> {
             try {
@@ -135,7 +135,7 @@ public class AfficherListCommandeparClient {
             }
         });
 
-        if (obj.getStatut().equals("Annulée")) {
+        if (obj.getStatut().equals("Annulée")||obj.getStatut().equals("Terminé")) {
             // Si le statut est "Annulée", masquez le bouton "Annuler"
             annulerButton.setVisible(false);
         }

@@ -1,7 +1,7 @@
 package controller.front.Ecommerce;
+
 import controller.Sponsoring.AfficherProduitFrontController;
 import javafx.geometry.Insets;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +10,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import model.Ecommerce.Lignepanier;
 import model.Ecommerce.Panier;
@@ -23,8 +25,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class ShowPanier implements Initializable {
     @FXML
@@ -35,6 +35,7 @@ public class ShowPanier implements Initializable {
 
     @FXML
     private Button ButtonCommand;
+    Label prixprodLabel;
 
     @FXML
     private Label DeletID;
@@ -53,10 +54,13 @@ public class ShowPanier implements Initializable {
 
     @FXML
     private Label TotalAvant;
-   @FXML
+
+    @FXML
     private Label totalLabel;
+
     @FXML
     private Label TotalProduit;
+
     @FXML
     private VBox vBoxContainer;
 
@@ -71,38 +75,29 @@ public class ShowPanier implements Initializable {
 
     @FXML
     private Label totalpn;
-
-    private List<PanierItem> listItems;
-    PanierService panierService= new PanierService();
-    LignepanierService lignepanierService=new LignepanierService();
-    CommandeService commandeService=new CommandeService();
-    int idPanier=commandeService.getPanierActif();
-    /*public void setidpanier(int id){
-        this.idPanier=id;
-    }*/
-    @FXML
-    double total=0;
-    List<PanierItem> objectList = panierService.afficherinfopanier(idPanier);
-
+    private double total = 0;
+    private List<PanierItem> objectList;
+    private PanierService panierService = new PanierService();
+    private LignepanierService lignepanierService = new LignepanierService();
+    private CommandeService commandeService = new CommandeService();
+    private int idPanier = commandeService.getPanierActif();
 
     @Override
-        public void initialize(URL location, ResourceBundle resources) {
-        int idPanier=commandeService.getPanierActif();
-        List<PanierItem> objectList = panierService.afficherinfopanier(idPanier);
+    public void initialize(URL location, ResourceBundle resources) {
+        objectList = panierService.afficherinfopanier(idPanier);
 
         String ch = "You currently have " + objectList.size() + " item(s) in your cart.";
-            nbrproduit.setText(ch);
-            Insets margins = new Insets(0, 50, 0, -10);
-            for (PanierItem obj : objectList) {
-                HBox hbox = createHBoxForItem(obj,margins);
-                vBoxContainer.getChildren().addAll(hbox,createSeparator());
-                int lastIndex = vBoxContainer.getChildren().size() - 1;
-            }
+        nbrproduit.setText(ch);
+        Insets margins = new Insets(0, 50, 0, -10);
+        for (PanierItem obj : objectList) {
+            HBox hbox = createHBoxForItem(obj, margins);
+            vBoxContainer.getChildren().addAll(hbox, createSeparator());
+            int lastIndex = vBoxContainer.getChildren().size() - 1;
+        }
 
-            HBox totalBox = createTotalBox(total);
-            vBoxContainer.getChildren().add(totalBox);
-
-            }
+        HBox totalBox = createTotalBox();
+        vBoxContainer.getChildren().add(totalBox);
+    }
 
     private Separator createSeparator() {
         Separator separator = new Separator();
@@ -110,78 +105,66 @@ public class ShowPanier implements Initializable {
         return separator;
     }
 
-
-    private HBox createHBoxForItem(PanierItem obj,Insets margins) {
+    private HBox createHBoxForItem(PanierItem obj, Insets margins) {
         HBox hbox = new HBox();
         hbox.setPadding(margins);
-        Label nameLabel = new Label("  "+obj.getNomProduit()+"         ");
-        Label priceLabel = new Label("   " + obj.getPrixUnitaire()+" DT   ");
-        Label prixprodLabel = new Label("" + obj.getTotalProduit()+" DT  ");
-        Button delet = new Button("Delet");
-        Spinner<Integer> quant=new Spinner<>(1, Integer.MAX_VALUE, obj.getQuantite()); // Plage de valeurs de 0 à Integer.MAX_VALUE (valeur maximale d'un entier), valeur initiale à 0
+        Label nameLabel = new Label("  " + obj.getNomProduit() + "         ");
+        Label priceLabel = new Label("   " + obj.getPrixUnitaire() + " DT   ");
+        prixprodLabel = new Label("" + obj.getTotalProduit() + " DT  ");
+        Button deleteButton = new Button("delet");
 
+
+        Spinner<Integer> quant = new Spinner<>(1, Integer.MAX_VALUE, obj.getQuantite()); // Plage de valeurs de 0 à Integer.MAX_VALUE (valeur maximale d'un entier), valeur initiale à 0
+        TotalApres.setText(String.valueOf(obj.getTotalpanier()+10) + " DT");
+        TotalAvant.setText(String.valueOf(obj.getTotalpanier()) + " DT");
         quant.setPrefWidth(60);
-         total=0;
-        for (PanierItem cc: objectList) {
+        total = 0;
+        for (PanierItem cc : objectList) {
             total += cc.getTotalProduit();
         }
 
-
         nameLabel.setStyle("-fx-text-fill: #ec1fbc;"); // Couleur du texte en rose
-        hbox.getChildren().addAll(nameLabel, quant, priceLabel, prixprodLabel,delet);
+        hbox.getChildren().addAll(nameLabel, quant, priceLabel, prixprodLabel, deleteButton);
         hbox.setSpacing(60);
         hbox.setAlignment(Pos.TOP_CENTER);
 
-// Ajouter un écouteur d'événements au Spinner pour détecter les changements de valeur
+        // Ajouter un écouteur d'événements au Spinner pour détecter les changements de valeur
         quant.valueProperty().addListener((obs, oldValue, newValue) -> {
             // Mettre à jour le prix du produit en fonction de la nouvelle quantité sélectionnée
             int newQuantity = newValue;
             float newPrice = newQuantity * obj.getPrixUnitaire();
             obj.setQuantite(newQuantity); // Mettre à jour la quantité dans l'objet PanierItem
             obj.setTotalProduit(newPrice); // Mettre à jour le prix total du produit dans l'objet PanierItem
-            //total=total+newPrice-oldValue*obj.getPrixUnitaire();
-            // Mettre à jour l'affichage du prix du produit
-            //prixprodLabel.setText(String.valueOf(newPrice) + " DT");
-            updateTotals(objectList);
-            Lignepanier lignepanier=lignepanierService.selectlignepanier(obj.getIdpanier(), obj.getIdproduit());
-            System.out.println("id ta3 lignepanier prod :  "+lignepanier.getIdProduit());
-            System.out.println("id ta3 lignepanier panier:  "+lignepanier.getIdPanier());
-            System.out.println("id prod ; "+obj.getIdproduit());
-            lignepanier.setQuantité(newValue);
-            try {
-                lignepanierService.update(lignepanier);
-                System.out.println("id ta3 lignepanier prod ba3ed :  "+lignepanier.getIdProduit());
-                System.out.println("id ta3 lignepanier panier ba3ed :  "+lignepanier.getIdPanier());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+
+
             // Mettre à jour le prix total du panier en recalculant le total
+            updateTotals(obj);
+
+          //hbox.getChildren().clear();
+           // prixprodLabel.setText(String.valueOf(obj.getTotalProduit()) + " DT");
+           hbox.getChildren().addAll(nameLabel, quant, priceLabel, prixprodLabel, deleteButton);
 
         });
 
-
-
-        delet.setOnAction(event -> {
+        deleteButton.setOnAction(event -> {
             try {
                 lignepanierService.delete(obj.getIdpanier(), obj.getIdproduit());
-                Panier panier=panierService.selectPanierById(obj.getIdpanier());
+                Panier panier = panierService.selectPanierById(obj.getIdpanier());
                 int s = (int) (obj.getTotalpanier() - obj.getTotalProduit());
-                panier.setPrixTotal(s);
+               // panier.setPrixTotal(s);
                 panierService.update(panier);
+
                 // Supprimer le HBox parent
-                ((HBox) delet.getParent()).getChildren().clear();
+                ((HBox) deleteButton.getParent()).getChildren().clear();
 
                 objectList.clear();
                 objectList = panierService.afficherinfopanier(idPanier);
 
-                total =total- obj.getTotalProduit(); // Soustrayez le total du prix du produit supprimé
+                total = total - obj.getTotalProduit(); // Soustrayez le total du prix du produit supprimé
                 totalLabel.setText("" + total + " DT"); // Mettez à jour le texte de l'étiquette du total
+
                 // Mettre à jour les totaux
-                updateTotals(objectList);
-
-
-
-
+                updateTotals(obj);
             } catch (SQLException e) {
                 // Afficher une alerte en cas d'échec de mise à jour
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -192,29 +175,19 @@ public class ShowPanier implements Initializable {
             }
         });
 
-        //idcard.setPadding(new Insets(0, 0, 0, 5000));
         return hbox;
     }
-    private HBox createTotalBox(double total) {
+
+    private HBox createTotalBox() {
         HBox totalBox = new HBox();
-        totalBox.setSpacing(120); // Espace entre les éléments
-
-        // Calcul du total du panier
-
-        double totalpanierApresDT2 = 0;
-        if (total != 0) {
-            totalpanierApresDT2 = total + 10;
-        }
-        String totalpanierApresDtString = String.valueOf(total) + "DT";
-        TotalAvant.setText(totalpanierApresDtString);
-        String totalpanierApresDtString2 = String.valueOf(totalpanierApresDT2) + "DT";
-        TotalApres.setText(totalpanierApresDtString2);
+        totalBox.setSpacing(110); // Espace entre les éléments
 
         // Créez un label pour afficher le total
         Label NPLabel = new Label("Total");
         Label QttLabel = new Label("");
         Label pxLabel = new Label("");
-         totalLabel = new Label("" + total + " DT"); // Initialisez la référence à l'étiquette du total
+        totalLabel = new Label("" + total + " DT"); // Initialisez la référence à l'étiquette du total
+
         // Ajoutez le label au HBox
         totalBox.getChildren().addAll(NPLabel, QttLabel, pxLabel, totalLabel);
         totalBox.setPadding(new Insets(0, 0, 10, 0));
@@ -223,37 +196,50 @@ public class ShowPanier implements Initializable {
 
         return totalBox;
     }
-@FXML
+
+    @FXML
     void CommandForm(ActionEvent event) {
         try {
-            System.out.println("Méthode CommandForm appelée.");
-            System.out.println(idPanier+"fi passage");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/PasserCommande.fxml"));
             Parent root = loader.load();
             PasserCommandeContoller controller = loader.getController();
-            System.out.println(idPanier+"fi passage9al toull");
             controller.setIdp(idPanier);
 
             ButtonCommand.getScene().setRoot(root);
-        }catch(IOException e){
+        } catch (IOException e) {
             System.err.println("Error loading PasserCommande.fxml: " + e.getMessage());
         }
     }
 
-    private void updateTotals(List<PanierItem> objectList) {
+    private void updateTotals(PanierItem obj1) {
         // Calcul du total du panier
         double total = 0;
         for (PanierItem obj : objectList) {
             total += obj.getTotalProduit();
         }
-        double totalpanierApresDT2 = total != 0 ? total + 10 : 0; // Mise à jour du total après
-        String totalpanierApresDtString = String.valueOf(total) + "DT";
-        String totalpanierApresDtString2 = String.valueOf(totalpanierApresDT2) + "DT";
 
-        // Mise à jour des labels du total
-        TotalAvant.setText(totalpanierApresDtString);
-        TotalApres.setText(totalpanierApresDtString2);
+        prixprodLabel.setText(String.valueOf(obj1.getTotalProduit()) + " DT");
 
+
+        // Mettre à jour l'étiquette du total
+        totalLabel.setText(String.valueOf(total) + " DT");
+        TotalApres.setText(String.valueOf(total+10) + " DT");
+        TotalAvant.setText(String.valueOf(total) + " DT");
+        // prixprodLabel.setText(String.valueOf(total) + " DT");
+        Panier panier = panierService.selectPanierById(obj1.getIdpanier());
+        panier.setPrixTotal((int) total);
+        try {
+            panierService.update(panier);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        Lignepanier ligne=lignepanierService.selectlignepanier(obj1.getIdpanier(), obj1.getIdproduit());
+        ligne.setQuantité(obj1.getQuantite());
+        try {
+            lignepanierService.update(ligne);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -264,9 +250,8 @@ public class ShowPanier implements Initializable {
             AfficherProduitFrontController controller = loader.getController();
 
             produitpage.getScene().setRoot(root);
-        }catch(IOException e){
+        } catch (IOException e) {
             System.err.println("Error loading PasserCommande.fxml: " + e.getMessage());
         }
-
     }
 }
