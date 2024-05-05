@@ -22,8 +22,6 @@ public class PanierService implements IService<Panier> {
 
     @Override
     public void add(Panier panier) throws SQLException {
-        connection.setAutoCommit(false);
-        connection.commit();
         String sql = "INSERT INTO panier (client_id, prix_total, statut) VALUES (?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, panier.getIdUser());
