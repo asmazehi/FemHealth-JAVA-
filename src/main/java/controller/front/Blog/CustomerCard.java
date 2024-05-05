@@ -92,7 +92,7 @@ public class CustomerCard extends Pane {
             try {
                 int publicationId = Integer.parseInt(getId());
                 System.out.println(publicationId);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Blog/detailsPublication.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/detailsPublication.fxml"));
                 Parent root = loader.load();
                 DetailsController controller = loader.getController();
                 controller.setPublicationId(publicationId);

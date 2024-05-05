@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import controller.front.Blog.DetailsController;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,7 +22,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Blog.Commentaire;
 import model.Blog.Publication;
+import service.Blog.CommentaireService;
 import service.Blog.PublicationService;
 
 public class AfficherPublicationController {
@@ -29,6 +32,8 @@ public class AfficherPublicationController {
     private ResourceBundle resources;
     @FXML
     private URL location;
+    @FXML
+    private TextField recherche;
     @FXML
     private TableColumn<Publication, String> titreCol;
     @FXML
@@ -42,10 +47,13 @@ public class AfficherPublicationController {
     @FXML
     private TableView<Publication> tableView;
     @FXML
+    private TableColumn<Publication,String> idCommentaire;
+    @FXML
     private TextField searchTextField;
     private ObservableList<Publication> allPublications;
     private ObservableList<Publication> filteredPublications;
     PublicationService ps = new PublicationService();
+    CommentaireService cs = new CommentaireService();
     ObservableList<Publication> obs ;
     @FXML
     void supprimerPublication(ActionEvent event) throws SQLException {
@@ -88,6 +96,13 @@ public class AfficherPublicationController {
     }@FXML
     void initialize() {
         try {
+            recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+                try {
+                    updatePublicationsByTitreAndContenu(newValue,newValue);
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            });
             List<Publication> list = ps.select();
             obs = FXCollections.observableArrayList(list);
             allPublications = FXCollections.observableArrayList(list);
@@ -97,12 +112,34 @@ public class AfficherPublicationController {
             dateCol.setCellValueFactory(new PropertyValueFactory<>("datepub"));
             contenuCol.setCellValueFactory(new PropertyValueFactory<>("contenu"));
             imageCol.setCellValueFactory(new PropertyValueFactory<>("image"));
-            searchTextField.textProperty().addListener((observable, oldValue, newValue) -> searchPublication());
-        }catch (SQLException e)
+            idCommentaire.setCellValueFactory(cellData -> {
+                Publication publication1 = cellData.getValue();
+                List<Commentaire> commentaires = null;
+                try {
+                    commentaires = cs.fetchCommentaireByPublicationID(publication1.getId());
+                    for (Commentaire commentaire : commentaires) {
+                        StringBuilder commentairesText = new StringBuilder();
+                        commentairesText.append(commentaire.getDescription());
+                        if (commentaires != null) {
+                            return new SimpleStringProperty(commentairesText.toString());
+                        } else {
+                            return new SimpleStringProperty("");
+                        }
+                    }
+
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+return  null;
+
+            });
+
+           }catch (SQLException e)
         {
             System.out.println(e.getMessage());
         }
     }
+
     public void setData(String msg){
         welcomeLBL.setText("Welcome" + msg);
     }
@@ -125,7 +162,7 @@ public class AfficherPublicationController {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setTitle("Modifier la publication");
             dialog.setHeaderText(null);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Blog/updatePublication.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/updatePublication.fxml"));
             try {
                 Parent root = loader.load();
                 controller.back.Blog.ModifierPublicationController controller = loader.getController();
@@ -150,12 +187,13 @@ public class AfficherPublicationController {
     @FXML
     public void addpublication(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Blog/Addpublication.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/Addpublication.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+            ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -170,5 +208,71 @@ public class AfficherPublicationController {
             }
         }
     }
+    @FXML
+    void listeCommentaire(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/AfficherCommentaire.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
+    private class CommentaireTableCell extends TableCell<Publication, String> {
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (empty || item == null) {
+                setText(null);
+            } else {
+                Publication publication = getTableView().getItems().get(getIndex()); // Récupérer la publication
+                int publicationId = publication.getId(); // ID de la publication
+                try {
+                    List<Commentaire> commentaires = cs.fetchCommentaireByPublicationID(publicationId);
+                    StringBuilder commentairesText = new StringBuilder();
+                    for (Commentaire commentaire : commentaires) {
+                        commentairesText.append(commentaire.getDescription()).append("\n");
+                    }
+                    setText(commentairesText.toString());
+                } catch (SQLException e) {
+                    setText("Erreur lors du chargement des commentaires");
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    private void updatePublicationsByTitreAndContenu(String titre, String contenu) throws SQLException {
+        if (!titre.isEmpty() || !contenu.isEmpty()) {
+            List<Publication> list = ps.fetchPublicationByTitreAndContenu(titre, contenu);
+            ObservableList<Publication> obs = FXCollections.observableArrayList(list);
+            tableView.setItems(obs);
+            titreCol.setCellValueFactory(new PropertyValueFactory<>("titre"));
+            contenuCol.setCellValueFactory(new PropertyValueFactory<>("contenu"));
+            dateCol.setCellValueFactory(new PropertyValueFactory<>("datepub"));
+            imageCol.setCellValueFactory(new PropertyValueFactory<>("image"));
+        } else {
+            initialize();
+        }
+    }
+    @FXML
+    void IdStatistique(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/statistiques.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
 

@@ -10,7 +10,9 @@
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
         <ScrollPane layoutX="225.0" layoutY="-1.0" prefHeight="655.0" prefWidth="874.0">
+
             <content>
+
                 <GridPane fx:id="cardHolder" layoutX="12.0" layoutY="109.0" />
             </content>
         </ScrollPane>

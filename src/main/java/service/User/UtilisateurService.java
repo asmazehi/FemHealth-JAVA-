@@ -2,9 +2,13 @@ package service.User;
 
 import model.User.Utilisateur;
 import utils.MyDataBase;
+import utils.PasswordUtils;
+import utils.Session;
 
+import java.util.Date;
 import java.sql.*;
 import java.util.ArrayList;
+
 import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +20,7 @@ public class UtilisateurService implements IService<Utilisateur> {
 
     Connection connection;
 
-
+    public  Utilisateur user;
     public UtilisateurService() {
         connection = MyDataBase.getInstance().getConnection();
     }
@@ -48,12 +52,15 @@ public class UtilisateurService implements IService<Utilisateur> {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     utilisateur = new Utilisateur();
+
                     utilisateur.setId(resultSet.getInt("id"));
                     utilisateur.setNom(resultSet.getString("nom"));
                     utilisateur.setMail(resultSet.getString("email"));
                     utilisateur.setMdp(resultSet.getString("password"));
                     utilisateur.setRole(resultSet.getString("roles"));
                     utilisateur.setActive(resultSet.getInt("active"));
+                    Session.StartSession(utilisateur);
+
                 }
             }
         } catch (SQLException ex) {
@@ -62,6 +69,7 @@ public class UtilisateurService implements IService<Utilisateur> {
         }
         return utilisateur;
     }
+
 
 
         //class ValidationUtil {
@@ -97,15 +105,15 @@ public class UtilisateurService implements IService<Utilisateur> {
     @Override
     public void add(Utilisateur utilisateur) throws SQLException {
         try {
-            String req = "INSERT INTO `user` (`nom`, `email`, `password`,`roles`,`registered_at`,`active`) VALUES (?, ?, ?,?, ?, ?)";
+            String req = "INSERT INTO `user` (`nom`, `email`, `password`,`roles`,`registered_at`,`active`) VALUES (?, ?, ?,?, CURRENT_TIMESTAMP, ?)";
             PreparedStatement statement = connection.prepareStatement(req);
             statement.setString(1, utilisateur.getNom());
             statement.setString(2, utilisateur.getMail());
 
-            //statement.setString(3, PasswordUtils.hashPasswrd(utilisateur.getMdp()));
-            statement.setString(4, utilisateur.getRole());
-            statement.setDate(5, utilisateur.getRegistred_at());
-            statement.setInt(6, utilisateur.getActive());
+            statement.setString(3, PasswordUtils.hashPasswrd(utilisateur.getMdp()));
+            statement.setString(4, "ROLE_CLIENT");
+
+            statement.setInt(5, utilisateur.getActive());
 
 
             int rowsInserted = statement.executeUpdate();
@@ -190,7 +198,7 @@ public class UtilisateurService implements IService<Utilisateur> {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     String motDePasseBD = resultSet.getString("password");
-                    //return PasswordUtils.verifyPassword(motDePasseActuel, motDePasseBD);
+                    return PasswordUtils.verifyPassword(motDePasseActuel, motDePasseBD);
                 }
             }
         } catch (SQLException ex) {
@@ -199,4 +207,3 @@ public class UtilisateurService implements IService<Utilisateur> {
         return false;
     }
 }
-

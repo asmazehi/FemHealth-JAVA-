@@ -1,10 +1,12 @@
 package controller.front.Blog;
 
+import utils.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +14,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -23,12 +29,20 @@ import service.Blog.PublicationService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static javax.swing.text.StyleConstants.Bold;
 
 public class DetailsController {
     public int idpub;
     @FXML
     private ResourceBundle resources;
+    @FXML
+    private ChoiceBox<String> BoxConx;
+    @FXML
+    private ScrollPane idcomentaire;
 
     @FXML
     private URL location;
@@ -38,7 +52,7 @@ public class DetailsController {
     private Label titre;
     @FXML
     private Label contenu;
-
+    private Session session;
     @FXML
     private ListView<String> ListComment;
     @FXML
@@ -51,6 +65,7 @@ public class DetailsController {
 
     CommentaireService cs=new CommentaireService();
     ObservableList<Commentaire> obs;
+    ObservableList<cardcomentairepub> list = FXCollections.observableArrayList();
     @FXML
     void AddCommentaire(ActionEvent event) throws SQLException {
         CommentaireService commentaireService = new CommentaireService();
@@ -83,7 +98,7 @@ public class DetailsController {
                        /* ListComment.setAll(commentaireService.select(publicationSelectionné.getId()));
                         ListCommentView.setItems(ListComment);*/
                     } catch (SQLException e) {
-                        e.printStackTrace(); // Handle the exception appropriately
+                        e.printStackTrace();
                     }
                 }
             } else {
@@ -121,40 +136,153 @@ public class DetailsController {
         }
         setListView();
     }
-    public void setListView() throws SQLException {
-        CommentaireService cp=new CommentaireService();
-        for (int i=0;i<cp.fetchCommentaireByPublicationID(this.idpub).size();i++){
-            stringList.add((cp.fetchCommentaireByPublicationID(this.idpub).get(i).getDescription()));
-            System.out.println(cp.fetchCommentaireByPublicationID(this.idpub).get(i).getDescription()+ " "+ cp.fetchCommentaireByPublicationID(this.idpub).get(i).getDatecomnt());
+    public void choiceBoxConnexion(){
+
+    }
+    /*
+    *  CommentaireService cp = new CommentaireService();
+        List<Commentaire> commentaires = cp.fetchCommentaireByPublicationID(this.idpub);
+
+        List<Commentaire> commentairesActifs = commentaires.stream()
+                .filter(Commentaire::isActive)
+                .collect(Collectors.toList());
+
+        for (Commentaire commentaire : commentairesActifs) {
+            String descirption="description";
+
+            stringList.add( "description: "+commentaire.getDescription()+"\n"+" date:"+ commentaire.getDatecomnt());
+            System.out.println(commentaire.getDescription() + " " + commentaire.getDatecomnt());
         }
+
         observableList.setAll(stringList);
         ListComment.setItems(observableList);
-        ListComment.setCellFactory(
-                new Callback<ListView<String>, ListCell<String>>() {
-                    @Override
-                    public ListCell<String> call(ListView<String> listView) {
-                        return new ListeViewCell();
+        ListComment.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> listView) {
+                return new ListeViewCell();
+            }
+        });*/
+    public void setListView() throws SQLException {
+        try {
+            CommentaireService cp = new CommentaireService();
+            List<Commentaire> commentaires = cp.fetchCommentaireByPublicationID(this.idpub);
+
+            VBox commentaireContainer = new VBox();
+            commentaireContainer.setSpacing(10);
+
+            for (Commentaire commentaire : commentaires) {
+                SimpleDateFormat sdfNouveau = new SimpleDateFormat("yyyy-MM-dd");
+                String dateresult = sdfNouveau.format(commentaire.getDatecomnt());
+
+                HBox commentaireContent = new HBox();
+
+                ImageView likeIcon = new ImageView("/Front/Blog/like.png");
+                likeIcon.setFitHeight(20);
+                likeIcon.setFitWidth(20);
+
+                likeIcon.setOnMouseClicked(event -> {
+                    commentaire.setBrlike(commentaire.getBrlike() + 1);
+                    commentaire.setId(commentaire.getId());
+                    System.out.println("like " + commentaire.getBrlike());
+                    commentaireService.incrimentelike(commentaire);
+                    try {
+
+                        updateListView();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
                     }
                 });
+
+                if (commentaire.getBrlike() > 0) {
+                    String nbrlike = commentaire.getBrlike() + "";
+                    commentaireContent.getChildren().addAll(new Label(commentaire.getDescription() + " "), likeIcon, new Label(" " + commentaire.getBrlike()));
+                } else {
+                    commentaireContent.getChildren().addAll(new Label(commentaire.getDescription() + " "), likeIcon);
+                }
+
+                Label username = new Label(commentaire.getUser_id().getNom());
+                username.setStyle("-fx-font-family: 'SansSerif'; -fx-font-weight: bold; -fx-font-size: 14px;");
+                Label dateLabel = new Label(dateresult);
+
+                VBox commentaireBox = new VBox(username, commentaireContent, dateLabel);
+                commentaireBox.setStyle("-fx-border-color: black; -fx-padding: 10px;");
+
+                commentaireContainer.getChildren().add(commentaireBox);
+            }
+
+            idcomentaire.setContent(commentaireContainer);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+
+    private void updateListView() throws SQLException {
+        setListView();
+
+
+        Label updatedLabel = new Label("is updated");
+        updatedLabel.setStyle("-fx-font-weight: bold;");
+        ((VBox) idcomentaire.getContent()).getChildren().add(updatedLabel);
     }
     @FXML
     void initialize() throws SQLException {
 
         initializeDetails();
         setListView();
+        BoxConx.getItems().addAll("Edit Profile", "Déconnexion");
+
+        // Définir une action à effectuer lorsqu'une option est sélectionnée
+        BoxConx.setOnAction((ActionEvent event) -> {
+            String selectedOption = BoxConx.getValue();
+            if(selectedOption.equals("Edit Profile")) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/EditProfil.fxml"));
+                    Parent root = loader.load();
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Naviguer vers Edit Profile");
+            } else if(selectedOption.equals("Déconnexion")) {
+
+                    session.clearSession();
+                    afficherMessageDeconnexion();
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
+                    Parent root = loader.load();
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Déconnexion de l'utilisateur");
+            }
+        });
 
 
 
     }
-
+    private void afficherMessageDeconnexion() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Déconnexion");
+        alert.setHeaderText(null);
+        alert.setContentText("Vous avez été déconnecté avec succès.");
+        alert.showAndWait();
+    }
     public void setPublicationId(int publicationId) {
         this.idpub=publicationId;
     }
     @FXML
     void userCommentaire(ActionEvent event) {
         try {
-            // Charger le fichier FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Blog/UserComments.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/UserComments.fxml"));
             Parent root = loader.load();
            loader.getController();
 
@@ -172,7 +300,7 @@ public class DetailsController {
 
             stage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace(); // G?rer l'exception de chargement du fichier FXML
+            e.printStackTrace();
         }
     }
 

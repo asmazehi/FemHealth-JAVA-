@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
+
 import javafx.fxml.Initializable;
 public class UpdateComment {
 
@@ -82,7 +84,7 @@ public class UpdateComment {
 
             if (!commentaires.isEmpty()) {
                 Commentaire com = commentaires.get(idComnnt);
-                descriptionFld.setText(com.getDescription());
+                descriptionFld.setText(com.getDescription()+"is updated");
                 System.out.println("aaa"+com.getDescription());
             } else {
                 descriptionFld.setText("Aucun commentaire trouvé pour cet utilisateur.");
@@ -90,7 +92,8 @@ public class UpdateComment {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }public void initialize() {
+
+    }public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeDetailsCom();
     }
 }
