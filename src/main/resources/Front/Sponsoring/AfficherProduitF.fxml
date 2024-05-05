@@ -129,9 +129,24 @@
             </children>
         </AnchorPane>
         <!-- Right Pane -->
-        <Pane layoutX="207.0" layoutY="-1.0" prefHeight="591.0" prefWidth="586.0" style="-fx-background-color: #ececec;">
+        <Pane layoutX="208.0" layoutY="-1.0" prefHeight="591.0" prefWidth="586.0" style="-fx-background-color: #ececec;">
             <children>
-                <ScrollPane layoutX="10.0" layoutY="-1.0" prefHeight="591.0" prefWidth="586.0" style="-fx-background-color: #ececec;">
+                <Label layoutY="6.0" text="Choisissez votre catégorie désirée:" textFill="#b4256f">
+               <font>
+                  <Font name="Edwardian Script ITC" size="25.0" />
+               </font></Label>
+                <ChoiceBox fx:id="categorieComboBox" layoutX="10.0" layoutY="40.0" onAction="#filterByCategory" prefWidth="150.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Toutes les catégories" />
+                            <String fx:value="Sport" />
+                            <String fx:value="Nutrition" />
+                            <String fx:value="Santé Mentale" />
+                        </FXCollections>
+                    </items>
+                </ChoiceBox>
+
+                <ScrollPane layoutX="10.0" layoutY="70.0" prefHeight="520.0" prefWidth="566.0" style="-fx-background-color: #ececec;">
                     <content>
                         <FlowPane fx:id="produitFlowPane" prefHeight="563.0" prefWidth="586.0" />
                     </content>

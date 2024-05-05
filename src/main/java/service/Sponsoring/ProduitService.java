@@ -122,5 +122,29 @@ public class ProduitService implements IService<Produit> {
         return produit;
     }
 
+    public List<Produit> selectByCategory(String category) throws SQLException {
+        List<Produit> produits = new ArrayList<>();
+        String sql = "SELECT * FROM produit WHERE categorie = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, category);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Produit produit = new Produit();
+                    produit.setId(resultSet.getInt("id"));
+                    produit.setNom(resultSet.getString("nom"));
+                    produit.setPrix(resultSet.getFloat("prix"));
+                    produit.setTaux_remise(resultSet.getInt("taux_remise"));
+                    produit.setCategorie(resultSet.getString("categorie"));
+                    produit.setImage(resultSet.getString("image"));
+                    produit.setDescription(resultSet.getString("description"));
+                    int sponsorId = resultSet.getInt("sponsor_id");
+                    Sponsor sponsor = fetchSponsorById(sponsorId);
+                    produit.setSponsor(sponsor);
+                    produits.add(produit);
+                }
+            }
+        }
+        return produits;
+    }
 
 }
