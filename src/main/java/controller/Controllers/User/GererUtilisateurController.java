@@ -1,4 +1,4 @@
-package Controllers.User;
+package controller.Controllers.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,9 +23,6 @@ import javafx.scene.control.Button;
 import utils.EmailUtils;
 
 import javax.mail.MessagingException;
-import javafx.scene.image.Image;
-
-
 
 
 public class GererUtilisateurController {

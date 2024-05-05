@@ -1,4 +1,4 @@
-package Controllers.User;
+package controller.Controllers.User;
 
 import com.sun.javafx.webkit.WebConsoleListener;
 import javafx.event.ActionEvent;
@@ -19,11 +19,8 @@ import service.User.UtilisateurService;
 import utils.PasswordUtils;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
-import javafx.fxml.FXML;
+
 import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 
 public class AuthentificationController {
