@@ -1,4 +1,5 @@
 package model.Blog;
+
 import java.util.Objects;
 import java.util.Date;
 public class Publication {
@@ -11,8 +12,7 @@ public class Publication {
     public Publication() {
     }
 
-    public Publication(int id, String contenu, String image, String titre) {
-        this.id = id;
+    public Publication( String contenu, String image, String titre) {
         this.contenu = contenu;
         this.image = image;
         this.datepub = new Date();
@@ -31,8 +31,9 @@ public class Publication {
         return contenu;
     }
 
-    public void setContenu(String contenu) {
+    public String setContenu(String contenu) {
         this.contenu = contenu;
+        return contenu;
     }
 
     public String getImage() {
@@ -43,13 +44,13 @@ public class Publication {
         this.image = image;
     }
 
-    public java.sql.Date getDatepub() {
-        return (java.sql.Date) datepub;
+    public Date getDatepub() {
+        return  this.datepub;
     }
 
-    public java.sql.Date setDatepub() {
-        this.datepub = new Date();;
-        return null;
+    public void setDatepub(java.util.Date datepub) {
+        this.datepub =datepub;;
+
     }
 
     public String getTitre() {

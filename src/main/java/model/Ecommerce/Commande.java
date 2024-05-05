@@ -25,9 +25,9 @@ public class Commande {
         this.phone = phone;
     }
 
-    public Commande(int idPanier, String adresse,String statut, String mpaiement,    String phone ,String mlivraison) {
+    public Commande(int idPanier, String adresse, String mpaiement,    String phone ,String mlivraison) {
         this.idPanier = idPanier;
-        this.statut = statut;
+        this.statut = "En cours";
         Mpaiement = mpaiement;
         Mlivraison = mlivraison;
         this.adresse = adresse;

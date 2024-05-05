@@ -14,21 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>central</id>
-            <name>Maven Central Repository</name>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-        <repository>
-            <id>github-releases</id>
-            <name>GitHub Releases</name>
-            <url>https://maven.pkg.github.com/coolnalu/recaptcha4j</url>
-        </repository>
-    </repositories>
-
     <dependencies>
-        <!-- Vos autres dépendances ici -->
 
         <dependency>
             <groupId>com.mysql</groupId>
@@ -50,57 +36,10 @@
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
         </dependency>
-        <dependency>
-            <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client</artifactId>
-            <version>1.32.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
-            <version>17-ea+8</version>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.google.zxing</groupId>-->
-<!--            <artifactId>core</artifactId>-->
-<!--            <version>3.4.0</version> &lt;!&ndash; Mettez à jour la version selon vos besoins &ndash;&gt;-->
-<!--        </dependency>-->
-
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>core</artifactId>
-            <version>3.4.1</version>
-        </dependency>
 
 
 
-        <dependency>
-            <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client</artifactId>
-            <version>1.32.1</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-math3</artifactId>
-            <version>3.6.1</version>
-        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

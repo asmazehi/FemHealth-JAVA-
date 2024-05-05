@@ -1,16 +1,19 @@
 package model.Blog;
 
-import java.util.Objects;
 import java.util.Date;
+import java.util.Objects;
+
 public class Commentaire {
-    private int id ;
-    private Publication publication ;
-    private int user_id ;
-    private String description ;
-    private Date datecomnt ;
-    private boolean active ;
-    public Commentaire (){}
-    public Commentaire( Publication publication , int user_id, String description ) {
+    private int id;
+    private Publication publication;
+    private int user_id;
+    private String description;
+    private Date datecomnt;
+    private boolean active;
+
+    public Commentaire() {}
+
+    public Commentaire(Publication publication, int user_id, String description) {
         this.publication = publication;
         this.user_id = user_id;
         this.description = description;
@@ -49,8 +52,8 @@ public class Commentaire {
         this.description = description;
     }
 
-    public java.sql.Date getDatecomnt() {
-        return (java.sql.Date) datecomnt;
+    public java.util.Date getDatecomnt() {
+        return (java.util.Date) datecomnt;
     }
 
     public void setDatecomnt(Date datecomnt) {
@@ -80,11 +83,11 @@ public class Commentaire {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Commentaire that)) return false;
-        return getId() == that.getId() && Objects.equals(getDescription(), that.getDescription()) ;
+        return getId() == that.getId() && getUser_id() == that.getUser_id() && isActive() == that.isActive() && Objects.equals(getPublication(), that.getPublication()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getDatecomnt(), that.getDatecomnt());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPublication(), getUser_id(), getDescription(), getDatecomnt());
+        return Objects.hash(getId(), getPublication(), getUser_id(), getDescription(), getDatecomnt(), isActive());
     }
 }
