@@ -49,6 +49,8 @@ public class AuthentificationController {
     @FXML
     private WebView webView;
 
+    private Utilisateur utilisateurConnecte;
+
 
     @FXML
     private void initialize() {
@@ -109,6 +111,8 @@ public class AuthentificationController {
                     } else if (utilisateur.getRole().contains("[\"ROLE_CLIENT\"]")) {
                         redirectToHomePageClient();
                     }
+                    //utilisateurConnecte = utilisateur;
+                    this.getUtilisateurConnecte();//test
                 } else {
                     showAlert("Email ou mot de passe incorrect !");
                 }
@@ -116,6 +120,7 @@ public class AuthentificationController {
                 showAlert("Email incorrect !");
             }
         }
+
     }
 
     private void redirectToImNotRobot() {
@@ -222,6 +227,11 @@ public class AuthentificationController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public Utilisateur getUtilisateurConnecte() {
+        System.out.println(CurrentUser.getEmail());
+        System.out.println(CurrentUser.getNom());
+        return CurrentUser;
 
     }
 }

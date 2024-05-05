@@ -22,6 +22,7 @@ import model.Ecommerce.*;
 
 import service.Ecommerce.CommandeService;
 import service.Ecommerce.PanierService;
+import org.controlsfx.control.Notifications;
 
 public class AfficherCommande {
 
@@ -167,20 +168,25 @@ public class AfficherCommande {
 
     @FXML
     void AnnulerAction(ActionEvent event) {
-
         try {
-            Commande cammande=commandeService.selectCommandeByPanierId(idpanier);
-            cammande.setStatut("Annulée");
-            commandeService.update(cammande);
-            System.out.println("id commande fi afficher"+cammande.getId());
-            System.out.println("id commande fi afficher"+cammande.getStatut());
-            idStatut.setVisible(true);
+            Commande commande = commandeService.selectCommandeByPanierId(idpanier);
+            commande.setStatut("Annulée");
+            commandeService.update(commande);
+
+            // Afficher la notification d'annulation de commande
+            Notifications.create()
+                    .title("Annulation de commande")
+                    .text("Votre commande a été annulée avec succès.")
+                    .showWarning();
+
+            System.out.println("id commande fi afficher" + commande.getId());
+            System.out.println("id commande fi afficher" + commande.getStatut());
             BouttonAnnuler.setVisible(false);
             BouttonConfirmer.setVisible(false);
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
 
 
     }
@@ -191,6 +197,11 @@ public class AfficherCommande {
     void ConfirmerAction(ActionEvent event) {
         BouttonConfirmer.setVisible(false);
         BouttonAnnuler.setVisible(false);
+
+        Notifications.create()
+                .title("Confirmation de commande")
+                .text("Votre commande a été confirmée avec succès.")
+                .showInformation();
     }
 
 }

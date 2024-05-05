@@ -30,6 +30,7 @@
         <ImageView fitHeight="86.0" fitWidth="65.0" layoutX="95.0" layoutY="408.0" pickOnBounds="true" preserveRatio="true" />
         <Button layoutX="403.0" layoutY="23.0" mnemonicParsing="false" onAction="#gererProfil" prefHeight="25.0" prefWidth="99.0" style="-fx-background-color: #FFD1DC;" text="Gerer Profile" />
         <Button fx:id="seDeconnecterButton" layoutX="528.0" layoutY="23.0" mnemonicParsing="false" onAction="#seDeconnecter" prefHeight="25.0" prefWidth="99.0" style="-fx-background-color: #FFD1DC;" text="Se deconnecter" />
+      <Button fx:id="testprod" layoutX="14.0" layoutY="240.0" mnemonicParsing="false" onAction="#testprod" text="produitTest" />
 
     </children>
 </AnchorPane>

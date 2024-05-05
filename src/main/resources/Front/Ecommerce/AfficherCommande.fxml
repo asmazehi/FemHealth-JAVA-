@@ -26,9 +26,9 @@
             </effect>
             <children>
                 <Label prefHeight="18.0" prefWidth="167.0" text="Product/ShoppingCart" textFill="#db3da1c6" />
-            <Label fx:id="idStatut" prefHeight="18.0" prefWidth="125.0" text="Commande Annulée" textFill="#e10808">
+            <Label fx:id="idStatut" prefHeight="18.0" prefWidth="128.0" text="Commande Annulée" textFill="#e10808">
                <HBox.margin>
-                  <Insets left="250.0" />
+                  <Insets left="300.0" />
                </HBox.margin></Label>
             </children>
         </HBox>

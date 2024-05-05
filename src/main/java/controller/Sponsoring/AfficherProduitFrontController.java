@@ -1,6 +1,7 @@
 package controller.Sponsoring;
 
 
+import controller.Controllers.User.AuthentificationController;
 import controller.front.Ecommerce.PasserCommandeContoller;
 import controller.front.Ecommerce.ShowPanier;
 import javafx.event.ActionEvent;
@@ -47,6 +48,7 @@ public class AfficherProduitFrontController {
     @FXML
     private FlowPane produitFlowPane;
 
+    AuthentificationController authentificationController=new AuthentificationController();
     LignepanierService lignepanierService = new LignepanierService();
     PanierService panierService = new PanierService();
     CommandeService commandeService = new CommandeService();
@@ -123,6 +125,7 @@ public class AfficherProduitFrontController {
                 if (panierActifId == -1) {
                     System.out.println("panier cruer"+panierActifId);
                     Panier panier = new Panier();
+                   // System.out.println("fi prod"+authentificationController.getUtilisateurConnecte().getId());
                     panier.setIdUser(1);
                     panier.setPrixTotal(0);
                     panier.setStatut("En Cour");
