@@ -19,10 +19,10 @@ public class MainFX extends Application {
         try {
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherProduit.fxml"));
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherSponsor.fxml"));
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Sponsoring/AfficherProduitF.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Sponsoring/AfficherProduitF.fxml"));
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/AfficherCommentaire.fxml"));
-          //FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Inscription.fxml"));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/statistiques.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Inscription.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/statistiques.fxml"));
 
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/carCard.fxml"));
