@@ -1,4 +1,5 @@
 package Controllers.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.User.Utilisateur;
 import service.User.UtilisateurService;
+import javafx.collections.transformation.FilteredList;
+import javafx.scene.control.Alert;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -19,6 +23,10 @@ import javafx.scene.control.Button;
 import utils.EmailUtils;
 
 import javax.mail.MessagingException;
+import javafx.scene.image.Image;
+
+
+
 
 public class GererUtilisateurController {
 
@@ -37,6 +45,10 @@ public class GererUtilisateurController {
     private TextField idFX;
     @FXML
     private Button retour_TF;
+    @FXML
+    private TextField searchFX;
+
+    private FilteredList<Utilisateur> filteredUtilisateurs;
 
 
     @FXML
@@ -57,7 +69,7 @@ public class GererUtilisateurController {
     private TableColumn<Utilisateur, String> passwordCol;
 
     @FXML
-    private TableColumn<Utilisateur, String> registred_atCol;
+    private TableColumn<Utilisateur, String> registered_atCol;
 
 
     @FXML
@@ -70,35 +82,91 @@ public class GererUtilisateurController {
     @FXML
     private void initialize() {
         chargerUtilisateurs();
+
+        // Configuration des cellules de la TableView
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         activeCol.setCellValueFactory(new PropertyValueFactory<>("active"));
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         roleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
         passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
+        registered_atCol.setCellValueFactory(new PropertyValueFactory<>("registered_at"));
 
 
-        registred_atCol.setCellValueFactory(new PropertyValueFactory<>("registred_at"));
+        choix_type.getItems().addAll("[\"ROLE_CLIENT\"]", "[\"ROLE_ADMIN\"]");
 
-
-
-        choix_type.getItems().addAll("[\"ROLE_CLIENT\"]","[\"ROLE_ADMIN\"]");
 
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 choix_type.setValue(newSelection.getRole());
             }
         });
+
+
+        filteredUtilisateurs = new FilteredList<>(utilisateurs, p -> true);
+        tableView.setItems(filteredUtilisateurs);
+        searchFX.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredUtilisateurs.setPredicate(utilisateur -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+
+                if (utilisateur.getEmail().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else {
+                    Date registeredAt = utilisateur.getRegistred_at();
+                    if (registeredAt != null && registeredAt.toString().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+        });
     }
 
+
     private void chargerUtilisateurs() {
+        utilisateurs.clear(); // Vide la liste avant de l'ajouter à nouveau
+
         try {
-            utilisateurs.setAll(utilisateurService.select());
-            tableView.setItems(utilisateurs);
+            List<Utilisateur> nouveauxUtilisateurs = utilisateurService.select();
+            int nouveaux = nouveauxUtilisateurs.size();
+            StringBuilder nouveauxUtilisateursMessage = new StringBuilder();
+            for (Utilisateur utilisateur : nouveauxUtilisateurs) {
+                nouveauxUtilisateursMessage.append(utilisateur.getEmail()).append(", ");
+            }
+
+            if (nouveaux > 0) {
+                afficherNotification(nouveaux + " nouveaux utilisateur(s) ajouté(s) : " + nouveauxUtilisateursMessage);
+            }
+
+            utilisateurs.addAll(nouveauxUtilisateurs); // Ajoute les nouveaux utilisateurs à la liste
+
         } catch (SQLException e) {
             e.printStackTrace();
             afficherAlerte("Erreur lors du chargement des utilisateurs");
         }
     }
+
+
+
+
+    private void afficherNotification(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Nouveaux Utilisateurs");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
+
+
     private void selectionnerUtilisateur() {
         Utilisateur utilisateurSelectionne = tableView.getSelectionModel().getSelectedItem();
         if (utilisateurSelectionne != null) {
@@ -135,9 +203,9 @@ public class GererUtilisateurController {
             return;
         }
 
-        utilisateurSelectionne.setRole(nouveauRole); // Met à jour le rôle de l'utilisateur
+        utilisateurSelectionne.setRole(nouveauRole);
         try {
-            // Met à jour l'utilisateur dans la base de données
+
             utilisateurService.update(utilisateurSelectionne);
             afficherAlerte("Rôle de l'utilisateur mis à jour avec succès !");
         } catch (SQLException e) {
@@ -166,26 +234,33 @@ public class GererUtilisateurController {
             String message = nouvelEtat == 1 ? "Compte activé" : "Compte désactivé";
             afficherAlerte(message);
 
-            // Envoi de l'email d'information
             String sujet = "Modification de l'état de votre compte";
             String contenu = "Cher utilisateur,\n\n"
                     + "Votre compte a été " + (nouvelEtat == 1 ? "activé." : "désactivé.") + "\n\n"
                     + "Cordialement,\n"
                     + "Votre équipe.";
-
-            // Récupérez l'email de l'utilisateur et envoyez-lui un email
+            String smtpHost = "smtp.gmail.com";
+            String smtpPort = "587";
+            String username = "chaimatlili62@gmail.com"; // Remplacez par votre nom d'utilisateur SMTP
+            String password = "bxra lvjy ajes ajqs"; // Remplacez par votre mot de passe SMTP
             String emailUtilisateur = utilisateurSelectionne.getEmail();
-            EmailUtils.sendEmail("smtp.example.com", "587", "votre-email@example.com", "votre-email-password", emailUtilisateur, sujet, contenu);
+
+            try {
+                EmailUtils.sendEmail(smtpHost, smtpPort, username, password, emailUtilisateur, sujet, contenu);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+                afficherAlerte("Erreur lors de l'envoi de l'email");
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
             afficherAlerte("Erreur lors de la mise à jour du statut du compte");
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            afficherAlerte("Erreur lors de l'envoi de l'email");
         }
 
         tableView.refresh();
     }
+
+
 
     private void afficherAlerte(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -219,5 +294,9 @@ public class GererUtilisateurController {
             e.printStackTrace();
         }
     }
+
+    public void chercher(ActionEvent actionEvent) {
     }
 
+
+}

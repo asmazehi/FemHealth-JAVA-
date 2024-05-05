@@ -66,26 +66,26 @@ public class UtilisateurService implements IService<Utilisateur> {
     }
 
 
-        //class ValidationUtil {
+    //class ValidationUtil {
 
-            //public static boolean estChaineValide(String chaine) {
-                // Vérifier si la chaîne est vide ou nulle
-                //if (chaine == null || chaine.trim().isEmpty()) {
-                    //return false;
-                //}
+    //public static boolean estChaineValide(String chaine) {
+    // Vérifier si la chaîne est vide ou nulle
+    //if (chaine == null || chaine.trim().isEmpty()) {
+    //return false;
+    //}
 
-                // Vérifier si la chaîne ne contient que des lettres
-                //if (!chaine.matches("[a-zA-Z ]+")) {
-                 //   return false;
-                //}
+    // Vérifier si la chaîne ne contient que des lettres
+    //if (!chaine.matches("[a-zA-Z ]+")) {
+    //   return false;
+    //}
 
-                // La chaîne est valide si elle passe toutes les vérifications
-                //return true;
-            //}
+    // La chaîne est valide si elle passe toutes les vérifications
+    //return true;
+    //}
 
-            ////public boolean isStringLength(String str) {
-               // return str.length() < 8;
-            //}
+    ////public boolean isStringLength(String str) {
+    // return str.length() < 8;
+    //}
 
 
 
@@ -106,7 +106,7 @@ public class UtilisateurService implements IService<Utilisateur> {
 
             statement.setString(3, PasswordUtils.hashPasswrd(utilisateur.getMdp()));
             statement.setString(4, utilisateur.getRole());
-            statement.setDate(5, utilisateur.getRegistred_at());
+            statement.setDate(5, new Date(System.currentTimeMillis()));
             statement.setInt(6, utilisateur.getActive());
 
 
@@ -233,5 +233,3 @@ public class UtilisateurService implements IService<Utilisateur> {
         return false;
     }
 }
-
-

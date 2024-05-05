@@ -1,25 +1,30 @@
 package Controllers.User;
 
+import com.sun.javafx.webkit.WebConsoleListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import model.User.Utilisateur;
-import service.User.UtilisateurService;
-import utils.PasswordUtils;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.User.Utilisateur;
+import service.User.UtilisateurService;
+import utils.PasswordUtils;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
-//import java.tanesha.recaptcha.ReCaptcha;
-//import net.tanesha.recaptcha.ReCaptchaResponse;
-
-import javafx.scene.control.PasswordField;
-
+import javafx.fxml.FXML;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.fxml.FXML;
+import javafx.scene.web.WebView;
 
 public class AuthentificationController {
 
@@ -32,101 +37,121 @@ public class AuthentificationController {
     @FXML
     private Button seConnecterTF;
     @FXML
-    private Button retour_TF;
+    private Button inscireTF;
 
+    @FXML
+    private Button retour_TF;
 
     @FXML
     private Hyperlink mdpOublieTF;
 
+    @FXML
+    private CheckBox RobotCheckBox;
+
     private UtilisateurService utilisateurService;
+    @FXML
+    private WebView webView;
+
 
     @FXML
     private void initialize() {
         utilisateurService = new UtilisateurService();
         seConnecterTF.disableProperty().bind(EmailTF.textProperty().isEmpty()
                 .or(mdp_TF.textProperty().isEmpty()));
+     /*   WebEngine webEngine = webView.getEngine();
+        WebConsoleListener.setDefaultListener(
+                (webView, message, lineNumber, sourceId)-> System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message)
+        );//        String SITE_KEY = "6Le1VIMpAAAAAOLnzO7R8vYo3-ySZlo0w6WxLRj2";
+        webEngine.loadContent(" <script src=\"https://www.google.com/recaptcha/api.js\"></script> <script>\n" +
+                "   function onSubmit(token) {\n" +
+                "     document.getElementById(\"demo-form\").submit();\n" +
+                "   }\n" +
+                " </script><button class=\"g-recaptcha\" \n" +
+                "        data-sitekey=\"6Le1VIMpAAAAAOLnzO7R8vYo3-ySZlo0w6WxLRj2\" \n" +
+                "        data-callback='onSubmit' \n" +
+                "        data-action='submit'>Submit</button>","text/html");*/
 
     }
 
     @FXML
     void kiker(ActionEvent event) {
-        String email = EmailTF.getText();
-        String motDePasse = mdp_TF.getText();
 
-        if (!isValidEmail(email)) {
-            showAlert("Adresse email invalide !");
-            return;
-        }
-
-        Utilisateur utilisateur = utilisateurService.authentification(email);
-
-        if (utilisateur != null && PasswordUtils.verifyPassword(motDePasse, utilisateur.getMdp())) {
-
-            if (utilisateur.getRole().equals("[\"ROLE_ADMIN\"]")) {
-
-                System.out.println("Redirecting to BaseAdmin");
-                try {
-                    redirectToBaseAdmin();
-                } catch (Exception e) {
-                    showAlert("Erreur lors de la redirection vers l'interface administrateur.");
-                    e.printStackTrace();
-                }
-            } else if (utilisateur.getRole().equals("[\"ROLE_CLIENT\"]")) {
-                System.out.println("Redirecting to HomePageClient");
-                redirectToHomePageClient();
-            }
-        } else {
-            showAlert("Email ou mot de passe incorrect !");
-        }
     }
+
     @FXML
     private void seConnecter() {
-        String email = EmailTF.getText();
-        String motDePasse = mdp_TF.getText();
+        if (RobotCheckBox.isSelected()) {
+            // Vérifier le reCAPTCHA
+          /*  if (!isCaptchaValid()) {
+                showAlert("Veuillez compléter le reCAPTCHA !");
+                return;
+            }*/
+            redirectToImNotRobot();
+        } else {
+            String email = EmailTF.getText();
+            String motDePasse = mdp_TF.getText();
 
-        if (!isValidEmail(email)) {
-            showAlert("Adresse email invalide !");
-            return;
-        }
-
-        Utilisateur utilisateur = utilisateurService.authentification(email);
-        System.out.println(utilisateur);
-
-        if (utilisateur != null) {
-            if (utilisateur.getActive() == 0) {
-                showAlert("Votre compte a été désactivé.");
-                return; // Arrêter le processus de connexion
+            if (!isValidEmail(email)) {
+                showAlert("Adresse email invalide !");
+                return;
             }
 
-            if (PasswordUtils.verifyPassword(motDePasse, utilisateur.getMdp())) {
-                SetData(utilisateur);
+            Utilisateur utilisateur = utilisateurService.authentification(email);
 
-                if (utilisateur.getRole().contains("[\"ROLE_ADMIN\"]")) {
-                    System.out.println("Redirecting to BaseAdmin");
-                    redirectToBaseAdmin();
-                } else if (utilisateur.getRole().contains("[\"ROLE_CLIENT\"]")) {
-                    System.out.println("Redirecting to HomePageClient");
-                    redirectToHomePageClient();
+            if (utilisateur != null) {
+                if (utilisateur.getActive() == 0) {
+                    showAlert("Votre compte a été désactivé.");
+                    return;
+                }
+
+                if (PasswordUtils.verifyPassword(motDePasse, utilisateur.getMdp())) {
+                    SetData(utilisateur);
+
+                    if (utilisateur.getRole().contains("[\"ROLE_ADMIN\"]")) {
+                        redirectToBaseAdmin();
+                    } else if (utilisateur.getRole().contains("[\"ROLE_CLIENT\"]")) {
+                        redirectToHomePageClient();
+                    }
+                } else {
+                    showAlert("Email ou mot de passe incorrect !");
                 }
             } else {
-                showAlert("Email ou mot de passe incorrect !");
+                showAlert("Email incorrect !");
             }
-        } else {
-            showAlert("Email incorrect !");
         }
+    }
+
+    private void redirectToImNotRobot() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/ImNotRobotFXML.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isCaptchaValid(List<ImageView> images) {
+        for (ImageView imageView : images) {
+            if (imageView.getImage() != null) {
+                return false; // Si une image est sélectionnée, le reCAPTCHA n'est pas valide
+            }
+        }
+        return true; // Si aucune image n'est sélectionnée, le reCAPTCHA est valide
     }
 
     private Utilisateur CurrentUser;
-    public void SetData(Utilisateur user){
+
+    public void SetData(Utilisateur user) {
         this.CurrentUser = user;
     }
 
     private void redirectToBaseAdmin() {
-        System.out.println("Redirecting to BaseAdmin");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/BaseAdmin.fxml"));
             Parent root = loader.load();
-
             Stage stage = (Stage) seConnecterTF.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -136,14 +161,11 @@ public class AuthentificationController {
     }
 
     private void redirectToHomePageClient() {
-        System.out.println("Redirecting to HomePageClient");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePageClient.fxml"));
             Parent root = loader.load();
 
             HomePageClientController controller = loader.getController();
-            System.out.println(CurrentUser);
-
             controller.SetData(CurrentUser);
 
             Stage stage = (Stage) seConnecterTF.getScene().getWindow();
@@ -154,7 +176,6 @@ public class AuthentificationController {
         }
     }
 
-
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -162,10 +183,12 @@ public class AuthentificationController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     private boolean isValidEmail(String email) {
         String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
         return email.matches(emailPattern);
     }
+
     @FXML
     private void motDePasseOublie() {
         try {
@@ -179,16 +202,7 @@ public class AuthentificationController {
         }
     }
 
-
-    // Méthode pour vérifier la réponse reCAPTCHA
-//    public boolean verifyRecaptcha(String remoteAddr, String response) {
-//        String privateKey = "6Le1VIMpAAAAAOLnzO7R8vYo3-ySZlo0w6WxLRj2";
-//        ReCaptcha reCaptcha = new ReCaptcha(privateKey);
-//        ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddr, response);
-//        return reCaptchaResponse.isValid();
-//    }
-
-
+    @FXML
     public void retour() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePage.fxml"));
@@ -199,5 +213,18 @@ public class AuthentificationController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void inscription() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Inscription.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) inscireTF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -50,6 +50,11 @@
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.32.1</version>
+        </dependency>
 
         <dependency>
             <groupId>com.sun.mail</groupId>
@@ -63,13 +68,31 @@
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
         </dependency>
-
-
-        <!--        <dependency>-->
-<!--            <groupId>com.github.coolnalu</groupId>-->
-<!--            <artifactId>recaptcha4j</artifactId>-->
-<!--            <version>0.0.7</version>-->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>17-ea+8</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.google.zxing</groupId>-->
+<!--            <artifactId>core</artifactId>-->
+<!--            <version>3.4.0</version> &lt;!&ndash; Mettez à jour la version selon vos besoins &ndash;&gt;-->
 <!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.32.1</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.apache.commons</groupId>

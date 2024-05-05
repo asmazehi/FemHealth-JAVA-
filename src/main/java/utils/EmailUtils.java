@@ -1,4 +1,5 @@
 package utils;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -21,12 +22,19 @@ public class EmailUtils {
             }
         });
 
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(username));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
-        message.setSubject(subject);
-        message.setText(body);
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+            message.setSubject(subject);
+            message.setText(body);
 
-        Transport.send(message);
+            Transport.send(message);
+
+            System.out.println("E-mail envoyé avec succès !");
+        } catch (MessagingException e) {
+            System.out.println("Erreur lors de l'envoi de l'e-mail : " + e.getMessage());
+            throw e;
+        }
     }
 }

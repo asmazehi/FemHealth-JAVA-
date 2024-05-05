@@ -1,6 +1,4 @@
 package Controllers.User;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.image.Image;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,7 +18,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.image.Image;
 
 public class ImNotRobotFXMLController implements Initializable {
     @FXML
@@ -45,9 +43,10 @@ public class ImNotRobotFXMLController implements Initializable {
     private List<Integer> hh = new ArrayList<>();
     private boolean stillok = true;
 
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        String path = "src/images/";
+        String path = "src/main/resources/Image";
         List<String> imageCafe = new ArrayList<>();
         imageCafe.add("cafe1.jpg");
         imageCafe.add("cafe2V.jpg");
@@ -105,19 +104,20 @@ public class ImNotRobotFXMLController implements Initializable {
     @FXML
     private void valide(ActionEvent event) {
         if (stillok) {
-
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Validation");
             alert.setHeaderText(null);
             alert.setContentText("Validation réussie !");
             alert.showAndWait();
         } else {
-
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Validation");
             alert.setHeaderText(null);
             alert.setContentText("Validation échouée. Veuillez réessayer.");
             alert.showAndWait();
         }
+    }
+    public List<ImageView> getImages() {
+        return images;
     }
 }

@@ -1,13 +1,18 @@
 package Controllers.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import model.User.Utilisateur;
 import service.User.UtilisateurService;
 import utils.EmailUtils;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
 
 public class ChangerMotDePasseController {
 
@@ -23,7 +28,7 @@ public class ChangerMotDePasseController {
     private UtilisateurService utilisateurService = new UtilisateurService();
 
     @FXML
-    private void confirmer() {
+    private void Confirmer() {
         String email = emailTF.getText();
         if (email.isEmpty()) {
             afficherAlerte("Veuillez entrer votre adresse e-mail.");
@@ -47,7 +52,16 @@ public class ChangerMotDePasseController {
 
     @FXML
     private void retour() {
-        // Code pour retourner à l'interface précédente
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) retour_TF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void afficherAlerte(String message) {
@@ -63,13 +77,13 @@ public class ChangerMotDePasseController {
     }
 
     private void sendResetPasswordEmail(String email) throws MessagingException {
-        // Remplacez les valeurs suivantes par vos propres informations SMTP
-        String smtpHost = "smtp.example.com";
-        String smtpPort = "587";
-        String username = "your-email@example.com";
-        String password = "your-email-password";
 
-        // Vous pouvez personnaliser le contenu de l'e-mail comme vous le souhaitez
+        String smtpHost = "smtp.gmail.com";
+        String smtpPort = "587";
+        String username = "femhealthapp1@gmail.com";
+        String password = "FemHealthApp00";
+
+
         String subject = "Réinitialisation de votre mot de passe";
         String body = "Bonjour,\n\n"
                 + "Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant :\n"
