@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="576.0" prefWidth="713.0" style="-fx-background-color: #C291A4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controllers.User.EditProfilController">
+   <children>
+      <Label layoutX="422.0" layoutY="-89.0" text="Label" />
+      <Label layoutX="175.0" layoutY="25.0" text="Edit Profil">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <TextField fx:id="EmailTF" layoutX="28.0" layoutY="140.0" prefHeight="25.0" prefWidth="211.0" promptText="Email" />
+      <Pane layoutX="269.0" layoutY="78.0" prefHeight="357.0" prefWidth="334.0">
+         <children>
+            <CheckBox fx:id="changemdp" layoutX="16.0" layoutY="11.0" mnemonicParsing="false" onAction="#Modifiermdp" text="changer mot de passe" />
+            <Label layoutX="16.0" layoutY="93.0" prefHeight="17.0" prefWidth="211.0" text="mot de passe incorrecte" />
+            <Label layoutX="16.0" layoutY="148.0" prefHeight="17.0" prefWidth="211.0" text="Veuillez saisir un mot de passe valide" />
+            <Label layoutX="16.0" layoutY="197.0" prefHeight="17.0" prefWidth="211.0" text="Veuillez saisir un mot de passe correcte" />
+            <TextField layoutX="16.0" layoutY="68.0" />
+            <TextField layoutX="16.0" layoutY="122.0" />
+            <TextField layoutX="16.0" layoutY="171.0" />
+            <PasswordField fx:id="mdpAC_TF" layoutX="16.0" layoutY="68.0" prefHeight="25.0" prefWidth="218.0" promptText="mot de passe actuel" />
+            <PasswordField fx:id="mdpNV_TF" layoutX="16.0" layoutY="122.0" prefHeight="25.0" prefWidth="218.0" promptText="nouveau mot de passe" />
+            <PasswordField fx:id="mdpC_TF" layoutX="16.0" layoutY="171.0" prefHeight="25.0" prefWidth="218.0" promptText="Confirmer mot de passe" />
+         </children>
+      </Pane>
+      <Button fx:id="ConfirmationTF" layoutX="537.0" layoutY="455.0" mnemonicParsing="false" onAction="#ModifierInfo" style="-fx-background-color: #FFD1DC;" text="Confirmation" />
+      <Label layoutX="28.0" layoutY="122.0" text="Veuillez saisir votre Email" />
+      <Button fx:id="retour_TF" layoutX="28.0" layoutY="25.0" mnemonicParsing="false" onAction="#retour" style="-fx-background-color: #FFD1DC;" text="retour" />
+   </children>
+</AnchorPane>

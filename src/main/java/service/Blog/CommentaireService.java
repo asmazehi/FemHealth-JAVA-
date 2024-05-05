@@ -16,18 +16,18 @@ public class CommentaireService {
     public void add (Commentaire commentaire) throws SQLException {
         String sql = "INSERT INTO commentaire (publication_id, user_id, description, datecomnt,active) VALUES (?, ?, ?, CURRENT_TIMESTAMP,?)";    PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1,commentaire.getPublication().getId());
-        statement.setInt(2,commentaire.getUser_id());
+        statement.setInt(2,3);
         statement.setString(3,commentaire.getDescription());
         statement.setBoolean(4,true);
         statement.executeUpdate();
     }
     public void update(Commentaire commentaire) throws SQLException {
-        String sql = "UPDATE commentaire SET publication_id=?, user_id=?, description=?, datecomnt=CURRENT_TIMESTAMP WHERE id=?";
+
+        String sql = "UPDATE commentaire SET  description=?, datecomnt=CURRENT_TIMESTAMP WHERE id=?";
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, commentaire.getPublication().getId());
-        statement.setInt(2, commentaire.getUser_id());
-        statement.setString(3, commentaire.getDescription());
-        statement.setInt(4, commentaire.getId());
+
+        statement.setString(1, commentaire.getDescription());
+        statement.setInt(2, commentaire.getId());
         statement.executeUpdate();
     }
     public void delete(int id) throws SQLException {
@@ -39,8 +39,8 @@ public class CommentaireService {
     public List<Commentaire> select() throws SQLException {
         List<Commentaire> commentaires = new ArrayList<>();
         String sql = "SELECT * FROM commentaire";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             Commentaire commentaire = new Commentaire();
             commentaire.setId(resultSet.getInt("id"));
@@ -52,21 +52,95 @@ public class CommentaireService {
         }
         return commentaires;
     }
+    public List<Commentaire> fetchCommentaireByPublicationID(int id) throws SQLException {
+        String sql="SELECT * FROM Commentaire WHERE publication_id=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
 
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+
+        ArrayList<Commentaire> listecommentaire = new ArrayList<>();
+        while (resultSet.next()) {
+            Commentaire commentaire= new Commentaire();
+            commentaire.setPublication(fetchPublicationById(resultSet.getInt("publication_id")));
+            commentaire.setUser_id(resultSet.getInt("user_id"));
+            commentaire.setDescription(resultSet.getString("description"));
+            commentaire.setDatecomnt(resultSet.getDate("datecomnt"));
+            listecommentaire.add(commentaire);
+        }
+        System.out.println(listecommentaire.size());
+        return listecommentaire;
+    }
+    public List<Commentaire> fetchCommentaireByID(int id) throws SQLException {
+        String sql="SELECT * FROM Commentaire WHERE id=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+
+        ArrayList<Commentaire> listecommentaire = new ArrayList<>();
+        while (resultSet.next()) {
+            Commentaire commentaire= new Commentaire();
+            commentaire.setPublication(fetchPublicationById(resultSet.getInt("publication_id")));
+            commentaire.setUser_id(resultSet.getInt("user_id"));
+            commentaire.setDescription(resultSet.getString("description"));
+            commentaire.setDatecomnt(resultSet.getDate("datecomnt"));
+            listecommentaire.add(commentaire);
+        }
+        System.out.println(listecommentaire.size());
+        return listecommentaire;
+    }
+    public List<Commentaire> fetchCommentaireByUserID(int id) throws SQLException {
+        String sql="SELECT * FROM Commentaire WHERE user_id=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+
+        ArrayList<Commentaire> listecommentaire = new ArrayList<>();
+        while (resultSet.next()) {
+            System.out.println(resultSet.getString("publication_id"));
+            Commentaire commentaire= new Commentaire();
+            commentaire.setId(resultSet.getInt("id"));
+            System.out.println(fetchPublicationTitleById(resultSet.getInt("publication_id")));
+            commentaire.setPublication(fetchPublicationById(resultSet.getInt("publication_id")));
+            commentaire.setDescription(resultSet.getString("description"));
+            commentaire.setDatecomnt(resultSet.getDate("datecomnt"));
+            listecommentaire.add(commentaire);
+        }
+
+        return listecommentaire;
+    }
     public Publication fetchPublicationById(int id) throws SQLException {
         String sql = "SELECT * FROM Publication WHERE id=?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
+        Publication publication = new Publication();
         if (resultSet.next()) {
-            Publication publication = new Publication();
+            System.out.println(resultSet.getDate("datepub"));
+
             publication.setId(resultSet.getInt("id"));
             publication.setTitre(resultSet.getString("titre"));
             publication.setContenu(resultSet.getString("contenu"));
             publication.setImage(resultSet.getString("image"));
-            // Définir d'autres attributs de la publication si nécessaire
-            return publication;
+            publication.setDatepub(resultSet.getDate("datepub"));
+            System.out.println(resultSet.getString("image"));
         }
-        return null; // Retourne null si aucune publication trouvée avec cet ID
+        System.out.println(publication.toString());
+        return publication ;
+
+    }
+
+    public String fetchPublicationTitleById(int id) throws SQLException {
+        String sql = "SELECT titre FROM Publication WHERE id=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        String titre = null;
+        if (resultSet.next()) {
+            titre = resultSet.getString("titre");
+        }
+        return titre;
     }
 }

@@ -10,6 +10,7 @@ import model.Blog.Publication;
 import service.Blog.PublicationService;
 import javafx.stage.FileChooser;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,27 +35,26 @@ public class AddpublicationController {
 
     @FXML
     void ajouterPublication(ActionEvent event) {
-        // Récupérer les valeurs depuis les champs de l'interface utilisateur
+        if (contenuTf.getText().isEmpty() || titreTf.getText().isEmpty() || cheminphoto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "entrez votre demande et donnez un exemple.", "Erreur", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         String contenu = contenuTf.getText();
-        String cheminPhoto = cheminphoto.getText(); // Assurez-vous que la label cheminphoto contient le chemin de la photo sélectionnée
-        String titre=titreTf.getText();
+        String cheminPhoto = cheminphoto.getText();  String titre=titreTf.getText();
         Date datepub = new Date();
-        // Créer une instance de Publication avec les valeurs récupérées
+
         Publication nouvellePublication = new Publication();
         nouvellePublication.setContenu(contenu);
         nouvellePublication.setImage(cheminPhoto);
         nouvellePublication.setTitre(titre);
         nouvellePublication.setDatepub(datepub);
-
-        // Créer une boîte de dialogue de confirmation
         Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationDialog.setTitle("Confirmation de publication");
         confirmationDialog.setHeaderText("Êtes-vous sûr de vouloir publier cette publication ?");
 
-        // Afficher la boîte de dialogue et attendre la réponse de l'utilisateur
-        confirmationDialog.showAndWait().ifPresent(response -> {
+         confirmationDialog.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                // Utiliser PublicationService pour ajouter la nouvelle publication à la base de données
                 PublicationService publicationService = new PublicationService();
                 try {
                     publicationService.add(nouvellePublication);
@@ -87,14 +87,11 @@ public class AddpublicationController {
     public void ajouter_photo(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une photo");
-        // Filtres pour les fichiers image
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif")
         );
-        // Afficher la boîte de dialogue de sélection de fichier
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
+       File selectedFile = fileChooser.showOpenDialog(new Stage());
         if (selectedFile != null) {
-            // Enregistrer le chemin de la photo sélectionnée
             photoPath = selectedFile.getAbsolutePath();
             cheminphoto.setText(photoPath);
         }

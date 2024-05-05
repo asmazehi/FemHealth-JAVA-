@@ -137,7 +137,7 @@
                         <FlowPane fx:id="produitFlowPane" prefHeight="523.0" prefWidth="586.0" />
                     </content>
                 </ScrollPane>
-            <Button fx:id="afficherpanier" layoutX="498.0" layoutY="552.0" mnemonicParsing="false" onAction="#afficherpanier" text="Voir Panier" textFill="#f211ae" />
+                <Button fx:id="afficherpanier" layoutX="498.0" layoutY="552.0" mnemonicParsing="false" onAction="#afficherpanier" text="Voir Panier" textFill="#f211ae" />
             </children>
         </Pane>
     </children>

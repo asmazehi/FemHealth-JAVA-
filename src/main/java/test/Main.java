@@ -11,11 +11,9 @@ import service.Sponsoring.ProduitService;
 import model.Sponsoring.Sponsor;
 import model.Sponsoring.Produit;
 import utils.MyDataBase;
-import service.Ecommerce.LignepanierService;
+
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
 
@@ -23,6 +21,7 @@ public class Main {
         Connection connection = MyDataBase.getInstance().getConnection();
 
         System.out.println(connection);
+
 
 
         Stripe.apiKey = "sk_test_51Op589Hvqq7mfMH0fdKOSMMO2pf9QxdTW3Q6pBG13IVODxd9uudifpaL9KS2NgJEG5DyVC7nLFr3XYe5QRmiQa0C009i4gvPkC";
