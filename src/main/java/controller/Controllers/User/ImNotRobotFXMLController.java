@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -46,7 +47,7 @@ public class ImNotRobotFXMLController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        String path = "src/main/resources/Image";
+        String path = "../../resources/Image/";
         List<String> imageCafe = new ArrayList<>();
         imageCafe.add("cafe1.jpg");
         imageCafe.add("cafe2V.jpg");

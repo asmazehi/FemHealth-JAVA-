@@ -55,18 +55,18 @@ public class AuthentificationController {
         utilisateurService = new UtilisateurService();
         seConnecterTF.disableProperty().bind(EmailTF.textProperty().isEmpty()
                 .or(mdp_TF.textProperty().isEmpty()));
-//     /*   WebEngine webEngine = webView.getEngine();
-//        WebConsoleListener.setDefaultListener(
-//                (webView, message, lineNumber, sourceId)-> System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message)
-//        );//        String SITE_KEY = "6Le1VIMpAAAAAOLnzO7R8vYo3-ySZlo0w6WxLRj2";
-//        webEngine.loadContent(" <script src=\"https://www.google.com/recaptcha/api.js\"></script> <script>\n" +
-//                "   function onSubmit(token) {\n" +
-//                "     document.getElementById(\"demo-form\").submit();\n" +
-//                "   }\n" +
-//                " </script><button class=\"g-recaptcha\" \n" +
-//                "        data-sitekey=\"6Le1VIMpAAAAAOLnzO7R8vYo3-ySZlo0w6WxLRj2\" \n" +
-//                "        data-callback='onSubmit' \n" +
-//                "        data-action='submit'>Submit</button>","text/html");*/
+     /*   WebEngine webEngine = webView.getEngine();
+        WebConsoleListener.setDefaultListener(
+                (webView, message, lineNumber, sourceId)-> System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message)
+        );//        String SITE_KEY = "6Le1VIMpAAAAAOLnzO7R8vYo3-ySZlo0w6WxLRj2";
+        webEngine.loadContent(" <script src=\"https://www.google.com/recaptcha/api.js\"></script> <script>\n" +
+                "   function onSubmit(token) {\n" +
+                "     document.getElementById(\"demo-form\").submit();\n" +
+                "   }\n" +
+                " </script><button class=\"g-recaptcha\" \n" +
+                "        data-sitekey=\"6Le1VIMpAAAAAOLnzO7R8vYo3-ySZlo0w6WxLRj2\" \n" +
+                "        data-callback='onSubmit' \n" +
+                "        data-action='submit'>Submit</button>","text/html");*/
 
     }
 
@@ -189,7 +189,7 @@ public class AuthentificationController {
     @FXML
     private void motDePasseOublie() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/ResetPassword.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/ChangerMotDePasse.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) mdpOublieTF.getScene().getWindow();
             stage.setScene(new Scene(root));

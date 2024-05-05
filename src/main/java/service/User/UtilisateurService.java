@@ -1,5 +1,6 @@
 package service.User;
 
+import javafx.scene.control.Label;
 import model.User.Utilisateur;
 import utils.MyDataBase;
 import utils.PasswordUtils;
@@ -232,4 +233,22 @@ public class UtilisateurService implements IService<Utilisateur> {
         }
         return false;
     }
+    public void updatePassword(String email, String newPassword) throws SQLException {
+        // Vous devez implémenter la logique pour mettre à jour le mot de passe dans la base de données
+        try {
+            String hashedPassword = PasswordUtils.hashPasswrd(newPassword); // Hashage du nouveau mot de passe
+            String req = "UPDATE `user` SET `password` = ? WHERE `email` = ?";
+            PreparedStatement statement = connection.prepareStatement(req);
+            statement.setString(1, hashedPassword);
+            statement.setString(2, email); // Utiliser l'e-mail pour identifier l'utilisateur
+            statement.executeUpdate();
+            System.out.println("Mot de passe utilisateur mis à jour");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+    }
+
+
+
 }

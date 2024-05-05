@@ -27,6 +27,7 @@ import javax.mail.MessagingException;
 
 public class GererUtilisateurController {
 
+    public Hyperlink statistiquesFX;
     @FXML
     private ChoiceBox<String> choix_type;
 
@@ -296,4 +297,15 @@ public class GererUtilisateurController {
     }
 
 
+    public void statistiques() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Statistiques.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) statistiquesFX.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

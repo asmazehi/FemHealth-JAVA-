@@ -17,7 +17,6 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="EmailTF" layoutX="28.0" layoutY="140.0" prefHeight="25.0" prefWidth="211.0" promptText="Email" />
       <Pane layoutX="269.0" layoutY="78.0" prefHeight="357.0" prefWidth="334.0">
          <children>
             <CheckBox fx:id="changemdp" layoutX="16.0" layoutY="11.0" mnemonicParsing="false" onAction="#Modifiermdp" text="changer mot de passe" />
@@ -33,7 +32,7 @@
          </children>
       </Pane>
       <Button fx:id="ConfirmationTF" layoutX="537.0" layoutY="455.0" mnemonicParsing="false" onAction="#ModifierInfo" style="-fx-background-color: #FFD1DC;" text="Confirmation" />
-      <Label layoutX="28.0" layoutY="122.0" text="Veuillez saisir votre Email" />
       <Button fx:id="retour_TF" layoutX="28.0" layoutY="25.0" mnemonicParsing="false" onAction="#retour" style="-fx-background-color: #FFD1DC;" text="retour" />
+      <Label fx:id="labelEmailFX" layoutX="28.0" layoutY="116.0" prefHeight="17.0" prefWidth="192.0" />
    </children>
 </AnchorPane>

@@ -1,11 +1,7 @@
 package controller.Controllers.User;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,6 +16,7 @@ import utils.PasswordUtils;
 
 public class EditProfilController {
 
+    public Label labelEmailFX;
     @FXML
     private TextField EmailTF;
 
@@ -52,7 +49,7 @@ public class EditProfilController {
 
     public void setData(Utilisateur currentUser){
         this.currentUser = currentUser;
-        EmailTF.setText(currentUser.getEmail());
+        labelEmailFX.setText(currentUser.getEmail());
     }
 
     @FXML
