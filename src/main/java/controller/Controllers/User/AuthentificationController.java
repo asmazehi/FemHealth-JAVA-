@@ -1,6 +1,6 @@
 package controller.Controllers.User;
 
-import com.sun.javafx.webkit.WebConsoleListener;
+//import com.sun.javafx.webkit.WebConsoleListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -20,8 +20,8 @@ import utils.PasswordUtils;
 import java.io.IOException;
 import java.util.List;
 
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+//import javafx.scene.web.WebEngine;
+//import javafx.scene.web.WebView;
 
 public class AuthentificationController {
 
@@ -46,8 +46,8 @@ public class AuthentificationController {
     private CheckBox RobotCheckBox;
 
     private UtilisateurService utilisateurService;
-    @FXML
-    private WebView webView;
+//    @FXML
+//    private WebView webView;
 
 
     @FXML
@@ -55,18 +55,18 @@ public class AuthentificationController {
         utilisateurService = new UtilisateurService();
         seConnecterTF.disableProperty().bind(EmailTF.textProperty().isEmpty()
                 .or(mdp_TF.textProperty().isEmpty()));
-     /*   WebEngine webEngine = webView.getEngine();
-        WebConsoleListener.setDefaultListener(
-                (webView, message, lineNumber, sourceId)-> System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message)
-        );//        String SITE_KEY = "6Le1VIMpAAAAAOLnzO7R8vYo3-ySZlo0w6WxLRj2";
-        webEngine.loadContent(" <script src=\"https://www.google.com/recaptcha/api.js\"></script> <script>\n" +
-                "   function onSubmit(token) {\n" +
-                "     document.getElementById(\"demo-form\").submit();\n" +
-                "   }\n" +
-                " </script><button class=\"g-recaptcha\" \n" +
-                "        data-sitekey=\"6Le1VIMpAAAAAOLnzO7R8vYo3-ySZlo0w6WxLRj2\" \n" +
-                "        data-callback='onSubmit' \n" +
-                "        data-action='submit'>Submit</button>","text/html");*/
+//     /*   WebEngine webEngine = webView.getEngine();
+//        WebConsoleListener.setDefaultListener(
+//                (webView, message, lineNumber, sourceId)-> System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message)
+//        );//        String SITE_KEY = "6Le1VIMpAAAAAOLnzO7R8vYo3-ySZlo0w6WxLRj2";
+//        webEngine.loadContent(" <script src=\"https://www.google.com/recaptcha/api.js\"></script> <script>\n" +
+//                "   function onSubmit(token) {\n" +
+//                "     document.getElementById(\"demo-form\").submit();\n" +
+//                "   }\n" +
+//                " </script><button class=\"g-recaptcha\" \n" +
+//                "        data-sitekey=\"6Le1VIMpAAAAAOLnzO7R8vYo3-ySZlo0w6WxLRj2\" \n" +
+//                "        data-callback='onSubmit' \n" +
+//                "        data-action='submit'>Submit</button>","text/html");*/
 
     }
 
