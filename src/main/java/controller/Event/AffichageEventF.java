@@ -1,16 +1,16 @@
 package controller.Event;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
 import model.events.Evenement;
 import service.events.EvenementC;
 
@@ -24,7 +24,10 @@ public class AffichageEventF {
     @FXML
     private FlowPane eventFlowPane;
     @FXML
+    private ChoiceBox<String> choiceBoxEvents;
+    @FXML
     private TextField searchField;
+
     private EvenementC evenementService = new EvenementC();
 
     @FXML
@@ -46,6 +49,7 @@ public class AffichageEventF {
             loadEvents();
         });
     }
+
     private void loadEvents() {
         try {
             eventFlowPane.getChildren().clear();
@@ -119,32 +123,63 @@ public class AffichageEventF {
         montantLabel.setLayoutY(260);
         montantLabel.getStyleClass().add("evenement-montant");
 
-        Button reserverButton = new Button("Réserver");
-        reserverButton.setLayoutX(15);
-        reserverButton.setLayoutY(280);
-        reserverButton.getStyleClass().add("evenement-reserver-button");
-        reserverButton.setOnAction(event -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/ReserverF.fxml"));
-                AnchorPane reservationPage = loader.load();
+        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+        choiceBox.getItems().addAll("Voir Événements", "Voir Réservations");
+        choiceBox.setLayoutX(15);
+        choiceBox.setLayoutY(280);
+        choiceBox.setOnAction(this::handleChoiceBoxAction);
 
-                // Pass the event ID to the AjouterResB controller
-                AjouterResB controller = loader.getController();
-                controller.initData(evenement.getId()); // Pass the event ID here
-
-                // Access the scene and root node of the current anchor pane
-                Scene scene = card.getScene();
-                AnchorPane root = (AnchorPane) scene.getRoot();
-
-                // Replace the content of the root with the reservation page
-                root.getChildren().setAll(reservationPage);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-
-        card.getChildren().addAll(imageView, nomLabel, dateDebutLabel, dateFinLabel, localisationLabel, montantLabel, reserverButton);
+        card.getChildren().addAll(imageView, nomLabel, dateDebutLabel, dateFinLabel, localisationLabel, montantLabel, choiceBox);
         return card;
     }
+
+    // Define method to handle ChoiceBox action
+    @FXML
+    private void handleChoiceBoxAction(ActionEvent event) {
+        String selectedOption = choiceBoxEvents.getValue();
+        switch (selectedOption) {
+            case "Voir Événements":
+                navigateToEventsPage();
+                break;
+            case "Voir Réservations":
+                navigateToReservationsPage();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void navigateToEventsPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
+            AnchorPane eventsPage = loader.load();
+
+            // Access the scene and root node of the current anchor pane
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
+
+            // Replace the content of the root with the events page
+            root.getChildren().setAll(eventsPage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void navigateToReservationsPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageResF.fxml"));
+            AnchorPane reservationsPage = loader.load();
+
+            // Access the scene and root node of the current anchor pane
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
+
+            // Replace the content of the root with the reservations page
+            root.getChildren().setAll(reservationsPage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Other methods for handling navigation to different pages
 }
