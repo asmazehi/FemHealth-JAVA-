@@ -15,7 +15,7 @@
             <ImageView fitHeight="43.0" fitWidth="39.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="groupTF" fitHeight="43.0" fitWidth="32.0" layoutX="14.0" layoutY="57.0">
                <image>
-                  <Image url="@../../resources/Image/group.jpg" />
+                  <Image url="@group.jpg" />
                </image>
             </ImageView>
          </children>
