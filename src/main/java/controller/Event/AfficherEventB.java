@@ -247,4 +247,24 @@ public class AfficherEventB {
     private void showErrorAlert(String contentText) {
         showAlert(Alert.AlertType.ERROR, "Error", contentText);
     }
+
+    @FXML
+    private void showStatistics(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/statEvent.fxml"));
+            Parent root = loader.load();
+
+            StatController statController = loader.getController();
+            statController.initialize(); // Initialize the statistics in the controller
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Event Statistics");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle IO exception
+        }
+    }
 }
+

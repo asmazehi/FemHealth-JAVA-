@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -121,6 +122,27 @@ public class AfficherResB {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    @FXML
+    private void goBack(ActionEvent event) {
+        // Get the current stage
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        try {
+            // Load the FXML file of the recent page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
+            Parent root = loader.load();
+
+            // Set the recent page scene
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+
+            // Show the recent page
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle any potential exceptions while loading the FXML file
         }
     }
 
