@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="737.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Blog.DetailsController">
+<top>
+    <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="737.0" stylesheets="@css.css" BorderPane.alignment="CENTER_LEFT">
+        <children>
+            <Label alignment="CENTER" prefHeight="59.0" prefWidth="158.0" text="FemHealth">
+                <font>
+                    <Font name="Edwardian Script ITC" size="39.0" />
+                </font>
+            </Label>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="259.0">
+                <cursor>
+                    <Cursor fx:constant="DEFAULT" />
+                </cursor></HBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <Pane prefHeight="72.0" prefWidth="267.0">
+                <children>
+                    <Label layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="160.0" text="UserName">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                  <ChoiceBox fx:id="BoxConx" layoutX="180.0" layoutY="16.0" prefHeight="25.0" prefWidth="87.0" />
+                </children>
+            </Pane>
+        </children>
+    </HBox>
+</top>
+<styleClass>
+    <String fx:value="white-background" />
+    <String fx:value="white-background" />
+</styleClass>
+<center>
+    <Pane prefHeight="612.0" prefWidth="726.0" BorderPane.alignment="CENTER">
+        <children>
+            <TextArea fx:id="AreaComment" layoutX="45.0" layoutY="329.0" prefHeight="61.0" prefWidth="303.0" promptText="Ajouter votre commentaire" />
+            <Button layoutX="366.0" layoutY="347.0" mnemonicParsing="false" onAction="#AddCommentaire" prefHeight="25.0" prefWidth="83.0" styleClass="round-layout" text="ADD" textFill="#000000ab">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font></Button>
+            <Label fx:id="titre" layoutX="78.0" layoutY="25.0" prefHeight="31.0" prefWidth="119.0" styleClass="white-background" text="titre" />
+            <Label fx:id="date" layoutX="500.0" layoutY="88.0" prefHeight="17.0" prefWidth="110.0" text="date" />
+            <Label fx:id="contenu" layoutX="24.0" layoutY="115.0" prefHeight="195.0" prefWidth="262.0" style="-fx-background-color: #C291A4;" text="Contenu" />
+            <ImageView fx:id="imageView" fitHeight="183.0" fitWidth="329.0" layoutX="254.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" />
+            <Button layoutX="393.0" layoutY="28.0" mnemonicParsing="false" onAction="#userCommentaire" styleClass="round-layout" text="Mes commentaire" />
+            <ScrollPane fx:id="idcomentaire" layoutX="32.0" layoutY="393.0" prefHeight="218.0" prefWidth="475.0" />
+            <Label layoutX="18.0" layoutY="32.0" prefHeight="17.0" prefWidth="35.0" text="Titre :" />
+            <Label layoutX="418.0" layoutY="88.0" text="Date :" />
+        </children>
+    </Pane>
+</center>
+</BorderPane>

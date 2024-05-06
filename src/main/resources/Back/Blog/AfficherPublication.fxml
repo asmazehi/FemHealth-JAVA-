@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.back.Blog.AfficherPublicationController">
+   <children>
+       <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
+           <children>
+               <ImageView fitHeight="154.0" fitWidth="200.0" layoutX="26.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@2.png" />
+                   </image>
+               </ImageView>
+               <Label layoutX="53.0" layoutY="123.0" text="WELCOME ">
+                   <font>
+                       <Font name="System Bold" size="19.0" />
+                   </font>
+               </Label>
+               <Label layoutX="39.0" layoutY="165.0" text="TO FemHealth">
+                   <font>
+                       <Font name="System Bold" size="19.0" />
+                   </font>
+               </Label>
+               <Line endX="100.0" layoutX="107.0" layoutY="218.0" startX="-100.0" />
+               <Button layoutX="51.0" layoutY="249.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Blog" />
+               <Button layoutX="51.0" layoutY="283.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Evènement" />
+               <Button layoutX="51.0" layoutY="321.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="E-commerce" />
+               <Button layoutX="51.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Sponsor" />
+               <AnchorPane layoutX="7.0" layoutY="506.0" prefHeight="70.0" prefWidth="195.0" style="-fx-background-color: #FFD1DC;">
+                   <children>
+                       <Label layoutX="62.0" layoutY="14.0" text="Bonjour," />
+                       <Label layoutX="80.0" layoutY="36.0" text="Username" />
+                       <ImageView fitHeight="44.0" fitWidth="37.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+                       <ImageView fx:id="imageView2" fitHeight="54.0" fitWidth="45.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                               <Image url="@images.png" />
+                           </image>
+                       </ImageView>
+                       <ImageView fitHeight="45.0" fitWidth="37.0" layoutX="144.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                               <Image url="@a.jpg" />
+                           </image>
+                       </ImageView>
+                   </children>
+               </AnchorPane>
+           </children>
+       </AnchorPane>
+       <Pane layoutX="194.0" layoutY="3.0" prefHeight="651.0" prefWidth="989.0" style="-fx-background-color: ececec;">
+          <children>
+         <TableView fx:id="tableView" layoutX="33.0" layoutY="119.0" prefHeight="361.0" prefWidth="665.0">
+           <columns>
+             <TableColumn fx:id="titreCol" prefWidth="93.0" text="Titre" />
+             <TableColumn fx:id="dateCol" prefWidth="107.0" text="Date" />
+               <TableColumn fx:id="contenuCol" prefWidth="123.0" text="Contenu" />
+               <TableColumn fx:id="imageCol" prefWidth="105.0" text="Image" />
+                  <TableColumn fx:id="idCommentaire" prefWidth="234.0" text="Les Commentaires" />
+           </columns>
+         </TableView>
+         <Button layoutX="441.0" layoutY="508.0" mnemonicParsing="false" onAction="#supprimerPublication" prefHeight="25.0" prefWidth="108.0" text="supprimer" />
+          <Button layoutX="159.0" layoutY="508.0" mnemonicParsing="false" onAction="#addpublication" prefHeight="25.0" prefWidth="84.0" text="ajouter" />
+          <Button layoutX="294.0" layoutY="508.0" mnemonicParsing="false" onAction="#modifierpublication" prefHeight="25.0" prefWidth="99.0" text="modifier" />
+            <Button layoutX="451.0" layoutY="580.0" mnemonicParsing="false" onAction="#listeCommentaire" prefHeight="34.0" prefWidth="162.0" text="Liste des commentaires" />
+            <TextField fx:id="recherche" layoutX="421.0" layoutY="49.0" prefHeight="37.0" prefWidth="222.0" />
+            <Label layoutX="58.0" layoutY="42.0" prefHeight="44.0" prefWidth="228.0" text="Mes publications" textFill="#d0469b">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Label>
+            <Button layoutX="344.0" layoutY="580.0" mnemonicParsing="false" onAction="#IdStatistique" text="Stat" />
+          </children>
+       </Pane>
+   </children>
+</AnchorPane>

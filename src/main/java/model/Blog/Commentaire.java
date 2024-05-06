@@ -1,16 +1,30 @@
 package model.Blog;
 
-import java.util.Objects;
+import model.User.Utilisateur;
+
 import java.util.Date;
+import java.util.Objects;
+
 public class Commentaire {
-    private int id ;
-    private Publication publication ;
-    private int user_id ;
-    private String description ;
-    private Date datecomnt ;
-    private boolean active ;
-    public Commentaire (){}
-    public Commentaire( Publication publication , int user_id, String description ) {
+    private int id;
+    private Publication publication;
+    private Utilisateur user_id;
+    private String description;
+    private Date datecomnt;
+    private boolean active;
+ private  int brlike;
+
+    public int getBrlike() {
+        return brlike;
+    }
+
+    public void setBrlike(int brlike) {
+        this.brlike = brlike;
+    }
+
+    public Commentaire() {}
+
+    public Commentaire(Publication publication, Utilisateur user_id, String description) {
         this.publication = publication;
         this.user_id = user_id;
         this.description = description;
@@ -33,11 +47,11 @@ public class Commentaire {
         this.publication = publication;
     }
 
-    public int getUser_id() {
+    public Utilisateur getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(Utilisateur user_id) {
         this.user_id = user_id;
     }
 
@@ -49,8 +63,8 @@ public class Commentaire {
         this.description = description;
     }
 
-    public java.sql.Date getDatecomnt() {
-        return (java.sql.Date) datecomnt;
+    public java.util.Date getDatecomnt() {
+        return (java.util.Date) datecomnt;
     }
 
     public void setDatecomnt(Date datecomnt) {
@@ -80,11 +94,11 @@ public class Commentaire {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Commentaire that)) return false;
-        return getId() == that.getId() && Objects.equals(getDescription(), that.getDescription()) ;
+        return getId() == that.getId() && getUser_id() == that.getUser_id() && isActive() == that.isActive() && Objects.equals(getPublication(), that.getPublication()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getDatecomnt(), that.getDatecomnt());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPublication(), getUser_id(), getDescription(), getDatecomnt());
+        return Objects.hash(getId(), getPublication(), getUser_id(), getDescription(), getDatecomnt(), isActive());
     }
 }
