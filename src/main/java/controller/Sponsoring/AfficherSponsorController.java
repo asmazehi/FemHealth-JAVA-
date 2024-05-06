@@ -281,5 +281,23 @@ public class AfficherSponsorController {
         alert.setHeaderText(null);
         alert.setContentText(message);
     }
+    @FXML
+    void voirStat(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/statSponsor.fxml"));
+            Parent root = loader.load();
+            StatController controller = loader.getController();
+            controller.setData(); // You may pass any necessary data to the StatController here
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Statistiques des Sponsors");
+            stage.show();
+
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la vue statSponsor.fxml: " + e.getMessage());
+        }
+    }
+
 
 }
