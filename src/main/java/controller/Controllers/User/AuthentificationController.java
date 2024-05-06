@@ -25,6 +25,7 @@ import java.util.List;
 
 public class AuthentificationController {
 
+    public static boolean isRobotVerified;
     @FXML
     private TextField EmailTF;
 
@@ -46,6 +47,7 @@ public class AuthentificationController {
     private CheckBox RobotCheckBox;
 
     private UtilisateurService utilisateurService;
+//    private boolean isRobotVerified = false;
 //    @FXML
 //    private WebView webView;
 
@@ -77,12 +79,15 @@ public class AuthentificationController {
 
     @FXML
     private void seConnecter() {
-        if (RobotCheckBox.isSelected()) {
+        if (!isRobotVerified && !RobotCheckBox.isSelected()) {
+            showAlert("Veuillez vérifier que vous n'êtes pas un robot.");
+            return;
+        }
+        if (isRobotVerified) {
+            // Redirection directe vers la page d'authentification
+            redirectToAuthentification();
+        } else if (RobotCheckBox.isSelected()) {
             // Vérifier le reCAPTCHA
-          /*  if (!isCaptchaValid()) {
-                showAlert("Veuillez compléter le reCAPTCHA !");
-                return;
-            }*/
             redirectToImNotRobot();
         } else {
             String email = EmailTF.getText();
@@ -118,12 +123,54 @@ public class AuthentificationController {
         }
     }
 
+    private void redirectToAuthentification() {
+        String email = EmailTF.getText();
+        String motDePasse = mdp_TF.getText();
+
+        if (!isValidEmail(email)) {
+            showAlert("Adresse email invalide !");
+            return;
+        }
+
+        Utilisateur utilisateur = utilisateurService.authentification(email);
+
+        if (utilisateur != null) {
+            if (utilisateur.getActive() == 0) {
+                showAlert("Votre compte a été désactivé.");
+                return;
+            }
+
+            if (PasswordUtils.verifyPassword(motDePasse, utilisateur.getMdp())) {
+                SetData(utilisateur);
+
+                if (utilisateur.getRole().contains("[\"ROLE_ADMIN\"]")) {
+                    redirectToBaseAdmin();
+                } else if (utilisateur.getRole().contains("[\"ROLE_CLIENT\"]")) {
+                    redirectToHomePageClient();
+                }
+            } else {
+                showAlert("Email ou mot de passe incorrect !");
+            }
+        } else {
+            showAlert("Email incorrect !");
+        }
+
+    }
+
+
     private void redirectToImNotRobot() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/ImNotRobotFXML.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+
+            // Réinitialiser la variable isRobotVerified lorsque vous revenez à ImNotRobotFXML.fxml
+            stage.setOnHidden(event -> {
+                isRobotVerified = false;
+                // Vous pouvez également réinitialiser les champs de texte et d'autres éléments de l'interface utilisateur ici
+            });
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

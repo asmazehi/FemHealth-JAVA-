@@ -24,7 +24,7 @@
          <children>
             <ImageView fx:id="logoTF" fitHeight="103.0" fitWidth="103.0" layoutX="10.0" layoutY="10.0">
                <image>
-                  <Image url="@../../resources/Image/3.jpg" />
+                  <Image url="@3.jpg" />
                </image>
             </ImageView>
          </children>

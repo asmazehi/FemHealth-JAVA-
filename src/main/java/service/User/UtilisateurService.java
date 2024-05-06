@@ -37,7 +37,7 @@ public class UtilisateurService implements IService<Utilisateur> {
             p.setMdp(RS.getString("password"));
             p.setRole(RS.getString("roles"));
             p.setActive(RS.getInt("active"));
-            p.setRegistred_at(RS.getDate("registered_at"));
+            p.setRegistered_at(RS.getDate("registered_at"));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -57,6 +57,7 @@ public class UtilisateurService implements IService<Utilisateur> {
                     utilisateur.setMdp(resultSet.getString("password"));
                     utilisateur.setRole(resultSet.getString("roles"));
                     utilisateur.setActive(resultSet.getInt("active"));
+                    utilisateur.setRegistered_at(resultSet.getDate("registered_at"));
                 }
             }
         } catch (SQLException ex) {
@@ -138,7 +139,7 @@ public class UtilisateurService implements IService<Utilisateur> {
             statement.setInt(4, utilisateur.getActive());
             statement.setString(5, utilisateur.getMdp());
 
-            statement.setDate(6, utilisateur.getRegistred_at());
+            statement.setDate(6, utilisateur.getRegistered_at());
             statement.setInt(7, utilisateur.getId());
             statement.executeUpdate();
             System.out.println("Utilisateur mis à jour");
@@ -190,8 +191,8 @@ public class UtilisateurService implements IService<Utilisateur> {
                 utilisateur.setActive(rs.getInt("active"));
                 utilisateur.setEmail(rs.getString("email"));
                 utilisateur.setRole(rs.getString("roles"));
-                utilisateur.setMdp(rs.getString("password")); // Ajout du mot de passe
-                utilisateur.setRegistred_at(rs.getDate("registered_at"));
+                utilisateur.setMdp(rs.getString("password"));
+                utilisateur.setRegistered_at(rs.getDate("registered_at"));
                 list.add(utilisateur);
                 list.add(utilisateur);
             }
@@ -236,11 +237,11 @@ public class UtilisateurService implements IService<Utilisateur> {
     public void updatePassword(String email, String newPassword) throws SQLException {
         // Vous devez implémenter la logique pour mettre à jour le mot de passe dans la base de données
         try {
-            String hashedPassword = PasswordUtils.hashPasswrd(newPassword); // Hashage du nouveau mot de passe
+            String hashedPassword = PasswordUtils.hashPasswrd(newPassword);
             String req = "UPDATE `user` SET `password` = ? WHERE `email` = ?";
             PreparedStatement statement = connection.prepareStatement(req);
             statement.setString(1, hashedPassword);
-            statement.setString(2, email); // Utiliser l'e-mail pour identifier l'utilisateur
+            statement.setString(2, email);
             statement.executeUpdate();
             System.out.println("Mot de passe utilisateur mis à jour");
         } catch (SQLException ex) {

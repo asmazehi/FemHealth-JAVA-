@@ -116,7 +116,7 @@ public class GererUtilisateurController {
                 if (utilisateur.getEmail().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 } else {
-                    Date registeredAt = utilisateur.getRegistred_at();
+                    Date registeredAt = utilisateur.getRegistered_at();
                     if (registeredAt != null && registeredAt.toString().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     }

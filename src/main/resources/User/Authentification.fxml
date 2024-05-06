@@ -28,7 +28,7 @@
       <ImageView fitHeight="86.0" fitWidth="83.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="92.0" fitWidth="92.0" layoutX="10.0" layoutY="10.0">
          <image>
-            <Image url="@../../resources/Image/3.jpg" />
+            <Image url="@3.jpg" />
          </image>
       </ImageView>
       <Button fx:id="retour_TF" layoutX="573.0" layoutY="25.0" mnemonicParsing="false" onAction="#retour" style="-fx-background-color: #FFD1DC;" text="Retour" />

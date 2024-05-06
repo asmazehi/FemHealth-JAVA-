@@ -55,7 +55,7 @@
             <ImageView fitHeight="19.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="searchingFX" fitHeight="19.0" fitWidth="26.0" layoutY="3.0" style="-fx-cursor: #FFD1DC;">
                <image>
-                  <Image url="@../../resources/Image/research.png" />
+                  <Image url="@research.png" />
                </image>
             </ImageView>
          </children>

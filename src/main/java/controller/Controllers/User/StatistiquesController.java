@@ -1,11 +1,19 @@
 package controller.Controllers.User;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import model.User.Utilisateur;
 import service.User.UtilisateurService;
+
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,6 +23,7 @@ public class StatistiquesController {
     public BarChart<String, Integer> stat1FX;
     @FXML
     public PieChart stat2FX;
+    public Button RetourFX;
 
     UtilisateurService utilisateurService = new UtilisateurService();
 
@@ -93,5 +102,17 @@ public class StatistiquesController {
     @FXML
     public void SituationsComptes(MouseEvent mouseEvent) {
         updateStat2FX();
+    }
+
+    public void retourToGererUtilisateurs() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/GererUtilisateur.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) RetourFX.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
