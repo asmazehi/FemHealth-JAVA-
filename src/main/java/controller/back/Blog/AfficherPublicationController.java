@@ -95,7 +95,7 @@ public class AfficherPublicationController {
         }
     }@FXML
     void initialize() {
-        try {
+        try { 
             recherche.textProperty().addListener((observable, oldValue, newValue) -> {
                 try {
                     updatePublicationsByTitreAndContenu(newValue,newValue);
@@ -273,6 +273,9 @@ return  null;
             e.printStackTrace();
         }
     }
+    @FXML
+    void BackAction(ActionEvent event) {
 
+    }
 }
 

@@ -2,6 +2,7 @@ package controller.front.Blog;
 import controller.back.Blog.ModifierPublicationController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -18,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -112,4 +114,6 @@ public class CustomerCard extends Pane {
         getChildren().addAll(photo, name,mobile, label, label0, iconContainer);
 
     }
+
+
 }

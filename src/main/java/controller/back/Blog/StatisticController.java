@@ -5,6 +5,7 @@ import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -82,5 +83,9 @@ public class StatisticController {
         }
 
         return publications;
+    }
+    @FXML
+    void BackAction(ActionEvent event) {
+
     }
 }

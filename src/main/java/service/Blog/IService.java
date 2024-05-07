@@ -10,5 +10,10 @@ public interface IService <T>{
     public void delete (int id) throws SQLException;
     public List<T> select()throws SQLException;
     Map<String, Integer> calculerStatistiquesDateSignature();
+    public interface Callback<P,R> {
+
+        public R call(P param);
+
+    }
 
 }
