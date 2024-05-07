@@ -1,5 +1,6 @@
 package controller.Event;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,16 +58,23 @@ public class AfficherResB {
 
     @FXML
     void initialize() {
-
         try {
             List<Reservation> list = rc.select();
             obs = FXCollections.observableArrayList(list);
             tableview.setItems(obs);
-            id_evenementCol.setCellValueFactory(new PropertyValueFactory<>("id_evenement_id"));
-            statut_paiementCol.setCellValueFactory(new PropertyValueFactory<>("statut_paiement"));
 
+            id_evenementCol.setCellValueFactory(new PropertyValueFactory<>("id_evenement_id"));
             mode_paiementCol.setCellValueFactory(new PropertyValueFactory<>("mode_paiement"));
 
+            // Set the statut_paiement cell value factory manually
+            statut_paiementCol.setCellValueFactory(cellData -> {
+                Reservation reservation = cellData.getValue();
+                if (reservation != null) {
+                    return new SimpleStringProperty("en attente");
+                } else {
+                    return new SimpleStringProperty(""); // Or any appropriate default value
+                }
+            });
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
