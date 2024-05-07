@@ -96,4 +96,8 @@ public class AddpublicationController {
             cheminphoto.setText(photoPath);
         }
     }
+    @FXML
+    void BackAction(ActionEvent event) {
+
+    }
 }
