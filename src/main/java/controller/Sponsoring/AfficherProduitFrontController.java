@@ -3,13 +3,14 @@ package controller.Sponsoring;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import model.Sponsoring.Produit;
 import service.Sponsoring.ProduitService;
-import javafx.scene.layout.AnchorPane;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -23,20 +24,66 @@ public class AfficherProduitFrontController {
     @FXML
     private ChoiceBox<String> categorieComboBox;
 
+    @FXML
+    private Pagination pagination;
+
     private ProduitService ps = new ProduitService();
+    private List<Produit> produitList;
+
+    private static int ITEMS_PER_PAGE = 3;
 
     @FXML
     public void initialize() {
         try {
-            List<Produit> produitList = ps.select();
+            produitList = ps.select();
 
-            for (Produit produit : produitList) {
-                AnchorPane card = createProduitCard(produit);
-                produitFlowPane.getChildren().add(card);
+            if (produitList.size() < ITEMS_PER_PAGE) {
+                ITEMS_PER_PAGE = produitList.size();
             }
+
+            pagination.setPageCount((int) Math.ceil((double) produitList.size() / ITEMS_PER_PAGE));
+            pagination.setPageFactory(this::createPage);
+
+            // Show navigation buttons
+            pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
+
+            // Add scroll event listener
+            pagination.setOnScroll(event -> {
+                if (event.getDeltaY() < 0) {
+                    pagination.setCurrentPageIndex(Math.min(pagination.getCurrentPageIndex() + 1, pagination.getPageCount() - 1));
+                } else {
+                    pagination.setCurrentPageIndex(Math.max(pagination.getCurrentPageIndex() - 1, 0));
+                }
+                event.consume();
+            });
         } catch (SQLException e) {
             System.err.println("Error loading products: " + e.getMessage());
         }
+    }
+
+
+
+
+    private AnchorPane createPage(int pageIndex) {
+        int fromIndex = pageIndex * ITEMS_PER_PAGE;
+        int toIndex = Math.min(fromIndex + ITEMS_PER_PAGE, produitList.size());
+        List<Produit> subList = produitList.subList(fromIndex, toIndex);
+
+        AnchorPane pageAnchorPane = new AnchorPane();
+        pageAnchorPane.setPrefSize(566, 520);
+
+        FlowPane pageFlowPane = new FlowPane();
+        pageFlowPane.setPrefWidth(566);
+        pageFlowPane.setPrefHeight(520);
+
+        for (Produit produit : subList) {
+            AnchorPane card = createProduitCard(produit);
+            pageFlowPane.getChildren().add(card);
+        }
+
+        pageAnchorPane.getChildren().add(pageFlowPane);
+
+        return pageAnchorPane;
     }
 
     private AnchorPane createProduitCard(Produit produit) {
@@ -89,25 +136,22 @@ public class AfficherProduitFrontController {
         return card;
     }
 
+
     @FXML
     private void filterByCategory() {
         try {
             String selectedCategory = categorieComboBox.getValue();
-            List<Produit> produitList;
             if (selectedCategory.equals("Toutes les catégories")) {
                 produitList = ps.select();
             } else {
                 produitList = ps.selectByCategory(selectedCategory);
             }
 
-            produitFlowPane.getChildren().clear(); // Clear existing cards
-            for (Produit produit : produitList) {
-                AnchorPane card = createProduitCard(produit);
-                produitFlowPane.getChildren().add(card);
-            }
+            pagination.setPageCount((int) Math.ceil((double) produitList.size() / ITEMS_PER_PAGE));
+            pagination.setCurrentPageIndex(0); // Go to the first page
+            pagination.setPageFactory(this::createPage); // Update the displayed products
         } catch (SQLException e) {
             System.err.println("Error loading products: " + e.getMessage());
         }
     }
-
 }
