@@ -34,7 +34,7 @@ public class StatController {
     }
 
     public void setData() {
-        titleLabel.setText("Statistics of Sponsor Products");
+        titleLabel.setText("Statistiques du sponsor ayant le plus grand nombre de produits");
     }
 
 }
