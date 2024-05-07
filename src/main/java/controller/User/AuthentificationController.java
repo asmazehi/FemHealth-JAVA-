@@ -100,7 +100,7 @@ public class AuthentificationController {
 
             SetData(utilisateur);
 
-            if (utilisateur.getRole().equals("ROLE_ADMIN")) {
+            if (utilisateur.getRole().equals("[\"ROLE_ADMIN\"]")) {
 
                 System.out.println("Redirecting to BaseAdmin");
                 try {
@@ -120,7 +120,7 @@ public class AuthentificationController {
                     showAlert("Erreur lors de la redirection vers l'interface administrateur.");
                     e.printStackTrace();
                 }
-            } else if (utilisateur.getRole().contains("ROLE_CLIENT")) {
+            } else if (utilisateur.getRole().contains("[\"ROLE_CLIENT\"]")) {
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/carCard.fxml"));
                 Parent root = loader.load();

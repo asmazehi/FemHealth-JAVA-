@@ -131,4 +131,9 @@ public class ModifierPublicationController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeDetails();
     }
+    @FXML
+    void BackAction(ActionEvent event) {
+
+    }
+
 }

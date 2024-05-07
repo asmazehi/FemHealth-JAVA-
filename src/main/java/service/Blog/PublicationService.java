@@ -39,10 +39,13 @@ public class PublicationService {
     public List<Publication> select() throws SQLException {
         List<Publication> publications = new ArrayList<>();
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/femHealth","root", "");
-        String query = "SELECT * FROM publication";
+        String query = "SELECT * FROM publication order by  (select count(publication_id ) from commentaire WHERE publication.id=commentaire.publication_id) DESC ";
+
+
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
+            System.out.println(resultSet.getString("titre"));
             Publication publication = new Publication();
             publication.setId(resultSet.getInt("id"));
             publication.setTitre(resultSet.getString("titre"));
@@ -114,5 +117,41 @@ public class PublicationService {
         }
 
         return result;
+    }
+    public List<Publication> getPublicationsPerPage(int offset, int limit) {
+        List<Publication> publicationList = new ArrayList<>();
+        String query = "SELECT * FROM publication LIMIT ?, ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, offset);
+            ps.setInt(2, limit);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Publication publication = new Publication();
+                    publication.setId(rs.getInt("id"));
+                    publication.setContenu(rs.getString("contenu"));
+                    publication.setImage(rs.getString("image"));
+                    publication.setDatepub(rs.getDate("datepub"));
+                    publication.setTitre(rs.getString("titre"));
+                    publicationList.add(publication);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Gérer l'exception correctement dans votre application
+        }
+        return publicationList;
+    }
+    public int getTotalPublicationCount() {
+        int totalCount = 0;
+        String query = "SELECT COUNT(*) FROM publication";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    totalCount = rs.getInt(1);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Gérer l'exception correctement dans votre application
+        }
+        return totalCount;
     }
 }

@@ -95,6 +95,7 @@ public class DetailsController {
                         alert.setContentText("Commentaire ajouté avec succès!");
                         alert.showAndWait();
                         AreaComment.clear();
+                        initialize();
                        /* ListComment.setAll(commentaireService.select(publicationSelectionné.getId()));
                         ListCommentView.setItems(ListComment);*/
                     } catch (SQLException e) {
