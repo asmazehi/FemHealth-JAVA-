@@ -172,6 +172,40 @@ public class EvenementC implements IEvenement<Evenement> {
         }
         return evenements;
     }
+    public List<String> getAllTypes() throws SQLException {
+        List<String> types = new ArrayList<>();
+        String sql = "SELECT DISTINCT type FROM Type"; // Sélectionne tous les types distincts
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                types.add(resultSet.getString("type")); // Ajoute chaque type à la liste
+            }
+        }
+        return types;
+    }
+    public List<Evenement> getEventsByType(String type) throws SQLException {
+        List<Evenement> evenements = new ArrayList<>();
+        String sql = "SELECT * FROM Evenement WHERE type_id = (SELECT id FROM Type WHERE type = ? LIMIT 1)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, type);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Evenement evenement = new Evenement();
+                    evenement.setId(resultSet.getInt("id"));
+                    evenement.setNom(resultSet.getString("nom"));
+                    evenement.setDateDebut(resultSet.getDate("date_debut"));
+                    evenement.setDateFin(resultSet.getDate("date_fin"));
+                    evenement.setImage(resultSet.getString("image"));
+                    evenement.setLocalisation(resultSet.getString("localisation"));
+                    evenement.setMontant(resultSet.getFloat("montant"));
 
+                    // Vous pouvez également définir le type ici si nécessaire
+
+                    evenements.add(evenement);
+                }
+            }
+        }
+        return evenements;
+    }
 
 }

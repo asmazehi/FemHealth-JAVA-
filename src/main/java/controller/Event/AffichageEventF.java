@@ -1,5 +1,7 @@
 package controller.Event;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +30,8 @@ public class AffichageEventF {
     private ChoiceBox<String> choiceBoxEvents;
     @FXML
     private TextField searchField;
-
+    @FXML
+    private ChoiceBox<String> choiceBoxTypes;
     private EvenementC evenementService = new EvenementC();
 
     @FXML
@@ -49,6 +52,40 @@ public class AffichageEventF {
             // Perform search whenever the text changes
             loadEvents();
         });
+        loadEventTypes();
+    }
+    private void loadEventTypes() {
+        try {
+            List<String> types = evenementService.getAllTypes();
+            ObservableList<String> typeOptions = FXCollections.observableArrayList(types);
+            choiceBoxTypes.setItems(typeOptions);
+
+            // Ajouter un gestionnaire d'événements pour détecter les changements de sélection
+            choiceBoxTypes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    // Charger les événements du type sélectionné
+                    try {
+                        loadEventsByType(newValue);
+                    } catch (SQLException e) {
+                        System.err.println("Error loading events by type: " + e.getMessage());
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            System.err.println("Error loading event types: " + e.getMessage());
+        }
+    }
+
+    private void loadEventsByType(String type) throws SQLException {
+        eventFlowPane.getChildren().clear(); // Effacer les événements précédents
+
+        // Charger les événements du type spécifié
+        List<Evenement> evenementList = evenementService.getEventsByType(type);
+
+        // Ajouter les nouveaux événements à l'interface utilisateur
+        for (Evenement evenement : evenementList) {
+            eventFlowPane.getChildren().add(createEvenementCard(evenement));
+        }
     }
 
     private void loadEvents() {

@@ -74,7 +74,7 @@ public class AjouterResB {
 
     @FXML
     void AjouterResB(ActionEvent event) {
-        String statut_paiement = statut_paiementTF.getText();
+        String statut_paiement = "en attente";
         String mode_paiement = mode_paiementCB.getValue();
 
         // Tous les champs sont remplis, nous pouvons procéder à l'ajout
@@ -87,7 +87,6 @@ public class AjouterResB {
             evenement = evenementService.getEventInformationFromDatabase(eventId); // Call getEventInformationFromDatabase from EvenementC
             if (evenement != null) {
                 r.setId_evenement_id(evenement);
-                r.setStatut_paiement(statut_paiement);
                 r.setMode_paiement(mode_paiement);
 
                 rc.add(r);

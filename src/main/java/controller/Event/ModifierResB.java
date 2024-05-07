@@ -27,7 +27,8 @@ public class ModifierResB {
     public void setReservationToModify(Reservation reservation) {
         this.reservationToModify = reservation;
         // Affichez les informations de la réservation dans les champs correspondants
-        statut_paiementTF.setText(reservation.getStatut_paiement());
+        // Set the statut_paiement directly to "en attente"
+        statut_paiementTF.setText("en attente");
         mode_paiementCombo.setValue(reservation.getMode_paiement());
     }
 
@@ -35,13 +36,11 @@ public class ModifierResB {
     void ModifierResB(ActionEvent event) {
         // Vérifiez si la réservation à modifier est définie
         if (reservationToModify != null) {
-            String newStatutPaiement = statut_paiementTF.getText();
             String newModePaiement = mode_paiementCombo.getValue();
-            // Vérifiez si les champs ne sont pas vides
-            if (!newStatutPaiement.isEmpty() && newModePaiement != null) {
+            // Vérifiez si le mode de paiement n'est pas vide
+            if (newModePaiement != null) {
                 try {
-                    // Mettez à jour les informations de la réservation dans la base de données
-                    reservationToModify.setStatut_paiement(newStatutPaiement);
+                    // Mettez à jour le mode de paiement de la réservation dans la base de données
                     reservationToModify.setMode_paiement(newModePaiement);
                     reservationC.update(reservationToModify);
                     // Affichez un message de succès
@@ -61,10 +60,10 @@ public class ModifierResB {
                     alert.show();
                 }
             } else {
-                // Affichez un message si l'un des champs est vide
+                // Affichez un message si le mode de paiement est vide
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Attention");
-                alert.setContentText("Veuillez remplir tous les champs");
+                alert.setContentText("Veuillez sélectionner un mode de paiement");
                 alert.show();
             }
         } else {
@@ -83,7 +82,8 @@ public class ModifierResB {
             reservationToModify = selectedReservation;
 
             // Affichez les informations de la réservation dans les champs correspondants
-            statut_paiementTF.setText(selectedReservation.getStatut_paiement());
+            // Set the statut_paiement directly to "en attente"
+            statut_paiementTF.setText("en attente");
             mode_paiementCombo.setValue(selectedReservation.getMode_paiement());
         } else {
             // Affichez un message d'erreur si la réservation sélectionnée est nulle
@@ -92,7 +92,5 @@ public class ModifierResB {
             alert.setContentText("La réservation sélectionnée est nulle.");
             alert.show();
         }
-
-
     }
 }
