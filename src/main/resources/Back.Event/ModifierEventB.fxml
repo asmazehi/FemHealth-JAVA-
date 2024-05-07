@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,7 +12,12 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Sponsoring.AfficherSponsorController">
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.ModifierEventB">
     <children>
         <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
             <children>
@@ -42,36 +48,46 @@
                         <ImageView fitHeight="44.0" fitWidth="37.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="imageView2" fitHeight="54.0" fitWidth="45.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="45.0" fitWidth="37.0" layoutX="144.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@2.png" />
+                                <Image url="@person.png" />
                             </image>
                         </ImageView>
                     </children>
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <Pane layoutX="207.0" layoutY="-1.0" prefHeight="585.0" prefWidth="632.0" style="-fx-background-color: ececec;" stylesheets="@../../styles.css">
+        <Pane layoutX="207.0" layoutY="-1.0" prefHeight="585.0" prefWidth="632.0" style="-fx-background-color: ececec;" stylesheets="@../styles.css">
             <children>
-                <TableView fx:id="tableView" layoutX="45.0" layoutY="90.0" prefHeight="257.0" prefWidth="518.0">
-                    <columns>
-                        <TableColumn fx:id="nomS" prefWidth="259.0" text="Nom du Sponsor" />
-                        <TableColumn fx:id="dureeS" prefWidth="259.0" text="Durée du contrat" />
-                    </columns>
-                </TableView>
-                <Label fx:id="welcomeLBL" layoutX="168.0" layoutY="26.0" text="Table des Sponsors">
-                    <font>
-                        <Font size="32.0" />
-                    </font>
-                </Label>
-                <Button layoutX="505.0" layoutY="358.0" mnemonicParsing="false" onAction="#supprimerSponsor" text="Supprimer" />
-                <Button layoutX="45.0" layoutY="358.0" mnemonicParsing="false" onAction="#naviguerVersAjouterSponsor" text="Ajouter un Sponsor" />
-                <Button layoutX="434.0" layoutY="358.0" mnemonicParsing="false" onAction="#modifierSponsor" text="Modifier" />
-                <Button layoutX="343.0" layoutY="358.0" mnemonicParsing="false" onAction="#genererPDF" text="Générer PDF" />
-                <Button layoutX="273.0" layoutY="358.0" mnemonicParsing="false" onAction="#voirStat" text="Voir Stat" />
+                <VBox layoutX="71.0" layoutY="27.0" spacing="10.0">
+                    <Label text="Modifier l'événement"/>
+                    <HBox spacing="10.0">
+                        <Label text="Nom:"/>
+                        <TextField fx:id="nomTF"/>
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Label text="Date de début:"/>
+                        <TextField fx:id="dateDebutTF"/>
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Label text="Date de fin:"/>
+                        <TextField fx:id="dateFinTF"/>
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Label text="Image:"/>
+                        <TextField fx:id="imageTF"/>
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Label text="Localisation:"/>
+                        <TextField fx:id="localisationTF"/>
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Label text="Montant:"/>
+                        <TextField fx:id="montantTF"/>
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Button fx:id="modifierBtn" mnemonicParsing="false" onAction="#modifier" text="Modifier"/>
+                        <Button fx:id="annulerBtn" mnemonicParsing="false" onAction="#annuler" text="Annuler"/>
+                    </HBox>
+                </VBox>
             </children>
         </Pane>
     </children>

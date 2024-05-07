@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Sponsoring.AfficherSponsorController">
+<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AfficherEventB">
     <children>
         <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
             <children>
@@ -42,37 +43,40 @@
                         <ImageView fitHeight="44.0" fitWidth="37.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="imageView2" fitHeight="54.0" fitWidth="45.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="45.0" fitWidth="37.0" layoutX="144.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@2.png" />
+                                <Image url="@person.png" />
                             </image>
                         </ImageView>
                     </children>
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <Pane layoutX="207.0" layoutY="-1.0" prefHeight="585.0" prefWidth="632.0" style="-fx-background-color: ececec;" stylesheets="@../../styles.css">
-            <children>
-                <TableView fx:id="tableView" layoutX="45.0" layoutY="90.0" prefHeight="257.0" prefWidth="518.0">
-                    <columns>
-                        <TableColumn fx:id="nomS" prefWidth="259.0" text="Nom du Sponsor" />
-                        <TableColumn fx:id="dureeS" prefWidth="259.0" text="Durée du contrat" />
-                    </columns>
-                </TableView>
-                <Label fx:id="welcomeLBL" layoutX="168.0" layoutY="26.0" text="Table des Sponsors">
-                    <font>
-                        <Font size="32.0" />
-                    </font>
-                </Label>
-                <Button layoutX="505.0" layoutY="358.0" mnemonicParsing="false" onAction="#supprimerSponsor" text="Supprimer" />
-                <Button layoutX="45.0" layoutY="358.0" mnemonicParsing="false" onAction="#naviguerVersAjouterSponsor" text="Ajouter un Sponsor" />
-                <Button layoutX="434.0" layoutY="358.0" mnemonicParsing="false" onAction="#modifierSponsor" text="Modifier" />
-                <Button layoutX="343.0" layoutY="358.0" mnemonicParsing="false" onAction="#genererPDF" text="Générer PDF" />
-                <Button layoutX="273.0" layoutY="358.0" mnemonicParsing="false" onAction="#voirStat" text="Voir Stat" />
-            </children>
+        <Pane layoutX="207.0" layoutY="-1.0" prefHeight="585.0" prefWidth="632.0" style="-fx-background-color: ececec;" stylesheets="@../styles.css">
+       <children>
+        <TableView fx:id="tableview" layoutX="-1.0" layoutY="48.0" prefHeight="293.0" prefWidth="600.0" stylesheets="@../styles.css">
+            <columns>
+                <TableColumn fx:id="type_idCol" prefWidth="45.59997481107712" text="type" />
+                <TableColumn fx:id="nomCol" prefWidth="62.400028228759766" text="nom" />
+                <TableColumn fx:id="date_debutCol" prefWidth="78.4000244140625" text="date_debut" />
+                <TableColumn fx:id="date_finCol" prefWidth="64.800048828125" text="date_fin" />
+                <TableColumn fx:id="imageCol" minWidth="3.99993896484375" prefWidth="71.99998474121094" text="image">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="image" />
+                    </cellValueFactory>
+                </TableColumn>
+
+                <TableColumn fx:id="localisationCol" prefWidth="84.00006103515625" text="localisation" />
+                <TableColumn fx:id="montantCol" minWidth="0.0" prefWidth="88.00006103515625" text="montant" />
+
+                <!-- Nouvelle colonne pour la réservation -->
+                <TableColumn fx:id="reservationCol" prefWidth="100.0" text="Réserver" />
+            </columns>
+        </TableView>
+        <Button layoutX="262.0" layoutY="361.0" mnemonicParsing="false" onAction="#supprimerEventB" text="supprimer" />
+        <Button layoutX="350.0" layoutY="361.0" mnemonicParsing="false" onAction="#modifierEventB" text="modifier" />
+        <Button layoutX="438.0" layoutY="361.0" mnemonicParsing="false" onAction="#ajouterEventB" text="ajouter" />
+
+        <Label fx:id="welcomelb" layoutX="262.0" layoutY="14.0" text="Label" />
+    </children>
         </Pane>
     </children>
 </AnchorPane>
