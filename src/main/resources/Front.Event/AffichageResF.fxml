@@ -1,146 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AfficherResB">
     <children>
-        <!-- Left Pane -->
-        <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
-            <children>
-                <ImageView fitHeight="154.0" fitWidth="200.0" layoutX="26.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@2.png" />
-                    </image>
-                </ImageView>
-                <Label layoutX="17.0" layoutY="99.0" prefHeight="58.0" prefWidth="172.0" text="FemHealth" textAlignment="CENTER" textFill="#b4256f">
-                    <font>
-                        <Font name="Edwardian Script ITC" size="42.0" />
-                    </font>
-                </Label>
-                <Label layoutX="7.0" layoutY="171.0" prefHeight="46.0" prefWidth="201.0" text="Le début de votre ère optimale" textFill="#ffd3ee">
-                    <font>
-                        <Font name="Edwardian Script ITC" size="24.0" />
-                    </font>
-                </Label>
-                <Line endX="86.59999084472656" layoutX="107.0" layoutY="218.0" startX="-90.99998474121094" startY="-0.600006103515625" stroke="WHITE" />
-                <!-- Navigation ChoiceBoxes -->
-                <ChoiceBox layoutX="51.0" layoutY="262.0" prefHeight="25.0" prefWidth="150.0">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Mon Compte" />
-                        </FXCollections>
-                    </items>
-                </ChoiceBox>
-                <ChoiceBox layoutX="51.0" layoutY="317.0" prefHeight="25.0" prefWidth="150.0">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Voir Événements" />
-                            <String fx:value="Voir Réservations" />
-                        </FXCollections>
-                    </items>
-                </ChoiceBox>
-                <ChoiceBox layoutX="51.0" layoutY="373.0" prefHeight="25.0" prefWidth="150.0">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Publications" />
-                            <String fx:value="Mes Commentaires" />
-                        </FXCollections>
-                    </items>
-                </ChoiceBox>
-                <ChoiceBox layoutX="51.0" layoutY="430.0" prefHeight="25.0" prefWidth="150.0">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Produits Disponibles" />
-                            <String fx:value="Voir Panier" />
-                            <String fx:value="Voir Commandes" />
-                        </FXCollections>
-                    </items>
-                </ChoiceBox>
-
-                <!-- User Info -->
-                <AnchorPane layoutX="7.0" layoutY="506.0" prefHeight="70.0" prefWidth="195.0" style="-fx-background-color: #FFD1DC;">
-                    <children>
-                        <Label layoutX="62.0" layoutY="14.0" text="Bonjour," />
-                        <Label layoutX="61.0" layoutY="32.0" text="Nom d'utilisateur" />
-                        <!-- Replace with actual logo icon -->
-                        <ImageView fx:id="imageView2" fitHeight="54.0" fitWidth="45.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@images.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="166.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@deconnect.png" />
-                            </image>
-                        </ImageView>
-                    </children>
-                </AnchorPane>
-                <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="262.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@images.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@blog.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@events.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="15.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@ecommerce.png" />
-                    </image>
-                </ImageView>
-                <Label layoutX="60.0" layoutY="266.0" prefHeight="18.0" prefWidth="121.0" text="Mon Compte" textFill="#514f4f">
-                    <font>
-                        <Font name="System Bold Italic" size="15.0" />
-                    </font>
-                </Label>
-                <Label layoutX="60.0" layoutY="319.0" prefHeight="18.0" prefWidth="121.0" text="Evènements" textFill="#514f4f">
-                    <font>
-                        <Font name="System Bold Italic" size="15.0" />
-                    </font>
-                </Label>
-                <Label layoutX="60.0" layoutY="375.0" prefHeight="18.0" prefWidth="121.0" text="Blog" textFill="#514f4f">
-                    <font>
-                        <Font name="System Bold Italic" size="15.0" />
-                    </font>
-                </Label>
-                <Label layoutX="60.0" layoutY="432.0" prefHeight="18.0" prefWidth="121.0" text="E-Commerce" textFill="#514f4f">
-                    <font>
-                        <Font name="System Bold Italic" size="15.0" />
-                    </font>
-                </Label>
-            </children>
-        </AnchorPane>
         <!-- Right Pane -->
-        <Pane layoutX="207.0" layoutY="-1.0" prefHeight="591.0" prefWidth="616.0" style="-fx-background-color: #ececec;">
+        <Pane layoutY="-1.0" prefHeight="591.0" prefWidth="823.0" style="-fx-background-color: #ececec;">
             <children>
-                <TableView fx:id="tableview" layoutX="117.0" layoutY="73.0" prefHeight="310.0" prefWidth="382.0" stylesheets="@../styles.css">
+                <TableView fx:id="tableview" layoutX="31.0" layoutY="69.0" prefHeight="310.0" prefWidth="744.0" stylesheets="@../styles.css">
                     <columns>
-                        <TableColumn fx:id="id_evenementCol" prefWidth="117.5999755859375" text="id_evenement" />
-                        <TableColumn fx:id="statut_paiementCol" prefWidth="143.20001220703125" text="statut_paiement" />
-                        <TableColumn fx:id="mode_paiementCol" minWidth="0.0" prefWidth="122.39996337890625" text="mode_paiement" />
+                        <TableColumn fx:id="id_evenementCol" prefWidth="251.99996948242188" text="id_evenement" />
+                        <TableColumn fx:id="statut_paiementCol" minWidth="9.600067138671875" prefWidth="235.99993896484375" text="statut_paiement" />
+                        <TableColumn fx:id="mode_paiementCol" minWidth="0.0" prefWidth="252.800048828125" text="mode_paiement" />
                     </columns>
                 </TableView>
-                <Button layoutX="215.0" layoutY="415.0" mnemonicParsing="false" onAction="#SupprimerResB" stylesheets="@../styles.css" text="Je Veux Annuler Ma Reservation" />
-                <Button layoutX="213.0" layoutY="453.0" mnemonicParsing="false" onAction="#ModifierResBF" stylesheets="@../styles.css" text="Je Veux Modifier Ma Reservation" />
+                <Button layoutX="308.0" layoutY="413.0" mnemonicParsing="false" onAction="#SupprimerResB" stylesheets="@../styles.css" text="Je Veux Annuler Ma Reservation" />
+                <Button layoutX="306.0" layoutY="454.0" mnemonicParsing="false" onAction="#ModifierResBF" stylesheets="@../styles.css" text="Je Veux Modifier Ma Reservation" />
+                <Button layoutX="100.0" layoutY="10.0" mnemonicParsing="false" onAction="#goBack" stylesheets="@../styles.css" text="Back" />
 
             </children>
         </Pane>

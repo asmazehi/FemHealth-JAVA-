@@ -1,16 +1,19 @@
 package controller.Event;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
 import model.events.Evenement;
 import service.events.EvenementC;
 
@@ -24,7 +27,11 @@ public class AffichageEventF {
     @FXML
     private FlowPane eventFlowPane;
     @FXML
+    private ChoiceBox<String> choiceBoxEvents;
+    @FXML
     private TextField searchField;
+    @FXML
+    private ChoiceBox<String> choiceBoxTypes;
     private EvenementC evenementService = new EvenementC();
 
     @FXML
@@ -45,7 +52,42 @@ public class AffichageEventF {
             // Perform search whenever the text changes
             loadEvents();
         });
+        loadEventTypes();
     }
+    private void loadEventTypes() {
+        try {
+            List<String> types = evenementService.getAllTypes();
+            ObservableList<String> typeOptions = FXCollections.observableArrayList(types);
+            choiceBoxTypes.setItems(typeOptions);
+
+            // Ajouter un gestionnaire d'événements pour détecter les changements de sélection
+            choiceBoxTypes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    // Charger les événements du type sélectionné
+                    try {
+                        loadEventsByType(newValue);
+                    } catch (SQLException e) {
+                        System.err.println("Error loading events by type: " + e.getMessage());
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            System.err.println("Error loading event types: " + e.getMessage());
+        }
+    }
+
+    private void loadEventsByType(String type) throws SQLException {
+        eventFlowPane.getChildren().clear(); // Effacer les événements précédents
+
+        // Charger les événements du type spécifié
+        List<Evenement> evenementList = evenementService.getEventsByType(type);
+
+        // Ajouter les nouveaux événements à l'interface utilisateur
+        for (Evenement evenement : evenementList) {
+            eventFlowPane.getChildren().add(createEvenementCard(evenement));
+        }
+    }
+
     private void loadEvents() {
         try {
             eventFlowPane.getChildren().clear();
@@ -119,6 +161,7 @@ public class AffichageEventF {
         montantLabel.setLayoutY(260);
         montantLabel.getStyleClass().add("evenement-montant");
 
+
         Button reserverButton = new Button("Réserver");
         reserverButton.setLayoutX(15);
         reserverButton.setLayoutY(280);
@@ -142,9 +185,63 @@ public class AffichageEventF {
                 e.printStackTrace();
             }
         });
-
+        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+        choiceBox.getItems().addAll("Voir Événements", "Voir Réservations");
+        choiceBox.setLayoutX(15);
+        choiceBox.setLayoutY(280);
+        choiceBox.setOnAction(this::handleChoiceBoxAction);
 
         card.getChildren().addAll(imageView, nomLabel, dateDebutLabel, dateFinLabel, localisationLabel, montantLabel, reserverButton);
         return card;
     }
+
+    // Define method to handle ChoiceBox action
+    @FXML
+    private void handleChoiceBoxAction(ActionEvent event) {
+        String selectedOption = choiceBoxEvents.getValue();
+        switch (selectedOption) {
+            case "Voir Événements":
+                navigateToEventsPage();
+                break;
+            case "Voir Réservations":
+                navigateToReservationsPage();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void navigateToEventsPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
+            AnchorPane eventsPage = loader.load();
+
+            // Access the scene and root node of the current anchor pane
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
+
+            // Replace the content of the root with the events page
+            root.getChildren().setAll(eventsPage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void navigateToReservationsPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageResF.fxml"));
+            AnchorPane reservationsPage = loader.load();
+
+            // Access the scene and root node of the current anchor pane
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
+
+            // Replace the content of the root with the reservations page
+            root.getChildren().setAll(reservationsPage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Other methods for handling navigation to different pages
 }
