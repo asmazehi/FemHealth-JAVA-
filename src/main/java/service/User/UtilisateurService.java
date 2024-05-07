@@ -194,7 +194,6 @@ public class UtilisateurService implements IService<Utilisateur> {
                 utilisateur.setMdp(rs.getString("password"));
                 utilisateur.setRegistered_at(rs.getDate("registered_at"));
                 list.add(utilisateur);
-                list.add(utilisateur);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

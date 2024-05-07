@@ -17,12 +17,16 @@ import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Date;
 import javafx.scene.control.Button;
 import utils.EmailUtils;
+import javafx.scene.control.DatePicker;
+import java.time.LocalDate;
 
 import javax.mail.MessagingException;
+import java.util.TreeSet;
 
 
 public class GererUtilisateurController {
@@ -45,6 +49,11 @@ public class GererUtilisateurController {
     private Button retour_TF;
     @FXML
     private TextField searchFX;
+    @FXML
+    private DatePicker datePickerFX;
+
+    @FXML
+    private Button searchButtonFX;
 
     private FilteredList<Utilisateur> filteredUtilisateurs;
 
@@ -76,6 +85,7 @@ public class GererUtilisateurController {
 
     private ObservableList<Utilisateur> utilisateurs = FXCollections.observableArrayList();
     private UtilisateurService utilisateurService = new UtilisateurService();
+
 
     @FXML
     private void initialize() {
@@ -136,14 +146,13 @@ public class GererUtilisateurController {
             int nouveaux = nouveauxUtilisateurs.size();
             StringBuilder nouveauxUtilisateursMessage = new StringBuilder();
             for (Utilisateur utilisateur : nouveauxUtilisateurs) {
+                utilisateurs.add(utilisateur); // Ajoute l'utilisateur au TreeSet
                 nouveauxUtilisateursMessage.append(utilisateur.getEmail()).append(", ");
             }
 
             if (nouveaux > 0) {
                 afficherNotification(nouveaux + " nouveaux utilisateur(s) ajouté(s) : " + nouveauxUtilisateursMessage);
             }
-
-            utilisateurs.addAll(nouveauxUtilisateurs); // Ajoute les nouveaux utilisateurs à la liste
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -295,7 +304,26 @@ public class GererUtilisateurController {
 
     public void chercher(ActionEvent actionEvent) {
     }
+    @FXML
+    private void chercherParDate() {
+        LocalDate selectedDate = datePickerFX.getValue();
+        if (selectedDate != null) {
+            filteredUtilisateurs.setPredicate(utilisateur -> {
+                Date registeredAt = utilisateur.getRegistered_at();
+                if (registeredAt != null) {
+                    LocalDate registeredDate = ((java.sql.Date) registeredAt).toLocalDate();
+                    return registeredDate.equals(selectedDate);
+                } else {
+                    return false; // Si la date d'inscription est nulle, ne pas inclure cet utilisateur
+                }
+            });
 
+            // Utiliser la date pour effectuer la recherche
+            // Implementer la logique de recherche par date ici
+        } else {
+            afficherAlerte("Sélectionnez une date");
+        }
+    }
 
     public void statistiques() {
         try {

@@ -7,7 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.User.Utilisateur;
@@ -15,7 +17,9 @@ import service.User.UtilisateurService;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StatistiquesController {
 
@@ -23,6 +27,11 @@ public class StatistiquesController {
     public BarChart<String, Integer> stat1FX;
     @FXML
     public PieChart stat2FX;
+    @FXML
+    private Label activeLabel;
+
+    @FXML
+    private Label inactiveLabel;
     public Button RetourFX;
 
     UtilisateurService utilisateurService = new UtilisateurService();
@@ -40,42 +49,55 @@ public class StatistiquesController {
 
         updateStat2FX();
     }
-
     private void updateStat1FX() {
-
-//        Map<Date, Integer> userCountByDate = new HashMap<>();
-//
-//        try {
-//            List<Utilisateur> utilisateurs = utilisateurService.select();
-//            // Parcourir la liste des utilisateurs pour compter le nombre d'utilisateurs par date
-//            for (Utilisateur utilisateur : utilisateurs) {
-//                Date registrationDate = utilisateur.getRegistred_at();
-//                // Vérifier si la date existe déjà dans la map
-//                if (userCountByDate.containsKey(registrationDate)) {
-//                    // Si oui, incrémenter le compteur
-//                    userCountByDate.put(registrationDate, userCountByDate.get(registrationDate) + 1);
-//                } else {
-//                    // Sinon, ajouter la date à la map avec un compteur initialisé à 1
-//                    userCountByDate.put(registrationDate, 1);
-//                }
-//            }
-
-            // Mettre à jour le graphique stat1FX avec les données
-            // Vous devez déterminer comment organiser les données pour que le graphique les affiche correctement
-            // Par exemple, vous pourriez utiliser une itération sur les entrées de la map pour ajouter les données au graphique
-            // ...
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-    }
-
-    private void updateStat2FX() {
-        int activeCount = 0;
-        int inactiveCount = 0;
+        // Réinitialiser les données du graphique
+        stat1FX.getData().clear();
 
         try {
+            // Récupérer les utilisateurs depuis la base de données
             List<Utilisateur> utilisateurs = utilisateurService.select();
-            // Parcourir la liste des utilisateurs pour compter le nombre de comptes actifs et désactivés
+
+            // Initialiser une série de données pour le graphique
+            XYChart.Series<String, Integer> series = new XYChart.Series<>();
+
+            // Initialiser une structure de données pour stocker le compte d'utilisateurs par jour
+            Map<String, Integer> userCountByDate = new HashMap<>();
+
+            // Parcourir les utilisateurs pour calculer le compte par jour
+            for (Utilisateur utilisateur : utilisateurs) {
+                java.sql.Date registrationDate = utilisateur.getRegistered_at();
+                if (registrationDate != null) {
+                    String dateString = registrationDate.toString();
+                    userCountByDate.put(dateString, userCountByDate.getOrDefault(dateString, 0) + 1);
+                }
+            }
+
+            // Ajouter les données à la série
+            for (Map.Entry<String, Integer> entry : userCountByDate.entrySet()) {
+                series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+            }
+
+            // Ajouter la série au graphique
+            stat1FX.getData().add(series);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private void updateStat2FX() {
+        // Réinitialiser les données du graphique
+        stat2FX.getData().clear();
+
+        try {
+            // Récupérer les utilisateurs depuis la base de données
+            List<Utilisateur> utilisateurs = utilisateurService.select();
+
+            // Compter les utilisateurs actifs et inactifs
+            int activeCount = 0;
+            int inactiveCount = 0;
             for (Utilisateur utilisateur : utilisateurs) {
                 if (utilisateur.getActive() == 1) {
                     activeCount++;
@@ -84,25 +106,16 @@ public class StatistiquesController {
                 }
             }
 
-            // Mettre à jour le graphique stat2FX avec les données
-            // Vous devez ajouter les données de comptage au graphique, par exemple, en utilisant des objets PieChart.Data
-            // ...
+            // Ajouter les données au graphique
+            stat2FX.getData().add(new PieChart.Data("Actifs", activeCount));
+            stat2FX.getData().add(new PieChart.Data("Inactifs", inactiveCount));
+            activeLabel.setText("Actifs : " + activeCount);
+            inactiveLabel.setText("Inactifs : " + inactiveCount);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // Méthode appelée lors du clic sur le graphique des utilisateurs inscrits par jour
-    @FXML
-    public void ConnexionParJours(MouseEvent mouseEvent) {
-        updateStat1FX();
-    }
-
-    // Méthode appelée lors du clic sur le graphique des comptes actifs/désactivés
-    @FXML
-    public void SituationsComptes(MouseEvent mouseEvent) {
-        updateStat2FX();
-    }
 
     public void retourToGererUtilisateurs() {
         try {
