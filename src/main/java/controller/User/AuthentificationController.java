@@ -1,16 +1,10 @@
 package controller.User;
 
-import controller.back.Blog.AfficherCommentaire;
-import controller.back.Blog.AfficherPublicationController;
-import controller.front.Blog.DetailsController;
-import controller.front.Blog.FXMLDocumentController;
-import controller.front.Blog.UserComments;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import model.User.Utilisateur;
 import service.User.UtilisateurService;
 import utils.PasswordUtils;
@@ -66,7 +60,7 @@ public class AuthentificationController {
 
         if (utilisateur != null && PasswordUtils.verifyPassword(motDePasse, utilisateur.getMdp())) {
 
-            if (utilisateur.getRole().equals("ROLE_ADMIN")) {
+            if (utilisateur.getRole().equals("[\"ROLE_ADMIN\"]")) {
 
                 System.out.println("Redirecting to BaseAdmin");
                 try {
@@ -75,7 +69,7 @@ public class AuthentificationController {
                     showAlert("Erreur lors de la redirection vers l'interface administrateur.");
                     e.printStackTrace();
                 }
-            } else if (utilisateur.getRole().equals("ROLE_CLIENT")) {
+            } else if (utilisateur.getRole().equals("[\"ROLE_CLIENT\"]")) {
                 System.out.println("Redirecting to HomePageClient");
                 redirectToHomePageClient();
             }
@@ -84,7 +78,7 @@ public class AuthentificationController {
         }
     }
     @FXML
-    private void seConnecter() throws IOException {
+    private void seConnecter() {
         String email = EmailTF.getText();
         String motDePasse = mdp_TF.getText();
 
@@ -94,44 +88,22 @@ public class AuthentificationController {
         }
 
         Utilisateur utilisateur = utilisateurService.authentification(email);
-
-        System.out.println(utilisateurService.user);
+        System.out.println(utilisateur);
         if (utilisateur != null && PasswordUtils.verifyPassword(motDePasse, utilisateur.getMdp())) {
 
             SetData(utilisateur);
 
-            if (utilisateur.getRole().equals("[\"ROLE_ADMIN\"]")) {
+            if (utilisateur.getRole().contains("[\"ROLE_ADMIN\"]")) {
 
                 System.out.println("Redirecting to BaseAdmin");
                 try {
-
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/AfficherPublication.fxml"));
-                    Parent root = loader.load();
-                    AfficherPublicationController controller = loader.getController();
-
-
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.showAndWait();
-                    redirectToHomePageClient();
+                    redirectToBaseAdmin();
                 } catch (Exception e) {
                     showAlert("Erreur lors de la redirection vers l'interface administrateur.");
                     e.printStackTrace();
                 }
             } else if (utilisateur.getRole().contains("[\"ROLE_CLIENT\"]")) {
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/carCard.fxml"));
-                Parent root = loader.load();
-              loader.getController();
-
-
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
+                System.out.println("Redirecting to HomePageClient");
                 redirectToHomePageClient();
             }
         } else {

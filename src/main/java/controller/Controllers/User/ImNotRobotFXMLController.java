@@ -1,6 +1,5 @@
-package controller.User;
+package controller.Controllers.User;
 
-import controller.Controllers.User.AuthentificationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

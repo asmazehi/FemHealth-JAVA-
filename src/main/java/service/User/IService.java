@@ -10,6 +10,9 @@ public interface IService <T>{
 
 
     public void update (T t) throws SQLException;
+
+    void updateActivation(int userId, int newActivationState) throws SQLException;
+
     public void delete (int id) throws SQLException;
     public List<T> select()throws SQLException;
 }

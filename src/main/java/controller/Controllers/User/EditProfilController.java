@@ -1,4 +1,6 @@
-package controller.User;
+package controller.Controllers.User;
+
+
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,7 +18,7 @@ import utils.PasswordUtils;
 
 public class EditProfilController {
 
-    public Label labelEmailFX;
+   public Label labelEmailFX;
 //    @FXML
 //    private TextField EmailTF;
 
