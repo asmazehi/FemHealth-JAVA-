@@ -1,6 +1,6 @@
 package controller.Event;
 
-import com.google.zxing.BarcodeFormat;
+//import com.google.zxing.BarcodeFormat;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.qrcode.*;

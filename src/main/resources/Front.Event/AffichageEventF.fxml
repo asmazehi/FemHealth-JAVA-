@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AffichageEventF">
+<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AffichageEventF">
    <children>
       <!-- Left Pane -->
       <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
@@ -50,14 +50,6 @@
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Voir Événements" />
                      <String fx:value="Voir Réservations" />
-                  </FXCollections>
-               </items>
-            </ChoiceBox>
-            <ChoiceBox layoutX="51.0" layoutY="373.0" prefHeight="25.0" prefWidth="150.0">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Publications" />
-                     <String fx:value="Mes Commentaires" />
                   </FXCollections>
                </items>
             </ChoiceBox>
@@ -109,26 +101,26 @@
                   <Image url="@ecommerce.png" />
                </image>
             </ImageView>
-            <Label layoutX="51.0" layoutY="251.0" prefHeight="18.0" prefWidth="121.0" text="Mon Compte" textFill="#514f4f">
+            <Label layoutX="65.0" layoutY="264.0" prefHeight="18.0" prefWidth="121.0" text="Mon Compte" textFill="#514f4f">
                <font>
                   <Font name="System Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="51.0" layoutY="306.0" prefHeight="18.0" prefWidth="121.0" text="Evènements" textFill="#514f4f">
+            <Label layoutX="65.0" layoutY="319.0" prefHeight="18.0" prefWidth="121.0" text="Evènements" textFill="#514f4f">
                <font>
                   <Font name="System Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="51.0" layoutY="362.0" prefHeight="18.0" prefWidth="121.0" text="Blog" textFill="#514f4f">
+            <Label layoutX="65.0" layoutY="432.0" prefHeight="18.0" prefWidth="121.0" text="E-Commerce" textFill="#514f4f">
                <font>
                   <Font name="System Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="51.0" layoutY="419.0" prefHeight="18.0" prefWidth="121.0" text="E-Commerce" textFill="#514f4f">
+            <Button fx:id="BlogButton" layoutX="51.0" layoutY="373.0" mnemonicParsing="false" onAction="#BlogButton" prefHeight="26.0" prefWidth="150.0" text="Blog">
                <font>
-                  <Font name="System Bold Italic" size="15.0" />
+                  <Font name="System Bold Italic" size="13.0" />
                </font>
-            </Label>
+            </Button>
          </children>
       </AnchorPane>
       <!-- Right Pane -->

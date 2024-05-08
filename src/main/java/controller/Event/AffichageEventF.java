@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 import model.events.Evenement;
 import service.events.EvenementC;
 
@@ -215,22 +217,7 @@ public class AffichageEventF {
                 break;
         }
     }
-    @FXML
-    private void navigateToCalendar(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/Calendar.fxml"));
-            AnchorPane calendarPage = loader.load();
 
-            // Access the scene and root node of the current anchor pane
-            Scene scene = eventFlowPane.getScene();
-            AnchorPane root = (AnchorPane) scene.getRoot();
-
-            // Replace the content of the root with the calendar page
-            root.getChildren().setAll(calendarPage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     private void navigateToEventsPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
@@ -262,6 +249,17 @@ public class AffichageEventF {
             e.printStackTrace();
         }
     }
-
+    @FXML
+    void BlogButton(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/carCard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) eventFlowPane.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     // Other methods for handling navigation to different pages
 }

@@ -28,10 +28,19 @@ public class BaseAdminController {
     private ImageView logoTF;
     @FXML
     private ChoiceBox<String> choiceBoxTF;
+    @FXML
+    private ChoiceBox<String> blogFx;
+
+    @FXML
+    private ChoiceBox<String> eventsFx;
 
     @FXML
     private void initialize() {
         ObservableList<String> options = FXCollections.observableArrayList("Se déconnecter", "Éditer le profil");
+        ObservableList<String> optionsPublication = FXCollections.observableArrayList("Publications", "Commentaires");
+        ObservableList<String> optionsEvents = FXCollections.observableArrayList("Events", "Reservation", "Type");
+        blogFx.setItems(optionsPublication);
+        eventsFx.setItems(optionsEvents);
         choiceBoxTF.setItems(options);
         choiceBoxTF.setOnAction(event -> {
             String selectedItem = choiceBoxTF.getSelectionModel().getSelectedItem();
@@ -43,8 +52,90 @@ public class BaseAdminController {
                 }
             }
         });
+        blogFx.setOnAction(event -> {
+            String selectedItem = blogFx.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                if (selectedItem.equals("Publications")) {
+                    redirectToPublication();
+                } else if (selectedItem.equals("Commentaires")) {
+                    redirectToCommentaire();
+                }
+            }
+        });
+        eventsFx.setOnAction(event -> {
+            String selectedItem = eventsFx.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                if (selectedItem.equals("Events")) {
+                    redirectToEvents();
+                } else if (selectedItem.equals("Reservation")) {
+                    redirectToReservations();
+                } else if (selectedItem.equals("Type")) {
+                    redirectToType();
+
+                }
+            }
+        });
+
     }
 
+    private void redirectToType() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AfficherTypeB.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void redirectToReservations() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AfficherResB.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void redirectToEvents() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AfficherEventB.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void redirectToPublication(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/AfficherPublication.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void redirectToCommentaire(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/AfficherCommentaire.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void redirectToHomePage() {
         try {
