@@ -273,9 +273,6 @@ return  null;
             e.printStackTrace();
         }
     }
-    @FXML
-    void BackAction(ActionEvent event) {
 
-    }
 }
 

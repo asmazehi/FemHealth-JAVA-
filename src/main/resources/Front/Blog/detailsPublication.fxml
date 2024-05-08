@@ -26,14 +26,9 @@
                 </cursor></HBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <Pane prefHeight="72.0" prefWidth="267.0">
-                <children>
-                    <Label layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="160.0" text="UserName">
-                        <font>
-                            <Font name="System Bold" size="16.0" />
-                        </font>
-                    </Label>
-                  <ChoiceBox fx:id="BoxConx" layoutX="180.0" layoutY="16.0" prefHeight="25.0" prefWidth="87.0" />
-                </children>
+               <children>
+                  <Button layoutX="192.0" layoutY="16.0" mnemonicParsing="false" onAction="#BackTo" text="Back" />
+               </children>
             </Pane>
         </children>
     </HBox>

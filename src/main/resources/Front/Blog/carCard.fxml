@@ -58,8 +58,8 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-      <Button layoutX="543.0"  fx:id="prevButton"  layoutY="607.0" mnemonicParsing="false" onAction="#goToPrevPage" text="prevPage" />
-      <Button layoutX="649.0" fx:id="nextButton" layoutY="607.0" mnemonicParsing="false" onAction="#goToNextPage" text="nextPage" />
-      <TextField layoutX="302.0" layoutY="14.0"  prefHeight="25.0" prefWidth="179.0" promptText="search" />
+      <Button fx:id="prevButton" layoutX="543.0" layoutY="607.0" mnemonicParsing="false" onAction="#goToPrevPage" text="prevPage" />
+      <Button fx:id="nextButton" layoutX="649.0" layoutY="607.0" mnemonicParsing="false" onAction="#goToNextPage" text="nextPage" />
+      <Button layoutX="996.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackTo" prefHeight="25.0" prefWidth="69.0" text="Back" />
     </children>
 </AnchorPane>

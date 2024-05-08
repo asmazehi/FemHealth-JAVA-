@@ -231,40 +231,8 @@ public class DetailsController {
 
         initializeDetails();
         setListView();
-        BoxConx.getItems().addAll("Edit Profile", "Déconnexion");
-
         // Définir une action à effectuer lorsqu'une option est sélectionnée
-        BoxConx.setOnAction((ActionEvent event) -> {
-            String selectedOption = BoxConx.getValue();
-            if(selectedOption.equals("Edit Profile")) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/EditProfil.fxml"));
-                    Parent root = loader.load();
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("Naviguer vers Edit Profile");
-            } else if(selectedOption.equals("Déconnexion")) {
 
-                    session.clearSession();
-                    afficherMessageDeconnexion();
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
-                    Parent root = loader.load();
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("Déconnexion de l'utilisateur");
-            }
-        });
 
 
 
@@ -300,6 +268,18 @@ public class DetailsController {
 
 
             stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void BackTo(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/carCard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) AreaComment.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
