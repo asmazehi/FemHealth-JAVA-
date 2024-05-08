@@ -26,6 +26,7 @@ public class MainFX extends Application {
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Inscription.fxml"));
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/statistiques.fxml"));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/carCard.fxml"));
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/UserComments.fxml"));
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/HomePage" + ".fxml"));
