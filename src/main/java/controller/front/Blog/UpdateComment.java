@@ -3,6 +3,9 @@ package controller.front.Blog;
 import controller.back.Blog.AfficherPublicationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
@@ -11,6 +14,8 @@ import model.Blog.Commentaire;
 import model.Blog.Publication;
 import service.Blog.CommentaireService;
 import javafx.fxml.Initializable;
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
@@ -95,5 +100,17 @@ public class UpdateComment {
 
     }public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeDetailsCom();
+    }
+    @FXML
+    void BackTo(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/UserComments.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) descriptionFld.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
