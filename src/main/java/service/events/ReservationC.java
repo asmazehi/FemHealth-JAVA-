@@ -19,7 +19,7 @@ public class ReservationC implements IReservation<Reservation> {
         String sql = "INSERT INTO Reservation (id_evenement_id, statut_paiement, mode_paiement) VALUES (?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, reservation.getId_evenement_id().getId());
-        preparedStatement.setString(2, reservation.getStatut_paiement());
+        preparedStatement.setString(2,"en attente");
         preparedStatement.setString(3, reservation.getMode_paiement());
         preparedStatement.executeUpdate();
     }
@@ -29,7 +29,7 @@ public class ReservationC implements IReservation<Reservation> {
         String sql = "UPDATE Reservation SET id_evenement_id=?, statut_paiement=?, mode_paiement=? WHERE id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, reservation.getId_evenement_id().getId());
-        preparedStatement.setString(2, reservation.getStatut_paiement());
+        preparedStatement.setString(2, "en attente");
         preparedStatement.setString(3, reservation.getMode_paiement());
         preparedStatement.setInt(4, reservation.getId());
         preparedStatement.executeUpdate();
@@ -78,7 +78,7 @@ public class ReservationC implements IReservation<Reservation> {
             int evenementId = resultSet.getInt("id_evenement_id");
             Evenement evenement = getEvenementById(evenementId); // Remplacez getEvenementById par la méthode appropriée pour récupérer un objet Evenement par son ID
             reservation.setId_evenement_id(evenement);
-            reservation.setStatut_paiement(resultSet.getString("statut_paiement"));
+            reservation.statut_paiement = "en attente";
             reservation.setMode_paiement(resultSet.getString("mode_paiement"));
             reservations.add(reservation);
         }

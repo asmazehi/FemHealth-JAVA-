@@ -68,4 +68,17 @@ public class SponsorService implements IService<Sponsor> {
         }
         return sponsors;
     }
+    public int getAmountOfProductsForSponsor(Sponsor sponsor) throws SQLException {
+        String sql = "SELECT COUNT(*) AS product_count FROM produit WHERE sponsor_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, sponsor.getId());
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("product_count");
+                }
+            }
+        }
+        return 0; // Return 0 if no products or an error occurs
+    }
+
 }

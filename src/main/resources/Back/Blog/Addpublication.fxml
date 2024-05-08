@@ -12,9 +12,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../Front.Blog/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.back.Blog.AddpublicationController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.back.Blog.AddpublicationController">
    <children>
-      <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
+      <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;" stylesheets="@../../../../../../../../../../java/FemHealth-JAVA-/src/main/resources/Front/Blog/css.css">
          <children>
             <ImageView fitHeight="154.0" fitWidth="200.0" layoutX="26.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -32,27 +32,13 @@
                </font>
             </Label>
             <Line endX="100.0" layoutX="107.0" layoutY="218.0" startX="-100.0" />
-            <Button layoutX="51.0" layoutY="249.0" mnemonicParsing="false" opacity="0.0" prefHeight="25.0" prefWidth="91.0" styleClass="white-background" stylesheets="@../Front.Blog/css.css" text="Blog" textFill="#96055c" />
-            <Button layoutX="51.0" layoutY="283.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" styleClass="round-layout" stylesheets="@../Front.Blog/css.css" text="Evènement" textFill="#96055c" textOverrun="CLIP" />
-            <Button layoutX="51.0" layoutY="321.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" styleClass="round-layout" stylesheets="@../Front.Blog/css.css" text="E-commerce" textFill="#96055c" />
-            <Button layoutX="51.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" styleClass="round-layout" stylesheets="@../Front.Blog/css.css" text="Sponsor" textFill="#96055c" />
-            <AnchorPane layoutX="7.0" layoutY="506.0" prefHeight="70.0" prefWidth="195.0" style="-fx-background-color: #FFD1DC;">
-               <children>
-                  <Label layoutX="62.0" layoutY="14.0" text="Bonjour," />
-                  <Label layoutX="80.0" layoutY="36.0" text="Username" />
-                  <ImageView fitHeight="44.0" fitWidth="37.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imageView2" fitHeight="54.0" fitWidth="45.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="45.0" fitWidth="37.0" layoutX="144.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@a.jpg" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
+            <Button layoutX="51.0" layoutY="249.0" mnemonicParsing="false" opacity="0.0" prefHeight="25.0" prefWidth="91.0" styleClass="white-background" text="Blog" textFill="#96055c" />
+            <Button layoutX="51.0" layoutY="443.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Evènement" textFill="#96055c" textOverrun="CLIP" />
+            <Button layoutX="51.0" layoutY="296.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="E-commerce" textFill="#96055c" />
+            <Button layoutX="51.0" layoutY="344.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Sponsor" textFill="#96055c" />
+            <Button layoutX="51.0" layoutY="393.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Blog" textFill="#96055c" />
+            <Button layoutX="51.0" layoutY="249.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Dashbord" textFill="#96055c" />
+            <ChoiceBox layoutX="32.0" layoutY="528.0" prefWidth="150.0" />
          </children>
       </AnchorPane>
       <ImageView id="background1" fitHeight="155.0" fitWidth="609.0" layoutX="118.0" layoutY="53.0">
@@ -65,7 +51,7 @@
          <Label fx:id="cheminphoto" layoutX="32.0" layoutY="339.0" prefHeight="37.0" prefWidth="275.0" />
          <Button layoutX="29.0" layoutY="156.0" mnemonicParsing="false" onAction="#ajouter_photo" prefHeight="37.0" prefWidth="149.0" text="ajouter photo" />
          <Button fx:id="ajouterTf" layoutX="110.0" layoutY="455.0" mnemonicParsing="false" onAction="#ajouterPublication" prefHeight="37.0" prefWidth="149.0" styleClass="white-background" stylesheets="@../Front.Blog/css.css" text="Ajouter" />
-         <Button fx:id="afficherTf" layoutX="307.0" layoutY="455.0" mnemonicParsing="false" onAction="#afficherPublication" prefHeight="37.0" prefWidth="149.0" styleClass="white-background" stylesheets="@../Front.Blog/css.css" text="Afficher" />
+            <Button layoutX="463.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackAction" text="Back" />
          </children>
       </Pane>
    </children>

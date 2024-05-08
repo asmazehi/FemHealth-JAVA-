@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AjouterEventB">
+    <children>
+        <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
+            <children>
+                <ImageView fitHeight="154.0" fitWidth="200.0" layoutX="26.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@2.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="53.0" layoutY="123.0" text="WELCOME ">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                </Label>
+                <Label layoutX="39.0" layoutY="165.0" text="TO FemHealth">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                </Label>
+                <Line endX="100.0" layoutX="107.0" layoutY="218.0" startX="-100.0" />
+                <Button layoutX="51.0" layoutY="249.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Blog" />
+                <Button layoutX="51.0" layoutY="283.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Evènement" />
+                <Button layoutX="51.0" layoutY="321.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="E-commerce" />
+                <Button layoutX="51.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Sponsor" />
+                <AnchorPane layoutX="7.0" layoutY="506.0" prefHeight="70.0" prefWidth="195.0" style="-fx-background-color: #FFD1DC;">
+                    <children>
+                        <Label layoutX="62.0" layoutY="14.0" text="Bonjour," />
+                        <Label layoutX="80.0" layoutY="36.0" text="Username" />
+                        <ImageView fitHeight="44.0" fitWidth="37.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imageView2" fitHeight="54.0" fitWidth="45.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@person.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+        <Pane layoutX="207.0" layoutY="-1.0" prefHeight="585.0" prefWidth="632.0" style="-fx-background-color: ececec;" stylesheets="@../styles.css">
+            <children>
+                <!-- <TextField fx:id="type_idTF" layoutX="206.0" layoutY="67.0" />!-->
+                <ComboBox fx:id="typeCB" layoutX="206.0" layoutY="67.0" promptText="Type" />
+
+                <TextField fx:id="nomTF" layoutX="207.0" layoutY="104.0" promptText="nom" />
+
+                <!-- Replace TextField with DatePicker for dateDebutTF -->
+                <DatePicker fx:id="dateDebutDP" layoutX="208.0" layoutY="140.0" promptText="Date début" />
+
+                <!-- Replace TextField with DatePicker for dateFinTF -->
+                <DatePicker fx:id="dateFinDP" layoutX="207.0" layoutY="174.0" promptText="Date fin" />
+
+                <!-- Other elements -->
+                <Button layoutX="37.0" layoutY="210.0" mnemonicParsing="false" onAction="#handleUploadAction" text="Upload Image" />
+                <ImageView fx:id="imageView" fitHeight="135.0" fitWidth="138.0" layoutX="14.0" layoutY="40.0" />
+                <TextField fx:id="localisationTF" layoutX="210.0" layoutY="240.0" promptText="localisation" />
+                <TextField fx:id="montantTF" layoutX="211.0" layoutY="275.0" promptText="montant" />
+                <Button layoutX="211.0" layoutY="313.0" mnemonicParsing="false" onAction="#AjouterEventB" text="inserer" />
+                <Button layoutX="309.0" layoutY="313.0" mnemonicParsing="false" onAction="#AfficherEventB" text="afficher" />
+                <Label layoutX="237.0" layoutY="31.0" text="Ajouter Event" />
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

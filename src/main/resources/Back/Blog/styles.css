@@ -1,0 +1,15 @@
+.label-statistiques {
+    -fx-font-size: 18pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.pie-chart {
+    -fx-background-color: #f2f2f2;
+}
+
+.chart-title {
+    -fx-font-size: 14pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
+}
