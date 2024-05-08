@@ -1,6 +1,7 @@
 package model.User;
-//import java.sql.Date;
+
 import java.util.Date;
+
 public class Utilisateur {
     private int id;
     private String nom;
@@ -8,10 +9,9 @@ public class Utilisateur {
     private String password;
     private String roles;
     private int active;
-    private Date registered_at;
+    private Date Registred_at;
 
     private String status;
-
     public Utilisateur() {
     }
 
@@ -28,9 +28,10 @@ public class Utilisateur {
         this.nom = nom;
         this.email = email;
         this.password = mdp;
-        this.roles = "[\"ROLE_CLIENT\"]\n";
+        this.roles = "ROLE_CLIENT";
         Date DT=new Date();
-        this.registered_at=new java.sql.Date(DT.getTime());
+        this.Registred_at=new java.sql.Date(DT.getTime());
+
     }
 
     public String getEmail() {
@@ -41,22 +42,18 @@ public class Utilisateur {
         this.email = email;
     }
 
-    public java.sql.Date getRegistered_at() {
-        return (java.sql.Date) registered_at;
-    }
-
-    public void setRegistered_at(Date registered_at) {
-        this.registered_at = registered_at;
-    }
-
     public Utilisateur(String nom, String email, String mdp) {
         this.nom = nom;
         this.email = email;
         this.password = mdp;
-        this.roles = "[\"ROLE_CLIENT\"]\n";
+
+        this.roles = "ROLE_CLIENT";
         this.active=1;
-        this.registered_at= new Date();
+        Date DT=new Date();
+        this.Registred_at= new java.sql.Date(DT.getTime());
+
     }
+
 
     public int getId() {
         return id;
@@ -74,9 +71,12 @@ public class Utilisateur {
         return password;
     }
 
+
+
     public String getRole() {
         return roles;
     }
+
 
     public void setId(int id) {
         this.id = id;
@@ -86,6 +86,7 @@ public class Utilisateur {
         this.nom = nom;
     }
 
+
     public void setMail(String mail) {
         this.email = mail;
     }
@@ -94,9 +95,7 @@ public class Utilisateur {
         this.password = mdp;
     }
 
-    public String getPassword() {
-        return password;
-    }
+
 
     public void setRole(String role) {
         this.roles = role;
@@ -106,20 +105,27 @@ public class Utilisateur {
         return active;
     }
 
+    public java.sql.Date getRegistred_at() {
+        return (java.sql.Date) Registred_at;
+    }
+
+    public void setRegistred_at(Date registred_at) {
+        Registred_at = registred_at;
+    }
+
     public void setActive(int active) {
         this.active = active;
     }
 
     @Override
     public String toString() {
-        return "Utilisateur{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", email='" + email + '\'' +
-                ", mdp='" + password + '\'' +
-                ", role='" + roles + '\'' +
-                ", active=" + active +
-                ", registered_at=" + registered_at +
-                '}';
+        return "Utilisateur{" + "id=" + id + ", nom=" + nom +  ", email=" + email + ", mdp=" + password + ", role=" + roles +  "active=" + active +  "Registred_ar=" + Registred_at +  '}';
     }
+
+
+
+
+
+
+
 }

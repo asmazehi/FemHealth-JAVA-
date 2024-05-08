@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import model.User.Utilisateur;
 import utils.MyDataBase;
 import utils.PasswordUtils;
+import utils.Session;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class UtilisateurService implements IService<Utilisateur> {
             p.setMdp(RS.getString("password"));
             p.setRole(RS.getString("roles"));
             p.setActive(RS.getInt("active"));
-            p.setRegistered_at(RS.getDate("registered_at"));
+            p.setRegistred_at(RS.getDate("registered_at"));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -57,7 +58,8 @@ public class UtilisateurService implements IService<Utilisateur> {
                     utilisateur.setMdp(resultSet.getString("password"));
                     utilisateur.setRole(resultSet.getString("roles"));
                     utilisateur.setActive(resultSet.getInt("active"));
-                    utilisateur.setRegistered_at(resultSet.getDate("registered_at"));
+                    utilisateur.setRegistred_at(resultSet.getDate("registered_at"));
+                    Session.StartSession(utilisateur);
                 }
             }
         } catch (SQLException ex) {
@@ -139,7 +141,7 @@ public class UtilisateurService implements IService<Utilisateur> {
             statement.setInt(4, utilisateur.getActive());
             statement.setString(5, utilisateur.getMdp());
 
-            statement.setDate(6, utilisateur.getRegistered_at());
+            statement.setDate(6, utilisateur.getRegistred_at());
             statement.setInt(7, utilisateur.getId());
             statement.executeUpdate();
             System.out.println("Utilisateur mis à jour");
@@ -192,7 +194,7 @@ public class UtilisateurService implements IService<Utilisateur> {
                 utilisateur.setEmail(rs.getString("email"));
                 utilisateur.setRole(rs.getString("roles"));
                 utilisateur.setMdp(rs.getString("password"));
-                utilisateur.setRegistered_at(rs.getDate("registered_at"));
+                utilisateur.setRegistred_at(rs.getDate("registered_at"));
                 list.add(utilisateur);
             }
         } catch (SQLException ex) {

@@ -4,7 +4,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
-
+import utils.Session;
 public class EmailUtils {
 
     public static void sendEmail(String smtpHost, String smtpPort, String username, String password,
@@ -15,7 +15,7 @@ public class EmailUtils {
         props.put("mail.smtp.host", smtpHost);
         props.put("mail.smtp.port", smtpPort);
 
-        Session session = Session.getInstance(props, new Authenticator() {
+        javax.mail.Session session = javax.mail.Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);

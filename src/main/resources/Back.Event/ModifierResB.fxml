@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.back.Blog.AfficherPublicationController">
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.ModifierResB">
     <children>
         <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
             <children>
@@ -43,37 +50,30 @@
                         <ImageView fitHeight="44.0" fitWidth="37.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="imageView2" fitHeight="54.0" fitWidth="45.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="45.0" fitWidth="37.0" layoutX="144.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@a.jpg" />
+                                <Image url="@person.png" />
                             </image>
                         </ImageView>
                     </children>
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <Pane layoutX="208.0" layoutY="-1.0" prefHeight="585.0" prefWidth="632.0" style="-fx-background-color: ececec;">
-           <children>
-               <TableView fx:id="tableView" layoutX="55.0" layoutY="84.0" prefHeight="247.0" prefWidth="521.0">
-                   <columns>
-                       <TableColumn fx:id="titreCol" prefWidth="126.0" text="Titre" />
-                       <TableColumn fx:id="dateCol" prefWidth="127.0" text="Date" />
-                       <TableColumn fx:id="contenuCol" prefWidth="136.0" text="Contenu" />
-                       <TableColumn fx:id="imageCol" prefWidth="131.0" text="Image" />
-                   </columns>
-               </TableView>
-               <Button layoutX="506.0" layoutY="344.0" mnemonicParsing="false" onAction="#supprimerPublication" text="supprimer" />
-               <Button layoutX="319.0" layoutY="344.0" mnemonicParsing="false" onAction="#addpublication" text="ajouter" />
-               <Button layoutX="419.0" layoutY="344.0" mnemonicParsing="false" onAction="#modifierpublication" text="modifier" />
-            <HBox layoutX="144.0" layoutY="37.0" prefHeight="45.0" prefWidth="218.0">
-               <children>
-                  <TextField fx:id="searchTextField" prefHeight="31.0" prefWidth="207.0" promptText="🔎 Rechercher des publications..." />
-               </children>
-            </HBox>
-           </children>
+        <Pane layoutX="207.0" layoutY="-1.0" prefHeight="585.0" prefWidth="632.0" style="-fx-background-color: ececec;" stylesheets="@../styles.css">
+            <children>
+                <Label layoutX="232.0" layoutY="27.0" text="Modifier Reservation" />
+                <TextField fx:id="id_evenementTF" layoutX="35.0" layoutY="48.0" promptText="ID Evenement" />
+                <TextField fx:id="statut_paiementTF" layoutX="35.0" layoutY="98.0" promptText="Nouveau statut paiement" />
+                <ComboBox fx:id="mode_paiementCombo" layoutX="130.0" layoutY="69.0" prefWidth="150.0" promptText="Mode de Paiement" >
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Chèque" />
+                            <String fx:value="Carte" />
+                            <String fx:value="Virement Bancaire" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+
+                <Button layoutX="142.0" layoutY="305.0" mnemonicParsing="false" onAction="#ModifierResB" text="Modifier" />
+            </children>
         </Pane>
     </children>
 </AnchorPane>

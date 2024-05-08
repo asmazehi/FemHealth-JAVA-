@@ -194,7 +194,7 @@ public class AuthentificationController {
 
     private void redirectToBaseAdmin() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/BaseAdmin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/AfficherPublication.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) seConnecterTF.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -206,12 +206,8 @@ public class AuthentificationController {
 
     private void redirectToHomePageClient() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePageClient.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/carCard.fxml"));
             Parent root = loader.load();
-
-            HomePageClientController controller = loader.getController();
-            controller.SetData(CurrentUser);
-
             Stage stage = (Stage) seConnecterTF.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

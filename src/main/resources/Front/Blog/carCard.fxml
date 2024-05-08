@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -9,8 +10,10 @@
 <AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1100.0" stylesheets="@card.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Blog.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-        <ScrollPane layoutX="225.0" layoutY="-1.0" prefHeight="655.0" prefWidth="874.0">
+        <ScrollPane layoutX="225.0" layoutY="43.0" prefHeight="546.0" prefWidth="874.0">
+
             <content>
+
                 <GridPane fx:id="cardHolder" layoutX="12.0" layoutY="109.0" />
             </content>
         </ScrollPane>
@@ -55,5 +58,8 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
+      <Button layoutX="543.0"  fx:id="prevButton"  layoutY="607.0" mnemonicParsing="false" onAction="#goToPrevPage" text="prevPage" />
+      <Button layoutX="649.0" fx:id="nextButton" layoutY="607.0" mnemonicParsing="false" onAction="#goToNextPage" text="nextPage" />
+      <TextField layoutX="302.0" layoutY="14.0"  prefHeight="25.0" prefWidth="179.0" promptText="search" />
     </children>
 </AnchorPane>

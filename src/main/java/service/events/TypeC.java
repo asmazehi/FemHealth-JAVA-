@@ -66,4 +66,31 @@ public class TypeC implements IType<Type> {
         }
         return null; // Return null if no Type with the given ID was found
     }
+    public Type selectByName(String typeName) throws SQLException {
+        String sql = "SELECT * FROM Type WHERE type=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, typeName);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            Type type = new Type();
+            type.setId(resultSet.getInt("id"));
+            type.setType(resultSet.getString("type"));
+            // Set other properties of the Type object if needed
+            return type;
+        }
+        return null; // Return null if no Type with the given name was found
+    }
+    public List<String> getAllTypeNames() throws SQLException {
+        List<String> typeNames = new ArrayList<>();
+        String sql = "SELECT type FROM Type";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                typeNames.add(resultSet.getString("type"));
+            }
+        }
+        return typeNames;
+    }
+
+
 }

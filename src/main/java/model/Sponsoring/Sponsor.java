@@ -1,5 +1,8 @@
 package model.Sponsoring;
 
+import service.Sponsoring.SponsorService;
+
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class Sponsor {
@@ -66,6 +69,18 @@ public class Sponsor {
     public int hashCode() {
         return Objects.hash(id, nom, duree_contrat);
     }
+
+    public double getAmountOfProducts() {
+        SponsorService sponsorService = new SponsorService();
+        try {
+            // Assuming there's a method in SponsorService to get the number of products for a sponsor
+            return sponsorService.getAmountOfProductsForSponsor(this); // Assuming 'this' is a Sponsor instance
+        } catch (SQLException e) {
+            System.err.println("Error fetching amount of products for sponsor: " + e.getMessage());
+            return 0; // Return 0 in case of an error
+        }
+    }
+
 
 }
 
