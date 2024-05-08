@@ -81,6 +81,28 @@ public class AfficherResB {
         }
     }
     @FXML
+    private void goBackk(ActionEvent event) {
+        // Get the current stage
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        try {
+            // Load the FXML file of the recent page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichResB.fxml"));
+            Parent root = loader.load();
+
+            // Set the recent page scene
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+
+            // Show the recent page
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle any potential exceptions while loading the FXML file
+        }
+    }
+
+    @FXML
     void ModifierResB(ActionEvent event) {
         try {
             Reservation selectedReservation = tableview.getSelectionModel().getSelectedItem();

@@ -1,7 +1,9 @@
 package controller.Event;
 
+import com.google.zxing.BarcodeFormat;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.qrcode.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +21,12 @@ import model.events.Reservation;
 import service.events.EvenementC;
 import service.events.ReservationC;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AjouterResB {
 
@@ -42,6 +48,8 @@ public class AjouterResB {
     public AjouterResB() {
         evenementService = new EvenementC(); // Initialize EvenementC instance
     }
+
+
 
     @FXML
     void AfficherResB(ActionEvent event) {

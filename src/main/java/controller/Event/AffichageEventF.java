@@ -31,7 +31,10 @@ public class AffichageEventF {
     @FXML
     private TextField searchField;
     @FXML
+
     private ChoiceBox<String> choiceBoxTypes;
+    @FXML
+    private Button signalerButton;
     private EvenementC evenementService = new EvenementC();
 
     @FXML
@@ -191,6 +194,8 @@ public class AffichageEventF {
         choiceBox.setLayoutY(280);
         choiceBox.setOnAction(this::handleChoiceBoxAction);
 
+
+
         card.getChildren().addAll(imageView, nomLabel, dateDebutLabel, dateFinLabel, localisationLabel, montantLabel, reserverButton);
         return card;
     }
@@ -210,7 +215,22 @@ public class AffichageEventF {
                 break;
         }
     }
+    @FXML
+    private void navigateToCalendar(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/Calendar.fxml"));
+            AnchorPane calendarPage = loader.load();
 
+            // Access the scene and root node of the current anchor pane
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
+
+            // Replace the content of the root with the calendar page
+            root.getChildren().setAll(calendarPage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void navigateToEventsPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));

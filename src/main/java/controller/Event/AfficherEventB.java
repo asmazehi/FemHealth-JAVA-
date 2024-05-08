@@ -202,6 +202,9 @@ public class AfficherEventB {
     }
 
     private void openReservationPage(int eventId) {
+        // Get a reference to the current stage
+        Stage currentStage = (Stage) tableview.getScene().getWindow();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/back.Event/AjouterResB.fxml"));
             Parent root = loader.load();
@@ -212,6 +215,10 @@ public class AfficherEventB {
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
+
+            // Close the current stage before opening the new one
+            currentStage.close();
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -219,6 +226,7 @@ public class AfficherEventB {
             showErrorAlert("Failed to load AjouterResB.fxml");
         }
     }
+
 
     @FXML
     private void navigateToReservations(ActionEvent event) {

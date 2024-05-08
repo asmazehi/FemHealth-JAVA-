@@ -2,6 +2,7 @@ package service.events;
 
 import utils.MyDataBase;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import model.events.Evenement;
@@ -200,6 +201,36 @@ public class EvenementC implements IEvenement<Evenement> {
                     evenement.setMontant(resultSet.getFloat("montant"));
 
                     // Vous pouvez également définir le type ici si nécessaire
+
+                    evenements.add(evenement);
+                }
+            }
+        }
+        return evenements;
+    }
+
+
+    public List<Evenement> getEventsByDate(LocalDate selectedDate) throws SQLException {
+        List<Evenement> evenements = new ArrayList<>();
+        String sql = "SELECT * FROM Evenement WHERE ? BETWEEN date_debut AND date_fin";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setDate(1, Date.valueOf(selectedDate));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Evenement evenement = new Evenement();
+                    evenement.setId(resultSet.getInt("id"));
+                    evenement.setNom(resultSet.getString("nom"));
+                    evenement.setDateDebut(resultSet.getDate("date_debut"));
+                    evenement.setDateFin(resultSet.getDate("date_fin"));
+                    evenement.setImage(resultSet.getString("image"));
+                    evenement.setLocalisation(resultSet.getString("localisation"));
+                    evenement.setMontant(resultSet.getFloat("montant"));
+
+                    // Récupérer et associer le type si nécessaire
+                    int typeId = resultSet.getInt("type_id");
+                    TypeC typeService = new TypeC();
+                    Type type = typeService.selectById(typeId);
+                    evenement.setType_id(type);
 
                     evenements.add(evenement);
                 }
