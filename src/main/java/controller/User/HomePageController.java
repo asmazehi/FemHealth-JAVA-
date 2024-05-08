@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class HomePageController {
@@ -56,5 +55,3 @@ public class HomePageController {
         System.out.println("Initialisation de la page d'accueil...");
     }
 }
-
-

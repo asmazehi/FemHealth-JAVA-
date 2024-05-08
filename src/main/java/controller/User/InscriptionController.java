@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User.Utilisateur;
@@ -24,7 +23,7 @@ public class InscriptionController {
     private TextField EmailTF;
 
     @FXML
-    private PasswordField mdpTF;
+    private TextField mdpTF;
 
     @FXML
     private TextField Nom;
@@ -62,14 +61,11 @@ public class InscriptionController {
             return;
         }
 
-        Utilisateur user = new Utilisateur();
-        user.setEmail(email);
-        user.setMdp(mdp);
-        user.setNom(name);
+        Utilisateur user = new Utilisateur(name, email, mdp);
         try {
             utilisateurService.add(user);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/authentification.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) retourFX.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -77,7 +73,8 @@ public class InscriptionController {
 
         } catch (SQLException | IOException e) {
             e.printStackTrace();
-
+            // Gérer les erreurs liées à l'ajout de l'utilisateur à la base de données
+            // ou au chargement de la page d'accueil
         }
     }
 

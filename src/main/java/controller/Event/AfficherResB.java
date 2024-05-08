@@ -1,10 +1,12 @@
 package controller.Event;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -56,21 +58,50 @@ public class AfficherResB {
 
     @FXML
     void initialize() {
-
         try {
             List<Reservation> list = rc.select();
             obs = FXCollections.observableArrayList(list);
             tableview.setItems(obs);
-            id_evenementCol.setCellValueFactory(new PropertyValueFactory<>("id_evenement_id"));
-            statut_paiementCol.setCellValueFactory(new PropertyValueFactory<>("statut_paiement"));
 
+            id_evenementCol.setCellValueFactory(new PropertyValueFactory<>("id_evenement_id"));
             mode_paiementCol.setCellValueFactory(new PropertyValueFactory<>("mode_paiement"));
 
+            // Set the statut_paiement cell value factory manually
+            statut_paiementCol.setCellValueFactory(cellData -> {
+                Reservation reservation = cellData.getValue();
+                if (reservation != null) {
+                    return new SimpleStringProperty("en attente");
+                } else {
+                    return new SimpleStringProperty(""); // Or any appropriate default value
+                }
+            });
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
+    @FXML
+    private void goBackk(ActionEvent event) {
+        // Get the current stage
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        try {
+            // Load the FXML file of the recent page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichResB.fxml"));
+            Parent root = loader.load();
+
+            // Set the recent page scene
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+
+            // Show the recent page
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle any potential exceptions while loading the FXML file
+        }
+    }
+
     @FXML
     void ModifierResB(ActionEvent event) {
         try {
@@ -123,7 +154,29 @@ public class AfficherResB {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void goBack(ActionEvent event) {
+        // Get the current stage
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        try {
+            // Load the FXML file of the recent page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
+            Parent root = loader.load();
+
+            // Set the recent page scene
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+
+            // Show the recent page
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle any potential exceptions while loading the FXML file
+        }
+    }
 
 }
+
 
 

@@ -2,6 +2,7 @@ package service.events;
 
 import utils.MyDataBase;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import model.events.Evenement;
@@ -146,4 +147,96 @@ public class EvenementC implements IEvenement<Evenement> {
         }
         return evenement;
     }
+    public List<Evenement> selectWithReservationCount() throws SQLException {
+        List<Evenement> evenements = new ArrayList<>();
+        String sql = "SELECT e.*, COUNT(r.id_evenement_id) AS reservation_count FROM Evenement e LEFT JOIN Reservation r ON e.id = r.id_evenement_id GROUP BY e.id";
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while (resultSet.next()) {
+            Evenement evenement = new Evenement();
+            evenement.setId(resultSet.getInt("id"));
+            evenement.setNom(resultSet.getString("nom"));
+            evenement.setDateDebut(resultSet.getDate("date_debut"));
+            evenement.setDateFin(resultSet.getDate("date_fin"));
+            evenement.setImage(resultSet.getString("image"));
+            evenement.setLocalisation(resultSet.getString("localisation"));
+            evenement.setMontant(resultSet.getFloat("montant"));
+            evenement.setReservationCount(resultSet.getInt("reservation_count")); // Set the reservation count
+
+            // Récupère la référence du type à partir de son ID et l'associe à l'événement
+            int typeId = resultSet.getInt("type_id");
+            TypeC typeService = new TypeC();
+            Type type = typeService.selectById(typeId);
+            evenement.setType_id(type);
+
+            evenements.add(evenement);
+        }
+        return evenements;
+    }
+    public List<String> getAllTypes() throws SQLException {
+        List<String> types = new ArrayList<>();
+        String sql = "SELECT DISTINCT type FROM Type"; // Sélectionne tous les types distincts
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                types.add(resultSet.getString("type")); // Ajoute chaque type à la liste
+            }
+        }
+        return types;
+    }
+    public List<Evenement> getEventsByType(String type) throws SQLException {
+        List<Evenement> evenements = new ArrayList<>();
+        String sql = "SELECT * FROM Evenement WHERE type_id = (SELECT id FROM Type WHERE type = ? LIMIT 1)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, type);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Evenement evenement = new Evenement();
+                    evenement.setId(resultSet.getInt("id"));
+                    evenement.setNom(resultSet.getString("nom"));
+                    evenement.setDateDebut(resultSet.getDate("date_debut"));
+                    evenement.setDateFin(resultSet.getDate("date_fin"));
+                    evenement.setImage(resultSet.getString("image"));
+                    evenement.setLocalisation(resultSet.getString("localisation"));
+                    evenement.setMontant(resultSet.getFloat("montant"));
+
+                    // Vous pouvez également définir le type ici si nécessaire
+
+                    evenements.add(evenement);
+                }
+            }
+        }
+        return evenements;
+    }
+
+
+    public List<Evenement> getEventsByDate(LocalDate selectedDate) throws SQLException {
+        List<Evenement> evenements = new ArrayList<>();
+        String sql = "SELECT * FROM Evenement WHERE ? BETWEEN date_debut AND date_fin";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setDate(1, Date.valueOf(selectedDate));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Evenement evenement = new Evenement();
+                    evenement.setId(resultSet.getInt("id"));
+                    evenement.setNom(resultSet.getString("nom"));
+                    evenement.setDateDebut(resultSet.getDate("date_debut"));
+                    evenement.setDateFin(resultSet.getDate("date_fin"));
+                    evenement.setImage(resultSet.getString("image"));
+                    evenement.setLocalisation(resultSet.getString("localisation"));
+                    evenement.setMontant(resultSet.getFloat("montant"));
+
+                    // Récupérer et associer le type si nécessaire
+                    int typeId = resultSet.getInt("type_id");
+                    TypeC typeService = new TypeC();
+                    Type type = typeService.selectById(typeId);
+                    evenement.setType_id(type);
+
+                    evenements.add(evenement);
+                }
+            }
+        }
+        return evenements;
+    }
+
 }

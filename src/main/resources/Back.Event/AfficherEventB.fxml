@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AfficherEventB">
+<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AfficherEventB">
     <children>
         <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
             <children>
@@ -74,6 +74,7 @@
         <Button layoutX="262.0" layoutY="361.0" mnemonicParsing="false" onAction="#supprimerEventB" text="supprimer" />
         <Button layoutX="350.0" layoutY="361.0" mnemonicParsing="false" onAction="#modifierEventB" text="modifier" />
         <Button layoutX="438.0" layoutY="361.0" mnemonicParsing="false" onAction="#ajouterEventB" text="ajouter" />
+           <Button layoutX="520.0" layoutY="361.0" mnemonicParsing="false" onAction="#showStatistics" text="Statistics" />
 
         <Label fx:id="welcomelb" layoutX="262.0" layoutY="14.0" text="Label" />
     </children>

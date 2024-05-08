@@ -51,46 +51,46 @@ public class CommentaireService {
         statement.executeUpdate();
     }
     public void ActiveDesactiveComentaire(Commentaire commentaire) throws SQLException {
- try{
+        try{
 
-        String sql = "UPDATE commentaire SET  active=? WHERE id=?";
-        PreparedStatement statement = connection.prepareStatement(sql);
+            String sql = "UPDATE commentaire SET  active=? WHERE id=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
 
-        statement.setBoolean(1, commentaire.isActive());
-        statement.setInt(2, commentaire.getId());
-     System.out.println("iduser user"+commentaire.getUser_id().getId());
-        statement.executeUpdate();
+            statement.setBoolean(1, commentaire.isActive());
+            statement.setInt(2, commentaire.getId());
+            System.out.println("iduser user"+commentaire.getUser_id().getId());
+            statement.executeUpdate();
 
-     Properties props = new Properties();
-     props.put("mail.smtp.auth", "true");
-     props.put("mail.smtp.starttls.enable", "true");
-     props.put("mail.smtp.host", "smtp.gmail.com");
-     props.put("mail.smtp.port", "587");
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
 
-     Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-         protected PasswordAuthentication getPasswordAuthentication() {
-             return new PasswordAuthentication("chaimatlili62@gmail.com", "bxra lvjy ajes ajqs");
-         }
-     });
+            Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication("chaimatlili62@gmail.com", "bxra lvjy ajes ajqs");
+                }
+            });
 
-     Message message = new MimeMessage(session);
-     message.setFrom(new InternetAddress("chaimatlili62@gmail.com"));
-     message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(commentaire.getUser_id().getEmail()));
-     message.setSubject("Votre comentaire");
-     if(commentaire.isActive()==true){
-         message.setText("Bonjour "+ commentaire.getUser_id().getNom()+" votre commentaire est activé ");
-     }
-     if(commentaire.isActive()==false){
-         message.setText("Bonjour "+ commentaire.getUser_id().getNom()+" votre commentaire est desactivé ");
-     }
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("chaimatlili62@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(commentaire.getUser_id().getEmail()));
+            message.setSubject("Votre comentaire");
+            if(commentaire.isActive()==true){
+                message.setText("Bonjour "+ commentaire.getUser_id().getNom()+" votre commentaire est activé ");
+            }
+            if(commentaire.isActive()==false){
+                message.setText("Bonjour "+ commentaire.getUser_id().getNom()+" votre commentaire est desactivé ");
+            }
 
-     session.setDebug(true);
-     Transport.send(message);
-     System.out.println("message sent successfully....");
+            session.setDebug(true);
+            Transport.send(message);
+            System.out.println("message sent successfully....");
 
- }catch (Exception e){
-     e.printStackTrace();
- }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) throws SQLException {
@@ -150,7 +150,7 @@ public class CommentaireService {
             commentaire.setDescription(resultSet.getString("description"));
             commentaire.setDatecomnt(resultSet.getDate("datecomnt"));
             commentaire.setActive(resultSet.getBoolean("active"));
-           commentaire.setBrlike(resultSet.getInt("likes"));
+            commentaire.setBrlike(resultSet.getInt("likes"));
             listecommentaire.add(commentaire);
         }
         System.out.println(listecommentaire.size());

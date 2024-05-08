@@ -24,21 +24,18 @@ public class HomePageClientController {
     }
 
     private Utilisateur CurrentUser;
+
     public void SetData(Utilisateur user){
         this.CurrentUser = user;
-
     }
+
     @FXML
     private void gererProfil() {
-
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/EditProfil.fxml"));
             Parent root = loader.load();
 
             EditProfilController controller = loader.getController();
-            System.out.println(CurrentUser + "fi homepage");
-
             controller.setData(CurrentUser);
 
             Stage stage = new Stage();
@@ -51,7 +48,6 @@ public class HomePageClientController {
 
     @FXML
     private void seDeconnecter() {
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePage.fxml"));
             Parent root = loader.load();
