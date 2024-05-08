@@ -116,4 +116,16 @@ public class Evenement {
                 ", montant=" + montant +
                 '}';
     }
+
+
+    private int reservationCount;
+
+    public int getReservationCount() {
+        return reservationCount;
+    }
+
+    public void setReservationCount(int reservationCount) {
+        this.reservationCount = reservationCount;
+    }
+
 }
