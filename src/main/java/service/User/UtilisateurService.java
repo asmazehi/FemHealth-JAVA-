@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import model.User.Utilisateur;
 import utils.MyDataBase;
 import utils.PasswordUtils;
+import utils.Session;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class UtilisateurService implements IService<Utilisateur> {
                     utilisateur.setRole(resultSet.getString("roles"));
                     utilisateur.setActive(resultSet.getInt("active"));
                     utilisateur.setRegistered_at(resultSet.getDate("registered_at"));
+                    Session.StartSession(utilisateur);
                 }
             }
         } catch (SQLException ex) {

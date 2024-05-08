@@ -34,7 +34,8 @@
       <Button fx:id="retour_TF" layoutX="573.0" layoutY="25.0" mnemonicParsing="false" onAction="#retour" style="-fx-background-color: #FFD1DC;" text="Retour" />
       <CheckBox fx:id="RobotCheckBox" layoutX="89.0" layoutY="300.0" text="Je ne suis pas un robot" />
 
-<!--      <WebView fx:id="webView" layoutX="26.0" layoutY="341.0" prefHeight="158.0" prefWidth="339.0" />-->
+<!--      <WebView fx:id="webView" layoutX="26.0" layoutY="341.0" prefHeight="158.0" prefWidth="339.0" />&ndash;&gt;-->
+<!--      <WebView fx:id="reCaptchaWebView" prefWidth="600" prefHeight="400" />-->
       <Button fx:id="inscireTF" layoutX="506.0" layoutY="291.0" mnemonicParsing="false" onAction="#inscription" prefHeight="25.0" prefWidth="83.0" style="-fx-background-color: #FFD1DC;" text="S'inscrire" />
       <Label layoutX="506.0" layoutY="271.0" text="Vous n'avez pas de compte ?" />
    </children>
