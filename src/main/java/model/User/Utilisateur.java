@@ -28,7 +28,7 @@ public class Utilisateur {
         this.nom = nom;
         this.email = email;
         this.password = mdp;
-        this.roles = "ROLE_CLIENT";
+        this.roles = "[\"ROLE_CLIENT\"]";
         Date DT=new Date();
         this.Registred_at=new java.sql.Date(DT.getTime());
 
@@ -47,7 +47,7 @@ public class Utilisateur {
         this.email = email;
         this.password = mdp;
 
-        this.roles = "ROLE_CLIENT";
+        this.roles = "[\"ROLE_CLIENT\"]";
         this.active=1;
         Date DT=new Date();
         this.Registred_at= new java.sql.Date(DT.getTime());
