@@ -1,5 +1,5 @@
 
-        package controller.Controllers.User;
+package controller.Controllers.User;
 
 //import com.sun.javafx.webkit.WebConsoleListener;
 import controller.Event.AffichageEventF;
@@ -211,7 +211,7 @@ public class AuthentificationController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
             Parent root = loader.load();
 
-            AffichageEventF controller = loader.getController();
+          AffichageEventF controller = loader.getController();
             controller.SetData(CurrentUser);
 
             Stage stage = (Stage) seConnecterTF.getScene().getWindow();

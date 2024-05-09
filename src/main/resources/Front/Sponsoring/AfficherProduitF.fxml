@@ -30,5 +30,7 @@
             <!-- Placeholder for the page content -->
         </Pagination>
       <Button fx:id="afficherpanier" layoutX="673.0" layoutY="541.0" mnemonicParsing="false" onAction="#afficherpanier" text="ShowCard" />
+        <Button fx:id="BackEvent" layoutX="22.0" layoutY="538.0" mnemonicParsing="false" onAction="#BackEvent" prefHeight="32.0" prefWidth="186.0" text="Retourner à la page d'accueil" />
+
     </children>
 </AnchorPane>

@@ -147,6 +147,8 @@
             <ChoiceBox fx:id="choiceBoxTypes" layoutX="406.0" layoutY="10.0" prefHeight="25.0" prefWidth="150.0">
                <!-- Les éléments seront ajoutés dynamiquement depuis le contrôleur -->
             </ChoiceBox>
+            <!-- Add a ChoiceBox for language selection -->
+
 
          </children>
 
