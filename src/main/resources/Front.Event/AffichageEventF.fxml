@@ -38,10 +38,11 @@
             </Label>
             <Line endX="86.59999084472656" layoutX="107.0" layoutY="218.0" startX="-90.99998474121094" startY="-0.600006103515625" stroke="WHITE" />
             <!-- Navigation ChoiceBoxes -->
-            <ChoiceBox layoutX="51.0" layoutY="262.0" prefHeight="25.0" prefWidth="150.0">
+            <ChoiceBox fx:id="choiceBoxMonCompte" layoutX="51.0" layoutY="275.0" onAction="#handleChoiceBoxAction" prefHeight="25.0" prefWidth="150.0">
                <items>
                   <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Mon Compte" />
+                     <String fx:value="Se déconnecter" />
+                     <String fx:value="Gérer le profil" />
                   </FXCollections>
                </items>
             </ChoiceBox>
@@ -53,7 +54,15 @@
                   </FXCollections>
                </items>
             </ChoiceBox>
-            <ChoiceBox layoutX="51.0" layoutY="430.0" prefHeight="25.0" prefWidth="150.0">
+            <ChoiceBox layoutX="51.0" layoutY="373.0" prefHeight="25.0" prefWidth="150.0">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Publications" />
+                     <String fx:value="Mes Commentaires" />
+                  </FXCollections>
+               </items>
+            </ChoiceBox>
+            <ChoiceBox fx:id="ECommerce" layoutX="51.0" layoutY="456.0" prefHeight="25.0" prefWidth="150.0">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Produits Disponibles" />
@@ -101,26 +110,26 @@
                   <Image url="@ecommerce.png" />
                </image>
             </ImageView>
-            <Label layoutX="65.0" layoutY="264.0" prefHeight="18.0" prefWidth="121.0" text="Mon Compte" textFill="#514f4f">
+            <Label layoutX="51.0" layoutY="251.0" prefHeight="18.0" prefWidth="121.0" text="Mon Compte" textFill="#514f4f">
                <font>
                   <Font name="System Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="65.0" layoutY="319.0" prefHeight="18.0" prefWidth="121.0" text="Evènements" textFill="#514f4f">
+            <Label layoutX="51.0" layoutY="306.0" prefHeight="18.0" prefWidth="121.0" text="Evènements" textFill="#514f4f">
                <font>
                   <Font name="System Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="65.0" layoutY="432.0" prefHeight="18.0" prefWidth="121.0" text="E-Commerce" textFill="#514f4f">
+            <Label layoutX="51.0" layoutY="362.0" prefHeight="18.0" prefWidth="121.0" text="Blog" textFill="#514f4f">
                <font>
                   <Font name="System Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Button fx:id="BlogButton" layoutX="51.0" layoutY="373.0" mnemonicParsing="false" onAction="#BlogButton" prefHeight="26.0" prefWidth="150.0" text="Blog">
+            <Label layoutX="51.0" layoutY="419.0" prefHeight="18.0" prefWidth="121.0" text="E-Commerce" textFill="#514f4f">
                <font>
-                  <Font name="System Bold Italic" size="13.0" />
+                  <Font name="System Bold Italic" size="15.0" />
                </font>
-            </Button>
+            </Label>
          </children>
       </AnchorPane>
       <!-- Right Pane -->
@@ -143,5 +152,5 @@
 
 
       </Pane>
-        </children>
-        </AnchorPane>
+   </children>
+</AnchorPane>

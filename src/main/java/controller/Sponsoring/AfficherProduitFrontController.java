@@ -1,22 +1,33 @@
 package controller.Sponsoring;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Pagination;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
+import model.Blog.Commentaire;
+import model.Ecommerce.Lignepanier;
+import model.Ecommerce.Panier;
 import model.Sponsoring.Produit;
+import service.Ecommerce.CommandeService;
+import service.Ecommerce.LignepanierService;
+import service.Ecommerce.PanierService;
 import service.Sponsoring.ProduitService;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import utils.Session;
 
 public class AfficherProduitFrontController {
+    @FXML
+    private Button afficherpanier;
 
     @FXML
     private FlowPane produitFlowPane;
@@ -32,8 +43,17 @@ public class AfficherProduitFrontController {
 
     private static int ITEMS_PER_PAGE = 3;
 
+
+    LignepanierService lignepanierService = new LignepanierService();
+    PanierService panierService = new PanierService();
+    CommandeService commandeService = new CommandeService();
+
+
     @FXML
     public void initialize() {
+        //System.out.println("useris" + Session.getSession().getUser().getId());
+
+       // List<Commentaire> list = cs.fetchCommentaireByUserID(Session.getSession().getUser().getId());
         try {
             produitList = ps.select();
 
@@ -132,7 +152,53 @@ public class AfficherProduitFrontController {
         newPriceLabel.setTextFill(Color.BLACK);
         newPriceLabel.getStyleClass().add("produit-nouveau-prix");
 
-        card.getChildren().addAll(imageView, nomLabel, marqueLabel, prixLabel, newPriceLabel);
+        Button Ajouter = new Button("Ajouter");
+        Ajouter.setLayoutX(15);
+        Ajouter.setLayoutY(280);
+        Ajouter.getStyleClass().add("evenement-reserver-button");
+        card.getChildren().addAll(imageView, nomLabel, marqueLabel, prixLabel, newPriceLabel,Ajouter);
+
+        Ajouter.setOnAction(event -> {
+            try {
+                int panierActifId = commandeService.getPanierActif();
+                if (panierActifId == -1) {
+                    System.out.println("panier cruer"+panierActifId);
+                    Panier panier = new Panier();
+                    // System.out.println("fi prod"+authentificationController.getUtilisateurConnecte().getId());
+                    panier.setIdUser(1);
+                    panier.setPrixTotal(0);
+                    panier.setStatut("En Cour");
+                    panierService.add(panier);
+                    System.out.println("hethi fi sone3 ta3 panier"+panier.getId());
+                    Lignepanier lignepanier = new Lignepanier();
+                    lignepanier.setQuantité(1);
+                    lignepanier.setIdProduit(produit.getId());
+                    lignepanier.setIdPanier(panier.getId());
+                    lignepanierService.add(lignepanier);
+                    panier.setPrixTotal(panierService.calculTotalPanier(panier.getId()));
+                    panierService.update(panier);
+                    System.out.println("idpanier loulljdid"+panier.getId());
+                } else {
+                    System.out.println("panier modifier"+panierActifId);
+                    Lignepanier lignePanierExistante = lignepanierService.selectlignepanier(panierActifId, produit.getId());
+                    if (lignePanierExistante == null) {
+                        Lignepanier lignepanier2 = new Lignepanier();
+                        lignepanier2.setQuantité(1);
+                        lignepanier2.setIdProduit(produit.getId());
+                        lignepanier2.setIdPanier(panierActifId);
+                        lignepanierService.add(lignepanier2);
+                    } else {
+                        lignePanierExistante.setQuantité(lignePanierExistante.getQuantité() + 1);
+                        lignepanierService.update(lignePanierExistante);
+                    }
+                    Panier panier = panierService.selectPanierById(panierActifId);
+                    panier.setPrixTotal(panierService.calculTotalPanier(panier.getId()));
+                    panierService.update(panier);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
         return card;
     }
 
@@ -152,6 +218,23 @@ public class AfficherProduitFrontController {
             pagination.setPageFactory(this::createPage); // Update the displayed products
         } catch (SQLException e) {
             System.err.println("Error loading products: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void afficherpanier(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/ShowPanier1.fxml"));
+            Parent root = loader.load();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Afficher Panier");
+            alert.setHeaderText(null);
+            alert.setContentText("Voulez-vous vraiment afficher le panier?");
+            alert.showAndWait();
+
+            afficherpanier.getScene().setRoot(root);
+        } catch(IOException e) {
+            System.err.println("Error loading PasserCommande.fxml: " + e.getMessage());
         }
     }
 }

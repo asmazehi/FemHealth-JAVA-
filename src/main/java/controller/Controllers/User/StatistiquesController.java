@@ -65,7 +65,7 @@ public class StatistiquesController {
 
             // Parcourir les utilisateurs pour calculer le compte par jour
             for (Utilisateur utilisateur : utilisateurs) {
-                java.sql.Date registrationDate = utilisateur.getRegistred_at();
+                java.sql.Date registrationDate = utilisateur.getRegistered_at();
                 if (registrationDate != null) {
                     String dateString = registrationDate.toString();
                     userCountByDate.put(dateString, userCountByDate.getOrDefault(dateString, 0) + 1);

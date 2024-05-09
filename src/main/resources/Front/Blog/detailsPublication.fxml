@@ -10,7 +10,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
+<<<<<<< HEAD
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="737.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Blog.DetailsController">
+=======
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="737.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Blog.DetailsController">
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
 <top>
     <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="737.0" stylesheets="@css.css" BorderPane.alignment="CENTER_LEFT">
         <children>
@@ -20,31 +24,176 @@
                 </font>
             </Label>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
+<<<<<<< HEAD
+            <HBox alignment="CENTER" prefHeight="42.0" prefWidth="274.0">
+                <children>
+                    <TextField prefHeight="32.0" prefWidth="198.0" promptText="Search" styleClass="round-layout" stylesheets="@css.css" />
+                    <ImageView fitHeight="43.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@3.jpg" />
+                        </image>
+                    </ImageView>
+                </children>
+=======
             <HBox alignment="CENTER" prefHeight="56.0" prefWidth="259.0">
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
                 <cursor>
                     <Cursor fx:constant="DEFAULT" />
                 </cursor></HBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <Pane prefHeight="72.0" prefWidth="267.0">
+<<<<<<< HEAD
+                <children>
+                    <Label layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="160.0" text="UserName">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <ImageView fitHeight="56.0" fitWidth="61.0" layoutX="204.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@images (1).png" />
+                        </image>
+                    </ImageView>
+                </children>
+=======
                <children>
                   <Button layoutX="192.0" layoutY="16.0" mnemonicParsing="false" onAction="#BackTo" text="Back" />
                </children>
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
             </Pane>
         </children>
     </HBox>
 </top>
+<<<<<<< HEAD
+<left>
+    <VBox prefHeight="544.0" prefWidth="157.0" stylesheets="@css.css" BorderPane.alignment="CENTER">
+        <children>
+            <VBox prefHeight="293.0" prefWidth="157.0">
+                <children>
+                    <Label alignment="CENTER" prefHeight="38.0" prefWidth="150.0" text="Les gestions">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <Separator prefWidth="200.0" />
+                    <Separator prefWidth="200.0" />
+                    <HBox alignment="CENTER" prefHeight="55.0" prefWidth="157.0">
+                        <children>
+                            <ImageView fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@36.jpg" />
+                                </image>
+                            </ImageView>
+                            <Label alignment="CENTER" prefHeight="43.0" prefWidth="111.0" text="Blog" textAlignment="CENTER">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </HBox>
+                    <HBox alignment="CENTER" prefHeight="55.0" prefWidth="157.0">
+                        <children>
+                            <ImageView fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@710012.png" />
+                                </image>
+                            </ImageView>
+                            <Label alignment="CENTER" prefHeight="37.0" prefWidth="103.0" text="  Evènement">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </HBox>
+                    <HBox alignment="CENTER" prefHeight="62.0" prefWidth="157.0">
+                        <children>
+                            <ImageView fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@5.png" />
+                                </image>
+                            </ImageView>
+                            <Label alignment="CENTER" prefHeight="38.0" prefWidth="110.0" text="Sponsor">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </HBox>
+                    <HBox alignment="CENTER" prefHeight="64.0" prefWidth="157.0">
+                        <children>
+                            <ImageView fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@2415292.png" />
+                                </image>
+                            </ImageView>
+                            <Label alignment="CENTER" prefHeight="64.0" prefWidth="107.0" text="E-commerce">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </HBox>
+                    <Separator prefWidth="200.0" />
+                </children>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+            </VBox>
+            <VBox prefHeight="166.0" prefWidth="157.0">
+                <children>
+                    <Label alignment="CENTER" prefHeight="38.0" prefWidth="150.0" text="details User">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <Separator prefWidth="200.0" />
+                    <Separator prefWidth="200.0" />
+                    <HBox alignment="CENTER" prefHeight="43.0" prefWidth="157.0">
+                        <children>
+                            <ImageView fitHeight="38.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@png.jpg" />
+                                </image>
+                            </ImageView>
+                            <Label alignment="CENTER" prefHeight="38.0" prefWidth="110.0" text="Modifier">
+                                <font>
+                                    <Font name="System Bold" size="10.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </HBox>
+                    <Separator prefWidth="200.0" />
+                </children>
+            </VBox>
+        </children>
+    </VBox>
+</left>
+=======
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
 <styleClass>
     <String fx:value="white-background" />
     <String fx:value="white-background" />
 </styleClass>
 <center>
+<<<<<<< HEAD
+    <Pane prefHeight="425.0" prefWidth="473.0" BorderPane.alignment="CENTER">
+=======
     <Pane prefHeight="612.0" prefWidth="726.0" BorderPane.alignment="CENTER">
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
         <children>
             <TextArea fx:id="AreaComment" layoutX="45.0" layoutY="329.0" prefHeight="61.0" prefWidth="303.0" promptText="Ajouter votre commentaire" />
             <Button layoutX="366.0" layoutY="347.0" mnemonicParsing="false" onAction="#AddCommentaire" prefHeight="25.0" prefWidth="83.0" styleClass="round-layout" text="ADD" textFill="#000000ab">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font></Button>
+<<<<<<< HEAD
+            <ListView fx:id="ListComment" layoutX="45.0" layoutY="410.0" prefHeight="96.0" prefWidth="303.0" />
+            <Label fx:id="titre" layoutX="21.0" layoutY="25.0" prefHeight="31.0" prefWidth="119.0" style="-fx-blend-mode: #;" styleClass="white-background" text="titre" />
+            <Label fx:id="date" layoutX="397.0" layoutY="79.0" prefHeight="17.0" prefWidth="110.0" text="date" />
+            <Label fx:id="contenu" layoutX="379.0" layoutY="121.0" prefHeight="115.0" prefWidth="176.0" style="-fx-background-color: #C291A4;" text="Contenu" />
+            <ImageView fx:id="imageView" fitHeight="183.0" fitWidth="329.0" layoutX="32.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" />
+            <Button layoutX="393.0" layoutY="28.0" mnemonicParsing="false" onAction="#userCommentaire" styleClass="round-layout" text="Mes commentaire" />
+=======
             <Label fx:id="titre" layoutX="78.0" layoutY="25.0" prefHeight="31.0" prefWidth="119.0" styleClass="white-background" text="titre" />
             <Label fx:id="date" layoutX="500.0" layoutY="88.0" prefHeight="17.0" prefWidth="110.0" text="date" />
             <Label fx:id="contenu" layoutX="24.0" layoutY="115.0" prefHeight="195.0" prefWidth="262.0" style="-fx-background-color: #C291A4;" text="Contenu" />
@@ -53,6 +202,7 @@
             <ScrollPane fx:id="idcomentaire" layoutX="32.0" layoutY="393.0" prefHeight="218.0" prefWidth="475.0" />
             <Label layoutX="18.0" layoutY="32.0" prefHeight="17.0" prefWidth="35.0" text="Titre :" />
             <Label layoutX="418.0" layoutY="88.0" text="Date :" />
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
         </children>
     </Pane>
 </center>

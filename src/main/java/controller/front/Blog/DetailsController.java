@@ -253,7 +253,7 @@ public class DetailsController {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/UserComments.fxml"));
             Parent root = loader.load();
-           loader.getController();
+            loader.getController();
 
 
 

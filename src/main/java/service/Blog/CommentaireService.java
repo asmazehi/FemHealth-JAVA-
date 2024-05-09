@@ -278,7 +278,7 @@ public class CommentaireService {
             utilisateur.setMdp(resultSet.getString("password"));
             utilisateur.setRole(resultSet.getString("roles"));
             utilisateur.setActive(resultSet.getInt("active"));
-            utilisateur.setRegistred_at(resultSet.getDate("registered_at"));
+            utilisateur.setRegistered_at(resultSet.getDate("registered_at"));
         }
         return utilisateur;
     }

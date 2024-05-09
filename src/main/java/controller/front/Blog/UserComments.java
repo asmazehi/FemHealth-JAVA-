@@ -155,7 +155,7 @@ public class UserComments {
                 }
             });
         } else {
-                initialize();
+            initialize();
         }
     }
     @FXML
@@ -172,4 +172,3 @@ public class UserComments {
     }
 
 }
-

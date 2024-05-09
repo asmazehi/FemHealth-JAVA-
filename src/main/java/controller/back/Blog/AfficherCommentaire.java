@@ -145,17 +145,17 @@ public class AfficherCommentaire {
             System.out.println(e.getMessage());
         }
     }
-     public void setData(String msg){
+    public void setData(String msg){
         Welcome.setText("Welcome" + msg);
     }
-        private boolean confirmAction(String message) {
+    private boolean confirmAction(String message) {
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            Optional<ButtonType> result = alert.showAndWait();
-            return result.isPresent() && result.get() == ButtonType.OK;
-        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
+    }
     private void searchCommentsByPublicationTitle(String publicationTitle) throws SQLException {
         if (!publicationTitle.isEmpty()) {
             List<Commentaire> list = cs.fetchCommentaireByCommentDescription(publicationTitle);

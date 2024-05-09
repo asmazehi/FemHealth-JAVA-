@@ -27,6 +27,8 @@ public class CommandeService  implements IService<Commande> {
             preparedStatement.setString(6, commande.getPhone());
             preparedStatement.setString(7, commande.getMlivraison());
             preparedStatement.executeUpdate();
+        //connection.setAutoCommit(false);
+           // connection.commit();
         }
 
 
@@ -69,5 +71,62 @@ public class CommandeService  implements IService<Commande> {
         }
         return commandes;
     }
+
+    public int getPanierActif() {
+        String sql = "SELECT id FROM panier WHERE id NOT IN (SELECT panier_id FROM commande)";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
+
+
+    public Commande selectById(int id) throws SQLException {
+        Commande commande = null;
+        String sql = "SELECT * FROM commande WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                commande = new Commande();
+                commande.setId(resultSet.getInt("id"));
+                commande.setIdPanier(resultSet.getInt("panier_id"));
+                commande.setAdresse(resultSet.getString("adress"));
+                commande.setStatut(resultSet.getString("statut"));
+                commande.setDateC(resultSet.getDate("date_c"));
+                commande.setMpaiement(resultSet.getString("methode_paiement"));
+                commande.setPhone(resultSet.getString("phone"));
+                commande.setMlivraison(resultSet.getString("methode_livraison"));
+            }
+        }
+        return commande;
+    }
+
+    public Commande selectCommandeByPanierId(int idPanier) throws SQLException {
+        Commande commande = null;
+        String sql = "SELECT * FROM commande WHERE panier_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idPanier);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                commande = new Commande();
+                commande.setId(resultSet.getInt("id"));
+                commande.setIdPanier(resultSet.getInt("panier_id"));
+                commande.setAdresse(resultSet.getString("adress"));
+                commande.setStatut(resultSet.getString("statut"));
+                commande.setDateC(resultSet.getDate("date_c"));
+                commande.setMpaiement(resultSet.getString("methode_paiement"));
+                commande.setPhone(resultSet.getString("phone"));
+                commande.setMlivraison(resultSet.getString("methode_livraison"));
+            }
+        }
+        return commande;
+    }
+
+}
 
