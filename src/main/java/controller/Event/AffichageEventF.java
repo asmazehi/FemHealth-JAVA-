@@ -5,12 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -34,6 +32,12 @@ public class AffichageEventF {
     private TextField searchField;
     @FXML
 
+    private TextArea textInputArea;
+
+    @FXML
+    private ChoiceBox<String> languageChoiceBox;
+
+    @FXML
     private ChoiceBox<String> choiceBoxTypes;
     @FXML
     private Button signalerButton;
@@ -261,5 +265,5 @@ public class AffichageEventF {
             e.printStackTrace();
         }
     }
-    // Other methods for handling navigation to different pages
+
 }
