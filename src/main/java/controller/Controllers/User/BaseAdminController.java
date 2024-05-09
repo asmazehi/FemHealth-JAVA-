@@ -20,6 +20,8 @@ public class BaseAdminController {
     @FXML
     private AnchorPane AnchorPaneTF;
     @FXML
+    private ChoiceBox<String> Sponsor;
+    @FXML
     private Pane PaneTF;
     @FXML
     private Button GererUtilisateursTF;
@@ -42,6 +44,18 @@ public class BaseAdminController {
         ObservableList<String> options = FXCollections.observableArrayList("Se déconnecter", "Éditer le profil");
         ObservableList<String> optionsPublication = FXCollections.observableArrayList("Publications", "Commentaires");
         ObservableList<String> optionsEvents = FXCollections.observableArrayList("Events", "Reservation", "Type");
+        ObservableList<String> optionsSponsor = FXCollections.observableArrayList("Produits", "Sponsor");
+        Sponsor.setItems(optionsPublication);
+        Sponsor.setOnAction(event -> {
+            String selectedItem = Sponsor.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                if (selectedItem.equals("Produits")) {
+                    redirectToProduit();
+                } else if (selectedItem.equals("Sponsor")) {
+                    redirectToSponsor();
+                }
+            }
+        });
         blogFx.setItems(optionsPublication);
         eventsFx.setItems(optionsEvents);
         choiceBoxTF.setItems(options);
@@ -79,6 +93,30 @@ public class BaseAdminController {
             }
         });
 
+    }
+
+    private void redirectToSponsor() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AfficherTypeB.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void redirectToProduit() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherTypeB.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void redirectToType() {
