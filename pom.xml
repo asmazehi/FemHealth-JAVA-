@@ -53,7 +53,7 @@
       </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
+            <artifactId>javafx-controls</artifactId>zz
             <version>17</version>
         </dependency>
         <dependency>
@@ -66,6 +66,7 @@
             <artifactId>javase</artifactId>
             <version>3.4.0</version>
         </dependency>
+
     </dependencies>
 
     <build>
