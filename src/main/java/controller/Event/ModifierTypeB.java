@@ -35,7 +35,7 @@ public class ModifierTypeB {
                 try {
                     // Update the type in the database
                     typeToModify.setType(newType);
-                    typeC.update(typeToModify);
+                    typeC.update(typeToModify);git
                     // Display a success message
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Success");
