@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
+
+=======
 <?import java.lang.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.shape.Line?>
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.back.Blog.ModifierPublicationController">
    <children>
       <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
@@ -55,6 +62,14 @@
          </children>
       </AnchorPane>
       <Pane layoutX="208.0" layoutY="-1.0" prefHeight="585.0" prefWidth="632.0" style="-fx-background-color: ececec;">
+<<<<<<< HEAD
+         <TextField fx:id="TitreTF" layoutX="47.0" layoutY="108.0" promptText="titre" />
+         <TextField fx:id="ContenuTF" layoutX="47.0" layoutY="156.0" promptText="contenu" />
+         <Button layoutX="204.0" layoutY="256.0" mnemonicParsing="false" onAction="#ajouter_photo" prefHeight="26.0" prefWidth="90.0" text="ajouter photo" />
+         <Label fx:id="cheminphoto" layoutX="57.0" layoutY="291.0" prefHeight="18.0" prefWidth="339.0" />
+         <Button layoutX="321.0" layoutY="299.0" mnemonicParsing="false" onAction="#EnregistrerPublication" text="Enregistrer" />
+         <Button layoutX="449.0" layoutY="299.0" mnemonicParsing="false" onAction="#AfficherPublication" text="Afficher" />
+=======
          <children>
             <TextField fx:id="TitreTF" layoutX="47.0" layoutY="108.0" promptText="titre" />
             <TextField fx:id="ContenuTF" layoutX="47.0" layoutY="156.0" promptText="contenu" />
@@ -64,6 +79,7 @@
             <Button layoutX="449.0" layoutY="299.0" mnemonicParsing="false" onAction="#AfficherPublication" text="Afficher" />
             <Button layoutX="557.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackAction" text="Back" />
          </children>
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
       </Pane>
    </children>
 </AnchorPane>

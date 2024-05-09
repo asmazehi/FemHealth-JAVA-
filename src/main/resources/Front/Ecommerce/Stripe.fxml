@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane prefHeight="830.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Ecommerce.StripePaiement">
+    <children>
+        <WebView fx:id="webid" layoutX="29.0" layoutY="15.0" prefHeight="797.0" prefWidth="558.0" />
+
+    </children>
+</AnchorPane>

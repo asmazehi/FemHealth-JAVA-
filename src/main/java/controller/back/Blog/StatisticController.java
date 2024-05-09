@@ -1,4 +1,5 @@
 package controller.back.Blog;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormatSymbols;
 import java.util.*;
@@ -7,9 +8,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
+import javafx.stage.Stage;
 import model.Blog.Commentaire;
 import model.Blog.Publication;
 import service.Blog.CommentaireService;
@@ -86,6 +91,14 @@ public class StatisticController {
     }
     @FXML
     void BackAction(ActionEvent event) {
-
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/AfficherPublication.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) barChart.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

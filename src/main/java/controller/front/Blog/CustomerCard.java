@@ -102,6 +102,7 @@ public class CustomerCard extends Pane {
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                stage.show();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
             } catch (IOException ex) {

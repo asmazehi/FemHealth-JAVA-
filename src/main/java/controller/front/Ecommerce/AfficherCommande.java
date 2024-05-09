@@ -2,6 +2,7 @@ package controller.front.Ecommerce;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,7 +20,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Ecommerce.*;
 
+import service.Ecommerce.CommandeService;
 import service.Ecommerce.PanierService;
+import org.controlsfx.control.Notifications;
 
 public class AfficherCommande {
 
@@ -28,6 +31,13 @@ public class AfficherCommande {
 
     @FXML
     private URL location;
+    @FXML
+    private Button BouttonAnnuler;
+
+    @FXML
+    private Button BouttonConfirmer;
+    @FXML
+    private Label idStatut;
 
     @FXML
     private Button commandsClient;
@@ -58,8 +68,9 @@ public class AfficherCommande {
     @FXML
     private VBox vBoxContainer;
     private List<PanierItem> listItems;
+    private CommandeService commandeService= new CommandeService();
 
-    //int idPanier=2;
+    int idpanier;
 
 
 
@@ -81,6 +92,8 @@ public class AfficherCommande {
 
 
     public void initialize(int idp) {
+        idStatut.setVisible(false);
+        idpanier=idp;
         List<PanierItem> objectList = panierService.afficherinfopanier(idp);
         idcard.setSpacing(1000);
         String ch = "You currently have " + objectList.size() + " item(s) in your cart.";
@@ -153,7 +166,43 @@ public class AfficherCommande {
         return totalBox;
     }
 
+    @FXML
+    void AnnulerAction(ActionEvent event) {
+        try {
+            Commande commande = commandeService.selectCommandeByPanierId(idpanier);
+            commande.setStatut("Annulée");
+            commandeService.update(commande);
 
+            // Afficher la notification d'annulation de commande
+            Notifications.create()
+                    .title("Annulation de commande")
+                    .text("Votre commande a été annulée avec succès.")
+                    .showWarning();
+
+            System.out.println("id commande fi afficher" + commande.getId());
+            System.out.println("id commande fi afficher" + commande.getStatut());
+            BouttonAnnuler.setVisible(false);
+            BouttonConfirmer.setVisible(false);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+    }
+
+
+
+    @FXML
+    void ConfirmerAction(ActionEvent event) {
+        BouttonConfirmer.setVisible(false);
+        BouttonAnnuler.setVisible(false);
+
+        Notifications.create()
+                .title("Confirmation de commande")
+                .text("Votre commande a été confirmée avec succès.")
+                .showInformation();
+    }
 
 }
 
