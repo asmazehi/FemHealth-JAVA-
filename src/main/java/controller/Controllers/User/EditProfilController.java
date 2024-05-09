@@ -1,7 +1,5 @@
 package controller.Controllers.User;
 
-
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
@@ -49,9 +47,13 @@ public class EditProfilController {
         utilisateurService = new UtilisateurService();
     }
 
-    public void setData(Utilisateur currentUser){
-        this.currentUser = currentUser;
-        labelEmailFX.setText(currentUser.getEmail());
+    public void setData(Utilisateur user){
+        this.currentUser = user;
+        if (currentUser == null) {
+            System.err.println("Erreur : currentUser est null dans setData.");
+        } else {
+            System.out.println("Utilisateur courant : " + currentUser.getEmail());
+        }
     }
 
     @FXML
@@ -69,6 +71,11 @@ public class EditProfilController {
 
     @FXML
     private void ModifierInfo() {
+        if (currentUser == null) {
+            // Gérez le cas où currentUser est null, par exemple, affichez un message d'erreur ou revenez en arrière
+            System.err.println("Erreur : currentUser est null.");
+            return;
+        }
 
         String motDePasseActuel = mdpAC_TF.getText();
         String nouveauMotDePasse = mdpNV_TF.getText();
@@ -93,7 +100,7 @@ public class EditProfilController {
                     throw new RuntimeException(e);
                 }
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePageClient.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
                     Parent root = loader.load();
                     Stage stage = (Stage) ConfirmationTF.getScene().getWindow();
                     stage.setScene(new Scene(root));

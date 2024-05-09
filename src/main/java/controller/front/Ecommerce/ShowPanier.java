@@ -17,6 +17,7 @@ import javafx.scene.layout.*;
 import model.Ecommerce.Lignepanier;
 import model.Ecommerce.Panier;
 import model.Ecommerce.PanierItem;
+import org.controlsfx.control.Notifications;
 import service.Ecommerce.CommandeService;
 import service.Ecommerce.LignepanierService;
 import service.Ecommerce.PanierService;
@@ -58,7 +59,7 @@ public class ShowPanier implements Initializable {
 
     @FXML
     private Label totalLabel;
-
+    int Totalpanier;
     @FXML
     private Label TotalProduit;
     @FXML
@@ -165,6 +166,7 @@ public class ShowPanier implements Initializable {
                 total = total - obj.getTotalProduit();
                 totalLabel.setText("" + total + " DT");
                 updateTotals(obj);
+
             } catch (SQLException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -198,10 +200,21 @@ public class ShowPanier implements Initializable {
     @FXML
     void CommandForm(ActionEvent event) {
         try {
+            if (Totalpanier == 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Panier Vide");
+                alert.setHeaderText(null);
+                alert.setContentText("Vous devez ajouter des produits à votre panier.");
+                alert.showAndWait();
+                return;
+            }
+
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/PasserCommande.fxml"));
             Parent root = loader.load();
             PasserCommandeContoller controller = loader.getController();
             controller.setIdp(idPanier);
+
 
             ButtonCommand.getScene().setRoot(root);
         } catch (IOException e) {
@@ -209,14 +222,15 @@ public class ShowPanier implements Initializable {
         }
     }
 
+
     private void updateTotals(PanierItem obj1) {
         // Calcul du total du panier
         double total = 0;
         for (PanierItem obj : objectList) {
             total += obj.getTotalProduit();
+
         }
-
-
+        Totalpanier = (int) total;
 
         totalLabel.setText(String.valueOf(total) + " DT");
         TotalApres.setText(String.valueOf(total+10) + " DT");

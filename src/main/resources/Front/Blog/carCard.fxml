@@ -7,59 +7,18 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1100.0" stylesheets="@card.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Blog.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="902.0" stylesheets="@card.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Blog.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-        <ScrollPane layoutX="225.0" layoutY="43.0" prefHeight="546.0" prefWidth="874.0">
+        <ScrollPane layoutX="7.0" layoutY="43.0" prefHeight="546.0" prefWidth="884.0">
 
             <content>
 
                 <GridPane fx:id="cardHolder" layoutX="12.0" layoutY="109.0" />
             </content>
         </ScrollPane>
-        <AnchorPane fx:id="idsidebar" prefHeight="655.0" prefWidth="226.0" style="-fx-background-color:#C291A4;">
-            <children>
-                <ImageView fitHeight="154.0" fitWidth="200.0" layoutX="26.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@2.png" />
-                    </image>
-                </ImageView>
-                <Label layoutX="53.0" layoutY="123.0" text="WELCOME ">
-                    <font>
-                        <Font name="System Bold" size="19.0" />
-                    </font>
-                </Label>
-                <Label layoutX="39.0" layoutY="165.0" text="TO FemHealth">
-                    <font>
-                        <Font name="System Bold" size="19.0" />
-                    </font>
-                </Label>
-                <Line endX="100.0" layoutX="107.0" layoutY="218.0" startX="-100.0" />
-                <Button layoutX="51.0" layoutY="249.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Blog" />
-                <Button layoutX="51.0" layoutY="283.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Evènement" />
-                <Button layoutX="51.0" layoutY="321.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="E-commerce" />
-                <Button layoutX="51.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Sponsor" />
-                <AnchorPane layoutX="7.0" layoutY="506.0" prefHeight="70.0" prefWidth="195.0" style="-fx-background-color: #FFD1DC;">
-                    <children>
-                        <Label layoutX="62.0" layoutY="14.0" text="Bonjour," />
-                        <Label layoutX="80.0" layoutY="36.0" text="Username" />
-                        <ImageView fitHeight="44.0" fitWidth="37.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="imageView2" fitHeight="54.0" fitWidth="45.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@images.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="45.0" fitWidth="37.0" layoutX="144.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@a.jpg" />
-                            </image>
-                        </ImageView>
-                    </children>
-                </AnchorPane>
-            </children>
-        </AnchorPane>
-        <Button fx:id="prevButton" layoutX="543.0" layoutY="607.0" mnemonicParsing="false" onAction="#goToPrevPage" text="prevPage" />
-        <Button fx:id="nextButton" layoutX="649.0" layoutY="607.0" mnemonicParsing="false" onAction="#goToNextPage" text="nextPage" />
-        <Button layoutX="996.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackTo" prefHeight="25.0" prefWidth="69.0" text="Back" />
+        <Button fx:id="prevButton" layoutX="523.0" layoutY="607.0" mnemonicParsing="false" onAction="#goToPrevPage" stylesheets="@../../styles.css" text="prevPage" />
+        <Button fx:id="nextButton" layoutX="609.0" layoutY="607.0" mnemonicParsing="false" onAction="#goToNextPage" stylesheets="@../../styles.css" text="nextPage" />
+        <Button layoutX="641.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackTo" prefHeight="25.0" prefWidth="194.0" stylesheets="@../../styles.css" text="Retourner vers la page d'accueil" />
     </children>
 </AnchorPane>

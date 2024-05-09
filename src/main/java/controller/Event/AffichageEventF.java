@@ -1,5 +1,6 @@
 package controller.Event;
 
+import controller.Controllers.User.EditProfilController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -317,14 +318,12 @@ public class AffichageEventF {
     private void navigateToEditProfilPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/EditProfil.fxml"));
-            AnchorPane editProfilPage = loader.load();
-
-            // Access the scene and root node of the current anchor pane
-            Scene scene = eventFlowPane.getScene();
-            AnchorPane root = (AnchorPane) scene.getRoot();
-
-            // Replace the content of the root with the edit profile page
-            root.getChildren().setAll(editProfilPage);
+            Parent root = loader.load();
+            EditProfilController editProfilController = loader.getController();
+            editProfilController.setData(CurrentUser); // Passer l'utilisateur actuellement connecté
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
