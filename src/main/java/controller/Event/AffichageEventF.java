@@ -302,17 +302,17 @@ public class AffichageEventF {
     // Define method to handle ChoiceBox action
     @FXML
     private void handleChoiceBoxAction(ActionEvent event) {
-//        String selectedOption = choiceBoxEvents.getValue();
-//        switch (selectedOption) {
-//            case "Voir Événements":
-//                navigateToEventsPage();
-//                break;
-//            case "Voir Réservations":
-//                navigateToReservationsPage();
-//                break;
-//            default:
-//                break;
-//        }
+        String selectedOption = choiceBoxEvents.getValue();
+        switch (selectedOption) {
+            case "Voir Événements":
+                navigateToEventsPage();
+                break;
+         case "Voir Réservations":
+                navigateToReservationsPage();
+                break;
+            default:
+             break;
+        }
     }
 
     private void navigateToEventsPage() {
