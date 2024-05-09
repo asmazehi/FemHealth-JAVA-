@@ -124,7 +124,7 @@ public class GererUtilisateurController {
                 if (utilisateur.getEmail().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 } else {
-                    Date registeredAt = utilisateur.getRegistred_at();
+                    Date registeredAt = utilisateur.getRegistered_at();
                     if (registeredAt != null && registeredAt.toString().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     }
@@ -308,7 +308,7 @@ public class GererUtilisateurController {
         LocalDate selectedDate = datePickerFX.getValue();
         if (selectedDate != null) {
             filteredUtilisateurs.setPredicate(utilisateur -> {
-                Date registeredAt = utilisateur.getRegistred_at();
+                Date registeredAt = utilisateur.getRegistered_at();
                 if (registeredAt != null) {
                     LocalDate registeredDate = ((java.sql.Date) registeredAt).toLocalDate();
                     return registeredDate.equals(selectedDate);

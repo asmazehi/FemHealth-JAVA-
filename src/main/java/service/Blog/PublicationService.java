@@ -155,6 +155,7 @@ public class PublicationService {
         }
         return totalCount;
     }
+
     public List<Publication> filtrerParDate(LocalDate date) throws SQLException {
         List<Publication> publicationsFiltrees = new ArrayList<>();
         String query = "SELECT * FROM publication WHERE DATE(datepub) = ?";
@@ -175,3 +176,6 @@ public class PublicationService {
 
 
 }
+
+}
+

@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -29,6 +30,8 @@ public class AfficherListCommandeparClient {
 
     @FXML
     private URL location;
+    @FXML
+    private Button BackEvent;
 
     @FXML
     private Label AdressLabel;
@@ -63,6 +66,7 @@ public class AfficherListCommandeparClient {
     @FXML
     private VBox vBoxContainer;
   int idClient=1;
+
     PanierService panierService= new PanierService();
     CommandeService commandeService= new CommandeService();
     List<Commande> objectList;
@@ -108,8 +112,8 @@ public class AfficherListCommandeparClient {
         Button detailButton = new Button("Detail");
 
         hbox.getChildren().addAll(DateLable, AdressLabel, PaiementLable, LivraisonLabel, StatutLabel, annulerButton, detailButton);
-        hbox.setSpacing(60);
-        hbox.setAlignment(Pos.CENTER_RIGHT);
+        hbox.setSpacing(75);
+        hbox.setAlignment(Pos.CENTER_LEFT);
 
         annulerButton.setOnAction(event -> {
             try {
@@ -135,7 +139,7 @@ public class AfficherListCommandeparClient {
             }
         });
 
-        if (obj.getStatut().equals("Annulée")) {
+        if (obj.getStatut().equals("Annulée")||obj.getStatut().equals("Terminé")) {
             // Si le statut est "Annulée", masquez le bouton "Annuler"
             annulerButton.setVisible(false);
         }
@@ -144,9 +148,9 @@ public class AfficherListCommandeparClient {
             Commande commande = obj;
             try {
                 int idp = commande.getIdPanier();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/AfficherCommande.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/DetailCommand.fxml"));
                 Parent root = loader.load();
-                AfficherCommande controller = loader.getController();
+                DetailCommand controller = loader.getController();
                 controller.initialize(idp);
                 detailButton.getScene().setRoot(root);
             } catch (IOException e) {
@@ -157,7 +161,18 @@ public class AfficherListCommandeparClient {
         return hbox;
     }
 
+    @FXML
+    void BackEvent(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+        BackEvent.getScene().setRoot(root);
+    }
 }
 
 

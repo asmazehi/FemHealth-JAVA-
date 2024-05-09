@@ -127,6 +127,23 @@ public class PanierService implements IService<Panier> {
         // Convertir la liste d'objets en un tableau d'objets et le retourner
         return infosPanier;
     }
+    public int calculTotalPanier(int idPanier) {
+        int total = 0;
+        String sql = "SELECT SUM(prix * quantite) AS total FROM produit " +
+                "INNER JOIN lignepanier ON produit.id = lignepanier.produit_id " +
+                "WHERE lignepanier.panier_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idPanier);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    total = resultSet.getInt("total");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return total;
+    }
 
 
     }

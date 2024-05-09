@@ -15,7 +15,7 @@ public class PasserCommandeContoller {
     private  int idp;
 
     @FXML
-    private     ChoiceBox<String> Adress;;
+    private ChoiceBox<String> Adress;;
 
     @FXML
     private ChoiceBox<String> Mlivraison;
@@ -41,11 +41,13 @@ public class PasserCommandeContoller {
     private Label phonecontrol;
     @FXML
     private Label AdressControl;
+
+    StripePaiement stripePaiement=new StripePaiement();
 public void setIdp(int idp){
     this.idp=idp;
     System.out.println("ID du panier dans setIdp : " + idp);
-
 }
+
     @FXML
     void AddCommande(ActionEvent event) {
         String phoneN = phone.getText();
@@ -56,66 +58,70 @@ public void setIdp(int idp){
         CommandeService commandeService = new CommandeService();
         boolean isValid = true;
 
-            // Validation de l'adresse
-            if (Adress.getValue() == null || Adress.getValue().isEmpty()) {
-                AdressControl.setText("Veuillez sélectionner une adresse.");
-                isValid = false;
-            } else {
-                AdressControl.setText("");
-            }
+        // Validation de l'adresse
+        if (Adress.getValue() == null || Adress.getValue().isEmpty()) {
+            AdressControl.setText("Veuillez sélectionner une adresse.");
+            isValid = false;
+        } else {
+            AdressControl.setText("");
+        }
 
-            // Validation du mode de paiement
-            if (Mpaiement.getValue() == null || Mpaiement.getValue().isEmpty()) {
-                paiementcontrol.setText("Veuillez sélectionner un mode de paiement.");
-                isValid = false;
-            } else {
-                paiementcontrol.setText("");
-            }
+        // Validation du mode de paiement
+        if (Mpaiement.getValue() == null || Mpaiement.getValue().isEmpty()) {
+            paiementcontrol.setText("Veuillez sélectionner un mode de paiement.");
+            isValid = false;
+        } else {
+            paiementcontrol.setText("");
+        }
 
-            // Validation du mode de livraison
-            if (Mlivraison.getValue() == null || Mlivraison.getValue().isEmpty()) {
-                livraisoncontrol.setText("Veuillez sélectionner un mode de livraison.");
-                isValid = false;
-            } else {
-                livraisoncontrol.setText("");
-            }
+        // Validation du mode de livraison
+        if (Mlivraison.getValue() == null || Mlivraison.getValue().isEmpty()) {
+            livraisoncontrol.setText("Veuillez sélectionner un mode de livraison.");
+            isValid = false;
+        } else {
+            livraisoncontrol.setText("");
+        }
 
         if (phone.getText() == null || phone.getText().isEmpty()) {
             phonecontrol.setText("Veuillez saisir un numéro de téléphone.");
             isValid = false;
-        } else if (!phone.getText().matches("^19[0-9]{6,7}$")) {
-            phonecontrol.setText("Veuillez saisir un numéro de téléphone valide");
+        } else if (!phone.getText().matches("^[1-9]\\d{7}$")) {
+            phonecontrol.setText("Veuillez saisir un numéro de téléphone valide composé de 8 chiffres.");
             isValid = false;
         } else {
             phonecontrol.setText("");
         }
 
-            // Si toutes les validations passent, ajoutez la commande
-            if (isValid) {
-                AddCommande(event);
-            }
-        try {
-            System.out.println("ID du panier avant de charger la nouvelle vue : " + idp);
+        // Si toutes les validations passent, ajoutez la commande
+        if (isValid) {
+            try {
+                System.out.println("ID du panier avant de charger la nouvelle vue : " + idp);
+                 this.AjouterCommande(commande);
+                //commandeService.add(commande);
 
-            // Ajouter la commande avant de charger la nouvelle vue
-            commandeService.add(commande);
+                if(Mpaiement.getValue().equals("Paiement par carte")){
+                   // stripePaiement.initialize();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/Stripe.fxml"));
+                    Parent root = loader.load();
+                    StripePaiement controller = loader.getController();
+                    controller.initialize(idp);
+                    addC.getScene().setRoot(root);
+                }
 
-            // Charger la vue AfficherCommande.fxml après avoir ajouté la commande
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/AfficherCommande.fxml"));
-            Parent root = loader.load();
-            AfficherCommande controller = loader.getController();
-            controller.initialize(idp);
-            System.out.println(idp+"///// hethii ba3eddd");
-            addC.getScene().setRoot(root);
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-}}
-
-
-
-
+                else {
+                // Charger la vue AfficherCommande.fxml après avoir ajouté la commande
+               FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/AfficherCommande.fxml"));
+                Parent root = loader.load();
+                AfficherCommande controller = loader.getController();
+                //commandeService.add(commande);
+                    System.out.println("id fi paaserC"+commande.getId());
+                    controller.initialize(idp);
+                    System.out.println("hethi fi paaser"+commande.getId());
+                    System.out.println("hethi fi paaser"+commande.getStatut());
+                addC.getScene().setRoot(root);}
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }}}
 
     @FXML
     void afficherpanier(ActionEvent event) {
@@ -139,5 +145,13 @@ public void setIdp(int idp){
 
         // Ajouter des choix à la ListView Mpaiement
         Mpaiement.getItems().addAll("Paiement par carte", "Paiement à la livraison", "Chèque");
+    }
+    public void AjouterCommande(Commande commande){
+    CommandeService commandeService=new CommandeService();
+        try {
+            commandeService.add(commande);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
