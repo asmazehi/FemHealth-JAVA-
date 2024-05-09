@@ -17,35 +17,35 @@ public class ModifierTypeB {
 
     private Type typeToModify;
 
-    // Méthode pour définir le type à modifier
+    // Method to set the type to modify
     public void setTypeToModify(Type type) {
         this.typeToModify = type;
-        // Affichez le nom du type dans le champ de texte pour la modification
+        // Display the name of the type in the text field for modification
         typeTF.setText(type.getType());
     }
 
     @FXML
     void ModifierTypeB(ActionEvent event) {
-        // Vérifiez si le type à modifier est défini
+        // Check if the type to modify is defined
         if (typeToModify != null) {
             String newType = typeTF.getText();
-            // Vérifiez si le champ du nouveau type n'est pas vide
+            // Check if the new type field is not empty
             if (!newType.isEmpty()) {
                 TypeC typeC = new TypeC();
                 try {
-                    // Mettez à jour le type dans la base de données
+                    // Update the type in the database
                     typeToModify.setType(newType);
                     typeC.update(typeToModify);
-                    // Affichez un message de succès
+                    // Display a success message
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Success");
                     alert.setContentText("Type modifié avec succès");
                     alert.show();
-                    // Fermez la fenêtre de modification
+                    // Close the modification window
                     Stage stage = (Stage) typeTF.getScene().getWindow();
                     stage.close();
                 } catch (SQLException e) {
-                    // Gérez les erreurs de base de données
+                    // Handle database errors
                     e.printStackTrace();
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -53,14 +53,14 @@ public class ModifierTypeB {
                     alert.show();
                 }
             } else {
-                // Affichez un message si le champ du nouveau type est vide
+                // Display a message if the new type field is empty
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
                 alert.setContentText("Veuillez saisir un nouveau type");
                 alert.show();
             }
         } else {
-            // Affichez un message si le type à modifier n'est pas défini
+            // Display a message if the type to modify is not defined
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("Type à modifier non défini");
@@ -69,7 +69,6 @@ public class ModifierTypeB {
     }
 
     public void initData(Type type) {
-        Type selectedType = type;
-        typeTF.setText(selectedType.getType()); // Set the type name to the TextField
+        setTypeToModify(type);
     }
 }

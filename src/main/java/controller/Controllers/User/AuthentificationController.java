@@ -1,6 +1,8 @@
-package controller.Controllers.User;
+
+        package controller.Controllers.User;
 
 //import com.sun.javafx.webkit.WebConsoleListener;
+import controller.Event.AffichageEventF;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -112,7 +114,7 @@ public class AuthentificationController {
                     if (utilisateur.getRole().contains("[\"ROLE_ADMIN\"]")) {
                         redirectToBaseAdmin();
                     } else if (utilisateur.getRole().contains("[\"ROLE_CLIENT\"]")) {
-                        redirectToHomePageClient();
+                        redirectToAffichageEventTo();
                     }
                 } else {
                     showAlert("Email ou mot de passe incorrect !");
@@ -146,7 +148,7 @@ public class AuthentificationController {
                 if (utilisateur.getRole().contains("[\"ROLE_ADMIN\"]")) {
                     redirectToBaseAdmin();
                 } else if (utilisateur.getRole().contains("[\"ROLE_CLIENT\"]")) {
-                    redirectToHomePageClient();
+                    redirectToAffichageEventTo();
                 }
             } else {
                 showAlert("Email ou mot de passe incorrect !");
@@ -194,7 +196,7 @@ public class AuthentificationController {
 
     private void redirectToBaseAdmin() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/BaseAdmin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/BaseAdmin.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) seConnecterTF.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -204,10 +206,14 @@ public class AuthentificationController {
         }
     }
 
-    private void redirectToHomePageClient() {
+    private void redirectToAffichageEventTo() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
             Parent root = loader.load();
+
+            AffichageEventF controller = loader.getController();
+            controller.SetData(CurrentUser);
+
             Stage stage = (Stage) seConnecterTF.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

@@ -28,7 +28,7 @@ public class UtilisateurService implements IService<Utilisateur> {
     public Utilisateur afficheUser(int id) {
         Utilisateur p = new Utilisateur();
         try {
-            String req = "Select * from  `user` where id=" + id;
+            String req = "Select * from  user where id=" + id;
             Statement st = connection.createStatement();
             ResultSet RS = st.executeQuery(req);
             RS.next();
@@ -38,7 +38,7 @@ public class UtilisateurService implements IService<Utilisateur> {
             p.setMdp(RS.getString("password"));
             p.setRole(RS.getString("roles"));
             p.setActive(RS.getInt("active"));
-            p.setRegistred_at(RS.getDate("registered_at"));
+            p.setRegistered_at(RS.getDate("registered_at"));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -58,7 +58,7 @@ public class UtilisateurService implements IService<Utilisateur> {
                     utilisateur.setMdp(resultSet.getString("password"));
                     utilisateur.setRole(resultSet.getString("roles"));
                     utilisateur.setActive(resultSet.getInt("active"));
-                    utilisateur.setRegistred_at(resultSet.getDate("registered_at"));
+                    utilisateur.setRegistered_at(resultSet.getDate("registered_at"));
                     Session.StartSession(utilisateur);
                 }
             }
@@ -103,7 +103,7 @@ public class UtilisateurService implements IService<Utilisateur> {
     @Override
     public void add(Utilisateur utilisateur) throws SQLException {
         try {
-            String req = "INSERT INTO `user` (`nom`, `email`, `password`,`roles`,`registered_at`,`active`) VALUES (?, ?, ?,?, ?, ?)";
+            String req = "INSERT INTO user (nom, email, password,`roles`,`registered_at`,`active`) VALUES (?, ?, ?,?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(req);
             statement.setString(1, utilisateur.getNom());
             statement.setString(2, utilisateur.getMail());
@@ -133,7 +133,7 @@ public class UtilisateurService implements IService<Utilisateur> {
     public void update(Utilisateur utilisateur) throws SQLException {
 
         try {
-            String req = "UPDATE `user` SET `nom` = ?, `email` = ?, `roles` = ?, `active` = ?, `password` = ?, `registered_at` = ? WHERE `id` = ?";
+            String req = "UPDATE user SET nom = ?, email = ?, roles = ?, active = ?, password = ?, registered_at = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(req);
             statement.setString(1, utilisateur.getNom());
             statement.setString(2, utilisateur.getEmail());
@@ -141,7 +141,7 @@ public class UtilisateurService implements IService<Utilisateur> {
             statement.setInt(4, utilisateur.getActive());
             statement.setString(5, utilisateur.getMdp());
 
-            statement.setDate(6, utilisateur.getRegistred_at());
+            statement.setDate(6, utilisateur.getRegistered_at());
             statement.setInt(7, utilisateur.getId());
             statement.executeUpdate();
             System.out.println("Utilisateur mis à jour");
@@ -153,7 +153,7 @@ public class UtilisateurService implements IService<Utilisateur> {
     @Override
     public void updateActivation(int userId, int newActivationState) throws SQLException {
         try {
-            String req = "UPDATE `user` SET `active` = ? WHERE `id` = ?";
+            String req = "UPDATE user SET active = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(req);
             statement.setInt(1, newActivationState);
             statement.setInt(2, userId);
@@ -170,7 +170,7 @@ public class UtilisateurService implements IService<Utilisateur> {
     @Override
     public void delete(int id) throws SQLException {
         try {
-            String req = "DELETE FROM `user` WHERE id = ?";
+            String req = "DELETE FROM user WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(req);
             statement.setInt(1, id);
             statement.executeUpdate();
@@ -184,7 +184,7 @@ public class UtilisateurService implements IService<Utilisateur> {
     public List<Utilisateur> select() throws SQLException {
         List<Utilisateur> list = new ArrayList<>();
         try {
-            String req = "SELECT * FROM `user` ORDER BY id";
+            String req = "SELECT * FROM user ORDER BY id";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
@@ -194,7 +194,7 @@ public class UtilisateurService implements IService<Utilisateur> {
                 utilisateur.setEmail(rs.getString("email"));
                 utilisateur.setRole(rs.getString("roles"));
                 utilisateur.setMdp(rs.getString("password"));
-                utilisateur.setRegistred_at(rs.getDate("registered_at"));
+                utilisateur.setRegistered_at(rs.getDate("registered_at"));
                 list.add(utilisateur);
             }
         } catch (SQLException ex) {
@@ -239,7 +239,7 @@ public class UtilisateurService implements IService<Utilisateur> {
         // Vous devez implémenter la logique pour mettre à jour le mot de passe dans la base de données
         try {
             String hashedPassword = PasswordUtils.hashPasswrd(newPassword);
-            String req = "UPDATE `user` SET `password` = ? WHERE `email` = ?";
+            String req = "UPDATE user SET password = ? WHERE email = ?";
             PreparedStatement statement = connection.prepareStatement(req);
             statement.setString(1, hashedPassword);
             statement.setString(2, email);

@@ -24,10 +24,11 @@ public class LignepanierService implements IService<Lignepanier>{
 
     @Override
     public void update(Lignepanier lignepanier) throws SQLException {
-        String sql ="update lignepanier set quantite=? where id=? ";
+        String sql ="update lignepanier set quantite=? where panier_id=? AND produit_id=? ";
         PreparedStatement preparedStatement=connection.prepareStatement(sql);
-        preparedStatement.setInt(1, lignepanier.getQuantité());
-        preparedStatement.setInt(2,lignepanier.getId());
+        preparedStatement.setInt(1,lignepanier.getQuantité());
+        preparedStatement.setInt(2,lignepanier.getIdPanier());
+        preparedStatement.setInt(3,lignepanier.getIdProduit());
         preparedStatement.executeUpdate();
     }
 
@@ -81,5 +82,27 @@ public class LignepanierService implements IService<Lignepanier>{
         return lignepaniers;
     }
 
-}
 
+    public Lignepanier selectlignepanier(int idpanier, int idproduit) {
+        String sql = "SELECT * FROM lignepanier WHERE panier_id = ? AND produit_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idpanier);
+            preparedStatement.setInt(2, idproduit);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) { // Vérifie s'il y a une ligne correspondante
+                    Lignepanier lignepanier = new Lignepanier();
+                    lignepanier.setId(resultSet.getInt("id"));
+                    lignepanier.setQuantité(resultSet.getInt("quantite"));
+                    lignepanier.setIdPanier(idpanier);
+                    lignepanier.setIdProduit(idproduit);
+                    return lignepanier;
+                } else {
+                    return null; // Aucune ligne correspondante trouvée
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+}

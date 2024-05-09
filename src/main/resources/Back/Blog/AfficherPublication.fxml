@@ -11,7 +11,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.shape.Line?>
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
 <AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.back.Blog.AfficherPublicationController">
    <children>
        <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
@@ -55,6 +58,25 @@
                </AnchorPane>
            </children>
        </AnchorPane>
+<<<<<<< HEAD
+       <Pane layoutX="208.0" layoutY="-1.0" prefHeight="585.0" prefWidth="632.0" style="-fx-background-color: ececec;">
+      <TableView fx:id="tableView" layoutX="55.0" layoutY="84.0" prefHeight="247.0" prefWidth="521.0">
+        <columns>
+          <TableColumn fx:id="titreCol" prefWidth="126.0" text="Titre" />
+          <TableColumn fx:id="dateCol" prefWidth="127.0" text="Date" />
+            <TableColumn fx:id="contenuCol" prefWidth="136.0" text="Contenu" />
+            <TableColumn fx:id="imageCol" prefWidth="131.0" text="Image" />
+        </columns>
+      </TableView>
+      <Label fx:id="welcomeLBL" layoutX="281.0" layoutY="20.0" text="Label">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Button layoutX="506.0" layoutY="344.0" mnemonicParsing="false" onAction="#supprimerPublication" text="supprimer" />
+       <Button layoutX="319.0" layoutY="344.0" mnemonicParsing="false" onAction="#addpublication" text="ajouter" />
+       <Button layoutX="419.0" layoutY="344.0" mnemonicParsing="false" onAction="#modifierpublication" text="modifier" />
+=======
        <Pane layoutX="194.0" layoutY="3.0" prefHeight="651.0" prefWidth="989.0" style="-fx-background-color: ececec;">
           <children>
          <TableView fx:id="tableView" layoutX="33.0" layoutY="119.0" prefHeight="361.0" prefWidth="665.0">
@@ -69,7 +91,6 @@
          <Button layoutX="441.0" layoutY="508.0" mnemonicParsing="false" onAction="#supprimerPublication" prefHeight="25.0" prefWidth="108.0" text="supprimer" />
           <Button layoutX="159.0" layoutY="508.0" mnemonicParsing="false" onAction="#addpublication" prefHeight="25.0" prefWidth="84.0" text="ajouter" />
           <Button layoutX="294.0" layoutY="508.0" mnemonicParsing="false" onAction="#modifierpublication" prefHeight="25.0" prefWidth="99.0" text="modifier" />
-            <Button layoutX="451.0" layoutY="580.0" mnemonicParsing="false" onAction="#listeCommentaire" prefHeight="34.0" prefWidth="162.0" text="Liste des commentaires" />
             <TextField fx:id="recherche" layoutX="421.0" layoutY="49.0" prefHeight="37.0" prefWidth="222.0" />
             <Label layoutX="58.0" layoutY="42.0" prefHeight="44.0" prefWidth="228.0" text="Mes publications" textFill="#d0469b">
                <font>
@@ -79,6 +100,7 @@
             <Button layoutX="344.0" layoutY="580.0" mnemonicParsing="false" onAction="#IdStatistique" text="Stat" />
             <Button layoutX="905.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackAction" text="Back" />
           </children>
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
        </Pane>
    </children>
 </AnchorPane>

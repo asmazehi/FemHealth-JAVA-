@@ -133,7 +133,15 @@ public class ModifierPublicationController implements Initializable {
     }
     @FXML
     void BackAction(ActionEvent event) {
-
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/AfficherPublication.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) TitreTF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -88,14 +88,14 @@ public class AfficherPublicationController {
             alert.setContentText("Publication modifi?e avec succ?s");
             alert.showAndWait();
         } catch (SQLException e) {
-             Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setContentText("Erreur lors de la modification de la publication : " + e.getMessage());
             alert.showAndWait();
         }
     }@FXML
     void initialize() {
-        try { 
+        try {
             recherche.textProperty().addListener((observable, oldValue, newValue) -> {
                 try {
                     updatePublicationsByTitreAndContenu(newValue,newValue);
@@ -130,11 +130,11 @@ public class AfficherPublicationController {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-return  null;
+                return  null;
 
             });
 
-           }catch (SQLException e)
+        }catch (SQLException e)
         {
             System.out.println(e.getMessage());
         }
@@ -273,9 +273,5 @@ return  null;
             e.printStackTrace();
         }
     }
-    @FXML
-    void BackAction(ActionEvent event) {
 
-    }
 }
-

@@ -80,7 +80,7 @@ public class BaseAdminController {
 
     private void redirectToType() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AfficherTypeB.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AjouterTypeB.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();
             stage.setScene(new Scene(root));

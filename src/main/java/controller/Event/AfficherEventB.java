@@ -30,6 +30,8 @@ public class AfficherEventB {
 
     @FXML
     private ResourceBundle resources;
+    @FXML
+    private Button backButton;
 
     @FXML
     private URL location;
@@ -228,22 +230,7 @@ public class AfficherEventB {
     }
 
 
-    @FXML
-    private void navigateToReservations(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/sampleres.fxml"));
-            Parent root = loader.load();
 
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle loading error
-            showErrorAlert("Failed to load AfficherResB.fxml");
-        }
-    }
 
     private void showAlert(Alert.AlertType type, String title, String contentText) {
         Alert alert = new Alert(type);
@@ -274,5 +261,28 @@ public class AfficherEventB {
             // Handle IO exception
         }
     }
+
+    @FXML
+    void goBack(ActionEvent event) {
+        try {
+            // Close the current stage
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+            // Load and show the new stage
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/BaseAdmin.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle loading error
+            showErrorAlert("Failed to load BaseAdmin.fxml");
+        }
+    }
+
 }
 
