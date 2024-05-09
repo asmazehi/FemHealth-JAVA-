@@ -48,7 +48,6 @@ public class AfficherProduitFrontController {
     @FXML
     private FlowPane produitFlowPane;
 
-    AuthentificationController authentificationController=new AuthentificationController();
     LignepanierService lignepanierService = new LignepanierService();
     PanierService panierService = new PanierService();
     CommandeService commandeService = new CommandeService();
