@@ -42,7 +42,8 @@ public class AfficherProduitFrontController {
     private List<Produit> produitList;
 
     private static int ITEMS_PER_PAGE = 3;
-
+    @FXML
+    private Button BackEvent;
 
     LignepanierService lignepanierService = new LignepanierService();
     PanierService panierService = new PanierService();
@@ -236,5 +237,17 @@ public class AfficherProduitFrontController {
         } catch(IOException e) {
             System.err.println("Error loading PasserCommande.fxml: " + e.getMessage());
         }
+    }
+    @FXML
+    void BackEvent(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        BackEvent.getScene().setRoot(root);
     }
 }
