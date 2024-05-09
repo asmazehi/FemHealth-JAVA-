@@ -14,21 +14,19 @@ public class Utilisateur {
 
     public Utilisateur() {
     }
-
     public String getStatus() {
         return status;
     }
-
     public void setStatus(String status) {
         this.status = status;
     }
-
     public Utilisateur(int id, String nom, String email, String mdp) {
         this.id = id;
         this.nom = nom;
         this.email = email;
         this.password = mdp;
-        this.roles = "[\"ROLE_CLIENT\"]\n";
+
+        this.roles = "[\"ROLE_CLIENT\"]";
         Date DT=new Date();
         this.registered_at=new java.sql.Date(DT.getTime());
     }
@@ -53,7 +51,9 @@ public class Utilisateur {
         this.nom = nom;
         this.email = email;
         this.password = mdp;
-        this.roles = "[\"ROLE_CLIENT\"]\n";
+
+
+        this.roles = "[\"ROLE_CLIENT\"]";
         this.active=1;
         this.registered_at= new Date();
     }

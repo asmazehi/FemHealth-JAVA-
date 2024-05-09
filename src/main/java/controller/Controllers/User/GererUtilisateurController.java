@@ -77,8 +77,6 @@ public class GererUtilisateurController {
 
     @FXML
     private TableColumn<Utilisateur, String> registered_atCol;
-
-
     @FXML
     private Button btnDeconnecter;
 
@@ -136,6 +134,7 @@ public class GererUtilisateurController {
             });
         });
     }
+
 
 
     private void chargerUtilisateurs() {

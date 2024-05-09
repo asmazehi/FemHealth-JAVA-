@@ -1,5 +1,4 @@
-
-        package controller.Controllers.User;
+package controller.Controllers.User;
 
 //import com.sun.javafx.webkit.WebConsoleListener;
 import controller.Event.AffichageEventF;
@@ -73,12 +72,10 @@ public class AuthentificationController {
                 "        data-action='submit'>Submit</button>","text/html");*/
 
     }
-
     @FXML
     void kiker(ActionEvent event) {
 
     }
-
     @FXML
     private void seConnecter() {
         if (!isRobotVerified && !RobotCheckBox.isSelected()) {
@@ -182,10 +179,10 @@ public class AuthentificationController {
     public boolean isCaptchaValid(List<ImageView> images) {
         for (ImageView imageView : images) {
             if (imageView.getImage() != null) {
-                return false; // Si une image est sélectionnée, le reCAPTCHA n'est pas valide
+                return false;
             }
         }
-        return true; // Si aucune image n'est sélectionnée, le reCAPTCHA est valide
+        return true;
     }
 
     private Utilisateur CurrentUser;
@@ -229,12 +226,10 @@ public class AuthentificationController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
     private boolean isValidEmail(String email) {
         String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
         return email.matches(emailPattern);
     }
-
     @FXML
     private void motDePasseOublie() {
         try {

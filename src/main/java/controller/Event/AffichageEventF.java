@@ -1,6 +1,5 @@
 package controller.Event;
 
-import controller.Sponsoring.AfficherProduitFrontController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,6 +28,9 @@ import java.util.List;
 public class AffichageEventF {
 
     @FXML
+    private ChoiceBox<String> choiceBoxMonCompte;
+    private Utilisateur CurrentUser;
+    @FXML
     private ChoiceBox<String> ECommerce;
 
     @FXML
@@ -38,15 +40,11 @@ public class AffichageEventF {
     @FXML
     private TextField searchField;
     @FXML
-    private ChoiceBox<String> choiceBoxTypes;
-    private EvenementC evenementService = new EvenementC();
-    @FXML
-    private ChoiceBox<String> choiceBoxMonCompte;
-    private Utilisateur CurrentUser;
 
-    public void SetData(Utilisateur user){
-        this.CurrentUser = user;
-    }
+    private ChoiceBox<String> choiceBoxTypes;
+    @FXML
+    private Button signalerButton;
+    private EvenementC evenementService = new EvenementC();
 
     @FXML
     public void initialize() {
@@ -60,7 +58,6 @@ public class AffichageEventF {
         } catch (SQLException e) {
             System.err.println("Error loading events: " + e.getMessage());
         }
-
         loadEvents();
         // Add listener to searchField text property
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -68,10 +65,18 @@ public class AffichageEventF {
             loadEvents();
         });
         loadEventTypes();
-
-        choiceBoxMonCompte.setItems(FXCollections.observableArrayList("Se déconnecter", "Gérer le profil"));
-
-
+        ObservableList<String> admin = FXCollections.observableArrayList("Se déconnecter", "Éditer le profil");
+        choiceBoxMonCompte.setItems(admin);
+        choiceBoxMonCompte.setOnAction(event -> {
+            String selectedItem = choiceBoxMonCompte.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                if (selectedItem.equals("Se déconnecter")) {
+                    navigateToHomePage();
+                } else if (selectedItem.equals("Éditer le profil")) {
+                    navigateToEditProfilPage();
+                }
+            }
+        });
         ECommerce.setItems(FXCollections.observableArrayList("Produits Disponibles", "Voir Panier", "Voir Commandes"));
         ECommerce.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             switch (newValue) {
@@ -88,9 +93,6 @@ public class AffichageEventF {
                     break;
             }
         });
-
-
-
     }
     private void loadEventTypes() {
         try {
@@ -99,7 +101,7 @@ public class AffichageEventF {
             choiceBoxTypes.setItems(typeOptions);
 
             // Ajouter un gestionnaire d'événements pour détecter les changements de sélection
-            choiceBoxMonCompte.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            choiceBoxTypes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
                     // Charger les événements du type sélectionné
                     try {
@@ -107,79 +109,15 @@ public class AffichageEventF {
                     } catch (SQLException e) {
                         System.err.println("Error loading events by type: " + e.getMessage());
                     }
-                    switch (newValue) {
-                        case "Se déconnecter":
-                            navigateToHomePage();
-                            break;
-                        case "Gérer le profil":
-                            navigateToEditProfilPage();
-                            break;
-                        default:
-                            break;
-                    }
                 }
             });
-
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.err.println("Error loading event types: " + e.getMessage());
         }
-
-
     }
-    private void navigateToCommandesPage() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/AfficherListCommandeparClient.fxml"));
-        try {
-            AnchorPane commandesPage = loader.load();
-            Scene scene = eventFlowPane.getScene();
-            AnchorPane root = (AnchorPane) scene.getRoot();
-
-            // Replace the content of the root with the home page
-            root.getChildren().setAll(commandesPage);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //Parent root = loader.load();
-        //AnchorPane pageProduct = loader.load();
-        Scene scene = eventFlowPane.getScene();
-
+    public void SetData(Utilisateur user){
+        this.CurrentUser = user;
     }
-    private void navigateToPanierPage() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/ShowPanier1.fxml"));
-        try {
-            AnchorPane panierPage = loader.load();
-            Scene scene = eventFlowPane.getScene();
-            AnchorPane root = (AnchorPane) scene.getRoot();
-
-            // Replace the content of the root with the home page
-            root.getChildren().setAll(panierPage);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //Parent root = loader.load();
-        //AnchorPane pageProduct = loader.load();
-        Scene scene = eventFlowPane.getScene();
-
-    }
-    private void navigateToProductPage() {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Sponsoring/AfficherProduitF.fxml"));
-        try {
-            AnchorPane produitPage = loader.load();
-            Scene scene = eventFlowPane.getScene();
-            AnchorPane root = (AnchorPane) scene.getRoot();
-
-            // Replace the content of the root with the home page
-            root.getChildren().setAll(produitPage);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //Parent root = loader.load();
-            //AnchorPane pageProduct = loader.load();
-            Scene scene = eventFlowPane.getScene();
-
-            //AnchorPane root = (AnchorPane) scene.getRoot();
-    }
-
     private void loadEventsByType(String type) throws SQLException {
         eventFlowPane.getChildren().clear(); // Effacer les événements précédents
 
@@ -295,6 +233,8 @@ public class AffichageEventF {
         choiceBox.setLayoutY(280);
         choiceBox.setOnAction(this::handleChoiceBoxAction);
 
+
+
         card.getChildren().addAll(imageView, nomLabel, dateDebutLabel, dateFinLabel, localisationLabel, montantLabel, reserverButton);
         return card;
     }
@@ -307,11 +247,11 @@ public class AffichageEventF {
             case "Voir Événements":
                 navigateToEventsPage();
                 break;
-         case "Voir Réservations":
+            case "Voir Réservations":
                 navigateToReservationsPage();
                 break;
             default:
-             break;
+                break;
         }
     }
 
@@ -342,6 +282,18 @@ public class AffichageEventF {
 
             // Replace the content of the root with the reservations page
             root.getChildren().setAll(reservationsPage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void BlogButton(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/carCard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) eventFlowPane.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -377,7 +329,57 @@ public class AffichageEventF {
             e.printStackTrace();
         }
     }
+    private void navigateToCommandesPage() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/AfficherListCommandeparClient.fxml"));
+        try {
+            AnchorPane commandesPage = loader.load();
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
 
+            // Replace the content of the root with the home page
+            root.getChildren().setAll(commandesPage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //Parent root = loader.load();
+        //AnchorPane pageProduct = loader.load();
+        Scene scene = eventFlowPane.getScene();
 
+    }
+    private void navigateToPanierPage() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/ShowPanier1.fxml"));
+        try {
+            AnchorPane panierPage = loader.load();
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
+
+            // Replace the content of the root with the home page
+            root.getChildren().setAll(panierPage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //Parent root = loader.load();
+        //AnchorPane pageProduct = loader.load();
+        Scene scene = eventFlowPane.getScene();
+
+    }
+    private void navigateToProductPage() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Sponsoring/AfficherProduitF.fxml"));
+        try {
+            AnchorPane produitPage = loader.load();
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
+
+            // Replace the content of the root with the home page
+            root.getChildren().setAll(produitPage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //Parent root = loader.load();
+        //AnchorPane pageProduct = loader.load();
+        Scene scene = eventFlowPane.getScene();
+
+        //AnchorPane root = (AnchorPane) scene.getRoot();
+    }
     // Other methods for handling navigation to different pages
 }
