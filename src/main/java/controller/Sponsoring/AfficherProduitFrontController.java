@@ -51,9 +51,8 @@ public class AfficherProduitFrontController {
 
     @FXML
     public void initialize() {
-        //System.out.println("useris" + Session.getSession().getUser().getId());
+        System.out.println("useris" + Session.getSession().getUser().getId());
 
-       // List<Commentaire> list = cs.fetchCommentaireByUserID(Session.getSession().getUser().getId());
         try {
             produitList = ps.select();
 
@@ -64,10 +63,8 @@ public class AfficherProduitFrontController {
             pagination.setPageCount((int) Math.ceil((double) produitList.size() / ITEMS_PER_PAGE));
             pagination.setPageFactory(this::createPage);
 
-            // Show navigation buttons
             pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
 
-            // Add scroll event listener
             pagination.setOnScroll(event -> {
                 if (event.getDeltaY() < 0) {
                     pagination.setCurrentPageIndex(Math.min(pagination.getCurrentPageIndex() + 1, pagination.getPageCount() - 1));
@@ -108,7 +105,7 @@ public class AfficherProduitFrontController {
 
     private AnchorPane createProduitCard(Produit produit) {
         AnchorPane card = new AnchorPane();
-        card.setPrefSize(180, 300); // Taille fixe pour chaque carte
+        card.setPrefSize(180, 300);
 
         // Ajouter un contour à la carte
         card.setStyle("-fx-border-color: #CCCCCC; " +
@@ -164,12 +161,10 @@ public class AfficherProduitFrontController {
                 if (panierActifId == -1) {
                     System.out.println("panier cruer"+panierActifId);
                     Panier panier = new Panier();
-                    // System.out.println("fi prod"+authentificationController.getUtilisateurConnecte().getId());
-                    panier.setIdUser(1);
+                    panier.setIdUser(Session.getSession().getUser().getId());
                     panier.setPrixTotal(0);
                     panier.setStatut("En Cour");
                     panierService.add(panier);
-                    System.out.println("hethi fi sone3 ta3 panier"+panier.getId());
                     Lignepanier lignepanier = new Lignepanier();
                     lignepanier.setQuantité(1);
                     lignepanier.setIdProduit(produit.getId());

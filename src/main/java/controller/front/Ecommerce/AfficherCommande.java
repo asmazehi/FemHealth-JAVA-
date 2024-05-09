@@ -81,7 +81,6 @@ public class AfficherCommande {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/AfficherListCommandeparClient.fxml"));
             Parent root = loader.load();
-            //AfficherPanierController controller = loader.getController();
             commandsClient.getScene().setRoot(root);
         }catch(IOException e){
             System.err.println(e.getMessage());

@@ -23,6 +23,8 @@ public class BaseAdminController {
     @FXML
     private Button GererUtilisateursTF;
     @FXML
+    private Button ECommerce;
+    @FXML
     private ImageView groupTF;
     @FXML
     private ImageView logoTF;
@@ -170,6 +172,18 @@ public class BaseAdminController {
     private void gererUtilisateurs() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/GererUtilisateur.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) GererUtilisateursTF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void ECommerce() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Ecommerce/ShowAllCommands.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) GererUtilisateursTF.getScene().getWindow();
             stage.setScene(new Scene(root));

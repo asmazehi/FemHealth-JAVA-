@@ -33,6 +33,7 @@
                         <Image url="@téléchargement.png" />
                     </image>
                 </ImageView>
+            <Button layoutX="73.0" layoutY="199.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="E-Commerce" />
             </children>
         </Pane>
         <Pane layoutX="14.0" layoutY="14.0" prefHeight="118.0" prefWidth="91.0">
@@ -46,6 +47,95 @@
         </Pane>
         <ChoiceBox fx:id="choiceBoxTF" layoutX="522.0" layoutY="25.0" prefWidth="150.0" />
         <ImageView fitHeight="43.0" fitWidth="50.0" layoutX="402.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane fx:id="AnchorPaneTF1" layoutX="10.0" layoutY="10.0" prefHeight="529.0" prefWidth="750.0" style="-fx-background-color: #FFD1DC;">
+         <children>
+            <Pane fx:id="PaneTF1" layoutX="14.0" layoutY="140.0" prefHeight="362.0" prefWidth="219.0">
+               <children>
+                  <Button fx:id="GererUtilisateursTF1" layoutX="74.0" layoutY="66.0" mnemonicParsing="false" onAction="#gererUtilisateurs" prefHeight="25.0" prefWidth="103.0" text="Utilisateurs" />
+                  <ImageView fitHeight="43.0" fitWidth="39.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="groupTF1" fitHeight="26.0" fitWidth="34.0" layoutX="12.0" layoutY="66.0">
+                     <image>
+                        <Image url="@group.jpg" />
+                     </image>
+                  </ImageView>
+                  <ChoiceBox fx:id="blogFx1" layoutX="74.0" layoutY="108.0" prefHeight="25.0" prefWidth="103.0" />
+                  <ChoiceBox fx:id="eventsFx1" layoutX="74.0" layoutY="152.0" prefHeight="25.0" prefWidth="103.0" />
+                  <Label fx:id="Blogfx1" layoutX="77.0" layoutY="112.0" prefHeight="17.0" prefWidth="75.0" text="Blog" />
+                  <Label layoutX="78.0" layoutY="156.0" text="Events" />
+                  <ImageView fx:id="groupTF21" fitHeight="26.0" fitWidth="34.0" layoutX="12.0" layoutY="108.0">
+                     <image>
+                        <Image url="@blog.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="groupTF11" fitHeight="26.0" fitWidth="34.0" layoutX="12.0" layoutY="151.0">
+                     <image>
+                        <Image url="@téléchargement.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="73.0" layoutY="199.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="E-Commerce" />
+                  <ImageView fitHeight="43.0" fitWidth="64.0" layoutX="2.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane layoutX="14.0" layoutY="14.0" prefHeight="118.0" prefWidth="91.0">
+               <children>
+                  <ImageView fx:id="logoTF1" fitHeight="103.0" fitWidth="103.0" layoutX="10.0" layoutY="10.0">
+                     <image>
+                        <Image url="@3.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <ChoiceBox fx:id="choiceBoxTF1" layoutX="522.0" layoutY="25.0" prefWidth="150.0" />
+            <ImageView fitHeight="43.0" fitWidth="50.0" layoutX="402.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="AnchorPaneTF2" layoutX="10.0" layoutY="10.0" prefHeight="529.0" prefWidth="750.0" style="-fx-background-color: #FFD1DC;">
+         <children>
+            <Pane fx:id="PaneTF2" layoutX="14.0" layoutY="140.0" prefHeight="362.0" prefWidth="219.0">
+               <children>
+                  <Button fx:id="GererUtilisateursTF2" layoutX="74.0" layoutY="66.0" mnemonicParsing="false" onAction="#gererUtilisateurs" prefHeight="25.0" prefWidth="103.0" text="Utilisateurs" />
+                  <ImageView fitHeight="43.0" fitWidth="39.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="groupTF1" fitHeight="26.0" fitWidth="34.0" layoutX="12.0" layoutY="66.0">
+                     <image>
+                        <Image url="@group.jpg" />
+                     </image>
+                  </ImageView>
+                  <ChoiceBox fx:id="blogFx2" layoutX="74.0" layoutY="108.0" prefHeight="25.0" prefWidth="103.0" />
+                  <ChoiceBox fx:id="eventsFx2" layoutX="74.0" layoutY="152.0" prefHeight="25.0" prefWidth="103.0" />
+                  <Label fx:id="Blogfx2" layoutX="77.0" layoutY="112.0" prefHeight="17.0" prefWidth="75.0" text="Blog" />
+                  <Label layoutX="78.0" layoutY="156.0" text="Events" />
+                  <ImageView fx:id="groupTF22" fitHeight="26.0" fitWidth="34.0" layoutX="12.0" layoutY="108.0">
+                     <image>
+                        <Image url="@blog.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="groupTF12" fitHeight="26.0" fitWidth="34.0" layoutX="12.0" layoutY="151.0">
+                     <image>
+                        <Image url="@téléchargement.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="37.0" fitWidth="39.0" layoutX="9.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@ECommerce.jpg" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="ECommerce" layoutX="72.0" layoutY="192.0" mnemonicParsing="false" onAction="#ECommerce" prefHeight="25.0" prefWidth="110.0" text="E-Commerce" />
+               </children>
+            </Pane>
+            <Pane layoutX="14.0" layoutY="14.0" prefHeight="118.0" prefWidth="91.0">
+               <children>
+                  <ImageView fx:id="logoTF2" fitHeight="103.0" fitWidth="103.0" layoutX="10.0" layoutY="10.0">
+                     <image>
+                        <Image url="@3.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <ChoiceBox fx:id="choiceBoxTF2" layoutX="522.0" layoutY="25.0" prefWidth="150.0" />
+            <ImageView fitHeight="43.0" fitWidth="50.0" layoutX="402.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="43.0" fitWidth="64.0" layoutX="12.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
 
         <!--       <ChoiceBox fx:id="choiceBoxTF" layoutX="559.0" layoutY="29.0" prefWidth="150.0" onAction="#choisir">-->
         <!--           <items>-->

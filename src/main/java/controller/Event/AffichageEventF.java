@@ -88,9 +88,6 @@ public class AffichageEventF {
                     break;
             }
         });
-
-
-
     }
     private void loadEventTypes() {
         try {
@@ -126,58 +123,6 @@ public class AffichageEventF {
         }
 
 
-    }
-    private void navigateToCommandesPage() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/AfficherListCommandeparClient.fxml"));
-        try {
-            AnchorPane commandesPage = loader.load();
-            Scene scene = eventFlowPane.getScene();
-            AnchorPane root = (AnchorPane) scene.getRoot();
-
-            // Replace the content of the root with the home page
-            root.getChildren().setAll(commandesPage);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //Parent root = loader.load();
-        //AnchorPane pageProduct = loader.load();
-        Scene scene = eventFlowPane.getScene();
-
-    }
-    private void navigateToPanierPage() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/ShowPanier1.fxml"));
-        try {
-            AnchorPane panierPage = loader.load();
-            Scene scene = eventFlowPane.getScene();
-            AnchorPane root = (AnchorPane) scene.getRoot();
-
-            // Replace the content of the root with the home page
-            root.getChildren().setAll(panierPage);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //Parent root = loader.load();
-        //AnchorPane pageProduct = loader.load();
-        Scene scene = eventFlowPane.getScene();
-
-    }
-    private void navigateToProductPage() {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Sponsoring/AfficherProduitF.fxml"));
-        try {
-            AnchorPane produitPage = loader.load();
-            Scene scene = eventFlowPane.getScene();
-            AnchorPane root = (AnchorPane) scene.getRoot();
-
-            // Replace the content of the root with the home page
-            root.getChildren().setAll(produitPage);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //Parent root = loader.load();
-            //AnchorPane pageProduct = loader.load();
-            Scene scene = eventFlowPane.getScene();
-
-            //AnchorPane root = (AnchorPane) scene.getRoot();
     }
 
     private void loadEventsByType(String type) throws SQLException {
@@ -376,6 +321,58 @@ public class AffichageEventF {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private void navigateToCommandesPage() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/AfficherListCommandeparClient.fxml"));
+        try {
+            AnchorPane commandesPage = loader.load();
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
+
+            // Replace the content of the root with the home page
+            root.getChildren().setAll(commandesPage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //Parent root = loader.load();
+        //AnchorPane pageProduct = loader.load();
+        Scene scene = eventFlowPane.getScene();
+
+    }
+    private void navigateToPanierPage() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Ecommerce/ShowPanier1.fxml"));
+        try {
+            AnchorPane panierPage = loader.load();
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
+
+            // Replace the content of the root with the home page
+            root.getChildren().setAll(panierPage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //Parent root = loader.load();
+        //AnchorPane pageProduct = loader.load();
+        Scene scene = eventFlowPane.getScene();
+
+    }
+    private void navigateToProductPage() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Sponsoring/AfficherProduitF.fxml"));
+        try {
+            AnchorPane produitPage = loader.load();
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
+
+            // Replace the content of the root with the home page
+            root.getChildren().setAll(produitPage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //Parent root = loader.load();
+        //AnchorPane pageProduct = loader.load();
+        Scene scene = eventFlowPane.getScene();
+
+        //AnchorPane root = (AnchorPane) scene.getRoot();
     }
 
 

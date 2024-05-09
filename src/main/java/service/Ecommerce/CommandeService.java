@@ -128,5 +128,27 @@ public class CommandeService  implements IService<Commande> {
         return commande;
     }
 
+    public List<Commande> selectCommandesByClientId(int idClient) throws SQLException {
+        List<Commande> commandes = new ArrayList<>();
+        String sql = "SELECT * FROM commande INNER JOIN panier ON commande.panier_id = panier.id WHERE panier.client_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idClient);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Commande commande = new Commande();
+                commande.setId(resultSet.getInt("id"));
+                commande.setIdPanier(resultSet.getInt("panier_id"));
+                commande.setAdresse(resultSet.getString("adress"));
+                commande.setStatut(resultSet.getString("statut"));
+                commande.setDateC(resultSet.getDate("date_c"));
+                commande.setMpaiement(resultSet.getString("methode_paiement"));
+                commande.setPhone(resultSet.getString("phone"));
+                commande.setMlivraison(resultSet.getString("methode_livraison"));
+                commandes.add(commande);
+            }
+        }
+        return commandes;
+    }
+
 }
 
