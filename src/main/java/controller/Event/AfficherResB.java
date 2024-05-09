@@ -87,7 +87,7 @@ public class AfficherResB {
 
         try {
             // Load the FXML file of the recent page
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichResB.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/BaseAdmin.fxml"));
             Parent root = loader.load();
 
             // Set the recent page scene

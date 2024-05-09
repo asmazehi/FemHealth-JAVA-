@@ -29,6 +29,6 @@
               </BarChart>
          </children>
       </Pane>
-      <Button layoutX="585.0" layoutY="23.0" mnemonicParsing="false" onAction="#BackAction" text="Back" />
+      <Button layoutX="461.0" layoutY="27.0" mnemonicParsing="false" onAction="#BackAction" stylesheets="@../../styles.css" text="Retourner vers la page d'accueil" />
     </children>
 </AnchorPane>

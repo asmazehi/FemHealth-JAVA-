@@ -1,6 +1,7 @@
 package controller.Controllers.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,6 +34,8 @@ public class BaseAdminController {
 
     @FXML
     private ChoiceBox<String> eventsFx;
+    @FXML
+    private Button idCommerce;
 
     @FXML
     private void initialize() {
@@ -177,5 +180,18 @@ public class BaseAdminController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    void CommerceAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Ecommerce/ShowAllCommands.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) GererUtilisateursTF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

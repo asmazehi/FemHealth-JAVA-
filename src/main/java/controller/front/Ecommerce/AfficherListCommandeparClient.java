@@ -21,8 +21,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Ecommerce.*;
+import org.controlsfx.control.Notifications;
 import service.Ecommerce.CommandeService;
 import service.Ecommerce.PanierService;
+import utils.Session;
 
 public class AfficherListCommandeparClient {
     @FXML
@@ -65,7 +67,6 @@ public class AfficherListCommandeparClient {
 
     @FXML
     private VBox vBoxContainer;
-  int idClient=1;
 
     PanierService panierService= new PanierService();
     CommandeService commandeService= new CommandeService();
@@ -73,20 +74,19 @@ public class AfficherListCommandeparClient {
 
     {
         try {
-            objectList = commandeService.select();
+            objectList = commandeService.selectCommandesByClientId(Session.getSession().getUser().getId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @FXML
-    void initialize() throws SQLException {
+    void initialize() {
         idcard.setSpacing(1000);
         Insets margins = new Insets(0, 50, 0, -10);
         for (Commande obj : objectList) {
-            HBox hbox = createHBoxForItem(obj,margins);
-            vBoxContainer.getChildren().addAll(hbox,createSeparator());
-
+            HBox hbox = createHBoxForItem(obj, margins);
+            vBoxContainer.getChildren().addAll(hbox, createSeparator());
 
 
         }}
@@ -117,17 +117,16 @@ public class AfficherListCommandeparClient {
 
         annulerButton.setOnAction(event -> {
             try {
-                obj.setStatut("Annulée"); // Modifier le statut de la commande à "Annulée"
-                commandeService.update(obj); // Mettre à jour la commande dans la base de données
+                obj.setStatut("Annulée");
+                commandeService.update(obj);
 
-                // Mettre à jour les Labels existants avec les nouvelles valeurs de commande
                 DateLable.setText("" + obj.getDateC() + "");
                 AdressLabel.setText(obj.getAdresse() + "");
                 PaiementLable.setText("" + obj.getMpaiement() + "");
                 LivraisonLabel.setText("" + obj.getMlivraison());
                 StatutLabel.setText("" + obj.getStatut());
 
-                annulerButton.setVisible(false); // Masquer le bouton "Annuler"
+                annulerButton.setVisible(false);
 
             } catch (SQLException e) {
                 // Afficher une alerte en cas d'échec de mise à jour
@@ -140,7 +139,6 @@ public class AfficherListCommandeparClient {
         });
 
         if (obj.getStatut().equals("Annulée")||obj.getStatut().equals("Terminé")) {
-            // Si le statut est "Annulée", masquez le bouton "Annuler"
             annulerButton.setVisible(false);
         }
 

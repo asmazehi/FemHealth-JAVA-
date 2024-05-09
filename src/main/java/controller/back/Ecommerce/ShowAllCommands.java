@@ -1,17 +1,21 @@
 package controller.back.Ecommerce;
 
+import controller.Sponsoring.AfficherProduitFrontController;
 import controller.front.Ecommerce.DetailCommand;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.Ecommerce.Commande;
 import service.Ecommerce.CommandeService;
 import service.Ecommerce.PanierService;
@@ -27,6 +31,8 @@ import java.util.ResourceBundle;
 
 public class ShowAllCommands {
 
+    @FXML
+    private Button BackEcommerce;
     @FXML
     private ResourceBundle resources;
 
@@ -174,7 +180,7 @@ public class ShowAllCommands {
             return input + spaces;
         }
     }
-@FXML
+    @FXML
     private void ouvrirPageWeb() {
         try {
             // URL de la page à ouvrir
@@ -186,6 +192,16 @@ public class ShowAllCommands {
             e.printStackTrace();
         }
     }
+    @FXML
+    void BackEcommerce(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/BaseAdmin.fxml"));
+            Parent root = loader.load();
+            BackEcommerce.getScene().setRoot(root);
+        } catch (IOException e) {
+            System.err.println("Error loading : " + e.getMessage());
+        }
 
+    }
 
 }

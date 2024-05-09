@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -8,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="AnchorPaneTF" prefHeight="529.0" prefWidth="750.0" style="-fx-background-color: #FFD1DC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controllers.User.BaseAdminController">
+<AnchorPane fx:id="AnchorPaneTF" prefHeight="529.0" prefWidth="750.0" style="-fx-background-color: #FFD1DC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controllers.User.BaseAdminController">
     <children>
         <Pane fx:id="PaneTF" layoutX="14.0" layoutY="140.0" prefHeight="362.0" prefWidth="219.0">
             <children>
@@ -33,6 +37,9 @@
                         <Image url="@téléchargement.png" />
                     </image>
                 </ImageView>
+            <ChoiceBox layoutX="74.0" layoutY="194.0" prefHeight="25.0" prefWidth="103.0" />
+            <Label layoutX="87.0" layoutY="198.0" prefHeight="17.0" prefWidth="50.0" text="Sponsor" />
+            <Button fx:id="idCommerce" layoutX="76.0" layoutY="231.0" mnemonicParsing="false" onAction="#CommerceAction" prefHeight="25.0" prefWidth="103.0" text="E-commerce" />
             </children>
         </Pane>
         <Pane layoutX="14.0" layoutY="14.0" prefHeight="118.0" prefWidth="91.0">
