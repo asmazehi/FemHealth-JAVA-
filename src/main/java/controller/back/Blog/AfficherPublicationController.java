@@ -3,15 +3,16 @@ package controller.back.Blog;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import controller.front.Blog.DetailsController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,10 +33,13 @@ public class AfficherPublicationController {
     private ResourceBundle resources;
     @FXML
     private URL location;
+    private FilteredList<Publication> filteredPubl ;
     @FXML
     private TextField recherche;
     @FXML
     private TableColumn<Publication, String> titreCol;
+    @FXML
+    private DatePicker dateSearch;
     @FXML
     private Label welcomeLBL;
     @FXML
@@ -133,11 +137,19 @@ public class AfficherPublicationController {
 return  null;
 
             });
+            dateSearch.setOnAction(event -> {
+                try {
+                    dateSearch();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
            }catch (SQLException e)
         {
             System.out.println(e.getMessage());
         }
+
     }
 
     public void setData(String msg){
@@ -270,6 +282,62 @@ return  null;
             stage.show();
             ((Node) (event.getSource())).getScene().getWindow().hide();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void dateSearch() throws SQLException {
+        // Récupérer la date sélectionnée dans le DatePicker
+        LocalDate date = dateSearch.getValue();
+
+        // Si une date est sélectionnée
+        if (date != null) {
+            // Filtrer les publications correspondant à la date sélectionnée
+            List<Publication> publications = ps.filtrerParDate(date);
+            tableView.getItems().clear();
+            // Ajouter les publications trouvées à la liste existante dans le TableView
+            tableView.getItems().addAll(publications);
+        }
+
+    }
+
+    private void afficherPublications(List<Publication> publications) {
+        if (publications.isEmpty()) {
+            showAlert("Aucune publication", "Aucune publication n'a été trouvée pour cette date.");
+        } else {
+            StringBuilder message = new StringBuilder("Publications pour la date sélectionnée :\n");
+            for (Publication publication : publications) {
+                message.append("- ").append(publication.getTitre()).append("\n");
+            }
+            showAlert("Publications", message.toString());
+        }
+    }
+    private void afficherAlerte(String message, String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    @FXML
+    void filterDate(ActionEvent event) {
+        dateSearch.setValue(null);
+
+        try {
+            // Récupérer toutes les publications disponibles dans la base de données
+            List<Publication> allPublications = ps.select();
+
+            // Afficher toutes les publications dans le TableView
+            tableView.getItems().setAll(allPublications);
+        } catch (SQLException e) {
+            // Gérer les éventuelles erreurs de base de données
             e.printStackTrace();
         }
     }

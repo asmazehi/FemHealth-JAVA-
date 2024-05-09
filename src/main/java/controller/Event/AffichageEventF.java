@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
+import model.User.Utilisateur;
 import model.events.Evenement;
 import service.events.EvenementC;
 
@@ -25,6 +26,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class AffichageEventF {
+
+    @FXML
+    private ChoiceBox<String> choiceBoxMonCompte;
+    private Utilisateur CurrentUser;
+
 
     @FXML
     private FlowPane eventFlowPane;
@@ -58,6 +64,18 @@ public class AffichageEventF {
             loadEvents();
         });
         loadEventTypes();
+        ObservableList<String> admin = FXCollections.observableArrayList("Se déconnecter", "Éditer le profil");
+        choiceBoxMonCompte.setItems(admin);
+        choiceBoxMonCompte.setOnAction(event -> {
+            String selectedItem = choiceBoxMonCompte.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                if (selectedItem.equals("Se déconnecter")) {
+                    navigateToHomePage();
+                } else if (selectedItem.equals("Éditer le profil")) {
+                    navigateToEditProfilPage();
+                }
+            }
+        });
     }
     private void loadEventTypes() {
         try {
@@ -80,7 +98,9 @@ public class AffichageEventF {
             System.err.println("Error loading event types: " + e.getMessage());
         }
     }
-
+    public void SetData(Utilisateur user){
+        this.CurrentUser = user;
+    }
     private void loadEventsByType(String type) throws SQLException {
         eventFlowPane.getChildren().clear(); // Effacer les événements précédents
 
@@ -257,6 +277,37 @@ public class AffichageEventF {
             Stage stage = (Stage) eventFlowPane.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void navigateToHomePage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePage.fxml"));
+            AnchorPane homePage = loader.load();
+
+            // Access the scene and root node of the current anchor pane
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
+
+            // Replace the content of the root with the home page
+            root.getChildren().setAll(homePage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void navigateToEditProfilPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/EditProfil.fxml"));
+            AnchorPane editProfilPage = loader.load();
+
+            // Access the scene and root node of the current anchor pane
+            Scene scene = eventFlowPane.getScene();
+            AnchorPane root = (AnchorPane) scene.getRoot();
+
+            // Replace the content of the root with the edit profile page
+            root.getChildren().setAll(editProfilPage);
         } catch (IOException e) {
             e.printStackTrace();
         }
