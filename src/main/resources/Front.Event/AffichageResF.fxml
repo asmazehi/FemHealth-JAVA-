@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event.AfficherResB">
+    <children>
+        <!-- Right Pane -->
+        <Pane layoutY="-1.0" prefHeight="591.0" prefWidth="823.0" style="-fx-background-color: #ececec;">
+            <children>
+                <TableView fx:id="tableview" layoutX="31.0" layoutY="69.0" prefHeight="310.0" prefWidth="744.0" stylesheets="@../styles.css">
+                    <columns>
+                        <TableColumn fx:id="id_evenementCol" prefWidth="251.99996948242188" text="id_evenement" />
+                        <TableColumn fx:id="statut_paiementCol" minWidth="9.600067138671875" prefWidth="235.99993896484375" text="statut_paiement" />
+                        <TableColumn fx:id="mode_paiementCol" minWidth="0.0" prefWidth="252.800048828125" text="mode_paiement" />
+                    </columns>
+                </TableView>
+                <Button layoutX="308.0" layoutY="413.0" mnemonicParsing="false" onAction="#SupprimerResB" stylesheets="@../styles.css" text="Je Veux Annuler Ma Reservation" />
+                <Button layoutX="306.0" layoutY="454.0" mnemonicParsing="false" onAction="#ModifierResBF" stylesheets="@../styles.css" text="Je Veux Modifier Ma Reservation" />
+                <Button layoutX="100.0" layoutY="10.0" mnemonicParsing="false" onAction="#goBack" stylesheets="@../styles.css" text="Back" />
+
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

@@ -12,20 +12,26 @@ import controller.back.Blog.ModifierPublicationController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Blog.Commentaire;
 import model.Blog.Publication;
 import service.Blog.CommentaireService;
+import service.User.UtilisateurService;
+import utils.Session;
 
 public class UserComments {
     @FXML
     private ResourceBundle resources;
+    @FXML
+    private TextField recherche;
     @FXML
     private URL location;
     @FXML
@@ -58,7 +64,7 @@ public class UserComments {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setTitle("Modifier la publication");
             dialog.setHeaderText(null);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Blog/updateComment.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/updateComment.fxml"));
             try {
                 Parent root = loader.load();
                 dialog.getDialogPane().setContent(root);
@@ -94,8 +100,46 @@ public class UserComments {
     @FXML
     void initialize()  {
         try {
-            List<Commentaire> list = cs.fetchCommentaireByUserID(3);
-            obs= FXCollections.observableArrayList(list);
+            recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+                try {
+                    updateCommentsByPublicationTitle(newValue);
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            });
+
+            System.out.println("useris" + Session.getSession().getUser().getId());
+
+            List<Commentaire> list = cs.fetchCommentaireByUserID(Session.getSession().getUser().getId());
+
+            // Filtrer les commentaires en fonction de leur état actif
+            FilteredList<Commentaire> filteredCommentaires = new FilteredList<>(FXCollections.observableArrayList(list));
+            filteredCommentaires.setPredicate(Commentaire::isActive); // Seuls les commentaires actifs seront affichés
+
+            tableView.setItems(filteredCommentaires);
+            descriptionCl.setCellValueFactory(new PropertyValueFactory<>("description"));
+            dateCl.setCellValueFactory(new PropertyValueFactory<>("datecomnt"));
+
+            publicationCl.setCellValueFactory(cellData -> {
+                Commentaire commentaire = cellData.getValue();
+                Publication publication = commentaire.getPublication();
+                if (publication != null) {
+                    return new SimpleStringProperty(publication.getTitre());
+                } else {
+                    return new SimpleStringProperty("");
+                }
+            });
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    private void updateCommentsByPublicationTitle(String publicationTitle) throws SQLException {
+
+        if (!publicationTitle.isEmpty()) {
+            List<Commentaire> list = cs.fetchCommentaireByCommentDescription(publicationTitle);
+
+            obs = FXCollections.observableArrayList(list);
             tableView.setItems(obs);
             descriptionCl.setCellValueFactory(new PropertyValueFactory<>("description"));
             dateCl.setCellValueFactory(new PropertyValueFactory<>("datecomnt"));
@@ -110,10 +154,21 @@ public class UserComments {
                     return new SimpleStringProperty("");
                 }
             });
-        }catch (SQLException e)
-        {
-            System.out.println(e.getMessage());
+        } else {
+            initialize();
         }
-
     }
+    @FXML
+    void BackTo(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/detailsPublication.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) recherche.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -39,14 +39,19 @@ public class ChangerMotDePasseController {
             afficherAlerte("Cet e-mail n'est pas enregistré dans notre base de données.");
             return;
         }
-
         try {
-            sendResetPasswordEmail(email);
-            afficherAlerte("Un e-mail de réinitialisation a été envoyé à votre adresse.");
-        } catch (MessagingException e) {
-            afficherAlerte("Une erreur s'est produite lors de l'envoi de l'e-mail de réinitialisation. Veuillez réessayer.");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/ResetPassword.fxml"));
+            Parent root = loader.load();
+            ResetPasswordController resetPasswordController = loader.getController();
+            resetPasswordController.setEmail(email);
+            Stage stage = (Stage) retour_TF.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 
     @FXML
@@ -75,21 +80,7 @@ public class ChangerMotDePasseController {
         return utilisateurService.emailExiste(email);
     }
 
-    private void sendResetPasswordEmail(String email) throws MessagingException {
-
-        String smtpHost = "smtp.gmail.com";
-        String smtpPort = "587";
-        String username = "femhealthapp1@gmail.com";
-        String password = "FemHealthApp00";
 
 
-        String subject = "Réinitialisation de votre mot de passe";
-        String body = "Bonjour,\n\n"
-                + "Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant :\n"
-                + "http://votre-site.com/reset-password\n\n"
-                + "Cordialement,\n"
-                + "Votre équipe";
 
-        EmailUtils.sendEmail(smtpHost, smtpPort, username, password, email, subject, body);
-    }
 }

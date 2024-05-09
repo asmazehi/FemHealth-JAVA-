@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Blog.Publication;
@@ -72,7 +73,7 @@ public class AddpublicationController {
 
     @FXML
     void afficherPublication(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Blog/AfficherPublication.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/AfficherPublication.fxml"));
         try {
             Parent root = loader.load();
             AfficherPublicationController controller = loader.getController();
@@ -94,6 +95,18 @@ public class AddpublicationController {
         if (selectedFile != null) {
             photoPath = selectedFile.getAbsolutePath();
             cheminphoto.setText(photoPath);
+        }
+    }
+    @FXML
+    void BackAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/AfficherPublication.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) titreTf.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

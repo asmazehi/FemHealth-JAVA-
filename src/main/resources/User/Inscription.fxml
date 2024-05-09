@@ -9,28 +9,28 @@
 <?import javafx.scene.control.PasswordField?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #C291A4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controllers.User.InscriptionController">
 
-   <children>
-      <TextField fx:id="EmailTF" layoutX="80.0" layoutY="222.0" prefHeight="25.0" prefWidth="341.0" promptText="Email" />
-      <PasswordField fx:id="mdpTF" accessibleRole="PASSWORD_FIELD" layoutX="80.0" layoutY="275.0" prefHeight="25.0" prefWidth="341.0" promptText="Mot de passe" />
-      <Label layoutX="228.0" layoutY="44.0" prefHeight="38.0" prefWidth="306.0" text="Inscription">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
+    <children>
+        <TextField fx:id="EmailTF" layoutX="80.0" layoutY="222.0" prefHeight="25.0" prefWidth="341.0" promptText="Email" />
+        <PasswordField fx:id="mdpTF" accessibleRole="PASSWORD_FIELD" layoutX="80.0" layoutY="275.0" prefHeight="25.0" prefWidth="341.0" promptText="Mot de passe" />
+        <Label layoutX="228.0" layoutY="44.0" prefHeight="38.0" prefWidth="306.0" text="Inscription">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
 
-      <Label layoutX="80.0" layoutY="204.0" prefHeight="17.0" prefWidth="63.0" text="Email:" />
-      <Label layoutX="80.0" layoutY="257.0" text="Mot de passe: " />
-      <Button fx:id="retourFX" layoutX="14.0" layoutY="29.0" mnemonicParsing="false" onAction="#retour" prefWidth="78.0" style="-fx-background-color: #FFD1DC;" text="Retour">
-         <graphic>
-         </graphic>
-      </Button>
-      <Button layoutX="439.0" layoutY="331.0" mnemonicParsing="false" onAction="#inscription" style="-fx-background-color: #FFD1DC;" text="Confirmer" />
-      <TextField fx:id="Nom" layoutX="80.0" layoutY="174.0" prefHeight="25.0" prefWidth="341.0" promptText="Nom" />
-      <Label layoutX="80.0" layoutY="156.0" prefHeight="17.0" prefWidth="63.0" text="Nom" />
-<!--      <ImageView fitHeight="17.0" fitWidth="55.0" layoutX="26.0" layoutY="33.0">-->
-<!--         <image>-->
-<!--            <Image url="@../Image/images.png" />-->
-<!--         </image>-->
-<!--      </ImageView>-->
-   </children>
+        <Label layoutX="80.0" layoutY="204.0" prefHeight="17.0" prefWidth="63.0" text="Email:" />
+        <Label layoutX="80.0" layoutY="257.0" text="Mot de passe: " />
+        <Button fx:id="retourFX" layoutX="14.0" layoutY="29.0" mnemonicParsing="false" onAction="#retour" prefWidth="78.0" style="-fx-background-color: #FFD1DC;" text="Retour">
+            <graphic>
+            </graphic>
+        </Button>
+        <Button layoutX="439.0" layoutY="331.0" mnemonicParsing="false" onAction="#inscription" style="-fx-background-color: #FFD1DC;" text="Confirmer" />
+        <TextField fx:id="Nom" layoutX="80.0" layoutY="174.0" prefHeight="25.0" prefWidth="341.0" promptText="Nom" />
+        <Label layoutX="80.0" layoutY="156.0" prefHeight="17.0" prefWidth="63.0" text="Nom" />
+        <!--      <ImageView fitHeight="17.0" fitWidth="55.0" layoutX="26.0" layoutY="33.0">-->
+        <!--         <image>-->
+        <!--            <Image url="@../Image/images.png" />-->
+        <!--         </image>-->
+        <!--      </ImageView>-->
+    </children>
 </AnchorPane>

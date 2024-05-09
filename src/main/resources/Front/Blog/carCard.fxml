@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
+=======
+<?import java.lang.*?>
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -9,8 +13,15 @@
 <AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1100.0" stylesheets="@card.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.front.Blog.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+<<<<<<< HEAD
         <ScrollPane layoutX="225.0" layoutY="-1.0" prefHeight="655.0" prefWidth="874.0">
             <content>
+=======
+        <ScrollPane layoutX="225.0" layoutY="43.0" prefHeight="546.0" prefWidth="874.0">
+
+            <content>
+
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
                 <GridPane fx:id="cardHolder" layoutX="12.0" layoutY="109.0" />
             </content>
         </ScrollPane>
@@ -55,5 +66,8 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
+      <Button fx:id="prevButton" layoutX="543.0" layoutY="607.0" mnemonicParsing="false" onAction="#goToPrevPage" text="prevPage" />
+      <Button fx:id="nextButton" layoutX="649.0" layoutY="607.0" mnemonicParsing="false" onAction="#goToNextPage" text="nextPage" />
+      <Button layoutX="996.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackTo" prefHeight="25.0" prefWidth="69.0" text="Back" />
     </children>
 </AnchorPane>

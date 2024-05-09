@@ -1,23 +1,16 @@
 package controller.Sponsoring;
 
-
-import controller.Controllers.User.AuthentificationController;
-import controller.front.Ecommerce.PasserCommandeContoller;
-import controller.front.Ecommerce.ShowPanier;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
+import model.Blog.Commentaire;
 import model.Ecommerce.Lignepanier;
 import model.Ecommerce.Panier;
 import model.Sponsoring.Produit;
@@ -28,43 +21,89 @@ import service.Sponsoring.ProduitService;
 
 import java.io.File;
 import java.io.IOException;
-
-import javafx.scene.paint.Color;
-import model.Sponsoring.Produit;
-import service.Sponsoring.ProduitService;
-import javafx.scene.layout.AnchorPane;
-
-import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
+import utils.Session;
 
 public class AfficherProduitFrontController {
-
-
     @FXML
     private Button afficherpanier;
-
 
     @FXML
     private FlowPane produitFlowPane;
 
+    @FXML
+    private ChoiceBox<String> categorieComboBox;
+
+    @FXML
+    private Pagination pagination;
+
+    private ProduitService ps = new ProduitService();
+    private List<Produit> produitList;
+
+    private static int ITEMS_PER_PAGE = 3;
+
+
     LignepanierService lignepanierService = new LignepanierService();
     PanierService panierService = new PanierService();
     CommandeService commandeService = new CommandeService();
-    private ProduitService ps = new ProduitService();
+
 
     @FXML
     public void initialize() {
-        try {
-            List<Produit> produitList = ps.select();
+        //System.out.println("useris" + Session.getSession().getUser().getId());
 
-            for (Produit produit : produitList) {
-                AnchorPane card = createProduitCard(produit);
-                produitFlowPane.getChildren().add(card);
+       // List<Commentaire> list = cs.fetchCommentaireByUserID(Session.getSession().getUser().getId());
+        try {
+            produitList = ps.select();
+
+            if (produitList.size() < ITEMS_PER_PAGE) {
+                ITEMS_PER_PAGE = produitList.size();
             }
+
+            pagination.setPageCount((int) Math.ceil((double) produitList.size() / ITEMS_PER_PAGE));
+            pagination.setPageFactory(this::createPage);
+
+            // Show navigation buttons
+            pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
+
+            // Add scroll event listener
+            pagination.setOnScroll(event -> {
+                if (event.getDeltaY() < 0) {
+                    pagination.setCurrentPageIndex(Math.min(pagination.getCurrentPageIndex() + 1, pagination.getPageCount() - 1));
+                } else {
+                    pagination.setCurrentPageIndex(Math.max(pagination.getCurrentPageIndex() - 1, 0));
+                }
+                event.consume();
+            });
         } catch (SQLException e) {
             System.err.println("Error loading products: " + e.getMessage());
         }
+    }
+
+
+
+
+    private AnchorPane createPage(int pageIndex) {
+        int fromIndex = pageIndex * ITEMS_PER_PAGE;
+        int toIndex = Math.min(fromIndex + ITEMS_PER_PAGE, produitList.size());
+        List<Produit> subList = produitList.subList(fromIndex, toIndex);
+
+        AnchorPane pageAnchorPane = new AnchorPane();
+        pageAnchorPane.setPrefSize(566, 520);
+
+        FlowPane pageFlowPane = new FlowPane();
+        pageFlowPane.setPrefWidth(566);
+        pageFlowPane.setPrefHeight(520);
+
+        for (Produit produit : subList) {
+            AnchorPane card = createProduitCard(produit);
+            pageFlowPane.getChildren().add(card);
+        }
+
+        pageAnchorPane.getChildren().add(pageFlowPane);
+
+        return pageAnchorPane;
     }
 
     private AnchorPane createProduitCard(Produit produit) {
@@ -112,11 +151,12 @@ public class AfficherProduitFrontController {
         newPriceLabel.setLayoutY(240);
         newPriceLabel.setTextFill(Color.BLACK);
         newPriceLabel.getStyleClass().add("produit-nouveau-prix");
+
         Button Ajouter = new Button("Ajouter");
         Ajouter.setLayoutX(15);
         Ajouter.setLayoutY(280);
         Ajouter.getStyleClass().add("evenement-reserver-button");
-
+        card.getChildren().addAll(imageView, nomLabel, marqueLabel, prixLabel, newPriceLabel,Ajouter);
 
         Ajouter.setOnAction(event -> {
             try {
@@ -124,7 +164,7 @@ public class AfficherProduitFrontController {
                 if (panierActifId == -1) {
                     System.out.println("panier cruer"+panierActifId);
                     Panier panier = new Panier();
-                   // System.out.println("fi prod"+authentificationController.getUtilisateurConnecte().getId());
+                    // System.out.println("fi prod"+authentificationController.getUtilisateurConnecte().getId());
                     panier.setIdUser(1);
                     panier.setPrixTotal(0);
                     panier.setStatut("En Cour");
@@ -159,10 +199,28 @@ public class AfficherProduitFrontController {
                 throw new RuntimeException(e);
             }
         });
-
-        card.getChildren().addAll(imageView, nomLabel, marqueLabel, prixLabel, newPriceLabel, Ajouter);
         return card;
     }
+
+
+    @FXML
+    private void filterByCategory() {
+        try {
+            String selectedCategory = categorieComboBox.getValue();
+            if (selectedCategory.equals("Toutes les catégories")) {
+                produitList = ps.select();
+            } else {
+                produitList = ps.selectByCategory(selectedCategory);
+            }
+
+            pagination.setPageCount((int) Math.ceil((double) produitList.size() / ITEMS_PER_PAGE));
+            pagination.setCurrentPageIndex(0); // Go to the first page
+            pagination.setPageFactory(this::createPage); // Update the displayed products
+        } catch (SQLException e) {
+            System.err.println("Error loading products: " + e.getMessage());
+        }
+    }
+
     @FXML
     void afficherpanier(ActionEvent event) {
         try {
@@ -174,12 +232,9 @@ public class AfficherProduitFrontController {
             alert.setContentText("Voulez-vous vraiment afficher le panier?");
             alert.showAndWait();
 
-            // Modification de la scène pour afficher le panier
             afficherpanier.getScene().setRoot(root);
         } catch(IOException e) {
             System.err.println("Error loading PasserCommande.fxml: " + e.getMessage());
         }
     }
-
-
 }

@@ -129,7 +129,7 @@ public class AjouterProduitController {
 
         Sponsor sponsor = sponsorChoiceBox.getValue();
 
-        Produit produit = new Produit(0, nom, prix, tauxRemise, categorie, "", description, sponsor);
+        Produit produit = new Produit(0, nom, prix, tauxRemise, categorie, imagePath, description, sponsor);
         ProduitService produitService = new ProduitService();
         try {
             produitService.add(produit);
@@ -152,6 +152,8 @@ public class AjouterProduitController {
     }
 
 
+    private String imagePath; // Define a class-level variable to store the image path
+
     @FXML
     void handleUploadAction() {
         FileChooser fileChooser = new FileChooser();
@@ -163,9 +165,8 @@ public class AjouterProduitController {
                 Path targetPath = Files.copy(file.toPath(), new File(targetDir + file.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
                 imageView.setImage(new Image("file:" + targetDir + file.getName()));
 
-                // Set the image path in the Produit object
-                Produit produit = new Produit();
-                produit.setImage(targetDir + file.getName());
+                // Set the image path in the class-level variable
+                imagePath = targetDir + file.getName();
             } catch (IOException e) {
                 showAlert("Erreur", "Erreur lors de l'upload de l'image : " + e.getMessage());
             }

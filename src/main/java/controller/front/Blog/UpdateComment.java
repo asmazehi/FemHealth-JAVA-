@@ -3,6 +3,9 @@ package controller.front.Blog;
 import controller.back.Blog.AfficherPublicationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
@@ -11,11 +14,15 @@ import model.Blog.Commentaire;
 import model.Blog.Publication;
 import service.Blog.CommentaireService;
 import javafx.fxml.Initializable;
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
+
 import javafx.fxml.Initializable;
 public class UpdateComment {
 
@@ -82,7 +89,7 @@ public class UpdateComment {
 
             if (!commentaires.isEmpty()) {
                 Commentaire com = commentaires.get(idComnnt);
-                descriptionFld.setText(com.getDescription());
+                descriptionFld.setText(com.getDescription()+"is updated");
                 System.out.println("aaa"+com.getDescription());
             } else {
                 descriptionFld.setText("Aucun commentaire trouvé pour cet utilisateur.");
@@ -90,7 +97,20 @@ public class UpdateComment {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }public void initialize() {
+
+    }public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeDetailsCom();
+    }
+    @FXML
+    void BackTo(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/UserComments.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) descriptionFld.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

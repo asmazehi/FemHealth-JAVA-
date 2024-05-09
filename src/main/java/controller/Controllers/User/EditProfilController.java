@@ -1,11 +1,9 @@
 package controller.Controllers.User;
 
+
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,8 +18,9 @@ import utils.PasswordUtils;
 
 public class EditProfilController {
 
-    @FXML
-    private TextField EmailTF;
+    public Label labelEmailFX;
+//    @FXML
+//    private TextField EmailTF;
 
     @FXML
     private CheckBox changemdp;
@@ -52,7 +51,7 @@ public class EditProfilController {
 
     public void setData(Utilisateur currentUser){
         this.currentUser = currentUser;
-        EmailTF.setText(currentUser.getEmail());
+        labelEmailFX.setText(currentUser.getEmail());
     }
 
     @FXML
@@ -70,7 +69,7 @@ public class EditProfilController {
 
     @FXML
     private void ModifierInfo() {
-        String email = EmailTF.getText();
+
         String motDePasseActuel = mdpAC_TF.getText();
         String nouveauMotDePasse = mdpNV_TF.getText();
         String confirmationMotDePasse = mdpC_TF.getText();
@@ -80,36 +79,33 @@ public class EditProfilController {
             return;
         }
 
-        if (email.equals(currentUser.getEmail())) {
-            if (email.isEmpty() || motDePasseActuel.isEmpty() || nouveauMotDePasse.isEmpty() || confirmationMotDePasse.isEmpty()) {
-                showAlert("Champs requis", "Veuillez remplir tous les champs.");
-                return;
-            }
-            if (PasswordUtils.verifyPassword(motDePasseActuel, currentUser.getMdp())) {
-                if (nouveauMotDePasse.equals(confirmationMotDePasse)) {
-                    currentUser.setMdp(PasswordUtils.hashPasswrd(nouveauMotDePasse));
-                    try {
-                        utilisateurService.update(currentUser);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePageClient.fxml"));
-                        Parent root = loader.load();
-                        Stage stage = (Stage) ConfirmationTF.getScene().getWindow();
-                        stage.setScene(new Scene(root));
-                        stage.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    showAlert("Confirmation invalide", "La confirmation du mot de passe ne correspond pas au nouveau mot de passe.");
+        if (motDePasseActuel.isEmpty() || nouveauMotDePasse.isEmpty() || confirmationMotDePasse.isEmpty()) {
+            showAlert("Champs requis", "Veuillez remplir tous les champs.");
+            return;
+        }
+
+        if (PasswordUtils.verifyPassword(motDePasseActuel, currentUser.getMdp())) {
+            if (nouveauMotDePasse.equals(confirmationMotDePasse)) {
+                currentUser.setMdp(PasswordUtils.hashPasswrd(nouveauMotDePasse));
+                try {
+                    utilisateurService.update(currentUser);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePageClient.fxml"));
+                    Parent root = loader.load();
+                    Stage stage = (Stage) ConfirmationTF.getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             } else {
-                showAlert("Mot de passe incorrect", "Le mot de passe actuel est incorrect.");
+                showAlert("Confirmation invalide", "La confirmation du mot de passe ne correspond pas au nouveau mot de passe.");
             }
         } else {
-            showAlert("Adresse e-mail incorrecte", "L'adresse e-mail actuelle est incorrecte.");
+            showAlert("Mot de passe incorrect", "Le mot de passe actuel est incorrect.");
         }
     }
 

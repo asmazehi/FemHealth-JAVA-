@@ -55,5 +55,3 @@ public class HomePageController {
         System.out.println("Initialisation de la page d'accueil...");
     }
 }
-
-

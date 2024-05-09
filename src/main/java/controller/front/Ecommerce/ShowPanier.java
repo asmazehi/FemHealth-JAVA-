@@ -61,6 +61,8 @@ public class ShowPanier implements Initializable {
 
     @FXML
     private Label TotalProduit;
+    @FXML
+    private Button BackEvent;
 
     @FXML
     private VBox vBoxContainer;
@@ -246,5 +248,17 @@ public class ShowPanier implements Initializable {
         } catch (IOException e) {
             System.err.println("Error loading PasserCommande.fxml: " + e.getMessage());
         }
+    }
+    @FXML
+    void BackEvent(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        BackEvent.getScene().setRoot(root);
     }
 }

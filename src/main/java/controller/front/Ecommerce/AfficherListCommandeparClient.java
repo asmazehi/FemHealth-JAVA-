@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -29,6 +30,8 @@ public class AfficherListCommandeparClient {
 
     @FXML
     private URL location;
+    @FXML
+    private Button BackEvent;
 
     @FXML
     private Label AdressLabel;
@@ -63,6 +66,7 @@ public class AfficherListCommandeparClient {
     @FXML
     private VBox vBoxContainer;
   int idClient=1;
+
     PanierService panierService= new PanierService();
     CommandeService commandeService= new CommandeService();
     List<Commande> objectList;
@@ -157,7 +161,18 @@ public class AfficherListCommandeparClient {
         return hbox;
     }
 
+    @FXML
+    void BackEvent(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+        BackEvent.getScene().setRoot(root);
+    }
 }
 
 

@@ -6,7 +6,11 @@
     -fx-background-color: rgba(0,0,0,0);
 }
 .round-layout{
+<<<<<<< HEAD
     -fx-border-radius:60;
+=======
+    -fx-border-radius:80;
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
     -fx-background-color: #ececec;
 }
 .border{

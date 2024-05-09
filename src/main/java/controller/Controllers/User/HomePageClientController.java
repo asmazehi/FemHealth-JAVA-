@@ -1,7 +1,5 @@
 package controller.Controllers.User;
 
-import controller.Sponsoring.AfficherProduitFrontController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,8 +11,6 @@ import model.User.Utilisateur;
 import java.io.IOException;
 
 public class HomePageClientController {
-    @FXML
-    private Button testprod;
 
     @FXML
     private Button gererProfilButton;
@@ -61,19 +57,5 @@ public class HomePageClientController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    void testprod(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Sponsoring/AfficherProduitF.fxml"));
-            Parent root = loader.load();
-            AfficherProduitFrontController controller = loader.getController();
-
-            testprod.getScene().setRoot(root);
-        } catch (IOException e) {
-            System.err.println("Error loading PasserCommande.fxml: " + e.getMessage());
-        }
-
     }
 }

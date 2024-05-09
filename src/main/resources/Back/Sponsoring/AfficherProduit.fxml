@@ -2,15 +2,22 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<<<<<<< HEAD
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
+=======
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+>>>>>>> 7c70e6ccfa32f4fc7ed91c5b17267548a8a3699d
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.shape.Line?>
 <AnchorPane prefHeight="439.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Sponsoring.AfficherProduitController">
     <children>
         <AnchorPane prefHeight="591.0" prefWidth="208.0" style="-fx-background-color: #C291A4;">
@@ -61,13 +68,13 @@
                         <Font size="32.0" />
                     </font>
                 </Label>
-                <TableView fx:id="tableView" layoutX="45.0" layoutY="90.0" prefHeight="258.0" prefWidth="522.0">
+                <TableView fx:id="tableView" layoutX="10.0" layoutY="90.0" prefHeight="386.0" prefWidth="610.0">
                     <columns>
                         <TableColumn fx:id="nomP" prefWidth="83.2" text="Nom" />
                         <TableColumn fx:id="prixP" prefWidth="50.4" text="Prix" />
                         <TableColumn fx:id="tauxRemiseP" prefWidth="111.2" text="Taux de Remise" />
-                        <TableColumn fx:id="categorieP" prefWidth="64.8" text="Catégorie" />
-                        <TableColumn fx:id="descriptionP" prefWidth="120.8" text="Description" />
+                        <TableColumn fx:id="categorieP" prefWidth="68.800048828125" text="Catégorie" />
+                        <TableColumn fx:id="descriptionP" prefWidth="96.79998779296875" text="Description" />
                         <TableColumn fx:id="imagePathP" prefWidth="128.0" text="Image" />
                         <TableColumn fx:id="sponsor" prefWidth="128.0" text="Sponsor" />
                     </columns>
@@ -75,9 +82,14 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
-                <Button layoutX="505.0" layoutY="358.0" mnemonicParsing="false" onAction="#supprimerProduit" text="Supprimer" />
-                <Button layoutX="45.0" layoutY="358.0" mnemonicParsing="false" onAction="#naviguerVersAjouterProduit" text="Ajouter un Produit" />
-                <Button layoutX="434.0" layoutY="358.0" mnemonicParsing="false" onAction="#modifierProduit" text="Modifier" />
+                <Button layoutX="495.0" layoutY="484.0" mnemonicParsing="false" onAction="#supprimerProduit" text="Supprimer" />
+                <Button layoutX="45.0" layoutY="484.0" mnemonicParsing="false" onAction="#naviguerVersAjouterProduit" text="Ajouter un Produit" />
+                <Button layoutX="420.0" layoutY="484.0" mnemonicParsing="false" onAction="#modifierProduit" text="Modifier" />
+                <HBox layoutX="14.0" layoutY="44.0" spacing="10.0">
+                    <TextField fx:id="searchField" promptText="Search..." />
+                    <Button onAction="#clearSearch" text="Clear" />
+                </HBox>
+
             </children>
         </Pane>
     </children>

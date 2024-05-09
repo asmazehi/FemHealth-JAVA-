@@ -70,6 +70,8 @@
                 <Button layoutX="505.0" layoutY="358.0" mnemonicParsing="false" onAction="#supprimerSponsor" text="Supprimer" />
                 <Button layoutX="45.0" layoutY="358.0" mnemonicParsing="false" onAction="#naviguerVersAjouterSponsor" text="Ajouter un Sponsor" />
                 <Button layoutX="434.0" layoutY="358.0" mnemonicParsing="false" onAction="#modifierSponsor" text="Modifier" />
+                <Button layoutX="343.0" layoutY="358.0" mnemonicParsing="false" onAction="#genererPDF" text="Générer PDF" />
+                <Button layoutX="273.0" layoutY="358.0" mnemonicParsing="false" onAction="#voirStat" text="Voir Stat" />
             </children>
         </Pane>
     </children>

@@ -27,7 +27,7 @@
             </effect>
             <children>
                 <VBox fx:id="vBoxContainer" layoutX="13.0" layoutY="86.0" prefHeight="207.0" prefWidth="576.0" spacing="5.0" />
-                <Button fx:id="produitpage" layoutX="37.0" layoutY="310.0" mnemonicParsing="false" onAction="#showproducts" prefHeight="32.0" prefWidth="132.0" style="-fx-opacity: #000000;" text="&lt;Continue shopping" textFill="#230a1e" />
+                <Button fx:id="produitpage" layoutX="25.0" layoutY="310.0" mnemonicParsing="false" onAction="#showproducts" prefHeight="32.0" prefWidth="132.0" style="-fx-opacity: #000000;" text="&lt;Continue shopping" textFill="#230a1e" />
                 <Label contentDisplay="TOP" layoutX="5.0" layoutY="-8.0" prefHeight="45.0" prefWidth="259.0" style="-fx-font-size: 25px; -fx-opacity: 2; -fx-font-weight: 5;" text="Shopping Cart" textFill="#ec1fbc">
                     <effect>
                         <Blend mode="LIGHTEN" />
@@ -74,6 +74,7 @@
                 <Line endX="426.4000244140625" layoutX="157.0" layoutY="54.0" startX="-148.00001525878906" startY="1.52587890625E-5" stroke="#0000002b" />
                 <Line endX="426.4000244140625" layoutX="157.0" layoutY="79.0" startX="-148.00001525878906" startY="1.52587890625E-5" stroke="#0000003e" />
                 <HBox fx:id="idcard" focusTraversable="true" layoutX="2.0" layoutY="86.0" prefHeight="25.0" prefWidth="592.0" style="-fx-opacity: 10;" />
+            <Button fx:id="BackEvent" layoutX="160.0" layoutY="310.0" mnemonicParsing="false" onAction="#BackEvent" prefHeight="32.0" prefWidth="116.0" text="Back To Event" />
             </children>
         </Pane>
         <Pane layoutX="626.0" layoutY="100.0" prefHeight="356.0" prefWidth="174.0" style="-fx-background-color: #FFFFFF;;">
