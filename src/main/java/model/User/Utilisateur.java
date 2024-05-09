@@ -28,7 +28,8 @@ public class Utilisateur {
         this.nom = nom;
         this.email = email;
         this.password = mdp;
-        this.roles = "[\"ROLE_CLIENT\"]\n";
+
+        this.roles = "[\"ROLE_CLIENT\"]";
         Date DT=new Date();
         this.registered_at=new java.sql.Date(DT.getTime());
     }
@@ -53,7 +54,9 @@ public class Utilisateur {
         this.nom = nom;
         this.email = email;
         this.password = mdp;
-        this.roles = "[\"ROLE_CLIENT\"]\n";
+
+
+        this.roles = "[\"ROLE_CLIENT\"]";
         this.active=1;
         this.registered_at= new Date();
     }

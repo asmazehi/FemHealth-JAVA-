@@ -28,8 +28,9 @@ import java.util.List;
 
 public class AffichageEventF {
 
-    @FXML
+   
     private ChoiceBox<String> ECommerce;
+
 
     @FXML
     private FlowPane eventFlowPane;
@@ -69,6 +70,20 @@ public class AffichageEventF {
         });
         loadEventTypes();
 
+        ObservableList<String> admin = FXCollections.observableArrayList("Se déconnecter", "Éditer le profil");
+        choiceBoxMonCompte.setItems(admin);
+        choiceBoxMonCompte.setOnAction(event -> {
+            String selectedItem = choiceBoxMonCompte.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                if (selectedItem.equals("Se déconnecter")) {
+                    navigateToHomePage();
+                } else if (selectedItem.equals("Éditer le profil")) {
+                    navigateToEditProfilPage();
+                }
+            }
+        });
+
+
         choiceBoxMonCompte.setItems(FXCollections.observableArrayList("Se déconnecter", "Gérer le profil"));
 
 
@@ -88,6 +103,7 @@ public class AffichageEventF {
                     break;
             }
         });
+
 
 
 
@@ -179,7 +195,9 @@ public class AffichageEventF {
 
             //AnchorPane root = (AnchorPane) scene.getRoot();
     }
-
+    public void SetData(Utilisateur user){
+        this.CurrentUser = user;
+    }
     private void loadEventsByType(String type) throws SQLException {
         eventFlowPane.getChildren().clear(); // Effacer les événements précédents
 
@@ -377,7 +395,5 @@ public class AffichageEventF {
             e.printStackTrace();
         }
     }
-
-
     // Other methods for handling navigation to different pages
 }

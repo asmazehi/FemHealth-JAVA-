@@ -5,6 +5,7 @@ import utils.MyDataBase;
 
 import java.sql.Connection;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 public class PublicationService {
@@ -154,4 +155,27 @@ public class PublicationService {
         }
         return totalCount;
     }
+
+    public List<Publication> filtrerParDate(LocalDate date) throws SQLException {
+        List<Publication> publicationsFiltrees = new ArrayList<>();
+        String query = "SELECT * FROM publication WHERE DATE(datepub) = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setDate(1, java.sql.Date.valueOf(date));
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            Publication publication = new Publication();
+            publication.setId(resultSet.getInt("id"));
+            publication.setTitre(resultSet.getString("titre"));
+            publication.setContenu(resultSet.getString("contenu"));
+            publication.setImage(resultSet.getString("image"));
+            publication.setDatepub(resultSet.getDate("datepub"));
+            publicationsFiltrees.add(publication);
+        }
+        return publicationsFiltrees;
+    }
+
+
 }
+
+}
+
