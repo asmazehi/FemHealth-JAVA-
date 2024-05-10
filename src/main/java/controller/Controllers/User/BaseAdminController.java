@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import javafx.scene.control.Alert;
+import utils.Session;
 
 public class BaseAdminController {
 
@@ -45,7 +46,7 @@ public class BaseAdminController {
         ObservableList<String> optionsPublication = FXCollections.observableArrayList("Publications", "Commentaires");
         ObservableList<String> optionsEvents = FXCollections.observableArrayList("Events", "Reservation", "Type");
         ObservableList<String> optionsSponsor = FXCollections.observableArrayList("Produits", "Sponsor");
-        Sponsor.setItems(optionsPublication);
+        Sponsor.setItems(optionsSponsor);
         Sponsor.setOnAction(event -> {
             String selectedItem = Sponsor.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
@@ -97,7 +98,7 @@ public class BaseAdminController {
 
     private void redirectToSponsor() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AfficherTypeB.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherSponsor.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -109,7 +110,7 @@ public class BaseAdminController {
 
     private void redirectToProduit() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherTypeB.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Sponsoring/AfficherProduit.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -121,7 +122,7 @@ public class BaseAdminController {
 
     private void redirectToType() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AfficherTypeB.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back.Event/AfficherSponsor.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -180,6 +181,7 @@ public class BaseAdminController {
     @FXML
     private void redirectToHomePage() {
         try {
+            Session.clearSession();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePage.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();

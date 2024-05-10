@@ -13,18 +13,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-
 public class UtilisateurService implements IService<Utilisateur> {
-
     Connection connection;
-
-
     public UtilisateurService() {
         connection = MyDataBase.getInstance().getConnection();
     }
-
-
     public Utilisateur afficheUser(int id) {
         Utilisateur p = new Utilisateur();
         try {
@@ -64,14 +57,10 @@ public class UtilisateurService implements IService<Utilisateur> {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-
         }
         return utilisateur;
     }
-
-
     //class ValidationUtil {
-
     //public static boolean estChaineValide(String chaine) {
     // Vérifier si la chaîne est vide ou nulle
     //if (chaine == null || chaine.trim().isEmpty()) {
@@ -98,13 +87,10 @@ public class UtilisateurService implements IService<Utilisateur> {
             PreparedStatement statement = connection.prepareStatement(req);
             statement.setString(1, utilisateur.getNom());
             statement.setString(2, utilisateur.getMail());
-
             statement.setString(3, PasswordUtils.hashPasswrd(utilisateur.getMdp()));
             statement.setString(4,  "[\"ROLE_CLIENT\"]");
             statement.setDate(5, new Date(System.currentTimeMillis()));
             statement.setInt(6, 1);
-
-
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("Utilisateur inséré");
@@ -114,12 +100,6 @@ public class UtilisateurService implements IService<Utilisateur> {
             throw e;
         }
     }
-
-
-
-
-
-
     @Override
     public void update(Utilisateur utilisateur) throws SQLException {
 

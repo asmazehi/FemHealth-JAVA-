@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import model.User.Utilisateur;
 import model.events.Evenement;
 import service.events.EvenementC;
+import utils.Session;
 
 import java.io.File;
 import java.io.IOException;
@@ -276,12 +277,8 @@ public class AffichageEventF {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageResF.fxml"));
             AnchorPane reservationsPage = loader.load();
-
-            // Access the scene and root node of the current anchor pane
             Scene scene = eventFlowPane.getScene();
             AnchorPane root = (AnchorPane) scene.getRoot();
-
-            // Replace the content of the root with the reservations page
             root.getChildren().setAll(reservationsPage);
         } catch (IOException e) {
             e.printStackTrace();
@@ -301,14 +298,11 @@ public class AffichageEventF {
     }
     private void navigateToHomePage() {
         try {
+            Session.clearSession();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePage.fxml"));
             AnchorPane homePage = loader.load();
-
-            // Access the scene and root node of the current anchor pane
             Scene scene = eventFlowPane.getScene();
             AnchorPane root = (AnchorPane) scene.getRoot();
-
-            // Replace the content of the root with the home page
             root.getChildren().setAll(homePage);
         } catch (IOException e) {
             e.printStackTrace();
@@ -320,10 +314,13 @@ public class AffichageEventF {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/EditProfil.fxml"));
             Parent root = loader.load();
             EditProfilController editProfilController = loader.getController();
-            editProfilController.setData(CurrentUser); // Passer l'utilisateur actuellement connecté
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
+            editProfilController.setData(CurrentUser);
+            Scene scene = eventFlowPane.getScene();
+            Stage currentStage = (Stage) scene.getWindow();
+            currentStage.close();
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -340,8 +337,6 @@ public class AffichageEventF {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //Parent root = loader.load();
-        //AnchorPane pageProduct = loader.load();
         Scene scene = eventFlowPane.getScene();
 
     }

@@ -162,6 +162,10 @@ public class UserComments {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/detailsPublication.fxml"));
             Parent root = loader.load();
+            DetailsController controller = loader.getController();
+
+            // Appeler une méthode dans le contrôleur pour passer l'ID de la publication
+            controller.setIdpub(controller.idpub);
             Stage stage = (Stage) recherche.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

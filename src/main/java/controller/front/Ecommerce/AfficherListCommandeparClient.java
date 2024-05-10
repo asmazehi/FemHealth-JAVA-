@@ -74,7 +74,7 @@ public class AfficherListCommandeparClient {
 
     {
         try {
-            objectList = commandeService.selectCommandesByClientId(Session.getSession().getUser().getId());
+            objectList = commandeService.selectCommandesByClientId(utils.Session.getSession().getUser().getId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -172,5 +172,3 @@ public class AfficherListCommandeparClient {
         BackEvent.getScene().setRoot(root);
     }
 }
-
-

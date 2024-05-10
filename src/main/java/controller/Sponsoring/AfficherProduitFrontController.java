@@ -166,7 +166,7 @@ public class AfficherProduitFrontController {
                     System.out.println("panier cruer"+panierActifId);
                     Panier panier = new Panier();
                     // System.out.println("fi prod"+authentificationController.getUtilisateurConnecte().getId());
-                    panier.setIdUser(Session.getSession().getUser().getId());
+                    panier.setIdUser(utils.Session.getSession().getUser().getId());
 
                     panier.setPrixTotal(0);
                     panier.setStatut("En Cour");
