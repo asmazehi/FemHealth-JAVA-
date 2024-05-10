@@ -90,16 +90,7 @@ public class UtilisateurService implements IService<Utilisateur> {
     ////public boolean isStringLength(String str) {
     // return str.length() < 8;
     //}
-
-
-
-
-
-
-
-
     //}
-
     @Override
     public void add(Utilisateur utilisateur) throws SQLException {
         try {
@@ -109,9 +100,9 @@ public class UtilisateurService implements IService<Utilisateur> {
             statement.setString(2, utilisateur.getMail());
 
             statement.setString(3, PasswordUtils.hashPasswrd(utilisateur.getMdp()));
-            statement.setString(4, utilisateur.getRole());
+            statement.setString(4,  "[\"ROLE_CLIENT\"]");
             statement.setDate(5, new Date(System.currentTimeMillis()));
-            statement.setInt(6, utilisateur.getActive());
+            statement.setInt(6, 1);
 
 
             int rowsInserted = statement.executeUpdate();
