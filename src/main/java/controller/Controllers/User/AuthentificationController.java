@@ -72,10 +72,12 @@ public class AuthentificationController {
                 "        data-action='submit'>Submit</button>","text/html");*/
 
     }
+
     @FXML
     void kiker(ActionEvent event) {
 
     }
+
     @FXML
     private void seConnecter() {
         if (!isRobotVerified && !RobotCheckBox.isSelected()) {
@@ -163,12 +165,11 @@ public class AuthentificationController {
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-
-            // Réinitialiser la variable isRobotVerified lorsque vous revenez à ImNotRobotFXML.fxml
             stage.setOnHidden(event -> {
                 isRobotVerified = false;
-                // Vous pouvez également réinitialiser les champs de texte et d'autres éléments de l'interface utilisateur ici
-            });
+                   });
+            Stage currentStage = (Stage) seConnecterTF.getScene().getWindow();
+            currentStage.close();
 
             stage.show();
         } catch (IOException e) {
@@ -195,9 +196,11 @@ public class AuthentificationController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/BaseAdmin.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) seConnecterTF.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+
+            Stage currentStage = (Stage) seConnecterTF.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+            currentStage.close();
+            currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -207,13 +210,13 @@ public class AuthentificationController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
             Parent root = loader.load();
-
             AffichageEventF controller = loader.getController();
             controller.SetData(CurrentUser);
-
-            Stage stage = (Stage) seConnecterTF.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Scene scene = seConnecterTF.getScene();
+            Stage currentStage = (Stage) scene.getWindow();
+            currentStage.close();
+            currentStage.setScene(new Scene(root));
+            currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -226,16 +229,18 @@ public class AuthentificationController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     private boolean isValidEmail(String email) {
         String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
         return email.matches(emailPattern);
     }
+
     @FXML
     private void motDePasseOublie() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/ChangerMotDePasse.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) mdpOublieTF.getScene().getWindow();
+            Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
@@ -248,21 +253,24 @@ public class AuthentificationController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePage.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) retour_TF.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Stage currentStage = (Stage) retour_TF.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+            currentStage.close();
+            currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public void inscription() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Inscription.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) inscireTF.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Stage currentStage = (Stage) inscireTF.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+            currentStage.close();
+            currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

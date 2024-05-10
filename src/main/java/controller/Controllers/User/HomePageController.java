@@ -30,9 +30,11 @@ public class HomePageController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Inscription.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) signFX.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Stage currentStage = (Stage) signFX.getScene().getWindow();
+            currentStage.close();
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,9 +44,11 @@ public class HomePageController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) signFX.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Stage currentStage = (Stage) signFX.getScene().getWindow();
+            currentStage.close();
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

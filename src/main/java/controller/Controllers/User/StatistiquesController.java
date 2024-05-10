@@ -50,20 +50,13 @@ public class StatistiquesController {
         updateStat2FX();
     }
     private void updateStat1FX() {
-        // Réinitialiser les données du graphique
+
         stat1FX.getData().clear();
 
         try {
-            // Récupérer les utilisateurs depuis la base de données
             List<Utilisateur> utilisateurs = utilisateurService.select();
-
-            // Initialiser une série de données pour le graphique
             XYChart.Series<String, Integer> series = new XYChart.Series<>();
-
-            // Initialiser une structure de données pour stocker le compte d'utilisateurs par jour
             Map<String, Integer> userCountByDate = new HashMap<>();
-
-            // Parcourir les utilisateurs pour calculer le compte par jour
             for (Utilisateur utilisateur : utilisateurs) {
                 java.sql.Date registrationDate = utilisateur.getRegistered_at();
                 if (registrationDate != null) {
@@ -71,13 +64,9 @@ public class StatistiquesController {
                     userCountByDate.put(dateString, userCountByDate.getOrDefault(dateString, 0) + 1);
                 }
             }
-
-            // Ajouter les données à la série
             for (Map.Entry<String, Integer> entry : userCountByDate.entrySet()) {
                 series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
             }
-
-            // Ajouter la série au graphique
             stat1FX.getData().add(series);
 
         } catch (SQLException e) {
@@ -88,14 +77,10 @@ public class StatistiquesController {
 
 
     private void updateStat2FX() {
-        // Réinitialiser les données du graphique
-        stat2FX.getData().clear();
+       stat2FX.getData().clear();
 
         try {
-            // Récupérer les utilisateurs depuis la base de données
             List<Utilisateur> utilisateurs = utilisateurService.select();
-
-            // Compter les utilisateurs actifs et inactifs
             int activeCount = 0;
             int inactiveCount = 0;
             for (Utilisateur utilisateur : utilisateurs) {
@@ -105,8 +90,6 @@ public class StatistiquesController {
                     inactiveCount++;
                 }
             }
-
-            // Ajouter les données au graphique
             stat2FX.getData().add(new PieChart.Data("Actifs", activeCount));
             stat2FX.getData().add(new PieChart.Data("Inactifs", inactiveCount));
             activeLabel.setText("Actifs : " + activeCount);

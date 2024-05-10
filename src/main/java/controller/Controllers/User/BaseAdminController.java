@@ -195,10 +195,16 @@ public class BaseAdminController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/EditProfil.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) AnchorPaneTF.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Scene scene = new Scene(root);
+            Stage currentStage = (Stage) AnchorPaneTF.getScene().getWindow();
+            currentStage.close();
+
+
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.show();
         } catch (IOException e) {
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de chargement");
             alert.setHeaderText("Impossible de charger la page d'édition de profil");
@@ -212,9 +218,12 @@ public class BaseAdminController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/GererUtilisateur.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) GererUtilisateursTF.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Scene scene = new Scene(root);
+            Stage currentStage = (Stage) GererUtilisateursTF.getScene().getWindow();
+            currentStage.close();
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

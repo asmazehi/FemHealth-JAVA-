@@ -33,8 +33,6 @@ public class ChangerMotDePasseController {
             afficherAlerte("Veuillez entrer votre adresse e-mail.");
             return;
         }
-
-        // Vérification de l'existence de l'email dans la base de données
         if (!emailExiste(email)) {
             afficherAlerte("Cet e-mail n'est pas enregistré dans notre base de données.");
             return;
@@ -44,9 +42,11 @@ public class ChangerMotDePasseController {
             Parent root = loader.load();
             ResetPasswordController resetPasswordController = loader.getController();
             resetPasswordController.setEmail(email);
-            Stage stage = (Stage) retour_TF.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Stage currentStage = (Stage) retour_TF.getScene().getWindow();
+            currentStage.close();
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,9 +59,12 @@ public class ChangerMotDePasseController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) retour_TF.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Scene scene = new Scene(root);
+            Stage currentStage = (Stage) retour_TF.getScene().getWindow();
+            currentStage.close();
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

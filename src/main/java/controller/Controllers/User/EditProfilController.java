@@ -72,7 +72,6 @@ public class EditProfilController {
     @FXML
     private void ModifierInfo() {
         if (currentUser == null) {
-            // Gérez le cas où currentUser est null, par exemple, affichez un message d'erreur ou revenez en arrière
             System.err.println("Erreur : currentUser est null.");
             return;
         }
@@ -128,9 +127,11 @@ public class EditProfilController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front.Event/AffichageEventF.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) retour_TF.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Stage currentStage = (Stage) retour_TF.getScene().getWindow();
+            currentStage.close();
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

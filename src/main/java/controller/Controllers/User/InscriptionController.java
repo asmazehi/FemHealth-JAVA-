@@ -46,8 +46,6 @@ public class InscriptionController {
         String email = EmailTF.getText();
         String mdp = mdpTF.getText();
         String name = Nom.getText();
-
-        // Validation de la saisie
         if (!validateEmail(email) || !validatePassword(mdp)) {
             return;
         }

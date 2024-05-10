@@ -105,7 +105,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void setPublication(Publication publication) {
-        // Configure UI based on publication details
+
     }
     @FXML
     void BackTo(ActionEvent event) {

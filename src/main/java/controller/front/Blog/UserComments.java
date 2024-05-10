@@ -112,7 +112,6 @@ public class UserComments {
 
             List<Commentaire> list = cs.fetchCommentaireByUserID(Session.getSession().getUser().getId());
 
-            // Filtrer les commentaires en fonction de leur état actif
             FilteredList<Commentaire> filteredCommentaires = new FilteredList<>(FXCollections.observableArrayList(list));
             filteredCommentaires.setPredicate(Commentaire::isActive); // Seuls les commentaires actifs seront affichés
 

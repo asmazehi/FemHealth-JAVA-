@@ -88,8 +88,6 @@ public class GererUtilisateurController {
     @FXML
     private void initialize() {
         chargerUtilisateurs();
-
-        // Configuration des cellules de la TableView
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         activeCol.setCellValueFactory(new PropertyValueFactory<>("active"));
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -279,11 +277,18 @@ public class GererUtilisateurController {
     @FXML
     private void deconnecter() {
         try {
+            // Charger le fichier FXML de la page d'accueil
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/HomePage.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) btnDeconnecter.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+
+            // Fermer la fenêtre actuelle
+            Stage currentStage = (Stage) btnDeconnecter.getScene().getWindow();
+            currentStage.close();
+
+            // Afficher la nouvelle page dans une nouvelle fenêtre
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -291,11 +296,18 @@ public class GererUtilisateurController {
 
     public void retour() {
         try {
+            // Charger le fichier FXML de la page BaseAdmin
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/BaseAdmin.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) retour_TF.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+
+            // Fermer la fenêtre actuelle
+            Stage currentStage = (Stage) retour_TF.getScene().getWindow();
+            currentStage.close();
+
+            // Afficher la nouvelle page dans une nouvelle fenêtre
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -326,11 +338,18 @@ public class GererUtilisateurController {
 
     public void statistiques() {
         try {
+            // Charger le fichier FXML de la page de statistiques
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Statistiques.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) statistiquesFX.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+
+            // Fermer la fenêtre actuelle
+            Stage currentStage = (Stage) statistiquesFX.getScene().getWindow();
+            currentStage.close();
+
+            // Afficher la nouvelle page dans une nouvelle fenêtre
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

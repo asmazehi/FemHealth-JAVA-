@@ -31,8 +31,8 @@
             </font>
         </Label>
         <Line endX="100.0" layoutX="107.0" layoutY="218.0" startX="-100.0" />
-        <Button layoutX="517.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleLoginInButtonAction" text="Login" />
-        <Button fx:id="signFX" layoutX="452.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleSignInButtonAction" text="Sign up" />
+        <Button layoutX="517.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleLoginInButtonAction" prefHeight="25.0" prefWidth="79.0" stylesheets="@../styles.css" text="Login" />
+        <Button fx:id="signFX" layoutX="416.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleSignInButtonAction" prefHeight="25.0" prefWidth="93.0" stylesheets="@../styles.css" text="Sign up" />
         <ImageView fitHeight="86.0" fitWidth="65.0" layoutX="20.0" layoutY="408.0" pickOnBounds="true" preserveRatio="true" />
         <ImageView fitHeight="86.0" fitWidth="65.0" layoutX="95.0" layoutY="408.0" pickOnBounds="true" preserveRatio="true" />
     </children>

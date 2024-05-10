@@ -37,13 +37,13 @@ public class ResetPasswordController {
     private Label emailLabel;
 
     private String email;
-    private String sentCode; // Vous devez initialiser cette variable avec le code envoyé
+    private String sentCode;
 
     private UtilisateurService utilisateurService;
 
     public void setEmail(String email) {
         this.email = email;
-        emailLabel.setText(email); // Afficher l'e-mail dans le label
+        emailLabel.setText(email);
     }
 
     public void initialize() {
@@ -55,22 +55,17 @@ public class ResetPasswordController {
     private void Confirmer() {
         String password = mdp1TF.getText();
         String confirmPassword = mdp2TF.getText();
-        String verificationCode = generateVerificationCode(); // Générer le code de vérification
+        String verificationCode = generateVerificationCode();
 
         try {
-            sendResetPasswordEmail(email, verificationCode); // Envoi de l'email avec le code de vérification
+            sendResetPasswordEmail(email, verificationCode);
         } catch (MessagingException e) {
             e.printStackTrace();
             afficherAlerte("Une erreur s'est produite lors de l'envoi de l'email.");
             return;
         }
-
-        // Demander à l'utilisateur de saisir le code de vérification
         String enteredVerificationCode = askVerificationCode();
-
-        // Vérifier si le code de vérification saisi correspond au code envoyé
         if (enteredVerificationCode != null && verifyCode(enteredVerificationCode, verificationCode)) {
-            // Si les codes correspondent, vérifier les mots de passe et effectuer la mise à jour si nécessaire
             if (password.equals(confirmPassword)) {
                 try {
                     utilisateurService.updatePassword(email, password);
@@ -144,7 +139,7 @@ public class ResetPasswordController {
         Random random = new Random();
         StringBuilder codeBuilder = new StringBuilder();
         for (int i = 0; i < 6; i++) {
-            int digit = random.nextInt(10); // Générer un chiffre aléatoire entre 0 et 9
+            int digit = random.nextInt(10);
             codeBuilder.append(digit);
         }
 

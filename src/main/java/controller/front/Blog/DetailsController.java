@@ -79,12 +79,10 @@ public class DetailsController {
                 confirmationDialog.setContentText("Voulez-vous vraiment ajouter ce commentaire ?");
                 Optional<ButtonType> result = confirmationDialog.showAndWait();
                 if (result.isPresent() && result.get() == ButtonType.OK) {
-                    // Si l'utilisateur clique sur "OK", ajouter le commentaire
                     Commentaire commentaire = new Commentaire();
                     commentaire.setDescription(commentaireText);
 
-                    commentaire.setPublication(publicationSelectionné); // Set the associated publication
-
+                    commentaire.setPublication(publicationSelectionné);
                     try {
                         commentaireService.add(commentaire);
 
@@ -231,7 +229,6 @@ public class DetailsController {
 
         initializeDetails();
         setListView();
-        // Définir une action à effectuer lorsqu'une option est sélectionnée
 
 
 
@@ -250,28 +247,23 @@ public class DetailsController {
     @FXML
     void userCommentaire(ActionEvent event) {
         try {
+            Scene scene = ((Node) event.getSource()).getScene();
+            Stage stage = (Stage) scene.getWindow();
+            stage.close();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/UserComments.fxml"));
             Parent root = loader.load();
-            loader.getController();
 
-
-
-            Scene scene = new Scene(root);
-
-
-            Stage stage = new Stage();
-            stage.setScene(scene);
-
-
-            stage.initModality(Modality.APPLICATION_MODAL);
-
-
-            stage.showAndWait();
+            Scene newScene = new Scene(root);
+            Stage newStage = new Stage();
+            newStage.setScene(newScene);
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            newStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @FXML
     void BackTo(ActionEvent event) {
         try {

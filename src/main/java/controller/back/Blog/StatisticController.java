@@ -21,7 +21,6 @@ import service.Blog.CommentaireService;
 import service.Blog.PublicationService;
 
 public class StatisticController {
-    //private BarChart<String, Integer> barChart;
 
     @FXML
     private CategoryAxis xAxis;
@@ -43,15 +42,13 @@ public class StatisticController {
             for (Object[] data : publicationData) {
                 int publicationId = (int) data[0];
                 int commentCount = (int) data[1];
-                // Supposons que vous ayez une méthode pour récupérer le titre de la publication à partir de son identifiant
-                String publicationTitle = commentaireService.fetchPublicationTitleById(publicationId);
+                 String publicationTitle = commentaireService.fetchPublicationTitleById(publicationId);
                 series.getData().add(new XYChart.Data<>(publicationTitle, commentCount));
             }
 
             barChart.getData().add(series);
         } catch (SQLException e) {
-            // Gérer les exceptions SQL ici
-            e.printStackTrace();
+             e.printStackTrace();
         }
     }
     public void setPublicationData(List<Publication> publications) throws SQLException {
@@ -67,23 +64,20 @@ public class StatisticController {
     private int countCommentsForPublication(Publication publication) throws SQLException {
         CommentaireService commentaireService = new CommentaireService();
         List<Commentaire> commentaires = commentaireService.fetchCommentaireByPublicationID(publication.getId());
-        // Count the comments
-        return commentaires.size();
+         return commentaires.size();
 
     }
     private List<Publication> fetchPublicationsFromDatabase() {
         List<Publication> publications = new ArrayList<>();
 
-        // Simulation de la récupération des publications depuis une base de données
         for (int i = 1; i <= 10; i++) {
             String titre = "Publication " + i;
             String contenu = "Contenu de la publication " + i;
             String image = "image" + i + ".png";
-            Date date = new Date();// Date fictive pour l'exemple
+            Date date = new Date();
 
-            // Créez une nouvelle publication avec les valeurs simulées
+
             Publication publication = new Publication(contenu, image, titre);
-            // Ajoutez la publication à la liste
             publications.add(publication);
         }
 

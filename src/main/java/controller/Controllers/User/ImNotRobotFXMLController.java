@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -120,14 +121,12 @@ public class ImNotRobotFXMLController implements Initializable {
     @FXML
     private void valide(ActionEvent event) {
         stillok = true;
-
-        // Vérifier si toutes les images sélectionnées sont correctes
         for (int i = 0; i < images.size(); i++) {
-            if (images.get(i).getImage() == null) { // Si l'image est sélectionnée (setImage(null))
+            if (images.get(i).getImage() == null) {
                 int index = i + 1;
                 if (!hh.contains(index)) {
                     stillok = false;
-                    break; // Sortir de la boucle dès qu'une image incorrecte est trouvée
+                    break;
                 }
             }
         }
@@ -156,12 +155,12 @@ public class ImNotRobotFXMLController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/Authentification.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-            // Fermer la fenêtre ImNotRobotFXML.fxml
-            ((Stage) image1.getScene().getWindow()).close();
+            Scene scene = image1.getScene();
+            Stage currentStage = (Stage) scene.getWindow();
+            currentStage.close();
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

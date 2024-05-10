@@ -94,17 +94,21 @@ public class CustomerCard extends Pane {
             try {
                 int publicationId = Integer.parseInt(getId());
                 System.out.println(publicationId);
+                Scene scene = deleteButton.getScene();
+
+                Stage stage = (Stage) scene.getWindow();
+                stage.close();
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Front/Blog/detailsPublication.fxml"));
                 Parent root = loader.load();
                 DetailsController controller = loader.getController();
                 controller.setPublicationId(publicationId);
                 controller.initializeDetails();
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.show();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
+                Scene newScene = new Scene(root);
+                Stage newStage = new Stage();
+                newStage.setScene(newScene);
+                newStage.initModality(Modality.APPLICATION_MODAL);
+                newStage.showAndWait();
             } catch (IOException ex) {
                 ex.printStackTrace();
             } catch (SQLException ex) {

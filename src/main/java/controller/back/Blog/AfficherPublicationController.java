@@ -288,15 +288,10 @@ public class AfficherPublicationController {
     }
     @FXML
     void dateSearch() throws SQLException {
-        // Récupérer la date sélectionnée dans le DatePicker
         LocalDate date = dateSearch.getValue();
-
-        // Si une date est sélectionnée
         if (date != null) {
-            // Filtrer les publications correspondant à la date sélectionnée
             List<Publication> publications = ps.filtrerParDate(date);
             tableView.getItems().clear();
-            // Ajouter les publications trouvées à la liste existante dans le TableView
             tableView.getItems().addAll(publications);
         }
 
@@ -332,13 +327,9 @@ public class AfficherPublicationController {
         dateSearch.setValue(null);
 
         try {
-            // Récupérer toutes les publications disponibles dans la base de données
             List<Publication> allPublications = ps.select();
-
-            // Afficher toutes les publications dans le TableView
             tableView.getItems().setAll(allPublications);
         } catch (SQLException e) {
-            // Gérer les éventuelles erreurs de base de données
             e.printStackTrace();
         }
     }
