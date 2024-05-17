@@ -145,7 +145,7 @@ public class AjouterEventB {
                 String imageFileName = imageView.getImage().getUrl().substring(imageView.getImage().getUrl().lastIndexOf('/') + 1);
 
                 // Set the image path for the event
-                ev.setImage("src/main/resources/imgEvent/" + imageFileName);
+                ev.setImage(imageFileName);
 
                 // Call the add method from EvenementC to add the event
                 EvenementC ec = new EvenementC();
@@ -189,9 +189,11 @@ public class AjouterEventB {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             try {
-                String targetDir = "src/main/resources/imgEvent/";
+                ///////////////////////hedhaa
+                String targetDir = "C:/xampp8/htdocs/femHealthfinal/public/assets/uploads/events/";
                 Path targetPath = Files.copy(file.toPath(), new File(targetDir + file.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
                 Image image = new Image(targetPath.toUri().toString()); // Load the image from the copied file
+                imageView.setImage(new Image("file:" + targetPath));
                 imageView.setImage(image);
             } catch (IOException e) {
                 showAlert("Erreur", "Erreur lors de l'upload de l'image : " + e.getMessage());

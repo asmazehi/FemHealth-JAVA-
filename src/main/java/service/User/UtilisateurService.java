@@ -135,9 +135,6 @@ public class UtilisateurService implements IService<Utilisateur> {
             throw ex;
         }
     }
-
-
-
     @Override
     public void delete(int id) throws SQLException {
         try {

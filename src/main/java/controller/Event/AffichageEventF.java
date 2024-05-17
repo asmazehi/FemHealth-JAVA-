@@ -173,13 +173,11 @@ public class AffichageEventF {
         imageView.setLayoutX(15);
         imageView.setLayoutY(15);
         imageView.getStyleClass().add("evenement-image");
-
-        File file = new File(evenement.getImage());
+        File file = new File("C:/xampp8/htdocs/femHealthfinal/public/assets/uploads/events/" + evenement.getImage());
         if (file.exists()) {
             Image image = new Image(file.toURI().toString());
             imageView.setImage(image);
         }
-
         Label nomLabel = new Label(evenement.getNom());
         nomLabel.setLayoutX(15);
         nomLabel.setLayoutY(180);

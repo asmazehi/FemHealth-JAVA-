@@ -130,7 +130,7 @@ public class DetailsController {
         if (imageUrl == null || imageUrl.isEmpty()) {
             System.out.println("url not found");
         }else{
-            Image image = new Image(imageUrl);
+            Image image = new Image("http://localhost/femHealthfinal/public/uploads/"+ imageUrl);
             imageView.setImage(image);
         }
         setListView();

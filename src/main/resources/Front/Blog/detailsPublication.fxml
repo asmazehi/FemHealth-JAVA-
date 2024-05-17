@@ -47,8 +47,8 @@
                     </font></Button>
                 <Label fx:id="titre" layoutX="78.0" layoutY="25.0" prefHeight="31.0" prefWidth="119.0" styleClass="white-background" text="titre" />
                 <Label fx:id="date" layoutX="500.0" layoutY="88.0" prefHeight="17.0" prefWidth="110.0" text="date" />
-                <Label fx:id="contenu" layoutX="24.0" layoutY="115.0" prefHeight="195.0" prefWidth="262.0" style="-fx-background-color: #C291A4;" text="Contenu" />
-                <ImageView fx:id="imageView" fitHeight="183.0" fitWidth="329.0" layoutX="254.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" />
+                <Label fx:id="contenu" layoutX="9.0" layoutY="115.0" prefHeight="58.0" prefWidth="382.0" style="-fx-background-color: #C291A4;" text="Contenu" />
+                <ImageView fx:id="imageView" fitHeight="156.0" fitWidth="329.0" layoutX="95.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true" />
                 <Button layoutX="393.0" layoutY="28.0" mnemonicParsing="false" onAction="#userCommentaire" stylesheets="@../../styles.css" text="Mes commentaire" />
                 <ScrollPane fx:id="idcomentaire" layoutX="32.0" layoutY="393.0" prefHeight="218.0" prefWidth="475.0" />
                 <Label layoutX="18.0" layoutY="32.0" prefHeight="17.0" prefWidth="35.0" text="Titre :" />

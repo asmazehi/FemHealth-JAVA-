@@ -161,12 +161,16 @@ public class AjouterProduitController {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             try {
-                String targetDir = "src/main/resources/img/";
+                String targetDir = "C:/xampp8/htdocs/femHealthfinal/public/assets/uploads/product/";
                 Path targetPath = Files.copy(file.toPath(), new File(targetDir + file.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
-                imageView.setImage(new Image("file:" + targetDir + file.getName()));
+
+                // Get the absolute path of the uploaded image
+                String absolutePath = targetPath.toAbsolutePath().toString();
+
+                imageView.setImage(new Image("file:" + absolutePath));
 
                 // Set the image path in the class-level variable
-                imagePath = targetDir + file.getName();
+                imagePath = file.getName(); // Just store the filename without the path
             } catch (IOException e) {
                 showAlert("Erreur", "Erreur lors de l'upload de l'image : " + e.getMessage());
             }

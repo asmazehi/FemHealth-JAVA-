@@ -8,7 +8,6 @@ public class MyDataBase {
     private final   String url="jdbc:mysql://localhost:3306/femHealth";
     private   final   String user ="root";
     private   final String pws ="";
-
     private Connection connection;
     private static MyDataBase instance;
     private MyDataBase(){

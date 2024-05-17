@@ -60,7 +60,7 @@ public class CustomerCard extends Pane {
         dropShadow.setWidth(3);
         dropShadow.setBlurType(BlurType.TWO_PASS_BOX);
         setEffect(dropShadow);
-        photo.setImage(new Image(Image));
+        photo.setImage(new Image("http://localhost/femHealthfinal/public/uploads/"+Image));
         photo.setLayoutX(50);
         photo.setLayoutY(25);
         photo.setFitHeight(100);

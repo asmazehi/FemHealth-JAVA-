@@ -22,6 +22,8 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Optional;
@@ -31,19 +33,22 @@ public class ModifierPublicationController implements Initializable {
 
     public javafx.scene.control.Label cheminphoto;
     public javafx.scene.control.TextField TitreTF;
+    private File selectedFile;
     public javafx.scene.control.TextField ContenuTF;
     private TableView<Publication> tableView;
     private Publication publication;
+    private String path_image ;
+    String pathimage;
     private String photoPath;
     private int idpub;
     @FXML
     void EnregistrerPublication(ActionEvent event) throws SQLException {
         this.publication = new Publication();
         String contenu = ContenuTF.getText();
-        String image = cheminphoto.getText();
+
         String titre = TitreTF.getText();
         Date datepub = new Date();
-        if (contenu.isEmpty() || image.isEmpty() || titre.isEmpty()) {
+        if (contenu.isEmpty() ||  titre.isEmpty()) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setTitle("Champs vides");
             errorAlert.setHeaderText("Veuillez remplir tous les champs.");
@@ -59,7 +64,7 @@ public class ModifierPublicationController implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             this.publication.setTitre(titre);
             this.publication.setContenu(contenu);
-            this.publication.setImage(image);
+            this.publication.setImage(path_image);
             this.publication.setDatepub(datepub);
             this.publication.setId(idpub);
             PublicationService publicationService = new PublicationService();
@@ -73,6 +78,7 @@ public class ModifierPublicationController implements Initializable {
             } catch (Exception e) {
                 afficherAlerte("Erreur lors de la modification", "Une erreur s'est produite lors de la modification de la commande : " + e.getMessage());
             }
+
         }
     }
 
@@ -104,15 +110,51 @@ public class ModifierPublicationController implements Initializable {
     }
     public void ajouter_photo(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir une nouvelle image");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif")
-        );
-        File selectedFile = ((FileChooser) fileChooser).showOpenDialog(new Stage());
+
+        // Filtrer uniquement les fichiers image
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
+
+        // Afficher la boîte de dialogue pour sélectionner un fichier
+        selectedFile = fileChooser.showOpenDialog(null);
+
         if (selectedFile != null) {
-            String newImagePath = selectedFile.getAbsolutePath();
-            cheminphoto.setText(newImagePath);
-        }}
+            // Appel à la méthode saveImage() pour sauvegarder l'image
+            String imageName = saveImage(selectedFile);
+
+            // Utilisez imageName comme vous le souhaitez, par exemple, affichez le nom ou insérez-le dans la base de données
+            System.out.println("Nom de l'image enregistrée : " + imageName);
+        }
+    }
+
+    private String saveImage(File file) {
+        // Spécifiez le répertoire cible pour enregistrer les images
+        String targetDirectory = "C:/xampp8/htdocs/femHealthfinal/public/uploads/";
+        System.out.println(targetDirectory);
+
+        // Assurez-vous que le répertoire cible existe, créez-le s'il n'existe pas
+        File directory = new File(targetDirectory);
+        if (!directory.exists()) {
+            directory.mkdirs(); // Créer le répertoire et ses parents s'ils n'existent pas
+        }
+
+        // Générer un nom unique pour le fichier image pour éviter les écrasements
+        String imageName = System.currentTimeMillis() + "_" + file.getName();
+        this.path_image = imageName;
+        this.pathimage = targetDirectory + imageName;
+        System.out.println(path_image);
+
+        try {
+            // Copier le fichier dans le répertoire cible
+            java.nio.file.Files.copy(file.toPath(), Paths.get(pathimage), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérer les exceptions ici selon votre logique d'application
+        }
+
+        return path_image; // Retourner le nom de l'image
+    }
+
+
     void publicationFieldsWithData(Publication publication)
     {
     }

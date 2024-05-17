@@ -161,20 +161,20 @@ public class AfficherPublicationController {
         Publication selectedPublication = tableView.getSelectionModel().getSelectedItem();
         if (selectedPublication == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Aucune publication s?lectionn?e");
-            alert.setContentText("Veuillez selectionner une publication ? modifier.");
+            alert.setTitle("Aucune publication sélectionnée");
+            alert.setContentText("Veuillez sélectionner une publication à modifier.");
             alert.showAndWait();
             return;
         }
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Modifier la publication");
         confirmationAlert.setHeaderText(null);
-        confirmationAlert.setContentText("?tes-vous s?r de vouloir modifier cette publication ?");
+        confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cette publication ?");
         Optional<ButtonType> result = confirmationAlert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Modifier la publication");
-            dialog.setHeaderText(null);
+            // Obtenir la fenêtre actuelle où se trouve le AfficherController
+            Stage currentStage = (Stage) tableView.getScene().getWindow();
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/Blog/updatePublication.fxml"));
             try {
                 Parent root = loader.load();
@@ -184,16 +184,18 @@ public class AfficherPublicationController {
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
+
+                // Définir le contrôleur AfficherPublicationController comme userData
+                stage.setUserData(tableView.getScene().getWindow().getUserData());
+
                 stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
+                stage.show(); // Utilisez show() au lieu de showAndWait()
+
+                // Fermer la fenêtre actuelle du AfficherController
+                currentStage.close();
             } catch (IOException e) {
                 e.printStackTrace();
                 return;
-            }
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-            Optional<ButtonType> dialogResult = dialog.showAndWait();
-            if (dialogResult.isPresent() && dialogResult.get() == ButtonType.OK) {
-                initialize();
             }
         }
     }

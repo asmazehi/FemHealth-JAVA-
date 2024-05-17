@@ -105,18 +105,14 @@ public class PublicationService {
                 "FROM Publication p " +
                 "LEFT JOIN Commentaire c ON p.id = c.publication_id " +
                 "GROUP BY p.id";
-
-
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
-
         List<Object[]> result = new ArrayList<>();
         while (resultSet.next()) {
             int publicationId = resultSet.getInt("publicationId");
             int commentCount = resultSet.getInt("commentCount");
             result.add(new Object[]{publicationId, commentCount});
         }
-
         return result;
     }
     public List<Publication> getPublicationsPerPage(int offset, int limit) {

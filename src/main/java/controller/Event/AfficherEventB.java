@@ -175,14 +175,16 @@ public class AfficherEventB {
                 private final ImageView imageView = new ImageView();
 
                 @Override
-                protected void updateItem(String imagePath, boolean empty) {
-                    super.updateItem(imagePath, empty);
+                protected void updateItem(String imageCol, boolean empty) {
+                    super.updateItem(imageCol, empty);
 
-                    if (empty || imagePath == null) {
+                    if (empty ||  imageCol == null) {
                         setGraphic(null);
                         setText(null);
                     } else {
-                        File file = new File(imagePath);
+                        ///////////////////hedhaa
+                        File file = new File(("C:/xampp8/htdocs/femHealthfinal/public/assets/uploads/events/" + imageCol));
+                        System.out.println(imageCol);
                         if (file.exists()) {
                             Image image = new Image(file.toURI().toString());
                             imageView.setImage(image);

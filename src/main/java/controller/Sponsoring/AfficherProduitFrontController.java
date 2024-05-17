@@ -124,12 +124,11 @@ public class AfficherProduitFrontController {
         imageView.setLayoutY(15);
         imageView.getStyleClass().add("produit-image");
 
-        File file = new File(produit.getImage());
+        File file = new File("C:/xampp8/htdocs/femHealthfinal/public/assets/uploads/product/" + produit.getImage());
         if (file.exists()) {
             Image image = new Image(file.toURI().toString());
             imageView.setImage(image);
         }
-
         Label nomLabel = new Label(produit.getNom());
         nomLabel.setLayoutX(15);
         nomLabel.setLayoutY(180);

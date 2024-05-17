@@ -75,14 +75,14 @@ public class AfficherProduitController {
                     private final ImageView imageView = new ImageView();
 
                     @Override
-                    protected void updateItem(String imagePath, boolean empty) {
-                        super.updateItem(imagePath, empty);
+                    protected void updateItem(String imagePathP, boolean empty) {
+                        super.updateItem(imagePathP, empty);
 
-                        if (empty || imagePath == null) {
+                        if (empty || imagePathP == null) {
                             setGraphic(null);
                             setText(null);
                         } else {
-                            File file = new File(imagePath);
+                            File file = new File("C:/xampp8/htdocs/femHealthfinal/public/assets/uploads/product/"+imagePathP);//hedhaaa
                             if (file.exists()) {
                                 Image image = new Image(file.toURI().toString());
                                 imageView.setImage(image);
